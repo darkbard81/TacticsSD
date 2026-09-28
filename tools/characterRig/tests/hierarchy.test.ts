@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import legacy from './fixtures/default-v1.json' with { type: 'json' };
 import { createDefaultRig } from '../domain/default-rig';
-import { DIRECTIONS, parseRig, serializeRig, setGround, setParent, updateGeometry, restMatrix, type CharacterRigData } from '../domain/rig';
+import { setGround, setParent, updateGeometry, restMatrix, type CharacterRigData } from '../domain/rig';
+import { parseRig, serializeRig } from '../io/rig-file';
 import { evaluateRig, evaluateWorldRig } from '../domain/animator';
-import { apply, matrix, multiply } from '../domain/transform';
+import { apply, matrix } from '../domain/transform';
 
 const part = (rig: CharacterRigData, id: string) => rig.views.Front.parts.find(p=>p.id===id)!;
 const closeMatrix = (actual: ReturnType<typeof matrix>, expected: ReturnType<typeof matrix>) => {
@@ -81,35 +81,5 @@ describe('pivot/socket attachment contract', () => {
   ])('rejects %s atomically',(_label,mutate)=>{
     const rig=createDefaultRig(),bad=structuredClone(rig);mutate(bad);
     expect(()=>parseRig(JSON.stringify(bad))).toThrow();expect(rig).toEqual(createDefaultRig());
-  });
-});
-
-describe('v1 compatibility',()=>{
-  it('preserves every direction Rest matrix and artwork reference, then saves valid v2',()=>{
-    const rig=parseRig(JSON.stringify(legacy));expect(rig.schemaVersion).toBe(2);
-    for(const direction of DIRECTIONS) {
-      const d=legacy.directions[direction],v=legacy.views[d.view as 'Front'|'Back'];
-      for (const old of v.parts) {
-        const id=old.id.replace('foot','leg'),c=d.parts[old.id as keyof typeof d.parts];
-        const expected=matrix({...old.restTransform,x:old.restTransform.x+c.x*v.referenceSize/1254,y:old.restTransform.y+c.y*v.referenceSize/1254,scaleX:old.restTransform.scaleX*c.scaleX,scaleY:old.restTransform.scaleY*c.scaleY,rotation:old.restTransform.rotation+c.rotation,skewX:old.restTransform.skewX+c.skewX,skewY:old.restTransform.skewY+c.skewY},old.pivot);
-        closeMatrix(evaluateWorldRig(rig,direction,0,'Rest').find(p=>p.id===id)!.matrix,expected);
-        expect(rig.views[d.view as 'Front'|'Back'].parts.find(p=>p.id===id)!.attachment.parentId).toBeNull();
-      }
-    }
-    expect(rig.views.Front.image).toEqual(legacy.views.Front.image);
-    expect(parseRig(serializeRig(rig))).toEqual(rig);
-  });
-  it('retains legacy root bounce and can opt into body inheritance without a Rest jump',()=>{
-    const rig=parseRig(JSON.stringify(legacy)),v=rig.views.Front,head=part(rig,'head');rig.motion.headRecoil=0;
-    const poses=evaluateRig(rig,'Front',.3,'Walk');
-    expect(poses.find(p=>p.id==='head')!.y).toBe(poses.find(p=>p.id==='body')!.y);
-    const before=restMatrix(v,'head');setParent(v,head,'body');closeMatrix(restMatrix(v,'head'),before);
-    part(rig,'body').restTransform.x+=40;
-    closeMatrix(restMatrix(v,'head'),multiply(matrix({x:40,y:0,rotation:0,scaleX:1,scaleY:1,skewX:0,skewY:0}),before));
-  });
-  it('rejects malformed legacy IDs instead of losing corrections during renaming',()=>{
-    const bad=structuredClone(legacy);bad.directions.SE.parts.head={...bad.directions.SE.parts.head};
-    (bad.directions.SE.parts as Record<string,unknown>).legL=bad.directions.SE.parts.footL;
-    expect(()=>parseRig(JSON.stringify(bad))).toThrow();
   });
 });

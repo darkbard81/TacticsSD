@@ -1,6 +1,7 @@
 // Recreate the hand-authored preset without editing the source artwork (Node 24+).
 import { writeFile } from 'node:fs/promises';
-import { createRig, identity, serializeRig, setParent } from '../domain/rig.ts';
+import { createRig, identity, setParent } from '../domain/rig.ts';
+import { serializeRig } from '../io/rig-file.ts';
 const rig = createRig();
 rig.id = 'elf-parts-sheet';
 const image = { id: 'sample-elf-parts-sheet', name: 'elf-parts-sheet.png', width: 1254, height: 1254 };

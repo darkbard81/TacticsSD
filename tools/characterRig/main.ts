@@ -1,5 +1,6 @@
+import { parseRig, serializeRig } from './io/rig-file';
 import './style.css';
-import { createRig, makeView, parseRig, serializeRig, rigSchema, updateGeometry, setGround, setParent, TEMPLATES, VIEWS, DIRECTIONS, MOTION_FIELDS, identity, type CharacterRigData, type ViewId, type DirectionId, type Mode, type ImageRef } from './domain/rig';
+import { createRig, makeView, rigSchema, updateGeometry, setGround, setParent, TEMPLATES, VIEWS, DIRECTIONS, MOTION_FIELDS, identity, type CharacterRigData, type ViewId, type DirectionId, type Mode, type ImageRef } from './domain/rig';
 import { createDefaultRig, DEFAULT_SHEET_URL, resetEditorPlacement } from './domain/default-rig';
 import { phaseAt } from './domain/animator';
 import { RigAssets, type Asset } from './runtime/assets';
@@ -186,9 +187,9 @@ root.addEventListener('change', e => {
     if (!files.length) return;
     void run(async () => {
       if (input.id === 'load-json') {
-        const text = await files[0].text(), next = parseRig(text), legacy = JSON.parse(text).schemaVersion === 1; if (disposed) return;
+        const next = parseRig(await files[0].text()); if (disposed) return;
         renderer.clear(); assets.destroy(); rig = next; viewId = 'Front'; direction = 'Front'; selected = 'head'; solo = null; seconds = 0; mode = 'Rest'; playing = false; dirty = false;
-        notice(legacy ? 'v1 리그를 v2 독립 배치로 복원했습니다. 부모 연결에서 몸통을 선택하면 계층 리그로 전환됩니다. 아래에서 이미지를 연결하세요.' : '리그 설정을 복원했습니다. 아래 이미지 연결에서 누락 파일을 선택하세요.');
+        notice('리그 설정을 복원했습니다. 아래 이미지 연결에서 누락 파일을 선택하세요.');
       } else if (input.id === 'reconnect') {
         const missing = assets.missing(rig); let connected = 0;
         for (const ref of missing) { const file = files.find(f => f.name === ref.name); if (file) { await relink(file, ref); connected++; } }

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { createRig, DIRECTIONS, imageRefs, makeView, parseRig, resetPlacement, serializeRig, setGround, updateGeometry, restMatrix, VIEWS, type CharacterRigData } from '../domain/rig';
+import { createRig, DIRECTIONS, imageRefs, makeView, resetPlacement, setGround, updateGeometry, restMatrix, VIEWS, type CharacterRigData } from '../domain/rig';
+import { parseRig, serializeRig } from '../io/rig-file';
 import { evaluateRig, evaluateWorldRig, footCycle, phaseAt } from '../domain/animator';
 const fixture = () => { const r = createRig(); r.views.Front = makeView('Front', { id:'front', name:'front.png', width:1254,height:1254 }); r.views.Back = makeView('Back', { id:'back', name:'back.png', width:900,height:1600 }); return r; };
 const pose = (rig: CharacterRigData, t: number, id = 'legL') => evaluateRig(rig,'Front',t,'Walk').find(p=>p.id===id)!;
@@ -90,7 +91,8 @@ describe('versioned round trip and validation', () => {
     expect(parseRig(serializeRig(r))).toEqual(r);expect(imageRefs(r)).toHaveLength(3);expect(serializeRig(r)).not.toContain('blob:');
   });
   it.each([
-    ['version',(r: any)=>{r.schemaVersion=3;}],
+    ['obsolete version',(r: any)=>{r.schemaVersion=1;}],
+    ['future version',(r: any)=>{r.schemaVersion=3;}],
     ['out of bounds',(r: any)=>{r.views.Front.parts[0].rect.width=99999;}],
     ['pivot',(r: any)=>{r.views.Front.parts[0].pivot.x=-1;}],
     ['duplicate part',(r: any)=>{r.views.Front.parts[0].id='body';}],

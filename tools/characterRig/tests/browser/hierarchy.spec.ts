@@ -1,5 +1,4 @@
 import { test, expect, type Page } from '@playwright/test';
-import legacy from '../fixtures/default-v1.json' with { type: 'json' };
 import { evaluateWorldRig } from '../../domain/animator';
 import type { DirectionId } from '../../domain/rig';
 const diag=(page:Page)=>page.evaluate(()=>window.rigDiagnostics());
@@ -42,18 +41,19 @@ test('socket numeric and drag editing, crop independence and invalid socket reco
   await field(page,'socket.x').fill(String(head.attachment.socket.x));await expect(page.locator('#error')).toBeHidden();
 });
 
-test('v1 opens without a pose jump, opts into body attachment and saves/reloads v2 sockets',async({page})=>{
-  await ready(page);await page.locator('#load-json').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(legacy))});
-  await expect(page.locator('#notice')).toContainText('v1 리그를 v2 독립 배치로 복원');
-  await page.locator('#reconnect').setInputFiles('tools/characterRig/assets/elf-parts-sheet.png');await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');
-  const before=await diag(page);expect(before.poses[0].parts.find(p=>p.id==='head')!.parentId).toBeNull();
-  await open(page,'attachment');await page.locator('#parent-part').selectOption('body');
-  const after=await diag(page),a=after.poses[0].parts.find(p=>p.id==='head')!,b=before.poses[0].parts.find(p=>p.id==='head')!;
-  expect(a.parentId).toBe('body');expect(a.worldX).toBeCloseTo(b.worldX);expect(a.worldY).toBeCloseTo(b.worldY);
-  const saved=after.rig;expect(saved.schemaVersion).toBe(2);expect(saved.views.Front.parts.map(p=>p.id)).toContain('legL');
+test('obsolete and future rig files are rejected without losing edits; current files still round-trip',async({page})=>{
+  await ready(page);await open(page,'attachment');await field(page,'socket.x').fill('180');
+  const before=await diag(page);
+  for (const schemaVersion of [1,3]) {
+    await page.locator('#load-json').setInputFiles({name:'unsupported.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({schemaVersion}))});
+    await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');
+    await expect(page.locator('#error')).toContainText('현재 v2');
+    await expect(page.locator('#error')).toContainText('새 리그');
+    const after=await diag(page);expect(after.rig).toEqual(before.rig);expect(after.assets).toBe(before.assets);expect(after.poses).toEqual(before.poses);
+  }
   const dl=page.waitForEvent('download');await page.locator('[data-action="save"]').click();const download=await dl;
   await page.locator('#load-json').setInputFiles((await download.path())!);await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');
-  expect((await diag(page)).rig).toEqual(saved);
+  expect((await diag(page)).rig).toEqual(before.rig);
   await page.locator('#reconnect').setInputFiles('tools/characterRig/assets/elf-parts-sheet.png');await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');
-  expect((await diag(page)).poses[0].parts.find(p=>p.id==='head')!.worldX).toBeCloseTo(a.worldX);
+  expect((await diag(page)).poses).toEqual(before.poses);
 });

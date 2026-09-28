@@ -1,7 +1,7 @@
 import data from '../assets/default-rig.json';
-import { parseRig, identity, updateGeometry, type Part, type RigView, type ViewId } from './rig';
+import { rigSchema, identity, updateGeometry, type Part, type RigView, type ViewId } from './rig';
 
-export const createDefaultRig = () => parseRig(JSON.stringify(data));
+export const createDefaultRig = () => rigSchema.parse(data);
 export const DEFAULT_SHEET_URL = new URL('../assets/elf-parts-sheet.png', import.meta.url).href;
 
 /** Reset offsets for ordinary rigs; restore the authored joints for the bundled atlas. */

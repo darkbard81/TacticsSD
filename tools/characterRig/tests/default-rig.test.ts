@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createDefaultRig, resetEditorPlacement } from '../domain/default-rig';
-import { imageRefs, parseRig, serializeRig, setGround } from '../domain/rig';
+import { imageRefs, setGround } from '../domain/rig';
+import { parseRig, serializeRig } from '../io/rig-file';
 import { evaluateWorldRig } from '../domain/animator';
 
 describe('user supplied parts-sheet default', () => {

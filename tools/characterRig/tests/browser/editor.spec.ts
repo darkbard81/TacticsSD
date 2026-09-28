@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
-import { createRig, makeView, serializeRig, type CharacterRigData } from '../../domain/rig';
+import { createRig, makeView, type CharacterRigData } from '../../domain/rig';
+import { serializeRig } from '../../io/rig-file';
 declare global { interface Window { rigDiagnostics: () => { assets: number; listeners: number; nodes: number; sprites: number; rig: CharacterRigData; seconds: number; mode: string; playing: boolean; missing: number; poses: { direction:string;x:number;y:number;scaleX:number;scaleY:number;parts:{id:string;x:number;y:number;worldX:number;worldY:number;socketWorldX:number;socketWorldY:number;parentId:string|null;scaleX:number;scaleY:number;rotation:number;visible:boolean;zIndex:number;frame:{x:number;y:number;width:number;height:number}}[] }[] } } }
 const diag = (page: Page) => page.evaluate(()=>window.rigDiagnostics());
 const uploadJSON = async (page: Page, text: string) => { await page.locator('#load-json').setInputFiles({name:'test.rig.json',mimeType:'application/json',buffer:Buffer.from(text)}); await expect(page.locator('#app')).toHaveAttribute('aria-busy','false'); };
