@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "id": "elf-parts-sheet",
   "rigType": "humanoid",
   "views": {
@@ -33,7 +33,7 @@
           },
           "restTransform": {
             "x": 0,
-            "y": 0,
+            "y": -667,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -41,14 +41,7 @@
             "skewY": 0
           },
           "zIndex": 5,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 167,
-              "y": -17
-            }
-          }
+          "visible": true
         },
         {
           "id": "body",
@@ -64,7 +57,7 @@
           },
           "restTransform": {
             "x": 0,
-            "y": 0,
+            "y": -625,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -72,14 +65,7 @@
             "skewY": 0
           },
           "zIndex": 3,
-          "visible": true,
-          "attachment": {
-            "parentId": null,
-            "socket": {
-              "x": 0,
-              "y": -625
-            }
-          }
+          "visible": true
         },
         {
           "id": "armL",
@@ -94,8 +80,8 @@
             "y": 40
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": 120,
+            "y": -602,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -103,14 +89,7 @@
             "skewY": 0
           },
           "zIndex": 2,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 287,
-              "y": 48
-            }
-          }
+          "visible": true
         },
         {
           "id": "armR",
@@ -125,8 +104,8 @@
             "y": 40
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": -120,
+            "y": -602,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -134,17 +113,10 @@
             "skewY": 0
           },
           "zIndex": 2,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 47,
-              "y": 48
-            }
-          }
+          "visible": true
         },
         {
-          "id": "legL",
+          "id": "footL",
           "rect": {
             "x": 331,
             "y": 900,
@@ -156,8 +128,8 @@
             "y": 30
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": 72,
+            "y": -291,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -165,17 +137,10 @@
             "skewY": 0
           },
           "zIndex": 1,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 239,
-              "y": 359
-            }
-          }
+          "visible": true
         },
         {
-          "id": "legR",
+          "id": "footR",
           "rect": {
             "x": 119,
             "y": 900,
@@ -187,8 +152,8 @@
             "y": 30
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": -72,
+            "y": -291,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -196,14 +161,7 @@
             "skewY": 0
           },
           "zIndex": 1,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 95,
-              "y": 359
-            }
-          }
+          "visible": true
         }
       ]
     },
@@ -237,7 +195,7 @@
           },
           "restTransform": {
             "x": 0,
-            "y": 0,
+            "y": -655,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -245,14 +203,7 @@
             "skewY": 0
           },
           "zIndex": 5,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 173,
-              "y": 0
-            }
-          }
+          "visible": true
         },
         {
           "id": "body",
@@ -268,7 +219,7 @@
           },
           "restTransform": {
             "x": 0,
-            "y": 0,
+            "y": -627,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -276,14 +227,7 @@
             "skewY": 0
           },
           "zIndex": 3,
-          "visible": true,
-          "attachment": {
-            "parentId": null,
-            "socket": {
-              "x": 0,
-              "y": -627
-            }
-          }
+          "visible": true
         },
         {
           "id": "armL",
@@ -298,8 +242,8 @@
             "y": 40
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": -120,
+            "y": -602,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -307,14 +251,7 @@
             "skewY": 0
           },
           "zIndex": 2,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 53,
-              "y": 53
-            }
-          }
+          "visible": true
         },
         {
           "id": "armR",
@@ -329,8 +266,8 @@
             "y": 40
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": 120,
+            "y": -602,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -338,17 +275,10 @@
             "skewY": 0
           },
           "zIndex": 2,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 293,
-              "y": 53
-            }
-          }
+          "visible": true
         },
         {
-          "id": "legL",
+          "id": "footL",
           "rect": {
             "x": 742,
             "y": 904,
@@ -360,8 +290,8 @@
             "y": 35
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": -72,
+            "y": -285,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -369,17 +299,10 @@
             "skewY": 0
           },
           "zIndex": 1,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 101,
-              "y": 370
-            }
-          }
+          "visible": true
         },
         {
-          "id": "legR",
+          "id": "footR",
           "rect": {
             "x": 940,
             "y": 904,
@@ -391,8 +314,8 @@
             "y": 35
           },
           "restTransform": {
-            "x": 0,
-            "y": 0,
+            "x": 72,
+            "y": -285,
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0,
@@ -400,14 +323,7 @@
             "skewY": 0
           },
           "zIndex": 1,
-          "visible": true,
-          "attachment": {
-            "parentId": "body",
-            "socket": {
-              "x": 245,
-              "y": 370
-            }
-          }
+          "visible": true
         }
       ]
     }
@@ -476,7 +392,7 @@
           "skewY": 0,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
           "scaleX": 1,
@@ -486,7 +402,7 @@
           "skewY": 0,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
           "scaleX": 1,
@@ -548,7 +464,7 @@
           "skewY": 0,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
           "scaleX": 1,
@@ -558,7 +474,7 @@
           "skewY": 0,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
           "scaleX": 1,
@@ -583,11 +499,11 @@
         "head": {
           "x": 8,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
         "body": {
@@ -603,41 +519,41 @@
         "armL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
         "armR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         }
       }
@@ -655,11 +571,11 @@
         "head": {
           "x": -8,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
         "body": {
@@ -675,41 +591,41 @@
         "armL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
         "armR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         }
       }
@@ -727,11 +643,11 @@
         "head": {
           "x": 8,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
         "body": {
@@ -747,41 +663,41 @@
         "armL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
         "armR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": 0.06,
           "zOffset": 0
         }
       }
@@ -799,11 +715,11 @@
         "head": {
           "x": -8,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
         "body": {
@@ -819,41 +735,41 @@
         "armL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
         "armR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
-        "legL": {
+        "footL": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         },
-        "legR": {
+        "footR": {
           "x": 0,
           "y": 0,
-          "scaleX": 1,
+          "scaleX": 0.88,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0,
+          "skewY": -0.06,
           "zOffset": 0
         }
       }

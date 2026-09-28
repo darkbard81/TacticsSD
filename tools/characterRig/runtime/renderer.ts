@@ -1,8 +1,8 @@
-import { Application, Container, Graphics, Rectangle, Sprite, Texture, type Ticker } from 'pixi.js';
+import { Application, Container, Graphics, Rectangle, RenderLayer, Sprite, Texture, type Ticker } from 'pixi.js';
 import { evaluateRig } from '../domain/animator';
 import { type CharacterRigData, type DirectionId, type Mode } from '../domain/rig';
 import { RigAssets } from './assets';
-type Node = { root: Container; parts: Map<string, { pivot: Container; sprite: Sprite; texture: Texture }>; direction: DirectionId };
+type Node = { root: Container; layer: RenderLayer; parts: Map<string, { pivot: Container; socket: Container; sprite?: Sprite; texture?: Texture }>; direction: DirectionId };
 export class PixiRigRenderer {
   readonly app = new Application();
   private nodes: Node[] = [];
@@ -32,7 +32,8 @@ export class PixiRigRenderer {
   }
   clear() {
     for (const node of this.nodes) {
-      for (const p of node.parts.values()) p.texture.destroy(false);
+      node.layer.detachAll();
+      for (const p of node.parts.values()) p.texture?.destroy(false);
       node.root.destroy({ children: true });
     }
     this.nodes = [];
@@ -41,20 +42,31 @@ export class PixiRigRenderer {
     this.clear(); this.rig = rig; this.assets = assets; this.dirs = dirs; this.solo = solo;
     for (const direction of dirs) {
       const view = rig.views[rig.directions[direction].view];
-      const root = new Container({ sortableChildren: true });
+      const root = new Container();
+      const layer = new RenderLayer({ sortableChildren: true });
       this.app.stage.addChild(root);
-      const node: Node = { root, parts: new Map(), direction };
+      const node: Node = { root, layer, parts: new Map(), direction };
+      // Keep transform nodes even when images are missing or hidden: children still inherit them.
       for (const part of view.parts) {
+        const socket = new Container({ label: `${part.id}Socket` });
+        socket.position.set(part.attachment.socket.x, part.attachment.socket.y);
+        const pivot = new Container({ label: part.id });
+        pivot.pivot.set(part.pivot.x, part.pivot.y); socket.addChild(pivot);
+        node.parts.set(part.id, { pivot, socket });
+      }
+      for (const part of view.parts) {
+        const entry = node.parts.get(part.id)!;
+        const parent = part.attachment.parentId ? node.parts.get(part.attachment.parentId)!.pivot : root;
+        parent.addChild(entry.socket);
         const asset = assets.get(part.replacement?.id ?? view.image?.id);
         if (!asset) continue;
         const texture = new Texture({ source: asset.texture.source, frame: part.replacement ? new Rectangle(0, 0, asset.ref.width, asset.ref.height) : new Rectangle(part.rect.x, part.rect.y, part.rect.width, part.rect.height) });
-        const pivot = new Container();
-        pivot.pivot.set(part.pivot.x, part.pivot.y);
         const sprite = new Sprite(texture);
         if (part.replacement) { sprite.width = part.rect.width; sprite.height = part.rect.height; }
-        pivot.addChild(sprite); root.addChild(pivot);
-        node.parts.set(part.id, { pivot, sprite, texture });
+        entry.pivot.addChild(sprite); entry.sprite = sprite; entry.texture = texture;
+        layer.attach(sprite);
       }
+      root.addChild(layer);
       this.nodes.push(node);
     }
     this.layout();
@@ -85,11 +97,28 @@ export class PixiRigRenderer {
         const part = node.parts.get(pose.id); if (!part) continue;
         part.pivot.position.set(pose.x, pose.y); part.pivot.scale.set(pose.scaleX, pose.scaleY);
         part.pivot.rotation = pose.rotation; part.pivot.skew.set(pose.skewX, pose.skewY);
-        part.pivot.zIndex = pose.zIndex; part.pivot.visible = pose.visible && (!this.solo || this.solo === pose.id);
+        if (part.sprite) {
+          part.sprite.zIndex = pose.zIndex;
+          part.sprite.visible = pose.visible && (!this.solo || this.solo === pose.id);
+        }
       }
     }
   }
-  diagnostics() { return { listeners: this.app.ticker.count, assets: this.assets?.count ?? 0, nodes: this.nodes.length, sprites: this.nodes.reduce((n, p) => n + p.parts.size, 0), poses: this.nodes.map(n => ({ direction: n.direction, x: n.root.x, y: n.root.y, scaleX: n.root.scale.x, scaleY: n.root.scale.y, parts: [...n.parts].map(([id,p]) => ({ id, x:p.pivot.x,y:p.pivot.y,scaleX:p.pivot.scale.x,scaleY:p.pivot.scale.y,rotation:p.pivot.rotation,zIndex:p.pivot.zIndex,visible:p.pivot.visible,frame:{x:p.texture.frame.x,y:p.texture.frame.y,width:p.texture.frame.width,height:p.texture.frame.height} })) })) }; }
+  diagnostics() {
+    return { listeners: this.app.ticker.count, assets: this.assets?.count ?? 0, nodes: this.nodes.length,
+      sprites: this.nodes.reduce((count, n) => count + [...n.parts.values()].filter(p=>p.sprite).length, 0),
+      poses: this.nodes.map(n => ({ direction: n.direction, x:n.root.x, y:n.root.y, scaleX:n.root.scale.x, scaleY:n.root.scale.y,
+        parts: [...n.parts].map(([id,p]) => {
+          const world = n.root.toLocal(p.pivot.toGlobal(p.pivot.pivot));
+          const socketWorld = n.root.toLocal(p.socket.toGlobal({x:0,y:0}));
+          return { id, x:p.pivot.x, y:p.pivot.y, scaleX:p.pivot.scale.x, scaleY:p.pivot.scale.y, rotation:p.pivot.rotation,
+            parentId:p.socket.parent === n.root ? null : p.socket.parent?.label,
+            worldX:world.x, worldY:world.y, socketWorldX:socketWorld.x, socketWorldY:socketWorld.y,
+            zIndex:p.sprite?.zIndex ?? 0, visible:p.sprite?.visible ?? false,
+            frame:p.texture ? {x:p.texture.frame.x,y:p.texture.frame.y,width:p.texture.frame.width,height:p.texture.frame.height} : null };
+        }) })),
+    };
+  }
   destroy() {
     if (this.disposed) return;
     this.disposed = true;

@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { createRig, DIRECTIONS, imageRefs, makeView, parseRig, resetPlacement, serializeRig, setGround, updateGeometry, VIEWS, type CharacterRigData } from '../domain/rig';
-import { evaluateRig, footCycle, phaseAt } from '../domain/animator';
+import { createRig, DIRECTIONS, imageRefs, makeView, parseRig, resetPlacement, serializeRig, setGround, updateGeometry, restMatrix, VIEWS, type CharacterRigData } from '../domain/rig';
+import { evaluateRig, evaluateWorldRig, footCycle, phaseAt } from '../domain/animator';
 const fixture = () => { const r = createRig(); r.views.Front = makeView('Front', { id:'front', name:'front.png', width:1254,height:1254 }); r.views.Back = makeView('Back', { id:'back', name:'back.png', width:900,height:1600 }); return r; };
-const pose = (rig: CharacterRigData, t: number, id = 'footL') => evaluateRig(rig,'Front',t,'Walk').find(p=>p.id===id)!;
+const pose = (rig: CharacterRigData, t: number, id = 'legL') => evaluateRig(rig,'Front',t,'Walk').find(p=>p.id===id)!;
 describe('source pixel coordinates and independent views', () => {
   it('Rest reconstructs source pixel origins from ground + rest - pivot', () => {
     const rig = fixture();
     for (const id of VIEWS) for (const p of rig.views[id].parts) {
-      const result = evaluateRig(rig,id,12345,'Rest').find(a=>a.id===p.id)!;
+      const result = evaluateWorldRig(rig,id,12345,'Rest').find(a=>a.id===p.id)!;
       expect(result.x + rig.views[id].ground.x - p.pivot.x).toBeCloseTo(p.rect.x,10);
       expect(result.y + rig.views[id].ground.y - p.pivot.y).toBeCloseTo(p.rect.y,10);
     }
@@ -16,15 +16,15 @@ describe('source pixel coordinates and independent views', () => {
     const r = fixture(), v=r.views.Front, p=v.parts[0];
     updateGeometry(p,p.rect,{x:p.pivot.x+10,y:p.pivot.y-7});
     setGround(v,{x:500,y:1200});
-    expect(p.restTransform.x+v.ground.x-p.pivot.x).toBe(p.rect.x);
-    expect(p.restTransform.y+v.ground.y-p.pivot.y).toBe(p.rect.y);
+    expect(restMatrix(v,p.id).tx+v.ground.x).toBeCloseTo(p.rect.x);
+    expect(restMatrix(v,p.id).ty+v.ground.y).toBeCloseTo(p.rect.y);
     p.restTransform.rotation=0.5; resetPlacement(p,v); expect(p.restTransform.rotation).toBe(0);
   });
   it('Front editing cannot mutate Back, and source resolution scales motion consistently', () => {
     const r=fixture(), before=structuredClone(r.views.Back); r.views.Front.parts[0].rect.x=1;
     expect(r.views.Back).toEqual(before);
     const a=createRig(), b=createRig(); b.views.Front=makeView('Front',{id:'double',name:'double.png',width:2508,height:2508});
-    const ap=pose(a,.2),bp=pose(b,.2), ar=a.views.Front.parts.find(p=>p.id==='footL')!.restTransform, br=b.views.Front.parts.find(p=>p.id==='footL')!.restTransform; expect(bp.x-br.x).toBeCloseTo((ap.x-ar.x)*2); expect(bp.y-br.y).toBeCloseTo((ap.y-ar.y)*2);
+    const ap=pose(a,.2),bp=pose(b,.2), ar=a.views.Front.parts.find(p=>p.id==='legL')!.restTransform, br=b.views.Front.parts.find(p=>p.id==='legL')!.restTransform; expect(bp.x-br.x).toBeCloseTo((ap.x-ar.x)*2); expect(bp.y-br.y).toBeCloseTo((ap.y-ar.y)*2);
   });
 });
 describe('time-based shared motion', () => {
@@ -42,11 +42,11 @@ describe('time-based shared motion', () => {
     expect(footCycle(.8,.6).lift).toBeCloseTo(1);
     for(const direction of VIEWS) {
       const at=(t:number)=>evaluateRig(r,direction,t,'Walk');
-      expect(at(.8).find(p=>p.id==='footL')!.lift).toBeGreaterThan(.9);
-      expect(at(.8).find(p=>p.id==='footR')!.lift).toBe(0);
-      expect(at(.3).find(p=>p.id==='footR')!.lift).toBeGreaterThan(.9);
+      expect(at(.8).find(p=>p.id==='legL')!.lift).toBeGreaterThan(.9);
+      expect(at(.8).find(p=>p.id==='legR')!.lift).toBe(0);
+      expect(at(.3).find(p=>p.id==='legR')!.lift).toBeGreaterThan(.9);
       for(const id of ['L','R']) {
-        const list=at(0),foot=list.find(p=>p.id===`foot${id}`)!,arm=list.find(p=>p.id===`arm${id}`)!;
+        const list=at(0),foot=list.find(p=>p.id===`leg${id}`)!,arm=list.find(p=>p.id===`arm${id}`)!;
         const view=r.views[direction];
         expect((foot.y-view.parts.find(p=>p.id===foot.id)!.restTransform.y)*(arm.y-view.parts.find(p=>p.id===arm.id)!.restTransform.y)).toBeLessThan(0);
       }
@@ -54,11 +54,11 @@ describe('time-based shared motion', () => {
   });
   it('front feet stay on source X, and isometric stride follows world diagonals even when mirrored', () => {
     const r=fixture();
-    for(const t of [0,.2,.4,.6,.8]) expect(pose(r,t).x).toBe(r.views.Front.parts.find(p=>p.id==='footL')!.restTransform.x);
+    for(const t of [0,.2,.4,.6,.8]) expect(pose(r,t).x).toBe(r.views.Front.parts.find(p=>p.id==='legL')!.restTransform.x);
     for(const dir of ['SE','SW','NE','NW'] as const) {
-      const d=r.directions[dir],v=r.views[d.view],rest=v.parts.find(p=>p.id==='footL')!.restTransform;
-      const p=evaluateRig(r,dir,0,'Walk').find(p=>p.id==='footL')!;
-      expect(Math.sign((p.x-rest.x-d.parts.footL.x*v.referenceSize/1254)*(d.flip?-1:1))).toBe(Math.sign(d.vector.x));
+      const d=r.directions[dir],v=r.views[d.view],rest=v.parts.find(p=>p.id==='legL')!.restTransform;
+      const p=evaluateRig(r,dir,0,'Walk').find(p=>p.id==='legL')!;
+      expect(Math.sign((p.x-rest.x-d.parts.legL.x*v.referenceSize/1254)*(d.flip?-1:1))).toBe(Math.sign(d.vector.x));
       expect(Math.sign(p.y-rest.y)).toBe(Math.sign(d.vector.y));
     }
   });
@@ -77,7 +77,7 @@ describe('time-based shared motion', () => {
   it('supports per-view mapping, rotation sign, base placement, skew and depth corrections', () => {
     const r=fixture(); r.directions.Back.swapLimbs=true;r.directions.Back.motionSign=1;
     const front=evaluateRig(r,'Front',.8,'Walk'),back=evaluateRig(r,'Back',.8,'Walk');
-    expect(back.find(p=>p.id==='footL')!.lift).toBe(front.find(p=>p.id==='footR')!.lift);
+    expect(back.find(p=>p.id==='legL')!.lift).toBe(front.find(p=>p.id==='legR')!.lift);
     r.views.Front.parts[0].restTransform.rotation=.1;r.directions.SE.parts.head.rotation=.2;r.directions.SE.parts.head.zOffset=3;
     expect(evaluateRig(r,'SE',0,'Rest')[0].rotation).toBeCloseTo(.3);
     expect(evaluateRig(r,'SE',0,'Rest')[0].zIndex).toBe(8);
@@ -90,7 +90,7 @@ describe('versioned round trip and validation', () => {
     expect(parseRig(serializeRig(r))).toEqual(r);expect(imageRefs(r)).toHaveLength(3);expect(serializeRig(r)).not.toContain('blob:');
   });
   it.each([
-    ['version',(r: any)=>{r.schemaVersion=2;}],
+    ['version',(r: any)=>{r.schemaVersion=3;}],
     ['out of bounds',(r: any)=>{r.views.Front.parts[0].rect.width=99999;}],
     ['pivot',(r: any)=>{r.views.Front.parts[0].pivot.x=-1;}],
     ['duplicate part',(r: any)=>{r.views.Front.parts[0].id='body';}],

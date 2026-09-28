@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { createRig, makeView, serializeRig, type CharacterRigData } from '../../domain/rig';
-declare global { interface Window { rigDiagnostics: () => { assets: number; listeners: number; nodes: number; sprites: number; rig: CharacterRigData; seconds: number; mode: string; playing: boolean; missing: number; poses: { direction:string;x:number;y:number;scaleX:number;scaleY:number;parts:{id:string;x:number;y:number;scaleX:number;scaleY:number;rotation:number;visible:boolean;zIndex:number;frame:{x:number;y:number;width:number;height:number}}[] }[] } } }
+declare global { interface Window { rigDiagnostics: () => { assets: number; listeners: number; nodes: number; sprites: number; rig: CharacterRigData; seconds: number; mode: string; playing: boolean; missing: number; poses: { direction:string;x:number;y:number;scaleX:number;scaleY:number;parts:{id:string;x:number;y:number;worldX:number;worldY:number;socketWorldX:number;socketWorldY:number;parentId:string|null;scaleX:number;scaleY:number;rotation:number;visible:boolean;zIndex:number;frame:{x:number;y:number;width:number;height:number}}[] }[] } } }
 const diag = (page: Page) => page.evaluate(()=>window.rigDiagnostics());
 const uploadJSON = async (page: Page, text: string) => { await page.locator('#load-json').setInputFiles({name:'test.rig.json',mimeType:'application/json',buffer:Buffer.from(text)}); await expect(page.locator('#app')).toHaveAttribute('aria-busy','false'); };
 const sourceImage = 'tools/characterRig/assets/elf-front.png';
@@ -126,7 +126,7 @@ test('all six parts can be drawn and numerically adjusted on Front and Back; can
   await ready(page);
   for(const view of ['Front','Back']) {
     await page.locator(`[data-view="${view}"]`).click();
-    for(const [i,id] of ['head','body','armL','armR','footL','footR'].entries()) {
+    for(const [i,id] of ['head','body','armL','armR','legL','legR'].entries()) {
       await page.locator(`#parts [data-part="${id}"]`).click();await page.getByRole('button',{name:'영역 그리기',exact:true}).click();
       const image=await page.locator('#source image').boundingBox();const sx=image!.width/1254,sy=image!.height/1254;
       const x=200+i*20,y=100+i*30;
@@ -156,7 +156,7 @@ test('different-size and padded Front/Back align their displayed reference heigh
   expect(front.poses[0].y).toBe(backGround);
   expect(back.poses[0].scaleY/front.poses[0].scaleY).toBeCloseTo(front.rig.views.Front.referenceSize/700*.9/front.rig.views.Front.displayScale);
   // Changing ground preserves source-space placement; the source soles can be aligned to that new origin.
-  for(const p of back.rig.views.Back.parts)expect(p.restTransform.y+800-p.pivot.y).toBeCloseTo(p.rect.y);
+  for(const p of back.rig.views.Back.parts)expect(back.poses[0].parts.find(part=>part.id===p.id)!.worldY+800-p.pivot.y).toBeCloseTo(p.rect.y);
 });
 
 test('default atlas has transparent gaps, opaque costume, aligned soles and stable walk/reset',async({page})=>{
@@ -174,7 +174,7 @@ test('default atlas has transparent gaps, opaque costume, aligned soles and stab
   await page.locator('#phase').fill('0.2');const first=await diag(page);await page.locator('#phase').fill('0.7');const second=await diag(page);
   expect(first.nodes).toBe(4);expect(first.sprites).toBe(24);
   for(let i=0;i<4;i++) {
-    expect(first.poses[i].parts.find(p=>p.id==='footL')!.y).not.toBe(second.poses[i].parts.find(p=>p.id==='footL')!.y);
+    expect(first.poses[i].parts.find(p=>p.id==='legL')!.y).not.toBe(second.poses[i].parts.find(p=>p.id==='legL')!.y);
     expect(first.poses[i].x).toBe(second.poses[i].x);expect(first.poses[i].y).toBe(second.poses[i].y);
   }
   await page.locator('[data-action="reset"]').click();expect((await diag(page)).rig).toEqual(initial.rig);

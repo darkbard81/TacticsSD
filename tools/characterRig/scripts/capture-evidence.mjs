@@ -15,6 +15,18 @@ try {
   await page.screenshot({path:'tools/characterRig/docs/editor-isometric.png',fullPage:true});
   await page.locator('#phase').fill('0.7');
   await page.screenshot({path:'tools/characterRig/docs/editor-walk-phase-07.png',fullPage:true});
+  await page.locator('[data-action="sample"]').click();
+  await page.locator('#app[aria-busy="false"]').waitFor();
+  await page.locator('#compare').click();
+  await page.locator('details[data-section="attachment"] summary').click();
+  await page.screenshot({path:'tools/characterRig/docs/hierarchy-sockets.png',fullPage:true});
+  await page.locator('#parts [data-part="body"]').click();
+  await page.locator('details[data-section="pose"] summary').click();
+  await page.locator('input[data-path="rest.rotation"]').fill('0.22');
+  await page.locator('input[data-path="rest.x"]').fill('35');
+  await page.screenshot({path:'tools/characterRig/docs/hierarchy-body.png',fullPage:true});
+  await page.locator('[data-action="sample"]').click();
+  await page.locator('#app[aria-busy="false"]').waitFor();
   await page.setViewportSize({width:390,height:844});
   await page.screenshot({path:'tools/characterRig/docs/editor-mobile.png',fullPage:true});
 } finally { await browser.close(); }

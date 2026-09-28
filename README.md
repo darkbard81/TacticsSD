@@ -30,7 +30,7 @@ npm run preview
 
 | 도구 | 내용 | 위치 |
 | --- | --- | --- |
-| Character Rig | 앞·뒷면 6파츠 리깅, Idle/Walk, 등각 4방향, JSON 저장·복원 | [tools/characterRig](tools/characterRig/README.md) |
+| Character Rig | 몸통·소켓 기반 6파츠 리깅, Idle/Walk, 등각 4방향, JSON 저장·복원 | [tools/characterRig](tools/characterRig/README.md) |
 
 캐릭터 리깅은 제공된 엘프 **파츠 시트 1장**을 기본으로 사용합니다. 투명 배경 파생 이미지와 앞·뒤 조립 프리셋이 포함되어 바로 Rest / Idle / Walk를 확인할 수 있습니다. 후면 팔은 원본의 공용 팔을 재사용합니다. [자세한 사용법](tools/characterRig/README.md)과 [검증 기록](tools/characterRig/docs/validation.md)을 참고하세요.
 
