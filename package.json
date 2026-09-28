@@ -1,0 +1,29 @@
+{
+  "name": "tacticssd-rig-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "test:all": "npm run test && npm run test:browser"
+  },
+  "dependencies": {
+    "pixi.js": "8.21.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "typescript": "5.9.3",
+    "vite": "8.3.1",
+    "vitest": "5.0.2",
+    "@types/node": "24.10.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
