@@ -1,13 +1,13 @@
 import { test, expect, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
-import { createRig, makeView, serializeRig, type CharacterRigData } from '../../src/domain/rig';
+import { createRig, makeView, serializeRig, type CharacterRigData } from '../../domain/rig';
 declare global { interface Window { rigDiagnostics: () => { assets: number; listeners: number; nodes: number; sprites: number; rig: CharacterRigData; seconds: number; mode: string; playing: boolean; missing: number; poses: { direction:string;x:number;y:number;scaleX:number;scaleY:number;parts:{id:string;x:number;y:number;scaleX:number;scaleY:number;rotation:number;visible:boolean;zIndex:number;frame:{x:number;y:number;width:number;height:number}}[] }[] } } }
 const diag = (page: Page) => page.evaluate(()=>window.rigDiagnostics());
 const uploadJSON = async (page: Page, text: string) => { await page.locator('#load-json').setInputFiles({name:'test.rig.json',mimeType:'application/json',buffer:Buffer.from(text)}); await expect(page.locator('#app')).toHaveAttribute('aria-busy','false'); };
-const sourceImage = 'public/samples/elf-front.png';
+const sourceImage = 'tools/characterRig/assets/elf-front.png';
 const details = async(page: Page, section: string) => { const node=page.locator(`details[data-section="${section}"]`); if(!(await node.getAttribute('open')!==null))await node.locator('summary').click(); };
 const field = (page: Page, path: string) => page.locator(`input[data-path="${path}"]`);
-const ready = async(page: Page) => {await page.goto('/');await expect.poll(async()=>(await diag(page)).assets).toBe(2);await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');};
+const ready = async(page: Page) => {await page.goto('/tools/characterRig/');await expect.poll(async()=>(await diag(page)).assets).toBe(1);await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');};
 
 test('generated elf: edit both views, drag and resize in original pixels, keyboard, zoom and playback',async({page})=>{
   const errors: string[]=[];page.on('pageerror',e=>errors.push(e.message));await ready(page);
@@ -60,7 +60,7 @@ test('direction presets, visibility, solo, base transforms and immediate paused 
   await page.locator('#direction').selectOption('SE');await details(page,'direction');
   await field(page,'correction.x').fill('30');await field(page,'correction.scaleX').fill('0.7');await field(page,'correction.skewX').fill('0.1');
   await page.locator('#flip').check();expect((await diag(page)).poses[0].scaleX).toBeLessThan(0);
-  expect((await diag(page)).poses[0].parts.find(p=>p.id==='armL')!.x).toBe(180);
+  expect((await diag(page)).poses[0].parts.find(p=>p.id==='armL')!.x).toBeCloseTo(150+30*(await diag(page)).rig.views.Front.referenceSize/1254);
   await page.locator('#direction-view').selectOption('Back');expect((await diag(page)).rig.directions.SE.view).toBe('Back');
   await details(page,'motion');await field(page,'motion.lift').fill('0.03');expect((await diag(page)).rig.motion.lift).toBe(.03);
   await page.locator('[data-mode="Walk"]').click();await page.locator('#phase').fill('0.8');
@@ -69,16 +69,16 @@ test('direction presets, visibility, solo, base transforms and immediate paused 
 
 test('save actual download, new session import, missing-image and replacement reconnect',async({page,browser})=>{
   await ready(page);await page.locator('#parts [data-part="armL"]').click();await details(page,'image');
-  await page.locator('#replacement').setInputFiles(sourceImage);await expect.poll(async()=>(await diag(page)).assets).toBe(3);
+  await page.locator('#replacement').setInputFiles(sourceImage);await expect.poll(async()=>(await diag(page)).assets).toBe(2);
   await details(page,'pose');await field(page,'rest.x').fill('123');
   await page.locator('#direction').selectOption('SW');await details(page,'direction');await field(page,'correction.rotation').fill('0.13');
   const expected=(await diag(page)).rig;
   const downloadPromise=page.waitForEvent('download');await page.locator('[data-action="save"]').click();const download=await downloadPromise;
   const json=await readFile((await download.path())!,'utf8');expect(JSON.parse(json)).toEqual(expected);expect(json).not.toContain('blob:');
   const other=await browser.newContext();const next=await other.newPage();await ready(next);await uploadJSON(next,json);
-  expect((await diag(next)).rig).toEqual(expected);expect((await diag(next)).missing).toBe(3);expect((await diag(next)).sprites).toBe(0);
+  expect((await diag(next)).rig).toEqual(expected);expect((await diag(next)).missing).toBe(2);expect((await diag(next)).sprites).toBe(0);
   await expect(next.locator('#asset-list')).toContainText('elf-front.png');
-  await next.locator('#reconnect').setInputFiles(['public/samples/elf-front.png','public/samples/elf-back.png']);
+  await next.locator('#reconnect').setInputFiles(['tools/characterRig/assets/elf-front.png','tools/characterRig/assets/elf-parts-sheet.png']);
   await expect.poll(async()=>(await diag(next)).missing).toBe(0);expect((await diag(next)).rig).toEqual(expected);expect((await diag(next)).sprites).toBe(6);
   await other.close();
 });
@@ -87,7 +87,7 @@ test('invalid JSON, bounds, bad files and mismatched relink retain the usable pr
   await ready(page);const original=(await diag(page)).rig;
   await uploadJSON(page,'{broken');await expect(page.locator('#error')).toContainText('JSON');expect((await diag(page)).rig).toEqual(original);
   await field(page,'rect.width').fill('9000');await expect(page.locator('#error')).toBeVisible();expect((await diag(page)).rig).toEqual(original);
-  await field(page,'rect.width').fill('1254');await expect(page.locator('#error')).toBeHidden();
+  await field(page,'rect.width').fill(String(original.views.Front.parts[0].rect.width));await expect(page.locator('#error')).toBeHidden();
   await page.locator('#load-image').setInputFiles({name:'bad.png',mimeType:'image/png',buffer:Buffer.from('not an image')});await expect(page.locator('#error')).toBeVisible();expect((await diag(page)).rig).toEqual(original);
   const r=createRig();r.views.Front=makeView('Front',{id:'different',name:'different.png',width:100,height:200});
   await uploadJSON(page,serializeRig(r));await page.locator('input[data-relink="different"]').setInputFiles(sourceImage);await expect(page.locator('#error')).toContainText('100×200');expect((await diag(page)).missing).toBe(1);
@@ -106,9 +106,9 @@ test('image replacement and editor re-entry do not accumulate listeners, sprites
   await page.locator('[data-action="new"]').click();expect((await diag(page)).assets).toBe(0);expect((await diag(page)).sprites).toBe(0);
   await page.locator('#load-image').setInputFiles(sourceImage);await expect.poll(async()=>(await diag(page)).assets).toBe(1);
   await page.locator('[data-view="Back"]').click();await expect(page.locator('#source-empty')).toBeVisible();
-  await page.locator('[data-action="sample"]').click();await expect.poll(async()=>(await diag(page)).assets).toBe(2);
+  await page.locator('[data-action="sample"]').click();await expect.poll(async()=>(await diag(page)).assets).toBe(1);
   // Normal page teardown/re-entry must give one private application ticker, not global duplicates.
-  await page.goto('about:blank');await ready(page);expect((await diag(page)).listeners).toBe(initial.listeners);expect((await diag(page)).assets).toBe(2);
+  await page.goto('about:blank');await ready(page);expect((await diag(page)).listeners).toBe(initial.listeners);expect((await diag(page)).assets).toBe(1);
   expect(errors).toEqual([]);
 });
 
@@ -154,7 +154,36 @@ test('different-size and padded Front/Back align their displayed reference heigh
   const backGround=back.poses[0].y;
   await page.locator('#direction').selectOption('Front');const front=await diag(page);
   expect(front.poses[0].y).toBe(backGround);
-  expect(back.poses[0].scaleY/front.poses[0].scaleY).toBeCloseTo(1254/700*.9);
+  expect(back.poses[0].scaleY/front.poses[0].scaleY).toBeCloseTo(front.rig.views.Front.referenceSize/700*.9/front.rig.views.Front.displayScale);
   // Changing ground preserves source-space placement; the source soles can be aligned to that new origin.
   for(const p of back.rig.views.Back.parts)expect(p.restTransform.y+800-p.pivot.y).toBeCloseTo(p.rect.y);
+});
+
+test('default atlas has transparent gaps, opaque costume, aligned soles and stable walk/reset',async({page})=>{
+  await ready(page);const initial=await diag(page);
+  expect(initial.rig.id).toBe('elf-parts-sheet');expect(initial.assets).toBe(1);expect(initial.sprites).toBe(6);
+  const alpha = await page.evaluate(async()=>{
+    const image=new Image();image.src=document.querySelector('#source image')!.getAttribute('href')!;await image.decode();
+    const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;const ctx=c.getContext('2d')!;ctx.drawImage(image,0,0);
+    return {background:ctx.getImageData(0,0,1,1).data[3],costume:ctx.getImageData(627,655,1,1).data[3]};
+  });
+  expect(alpha.background).toBe(0);expect(alpha.costume).toBeGreaterThanOrEqual(250);
+  await details(page,'pose');await field(page,'rest.x').fill('150');await page.locator('[data-action="reset-part"]').click();
+  expect((await diag(page)).rig.views.Front.parts[0].restTransform).toEqual(initial.rig.views.Front.parts[0].restTransform);
+  await page.locator('[data-mode="Walk"]').click();await page.locator('#compare').click();
+  await page.locator('#phase').fill('0.2');const first=await diag(page);await page.locator('#phase').fill('0.7');const second=await diag(page);
+  expect(first.nodes).toBe(4);expect(first.sprites).toBe(24);
+  for(let i=0;i<4;i++) {
+    expect(first.poses[i].parts.find(p=>p.id==='footL')!.y).not.toBe(second.poses[i].parts.find(p=>p.id==='footL')!.y);
+    expect(first.poses[i].x).toBe(second.poses[i].x);expect(first.poses[i].y).toBe(second.poses[i].y);
+  }
+  await page.locator('[data-action="reset"]').click();expect((await diag(page)).rig).toEqual(initial.rig);
+});
+
+test('original JPG can be loaded with an explicit nontransparent-background notice',async({page})=>{
+  await ready(page);await page.locator('[data-action="new"]').click();
+  await page.locator('#load-image').setInputFiles('tools/characterRig/assets/source/elf-parts-sheet/original.jpg');
+  await expect(page.locator('#app')).toHaveAttribute('aria-busy','false');
+  expect((await diag(page)).rig.views.Front.image!.name).toBe('original.jpg');expect((await diag(page)).sprites).toBe(6);
+  await expect(page.locator('#notice')).toContainText('JPG 배경은 자동 제거되지 않습니다.');
 });

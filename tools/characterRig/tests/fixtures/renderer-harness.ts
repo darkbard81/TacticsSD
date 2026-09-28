@@ -1,7 +1,7 @@
 import { Container, Sprite, Rectangle } from 'pixi.js';
-import {createRig,makeView,updateGeometry,resetPlacement} from '../../src/domain/rig';
-import {RigAssets} from '../../src/runtime/assets';
-import {PixiRigRenderer} from '../../src/runtime/renderer';
+import {createRig,makeView,updateGeometry,resetPlacement} from '../../domain/rig';
+import {RigAssets} from '../../runtime/assets';
+import {PixiRigRenderer} from '../../runtime/renderer';
 export async function verifyPixels() {
     const canvas=document.createElement('canvas');canvas.width=400;canvas.height=500;
     const ctx=canvas.getContext('2d')!;

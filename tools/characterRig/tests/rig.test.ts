@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { createRig, DIRECTIONS, imageRefs, makeView, parseRig, resetPlacement, serializeRig, setGround, updateGeometry, VIEWS, type CharacterRigData } from '../src/domain/rig';
-import { evaluateRig, footCycle, phaseAt } from '../src/domain/animator';
+import { createRig, DIRECTIONS, imageRefs, makeView, parseRig, resetPlacement, serializeRig, setGround, updateGeometry, VIEWS, type CharacterRigData } from '../domain/rig';
+import { evaluateRig, footCycle, phaseAt } from '../domain/animator';
 const fixture = () => { const r = createRig(); r.views.Front = makeView('Front', { id:'front', name:'front.png', width:1254,height:1254 }); r.views.Back = makeView('Back', { id:'back', name:'back.png', width:900,height:1600 }); return r; };
 const pose = (rig: CharacterRigData, t: number, id = 'footL') => evaluateRig(rig,'Front',t,'Walk').find(p=>p.id===id)!;
 describe('source pixel coordinates and independent views', () => {
