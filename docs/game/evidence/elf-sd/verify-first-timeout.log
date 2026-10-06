@@ -1,0 +1,162 @@
+
+> tacticssd@0.1.0 verify
+> npm run lint && npm run build && npm run test:all
+
+
+> tacticssd@0.1.0 lint
+> tsc --noEmit && git diff --check
+
+
+> tacticssd@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 820 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       0.50 kB │ gzip:  0.34 kB
+dist/game/index.html                                  0.57 kB │ gzip:  0.35 kB
+dist/tools/characterRig/index.html                    1.09 kB │ gzip:  0.46 kB
+dist/assets/weapons-D_UtZ_hF.png                    988.47 kB
+dist/assets/back-oe0X-y1h.png                     1,308.31 kB
+dist/assets/front-DVTZ4c_F.png                    1,371.76 kB
+dist/assets/dawn-parts-BDqVgwso.png               1,440.08 kB
+dist/assets/elf-parts-sheet-DtgqXvRE.png          1,758.15 kB
+dist/assets/items-CE-hbH-j.png                    3,191.21 kB
+dist/assets/terrain-CP2e0Suw.png                  3,206.65 kB
+dist/assets/world-map-DQ14sUO_.png                3,897.36 kB
+dist/assets/main-CI-GPnD7.css                         2.39 kB │ gzip:  0.95 kB
+dist/assets/characterRig-BYmJ0lht.css                 9.11 kB │ gzip:  2.79 kB
+dist/assets/game-BGn1dWqL.css                        17.58 kB │ gzip:  4.87 kB
+dist/assets/webworkerAll-Ca8cat8K.js                  0.05 kB │ gzip:  0.06 kB
+dist/assets/WebGLRenderer-DeIftrxI.js                 0.07 kB │ gzip:  0.07 kB
+dist/assets/CanvasRenderer-CHRIHt4W.js                0.07 kB │ gzip:  0.08 kB
+dist/assets/WebGPURenderer-DnyskhE0.js                0.07 kB │ gzip:  0.08 kB
+dist/assets/getTextureBatchBindGroup-Ddzz0M-K.js      0.34 kB │ gzip:  0.26 kB
+dist/assets/modulepreload-polyfill-P2Xu9kJm.js        0.67 kB │ gzip:  0.38 kB
+dist/assets/main-Bg2xod8J.js                          1.87 kB │ gzip:  1.08 kB
+dist/assets/canvasUtils-VDRHI1Sg.js                   6.05 kB │ gzip:  2.05 kB
+dist/assets/BufferResource-BzFMX2Lp.js               11.02 kB │ gzip:  2.82 kB
+dist/assets/init-DmapiEjX.js                         15.72 kB │ gzip:  4.94 kB
+dist/assets/init-B4y5jvQ3.js                         24.68 kB │ gzip:  8.49 kB
+dist/assets/browserAll-BgOyVNtM.js                   42.65 kB │ gzip: 11.19 kB
+dist/assets/WebGPURenderer-3qqQf9c7.js               47.89 kB │ gzip: 13.76 kB
+dist/assets/characterRig-BOwSMnC8.js                 47.96 kB │ gzip: 16.05 kB
+dist/assets/WebGLRenderer-Bj9kpEtO.js                71.66 kB │ gzip: 19.49 kB
+dist/assets/animator-DY6ftgpV.js                     76.59 kB │ gzip: 22.28 kB
+dist/assets/RenderTargetSystem-CWRxk8dd.js           78.08 kB │ gzip: 22.10 kB
+dist/assets/CanvasRenderer-DO9bQzfc.js               88.51 kB │ gzip: 27.84 kB
+dist/assets/CanvasPool-BqlnJ8fZ.js                  110.19 kB │ gzip: 33.52 kB
+dist/assets/game-D5YnkVpv.js                        443.47 kB │ gzip: 53.97 kB
+
+✓ built in 373ms
+
+> tacticssd@0.1.0 test:all
+> npm run test && npm run test:browser
+
+
+> tacticssd@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.2 /home/deck/Documents/TacticsSD
+
+
+ Test Files  9 passed (9)
+      Tests  85 passed (85)
+   Start at  23:10:27
+   Duration  1.11s (transform 41%, import 38%, tests 19%, worker 2%)
+
+
+> tacticssd@0.1.0 test:browser
+> playwright test
+
+
+Running 47 tests using 1 worker
+
+(node:515715) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser/navigation.spec.ts:10:1 › main loads independently, buttons navigate into the tool and back without duplicate renderers (3.1s)
+  ✓   2 tests/browser/navigation.spec.ts:37:1 › tool supports direct links, reload, browser back and forward (2.4s)
+  ✓   3 tests/browser/navigation.spec.ts:50:1 › leaving an edited rig can be cancelled to keep the draft (1.2s)
+  ✓   4 tests/browser/navigation.spec.ts:63:1 › main page and tool entry remain keyboard accessible at mobile width (1.2s)
+  ✓   5 tests/game/tests/browser/elf-sprites.spec.ts:4:1 › all sprite frames have transparent gutters and hand sockets intersect the painted glove (1.9s)
+  ✓   6 tests/game/tests/browser/elf-sprites.spec.ts:26:1 › actual canvas equipment and all four directions mirror together in both view scales (3.2s)
+  ✓   7 tests/game/tests/browser/elf-sprites.spec.ts:53:1 › walking follows each path segment and pausing or switching view does not advance the body clock (2.9s)
+  ✓   8 tests/game/tests/browser/expansion.spec.ts:8:1 › editor v2 export, replacement import and reload preserve the actual game art (6.0s)
+  ✓   9 tests/game/tests/browser/expansion.spec.ts:20:1 › six recruits and training actions stay visible at 1024×768 DPR2 and saved learning is playable (3.8s)
+  ✓  10 tests/game/tests/browser/expansion.spec.ts:23:1 › mockpad equips all five slots, sees summed stats and restores them into battle (13.2s)
+  ✓  11 tests/game/tests/browser/game.spec.ts:134:1 › keyboard full campaign, equipment, save and real 1024x768 DPR2 screenshots (3.0m)
+  ✓  12 tests/game/tests/browser/game.spec.ts:187:1 › simulated standard gamepad completes battle and reconnect restores focus safely (1.8m)
+  ✓  13 tests/game/tests/browser/game.spec.ts:223:1 › mapping keyboard capture, cancel, saved restore and defaults; responsive resize (6.2s)
+  ✘  14 tests/game/tests/browser/game.spec.ts:255:1 › defeat and restart accessible with keyboard, corrupted saves recover (13.5s)
+(node:518765) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  15 tests/game/tests/browser/game.spec.ts:270:1 › gamepad button remap persists, modal traps focus, moving view stays on same logical tile (20.7s)
+  ✓  16 tests/game/tests/browser/game.spec.ts:336:1 › generated rig opens in existing editor, animates four directions and saves v2 without altering original presets (2.8s)
+  ✓  17 tests/game/tests/browser/regression.spec.ts:9:1 › F01 keyboard focus on target cancel returns without attacking (9.6s)
+  ✓  18 tests/game/tests/browser/regression.spec.ts:10:1 › F02 controller can cancel both keyboard and button capture without a keyboard (2.4s)
+  ✓  19 tests/game/tests/browser/regression.spec.ts:11:1 › F03 reserved Tab is not saved; a remapped Space performs only its action (8.2s)
+  ✓  20 tests/game/tests/browser/regression.spec.ts:12:1 › F04 held input cannot dismiss pause on refocus or controller disconnect (5.8s)
+  ✓  21 tests/game/tests/browser/regression.spec.ts:13:1 › F05 canceling end-turn grants no free guard (5.5s)
+  ✓  22 tests/game/tests/browser/regression.spec.ts:14:1 › F08 editor replacement references are rendered rather than silently discarded (2.4s)
+  ✓  23 tests/game/tests/browser/regression.spec.ts:15:1 › F09 unit labels are drawn after all opaque terrain and sprites in both projections (2.4s)
+  ✓  24 tests/game/tests/browser/regression.spec.ts:17:1 › Tab focus on settings during facing opens settings without ending the AT (6.0s)
+  ✓  25 tests/game/tests/browser/shop.spec.ts:14:31 › keyboard buys, cancels, sells, locks equipped copies and restores quantities (8.5s)
+  ✓  26 tests/game/tests/browser/shop.spec.ts:14:31 › mockpad buys, cancels, sells, locks equipped copies and restores quantities (23.0s)
+  ✓  27 tests/game/tests/browser/shop.spec.ts:22:1 › mockpad source bow purchase equips only the archer and restores into a real battle (18.1s)
+  ✓  28 tests/game/tests/browser/shop.spec.ts:26:1 › storage failure rolls back, held mixed confirm trades once, cancel wins and disconnect cancels pending trade (9.0s)
+  ✓  29 tests/game/tests/browser/shop.spec.ts:33:1 › catalog unavailable rows have no purchase action; all shop filters and loaded icons fit DPR2 minimum (4.0s)
+  ✓  30 tests/game/tests/browser/shop.spec.ts:40:1 › expanded seven-item bag keeps its return action visible at minimum size (2.7s)
+  ✓  31 tests/game/tests/browser/shop.spec.ts:43:1 › stage preview keeps all 64 transformed terrain cells inside the viewport (2.4s)
+  ✓  32 tools/characterRig/tests/browser/directions.spec.ts:9:1 › upright defaults, mirrored joints, targeted reset and saved custom directions (6.1s)
+  ✓  33 tools/characterRig/tests/browser/editor.spec.ts:13:1 › generated elf: edit both views, drag and resize in original pixels, keyboard, zoom and playback (4.2s)
+  ✓  34 tools/characterRig/tests/browser/editor.spec.ts:55:1 › direction presets, visibility, solo, base transforms and immediate paused rendering (5.8s)
+  ✓  35 tools/characterRig/tests/browser/editor.spec.ts:71:1 › save actual download, new session import, missing-image and replacement reconnect (7.0s)
+  ✓  36 tools/characterRig/tests/browser/editor.spec.ts:87:1 › invalid JSON, bounds, bad files and mismatched relink retain the usable project (2.7s)
+  ✓  37 tools/characterRig/tests/browser/editor.spec.ts:98:1 › image replacement and editor re-entry do not accumulate listeners, sprites or assets (6.2s)
+  ✓  38 tools/characterRig/tests/browser/editor.spec.ts:116:1 › DPR and narrow layout preserve source coordinates and provide keyboard-accessible uploads (2.5s)
+  ✓  39 tools/characterRig/tests/browser/editor.spec.ts:126:1 › all six parts can be drawn and numerically adjusted on Front and Back; cancel releases drag (10.8s)
+  ✓  40 tools/characterRig/tests/browser/editor.spec.ts:146:1 › different-size and padded Front/Back align their displayed reference height and ground (2.4s)
+  ✓  41 tools/characterRig/tests/browser/editor.spec.ts:163:1 › default atlas has transparent gaps, opaque costume, aligned soles and stable walk/reset (4.3s)
+  ✓  42 tools/characterRig/tests/browser/editor.spec.ts:184:1 › original JPG can be loaded with an explicit nontransparent-background notice (3.1s)
+  ✓  43 tools/characterRig/tests/browser/hierarchy.spec.ts:9:1 › body editing moves every joint in both views and all isometric directions without mutating child settings (4.0s)
+  ✓  44 tools/characterRig/tests/browser/hierarchy.spec.ts:30:1 › socket numeric and drag editing, crop independence and invalid socket recovery (3.4s)
+  ✓  45 tools/characterRig/tests/browser/hierarchy.spec.ts:44:1 › obsolete and future rig files are rejected without losing edits; current files still round-trip (3.2s)
+  ✓  46 tools/characterRig/tests/browser/pixels.spec.ts:3:1 › separable PNG reconstructs pixel-for-pixel in the real Pixi renderer, including pivot edits (1.8s)
+  ✓  47 tools/characterRig/tests/browser/pixels.spec.ts:12:1 › hierarchy inherits rotation while global layer order, parent hiding and child solo remain independent (1.8s)
+
+
+  1) tests/game/tests/browser/game.spec.ts:255:1 › defeat and restart accessible with keyboard, corrupted saves recover 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      262 |         await choose(page, 'finish-turn');
+      263 |         await press(page, 'confirm');
+    > 264 |         await expect.poll(async () => { const d = await diag(page); return d.screen === 'result' || d.battle?.phase === 'ally' && d.mode !== 'animating'; }).toBe(true);
+          |                                                                                                                                                              ^
+      265 |     }
+      266 |     expect((await diag(page)).battle?.phase).toBe('lost');
+      267 |     await choose(page, 'restart');
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/game.spec.ts:264:158
+
+    Error Context: test-results/tests-game-tests-browser-g-096c5-ard-corrupted-saves-recover/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/tests-game-tests-browser-g-096c5-ard-corrupted-saves-recover/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/tests-game-tests-browser-g-096c5-ard-corrupted-saves-recover/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/game/tests/browser/game.spec.ts:255:1 › defeat and restart accessible with keyboard, corrupted saves recover 
+  46 passed (9.2m)

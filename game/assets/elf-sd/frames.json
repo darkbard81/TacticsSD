@@ -1,0 +1,446 @@
+{
+  "front": {
+    "idle": [
+      {
+        "hand": [
+          90.28,
+          183.42
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          91.51,
+          183.42
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          94.38,
+          184.24
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          92.74,
+          184.24
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "walk": [
+      {
+        "hand": [
+          80.75,
+          166.0
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          72.0,
+          165.5
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          130.25,
+          152.5
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          82.5,
+          165.5
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "melee": [
+      {
+        "hand": [
+          113.24,
+          146.52
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          102.17,
+          39.1
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          203.44,
+          104.7
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          188.68,
+          185.06
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "bow": [
+      {
+        "hand": [
+          201.8,
+          105.52
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          96.84,
+          138.32
+        ]
+      },
+      {
+        "hand": [
+          206.31,
+          105.52
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          94.79,
+          98.96
+        ]
+      },
+      {
+        "hand": [
+          214.1,
+          105.52
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          95.2,
+          98.96
+        ]
+      },
+      {
+        "hand": [
+          211.23,
+          104.7
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          89.05,
+          114.54
+        ]
+      }
+    ],
+    "cast": [
+      {
+        "hand": [
+          83.72,
+          172.76
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          180.07,
+          94.86
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          79.62,
+          51.4
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          91.1,
+          172.76
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "hurt": [
+      {
+        "hand": [
+          87.41,
+          176.86
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          114.06,
+          133.4
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          120.21,
+          136.68
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          91.1,
+          175.22
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ]
+  },
+  "back": {
+    "idle": [
+      {
+        "hand": [
+          178.02,
+          168.66
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          178.43,
+          168.66
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          173.92,
+          168.66
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          174.33,
+          167.84
+        ],
+        "behind": true,
+        "angle": 0
+      }
+    ],
+    "walk": [
+      {
+        "hand": [
+          179.75,
+          139.0
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          182.5,
+          140.0
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          190.0,
+          149.0
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          179.75,
+          139.0
+        ],
+        "behind": true,
+        "angle": 0
+      }
+    ],
+    "melee": [
+      {
+        "hand": [
+          178.02,
+          123.56
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          117.75,
+          30.08
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          214.92,
+          103.06
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          193.19,
+          180.14
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "bow": [
+      {
+        "hand": [
+          206.87,
+          103.05
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          115.46,
+          124.83
+        ]
+      },
+      {
+        "hand": [
+          208.36,
+          103.05
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          111.0,
+          93.15
+        ]
+      },
+      {
+        "hand": [
+          209.01,
+          102.72
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          110.02,
+          93.81
+        ]
+      },
+      {
+        "hand": [
+          211.16,
+          102.72
+        ],
+        "behind": false,
+        "angle": 0,
+        "rear": [
+          104.24,
+          96.78
+        ]
+      }
+    ],
+    "cast": [
+      {
+        "hand": [
+          179.25,
+          168.66
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          189.5,
+          85.84
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          92.33,
+          40.74
+        ],
+        "behind": false,
+        "angle": 0
+      },
+      {
+        "hand": [
+          171.46,
+          166.2
+        ],
+        "behind": false,
+        "angle": 0
+      }
+    ],
+    "hurt": [
+      {
+        "hand": [
+          178.43,
+          165.38
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          176.79,
+          164.56
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          172.69,
+          169.48
+        ],
+        "behind": true,
+        "angle": 0
+      },
+      {
+        "hand": [
+          177.2,
+          164.56
+        ],
+        "behind": true,
+        "angle": 0
+      }
+    ]
+  }
+}

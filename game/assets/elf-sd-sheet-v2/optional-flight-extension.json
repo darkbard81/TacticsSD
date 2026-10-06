@@ -1,0 +1,133 @@
+{
+  "schema": "tacticssd.optional-flight-extension.v1",
+  "status": "specification-only; no flying elf art produced",
+  "imageSize": [
+    1792,
+    1536
+  ],
+  "cellSize": [
+    256,
+    256
+  ],
+  "columns": 7,
+  "rows": 6,
+  "baseRows": "Rows1-4 identical to 26-pose base",
+  "extraPoseCount": 6,
+  "totalPoseCount": 32,
+  "flightRows": [
+    {
+      "row": 5,
+      "facing": "front",
+      "poses": [
+        "flight1",
+        "flight2",
+        "flight3",
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "row": 6,
+      "facing": "back",
+      "poses": [
+        "flight1",
+        "flight2",
+        "flight3",
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "id": "front_flight1",
+      "rect": {
+        "x": 0,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    },
+    {
+      "id": "front_flight2",
+      "rect": {
+        "x": 256,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    },
+    {
+      "id": "front_flight3",
+      "rect": {
+        "x": 512,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    },
+    {
+      "id": "back_flight1",
+      "rect": {
+        "x": 0,
+        "y": 1280,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    },
+    {
+      "id": "back_flight2",
+      "rect": {
+        "x": 256,
+        "y": 1280,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    },
+    {
+      "id": "back_flight3",
+      "rect": {
+        "x": 512,
+        "y": 1280,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      }
+    }
+  ],
+  "suggestedSequence": [
+    "flight1",
+    "flight2",
+    "flight3",
+    "flight2"
+  ],
+  "reference": "Additional paired three-pose flight/wing rows visually inspected in Divine Knight and Iuria Wolph. Phase labels are intended game semantics, not verified original playback order.",
+  "ordinaryElf": "flying=false; do not append wings or manufacture frames; enable extension only for a separately requested flying unit."
+}

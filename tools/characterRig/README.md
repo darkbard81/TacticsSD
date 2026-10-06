@@ -61,7 +61,24 @@ npm run preview
 
 파츠별 **PNG / WebP / JPG 교체**도 가능합니다. 투명 PNG / WebP를 권장합니다. 이미지는 해당 파츠의 영역 크기에 맞춰 표시되고 같은 pivot/배치/모션을 사용합니다. 에디터는 배경 제거, 복잡한 마스크, 자동 분할, 인페인팅을 제공하지 않습니다. 분리 가능한 6색 테스트 원본에서 실제 Pixi 재조합 픽셀을 원본과 비교하는 별도 검증을 포함합니다.
 
-등각 미리보기는 2D 반전과 파츠별 보정입니다. 실제 3D 회전이나 새로운 측면 그림을 만들지 않습니다. 비대칭 장비는 반전에 따라 좌우가 바뀝니다. 원하는 경우 3/4 원화로 교체하고 방향 프리셋을 조정하세요.
+### 기본 방향 보정과 기존 파일
+
+기본 4방향은 CardGuild의 방향 매핑과 보드 투영(45° 회전, 세로 0.5)을 참고합니다. **캐릭터의 세로축은 세우고 가로축만 보드 방향으로 투영하는 방식**을 적용합니다. CardGuild 현행 캐릭터 렌더러 자체는 원화 비율을 유지하므로, 이 기울기는 TacticsSD에서 선택한 추가 표현입니다.
+
+| TacticsSD 화면 방향 | CardGuild 방향 | 이미지 | 좌우 반전 | 화면 가로축 기울기 (ΔY/ΔX) |
+| --- | --- | --- | --- | --- |
+| SE | east | Front | 없음 | +0.5 |
+| SW | south | Front | 적용 | -0.5 |
+| NE | north | Back | 없음 | -0.5 |
+| NW | west | Back | 적용 | +0.5 |
+
+몸통 방향 보정은 `scaleX = √(5/8) ≈ 0.790569`, `skewY = ±atan(0.5) ≈ ±0.463648 rad`입니다. 앞면 쌍은 +, 뒷면 쌍은 −이고 서쪽 화면 방향은 root 반전으로 처리합니다. 실제 가로축은 X `cos(45°) ≈ 0.707107`, Y `±sin(45°) × 0.5 ≈ ±0.353553`가 됩니다. 세로축 배율은 1이고 전체 그림을 눕히는 회전은 없습니다. 몸통에 연결된 파츠가 한 번만 상속하며, 머리의 별도 ±8 이동은 제거했습니다. 몸통 부착점과 원화에 그려진 자세는 유지됩니다.
+
+이는 **새 리그와 기본 파츠 시트**에 적용됩니다. Front/Back 정면 보정은 중립값입니다. 이미지 영역·pivot·소켓·접합 보정·지면·기준 크기·표시 배율과 보행 벡터/모션 설정은 변경하지 않습니다. CardGuild의 에셋별 anchor/displayHeight는 편집용 지면/크기 값과 단위가 다르므로 숫자를 복사하지 않습니다. CardGuild의 단일 이미지 이동과 TacticsSD의 Idle/Walk 파츠 애니메이션은 다른 기능입니다.
+
+저장 형식은 **v2 그대로**입니다. 이전 v2 JSON을 열거나 다시 저장하면 명시적으로 저장된 모든 방향 보정(이전 기본값 포함)을 그대로 보존하며 자동 교체하지 않습니다. 기존 리그에 새 보정을 적용하려면 방향/파츠를 선택해 **선택 파츠 방향 보정 초기화**를 사용하세요. 이 버튼은 선택 파츠만 새 기본값으로 되돌립니다. 4방향의 몸통은 위 투영값, 나머지 파츠와 Front/Back은 이동·회전·skew·순서 0 및 배율 1이며 다른 파츠와 이미지 선택·반전·보행 설정은 보존합니다. 이전 기본값에서 바꾸려면 각 방향의 몸통과 머리를 각각 초기화하세요. **배치 초기화**는 접합 배치만, **처음으로**는 재생 상태만 초기화하며 방향 보정을 덮어쓰지 않습니다.
+
+등각 미리보기는 2D 반전과 사용자가 지정한 파츠별 보정입니다. 실제 3D 회전이나 새로운 측면 그림을 만들지 않습니다. 비대칭 장비는 반전에 따라 좌우가 바뀝니다. 원하는 경우 3/4 원화로 교체하고 방향 프리셋을 조정하세요.
 
 ## 데이터와 좌표
 
@@ -97,7 +114,7 @@ root (화면 배치·배율·방향 반전)
 | `attachment.socket` | 부모 그림 좌상단 기준의 부착 좌표. 보라색 점. 부모가 없으면 지면 상대 좌표 |
 | `restTransform` | 소켓에 연결한 뒤 적용하는 위치·회전·배율·skew 보정 |
 
-합성은 `부모 행렬 × 소켓 이동 × (접합 보정 + 방향 + 모션, pivot 적용)`입니다. 몸통 이동·회전·배율·skew는 자식에게 상속됩니다. 몸통 바운스를 자식에 다시 더하지 않으며 머리 반동·팔 흔들림·다리 보행은 각 소켓 상대 모션입니다. 기본 등각 압축/skew도 몸통에 한 번만 적용합니다.
+합성은 `부모 행렬 × 소켓 이동 × (접합 보정 + 방향 + 모션, pivot 적용)`입니다. 몸통 이동·회전·배율·skew는 자식에게 상속됩니다. 몸통 바운스를 자식에 다시 더하지 않으며 머리 반동·팔 흔들림·다리 보행은 각 소켓 상대 모션입니다. 사용자가 몸통에 지정한 방향 배율/skew도 계층에서 한 번만 적용합니다.
 
 새 이미지의 최초 모습은 `rect 위치 + pivot - ground`에서 소켓을 계산해 보존합니다. pivot을 수정하면 그림의 위치가 유지되도록 접합 보정이 바뀝니다. 부모 소켓은 그림 좌표를 따르므로 몸통 pivot 변경 시에도 기존 접합이 유지됩니다. 지면 변경은 지면에 연결된 소켓만 이동시킵니다. 소켓은 외곽선이나 관절 여유를 위해 부모 사각형 바깥에도 둘 수 있습니다. DPR과 확대율은 저장 데이터에 포함하지 않습니다.
 
@@ -131,3 +148,11 @@ Linux에서 브라우저 시스템 패키지가 필요하면 `npx playwright ins
 [요구사항별 검증 기록](docs/validation.md)에서 테스트와 실제 샘플의 제약을 확인할 수 있습니다.
 
 공식 API 참고: [PixiJS Ticker](https://pixijs.com/8.x/guides/components/ticker), [Container](https://pixijs.com/8.x/guides/components/scene-objects/container).
+
+## Editor-only 3D approximation
+
+Choose **3D** in Live Preview. Six rigid, bone-driven alpha-envelope meshes use the existing front/back atlas pixels. Orbit by dragging, zoom with the wheel, or use Front/Back/Side/Isometric cameras. Rest/Idle/Walk and the existing scrub/play/speed controls remain shared. PNG and 3-second WebM capture buttons save the actual preview.
+
+This approximates volume from two drawings; it does not reconstruct anatomy or smoothly deform skin. The head uses faceted face/skull shells with broad cheeks and a narrowing jaw/chin, retaining the front/rear texture halves. Other parts preserve their alpha envelope, with the positive/negative Z halves covered by Front/Back PNG edge textures. Transparent margins extend nearest original opaque pixels; no neutral side material is used. See [3D implementation and validation](docs/preview3d.md). JSON v2 and the 2D preview remain unchanged.
+
+Latest preview revision: every part, including the head, is a shallow alpha-silhouette standee. Front/back crops align at their original pivots with rear X mirrored and per-view/rest scales normalized; their alpha-mask union defines one contour with interior holes. Opaque side walls are #25232A. Every part has the same total depth of 4 common rig units, with caps at +2/-2. Bone XY scales leave Z scale at 1; the existing overall display scale still applies. This is not a fixed screen-pixel width. Image changes rebuild only mesh resources while retaining the six shared Bone objects and animation adapter.

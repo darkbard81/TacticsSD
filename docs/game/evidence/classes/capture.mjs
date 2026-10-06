@@ -1,0 +1,24 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const out=path.resolve('docs/game/evidence/classes');await fs.mkdir(out,{recursive:true});
+const browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const context=await browser.newContext({viewport:{width:1024,height:768},deviceScaleFactor:2,recordVideo:{dir:out+'/video',size:{width:1024,height:768}}});
+const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto(process.env.TACTICSSD_CAPTURE_URL??'http://127.0.0.1:5173/game/');await page.waitForFunction(()=>window.tacticsDiagnostics);
+async function choose(id){for(let i=0;i<100;i++){if(await page.evaluate(()=>document.activeElement?.dataset.id)===id){await page.keyboard.press('Enter');return;}await page.keyboard.press('ArrowDown');}throw Error(id);}
+for(const id of ['new','stage-0','party'])await choose(id);
+await page.evaluate(async()=>{const {ElfSprites}=await import('/game/elf-sprites.ts');const elf=new ElfSprites();await elf.ready;});
+await page.screenshot({path:out+'/party.png'});
+for(const id of ['deploy','talk-0','talk-0'])await choose(id);
+await page.screenshot({path:out+'/battle-isometric.png'});
+const before=await page.evaluate(()=>window.tacticsDiagnostics());await page.waitForTimeout(1600);
+const after=await page.evaluate(()=>window.tacticsDiagnostics());
+if(JSON.stringify(before.battle)!==JSON.stringify(after.battle))throw Error('Idle changed gameplay');
+await page.keyboard.press('e');await choose('move');for(const k of ['ArrowRight','ArrowDown','ArrowRight','ArrowRight'])await page.keyboard.press(k);await page.keyboard.press('Enter');
+await page.waitForTimeout(1400);const moved=await page.evaluate(()=>window.tacticsDiagnostics());
+await page.keyboard.press('v');await page.waitForTimeout(1200);await page.screenshot({path:out+'/battle-top.png'});
+await page.keyboard.press('p');await page.waitForTimeout(500);await page.keyboard.press('Escape');await page.waitForTimeout(1000);
+const video=page.video();await context.close();await video.saveAs(out+'/TacticsSD-class-idle-motion.webm');await browser.close();
+await fs.writeFile(out+'/runtime.json',JSON.stringify({errors,dimensions:before.dimensions,idleGameStateUnchanged:true,before:before.battle.units.map(u=>({id:u.id,x:u.x,y:u.y,readyAt:u.readyAt})),afterMove:moved.battle.units.map(u=>({id:u.id,x:u.x,y:u.y,readyAt:u.readyAt}))},null,2));
+console.log({out,errors,dimensions:before.dimensions});

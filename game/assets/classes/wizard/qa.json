@@ -1,0 +1,859 @@
+{
+  "dimensions": [
+    1792,
+    1024
+  ],
+  "mode": "RGBA",
+  "poseCount": 26,
+  "uniqueHashes": 26,
+  "transparentPixels": 1459295,
+  "blankCells": [
+    "r3c7",
+    "r4c7"
+  ],
+  "edgeMarginPx": 15,
+  "groups": {
+    "walk": {
+      "rawDimensions": [
+        1536,
+        1024
+      ],
+      "uniformScale": 0.457280385078219
+    },
+    "jump": {
+      "rawDimensions": [
+        1536,
+        1024
+      ],
+      "uniformScale": 0.457280385078219
+    },
+    "attack": {
+      "rawDimensions": [
+        1983,
+        793
+      ],
+      "uniformScale": 0.5531295487627366
+    },
+    "reaction": {
+      "rawDimensions": [
+        1254,
+        1254
+      ],
+      "uniformScale": 0.3815261044176707
+    },
+    "opposite": {
+      "rawDimensions": [
+        1536,
+        1024
+      ],
+      "uniformScale": 0.4198895027624309
+    },
+    "gait-forward": {
+      "rawDimensions": [
+        1254,
+        1254
+      ],
+      "uniformScale": 0.33822874944370274
+    }
+  },
+  "frames": [
+    {
+      "name": "front_idle",
+      "bbox": [
+        79,
+        39,
+        177,
+        230
+      ],
+      "hash": "893cbaadd2718f1440e35ba7085fa90c31678ac98f467cdbb0ed2c0bebfa2c9a",
+      "group": "walk",
+      "sourceBounds": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sourceContentBounds": [
+        145,
+        58,
+        360,
+        476
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        79,
+        39
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_walk_right",
+      "bbox": [
+        72,
+        38,
+        184,
+        230
+      ],
+      "hash": "93835c00ddb08ae38255de2f2bdc109b8307bc25a8579b75551a2ad493fbee8a",
+      "group": "gait-forward",
+      "sourceBounds": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "sourceContentBounds": [
+        203,
+        46,
+        534,
+        614
+      ],
+      "scale": 0.33822874944370274,
+      "destination": [
+        72,
+        38
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_walk_left",
+      "bbox": [
+        61,
+        38,
+        195,
+        230
+      ],
+      "hash": "1d2060583e7b3ebb8d964a827bfeb5b82d4850ca3b1b248428a8924ff69319d4",
+      "group": "opposite",
+      "sourceBounds": [
+        0,
+        0,
+        768,
+        512
+      ],
+      "sourceContentBounds": [
+        225,
+        29,
+        545,
+        486
+      ],
+      "scale": 0.4198895027624309,
+      "destination": [
+        61,
+        38
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_hurt",
+      "bbox": [
+        54,
+        37,
+        203,
+        230
+      ],
+      "hash": "c60c23a235fb136c10620deed00a3592761abbca955557464cca04ef613ec70b",
+      "group": "reaction",
+      "sourceBounds": [
+        0,
+        0,
+        539,
+        627
+      ],
+      "sourceContentBounds": [
+        85,
+        67,
+        476,
+        574
+      ],
+      "scale": 0.3815261044176707,
+      "destination": [
+        54,
+        37
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_jump1",
+      "bbox": [
+        66,
+        71,
+        190,
+        230
+      ],
+      "hash": "10790571b1567587a8fff0a7cd406e70e932c789837499340f51ecdecc1b0539",
+      "group": "jump",
+      "sourceBounds": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sourceContentBounds": [
+        128,
+        152,
+        400,
+        499
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        66,
+        71
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_jump2",
+      "bbox": [
+        73,
+        26,
+        183,
+        210
+      ],
+      "hash": "dd6aed273242977ace663fb44fdc602e5767ec24f6cf799bfcca579f74bd361e",
+      "group": "jump",
+      "sourceBounds": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "sourceContentBounds": [
+        144,
+        52,
+        385,
+        454
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        73,
+        26
+      ],
+      "bottom": 210
+    },
+    {
+      "name": "front_jump3",
+      "bbox": [
+        69,
+        26,
+        188,
+        200
+      ],
+      "hash": "144715af6375a0d197e9494932897b98d83826a0c84f5bc34d36dc42ef8a2d89",
+      "group": "jump",
+      "sourceBounds": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "sourceContentBounds": [
+        148,
+        51,
+        409,
+        432
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        69,
+        26
+      ],
+      "bottom": 200
+    },
+    {
+      "name": "front_collapse",
+      "bbox": [
+        16,
+        149,
+        241,
+        230
+      ],
+      "hash": "51536d9a4df2b5f76b255a3291cc4d55d9bd7ecbf4bfd18573258e2d44dc77b6",
+      "group": "reaction",
+      "sourceBounds": [
+        539,
+        0,
+        1254,
+        627
+      ],
+      "sourceContentBounds": [
+        102,
+        363,
+        692,
+        576
+      ],
+      "scale": 0.3815261044176707,
+      "destination": [
+        16,
+        149
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_attack1",
+      "bbox": [
+        70,
+        40,
+        186,
+        230
+      ],
+      "hash": "62faeff7610f169a1096e438695d8caf9c4bdf65879ae27cf5975e0e36d5b473",
+      "group": "attack",
+      "sourceBounds": [
+        0,
+        0,
+        397,
+        396
+      ],
+      "sourceContentBounds": [
+        99,
+        40,
+        308,
+        384
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        70,
+        40
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_attack2",
+      "bbox": [
+        57,
+        39,
+        199,
+        230
+      ],
+      "hash": "eea51c48c2f706625c55ac44f2206fe338cef53712666f09dbb8af7ee1f7fd03",
+      "group": "attack",
+      "sourceBounds": [
+        397,
+        0,
+        793,
+        396
+      ],
+      "sourceContentBounds": [
+        78,
+        40,
+        334,
+        386
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        57,
+        39
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_attack3",
+      "bbox": [
+        48,
+        40,
+        208,
+        230
+      ],
+      "hash": "8857de986cc0311ba977be9a0c76fb028f8d7fec1e233b01004f5a889a66663b",
+      "group": "attack",
+      "sourceBounds": [
+        793,
+        0,
+        1190,
+        396
+      ],
+      "sourceContentBounds": [
+        62,
+        42,
+        352,
+        385
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        48,
+        40
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_attack4",
+      "bbox": [
+        50,
+        71,
+        207,
+        230
+      ],
+      "hash": "cdfcb280986651e8cfa8a9b32dd4a8cfd9c64a6c0d9e7b8c5d2ca434e71fa4dc",
+      "group": "attack",
+      "sourceBounds": [
+        1190,
+        0,
+        1586,
+        396
+      ],
+      "sourceContentBounds": [
+        52,
+        96,
+        335,
+        384
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        50,
+        71
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "front_attack5",
+      "bbox": [
+        77,
+        40,
+        179,
+        230
+      ],
+      "hash": "1a322d120837cc463b9d31ea66f3b4cfc6669185a57058dc69bc97bcfd795c9b",
+      "group": "attack",
+      "sourceBounds": [
+        1586,
+        0,
+        1983,
+        396
+      ],
+      "sourceContentBounds": [
+        99,
+        40,
+        284,
+        384
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        77,
+        40
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_idle",
+      "bbox": [
+        77,
+        41,
+        180,
+        230
+      ],
+      "hash": "24766d76d7a07cfbbb858575d1f7216459611119e6f71943956ec1c087d07b56",
+      "group": "walk",
+      "sourceBounds": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "sourceContentBounds": [
+        147,
+        51,
+        373,
+        464
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        77,
+        41
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_walk_right",
+      "bbox": [
+        67,
+        42,
+        190,
+        230
+      ],
+      "hash": "0d5734fe047dc9ca81c66f7c28b6bcf1e1f607d70290d7429d282a9e8a5c30de",
+      "group": "gait-forward",
+      "sourceBounds": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "sourceContentBounds": [
+        216,
+        22,
+        579,
+        579
+      ],
+      "scale": 0.33822874944370274,
+      "destination": [
+        67,
+        42
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_walk_left",
+      "bbox": [
+        61,
+        41,
+        195,
+        230
+      ],
+      "hash": "dce28fd3c5a136d4ddb2fe4284deaea94fd36d72418cfd11637ff8c9c1e3699f",
+      "group": "opposite",
+      "sourceBounds": [
+        0,
+        512,
+        768,
+        1024
+      ],
+      "sourceContentBounds": [
+        242,
+        17,
+        560,
+        466
+      ],
+      "scale": 0.4198895027624309,
+      "destination": [
+        61,
+        41
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_hurt",
+      "bbox": [
+        56,
+        43,
+        200,
+        230
+      ],
+      "hash": "1de55d6d9aedac2abf16fbb4f99fcc52f675ed2ad0854fcc6eb9c896333f4467",
+      "group": "reaction",
+      "sourceBounds": [
+        0,
+        627,
+        539,
+        1254
+      ],
+      "sourceContentBounds": [
+        101,
+        62,
+        478,
+        551
+      ],
+      "scale": 0.3815261044176707,
+      "destination": [
+        56,
+        43
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_jump1",
+      "bbox": [
+        64,
+        70,
+        192,
+        230
+      ],
+      "hash": "9d94bd14ce7f809d47f24df69f2f49314befffe109ece8d70035f9ec88b6d6b4",
+      "group": "jump",
+      "sourceBounds": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "sourceContentBounds": [
+        137,
+        121,
+        416,
+        471
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        64,
+        70
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_jump2",
+      "bbox": [
+        72,
+        25,
+        184,
+        210
+      ],
+      "hash": "9339b780f94c36e0183e2c5bfcbbcf416ca31284f7c355c9168160f7c07683a8",
+      "group": "jump",
+      "sourceBounds": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "sourceContentBounds": [
+        152,
+        41,
+        397,
+        445
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        72,
+        25
+      ],
+      "bottom": 210
+    },
+    {
+      "name": "back_jump3",
+      "bbox": [
+        69,
+        16,
+        187,
+        200
+      ],
+      "hash": "c12de032aa1a3ae38e8148e6a5cc63a55db1bfcc59c1b02bc965a3d2e65224c7",
+      "group": "jump",
+      "sourceBounds": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "sourceContentBounds": [
+        153,
+        37,
+        410,
+        440
+      ],
+      "scale": 0.457280385078219,
+      "destination": [
+        69,
+        16
+      ],
+      "bottom": 200
+    },
+    {
+      "name": "back_collapse",
+      "bbox": [
+        15,
+        149,
+        241,
+        230
+      ],
+      "hash": "c1412ebe29ad7ad3f337b8bdc147fc73d22dd85f217b106ffc5df9dbdf7680bd",
+      "group": "reaction",
+      "sourceBounds": [
+        539,
+        627,
+        1254,
+        1254
+      ],
+      "sourceContentBounds": [
+        94,
+        321,
+        686,
+        532
+      ],
+      "scale": 0.3815261044176707,
+      "destination": [
+        15,
+        149
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_attack1",
+      "bbox": [
+        65,
+        42,
+        192,
+        230
+      ],
+      "hash": "d9e6eaa5d012c8f7569ebe83648a0b7b12785694d2e0707c05698b56cb4db6c6",
+      "group": "attack",
+      "sourceBounds": [
+        0,
+        396,
+        397,
+        793
+      ],
+      "sourceContentBounds": [
+        90,
+        32,
+        319,
+        372
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        65,
+        42
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_attack2",
+      "bbox": [
+        58,
+        39,
+        198,
+        230
+      ],
+      "hash": "33e4b61488b505d8857264be7dfba168ba8ad9e4acf0c4b9e2a24f8b8d4e7750",
+      "group": "attack",
+      "sourceBounds": [
+        397,
+        396,
+        793,
+        793
+      ],
+      "sourceContentBounds": [
+        75,
+        27,
+        329,
+        373
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        58,
+        39
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_attack3",
+      "bbox": [
+        48,
+        41,
+        208,
+        230
+      ],
+      "hash": "f9275b742cf0a9a5bfcd0a594550e5789f37b3ec96ebb88a241ee142da93569f",
+      "group": "attack",
+      "sourceBounds": [
+        793,
+        396,
+        1190,
+        793
+      ],
+      "sourceContentBounds": [
+        61,
+        30,
+        351,
+        372
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        48,
+        41
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_attack4",
+      "bbox": [
+        51,
+        66,
+        206,
+        230
+      ],
+      "hash": "317900508f7139584a391d16ab3c318d22abde83ff13a5b2c22f021833f5286d",
+      "group": "attack",
+      "sourceBounds": [
+        1190,
+        396,
+        1586,
+        793
+      ],
+      "sourceContentBounds": [
+        53,
+        76,
+        334,
+        373
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        51,
+        66
+      ],
+      "bottom": 230
+    },
+    {
+      "name": "back_attack5",
+      "bbox": [
+        73,
+        40,
+        184,
+        230
+      ],
+      "hash": "5ed6c6f9f6dfa03127bfcf72187a141825f7a847a7aef2739a841ea0ca135d6c",
+      "group": "attack",
+      "sourceBounds": [
+        1586,
+        396,
+        1983,
+        793
+      ],
+      "sourceContentBounds": [
+        91,
+        29,
+        291,
+        372
+      ],
+      "scale": 0.5531295487627366,
+      "destination": [
+        73,
+        40
+      ],
+      "bottom": 230
+    }
+  ],
+  "processing": "Actual ImageGen source grids; chroma key + silhouette despill + largest body extraction + one uniform scale per source group; translation only, no mirroring/rotation/pose synthesis. Reaction gutter adjusted to capture complete toes.",
+  "visualReview": {
+    "identityFrontBack": "Accepted after viewing all26pose contact sheet. Stable class silhouette, outfit, ears and mature elf identity front/back. Small generated hair/cloth detail variation occurs during high movement.",
+    "alternatingLegs": "Final correction accepted: walk_right uses ImageGen gait-forward source with near foreground thigh crossing over far straight planted supportleg and near boot lifted forward. walk_left has the same near leg bent backward/tucked. Both front and back were inspected side-by-side in gait-final-review.jpg. No mirrored/rotated/procedural body transforms.",
+    "allPoses": "Accepted: front/back idle, opposite near-leg strides, hurt, crouch and two airborne poses, horizontal collapse, five distinct attack phases. No clipping, labels, weapons, wings or scenery.",
+    "sockets": "Hand centres manually measured on final256px cells and marked in sockets-review.jpg. Cyan dot represents runtime equipment anchor.",
+    "status": "accepted",
+    "socketCorrections": "Final front/back walk_right grips measured on generated glove centres and transformed with uniform sourcegroup scale into final256cell. Cleric prior back_jump1 and back_attack5 glove corrections preserved."
+  },
+  "brightMagentaPixels": 0,
+  "socketAlphaAudit": {
+    "minimumAlpha": 252,
+    "allAtLeast100": true,
+    "values": {
+      "front_idle": 255,
+      "front_walk_right": 255,
+      "front_walk_left": 255,
+      "front_hurt": 255,
+      "front_jump1": 255,
+      "front_jump2": 255,
+      "front_jump3": 253,
+      "front_collapse": 255,
+      "front_attack1": 255,
+      "front_attack2": 255,
+      "front_attack3": 255,
+      "front_attack4": 255,
+      "front_attack5": 255,
+      "back_idle": 255,
+      "back_walk_right": 255,
+      "back_walk_left": 255,
+      "back_hurt": 255,
+      "back_jump1": 252,
+      "back_jump2": 255,
+      "back_jump3": 255,
+      "back_collapse": 255,
+      "back_attack1": 255,
+      "back_attack2": 255,
+      "back_attack3": 255,
+      "back_attack4": 255,
+      "back_attack5": 255
+    },
+    "source": "Final sheet.png sampled at rounded runtime socket coordinates"
+  },
+  "sourceGenerationCalls": 7
+}

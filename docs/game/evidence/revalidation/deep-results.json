@@ -1,0 +1,30 @@
+{
+  "miss": {
+    "seed": 3,
+    "hpBefore": 55,
+    "hpAfter": 55,
+    "attackerTP": 6,
+    "defenderTP": 4,
+    "log": "에린 → 잿빛 기사 · 빗나감"
+  },
+  "aoeHeal": {
+    "schemaValid": true,
+    "valid": [
+      "a1"
+    ],
+    "preview": 44,
+    "allyHP": 10,
+    "enemyHP": 54,
+    "mp": 40,
+    "log": [
+      "은빛 여명 원정대 · 모든 적을 쓰러뜨리세요.",
+      "에린 → 잿빛 기사 · 회복 44"
+    ]
+  },
+  "mapsFirstTwoIdentical": true,
+  "thirdChangedTiles": 6,
+  "formulaFuzz": {
+    "cases": 1000,
+    "failures": 0
+  }
+}

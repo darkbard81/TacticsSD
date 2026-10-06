@@ -37,7 +37,7 @@ describe('pivot/socket attachment contract', () => {
     }
     expect(view.parts.filter(p=>p.id!=='body')).toEqual(before);
   });
-  it('applies shared bounce and isometric shape once through body; limbs retain local motion', () => {
+  it('applies shared bounce and user direction transforms once through body; limbs retain local motion', () => {
     const rig=createDefaultRig();rig.motion.headRecoil=0;rig.motion.lean=0;
     for (const mode of ['Idle','Walk'] as const) {
       const poses=evaluateRig(rig,'Front',.3,mode), body=poses.find(p=>p.id==='body')!,head=poses.find(p=>p.id==='head')!;
@@ -45,6 +45,7 @@ describe('pivot/socket attachment contract', () => {
       const rest=evaluateWorldRig(rig,'Front',0,'Rest'), moving=evaluateWorldRig(rig,'Front',.3,mode);
       expect(moving[0].y-rest[0].y).toBeCloseTo(body.y);
     }
+    Object.assign(rig.directions.SE.parts.body,{scaleX:.88,skewY:.06});
     const iso=evaluateWorldRig(rig,'SE',0,'Rest');
     expect(iso.find(p=>p.id==='head')!.matrix.a).toBeCloseTo(.88*Math.cos(.06));
     expect(rig.directions.SE.parts.head.scaleX).toBe(1);

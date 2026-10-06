@@ -1,0 +1,166 @@
+{
+  "dimensions": {
+    "width": 1024,
+    "height": 768,
+    "backingWidth": 2048,
+    "backingHeight": 1536,
+    "dpr": 2
+  },
+  "beforeWait": {
+    "id": "a0",
+    "hero": 0,
+    "weaponVariant": 0,
+    "classId": "knight",
+    "abilityId": "dawn-strike",
+    "derived": {
+      "stats": {
+        "str": 25,
+        "vit": 25,
+        "dex": 22,
+        "int": 17,
+        "mnd": 18,
+        "res": 20
+      },
+      "attack": 26,
+      "defense": 9,
+      "offense": 47.2,
+      "toughness": 37.5,
+      "damageBonus": 10,
+      "resistance": 0,
+      "hp": 100,
+      "mp": 24,
+      "move": 4
+    },
+    "name": "에린",
+    "job": 0,
+    "team": "ally",
+    "x": 1,
+    "y": 2,
+    "hp": 100,
+    "maxHp": 100,
+    "mp": 0,
+    "tp": 0,
+    "readyAt": 0,
+    "baseRT": 90,
+    "moved": false,
+    "acted": false,
+    "skillUsed": false,
+    "skillRT": 0,
+    "moveRT": 0,
+    "actionRT": 0,
+    "atk": 26,
+    "def": 9,
+    "move": 4,
+    "range": 1,
+    "jump": 1,
+    "done": false,
+    "guard": false,
+    "facing": "SE"
+  },
+  "afterCancelWait": {
+    "id": "a0",
+    "hero": 0,
+    "weaponVariant": 0,
+    "classId": "knight",
+    "abilityId": "dawn-strike",
+    "derived": {
+      "stats": {
+        "str": 25,
+        "vit": 25,
+        "dex": 22,
+        "int": 17,
+        "mnd": 18,
+        "res": 20
+      },
+      "attack": 26,
+      "defense": 9,
+      "offense": 47.2,
+      "toughness": 37.5,
+      "damageBonus": 10,
+      "resistance": 0,
+      "hp": 100,
+      "mp": 24,
+      "move": 4
+    },
+    "name": "에린",
+    "job": 0,
+    "team": "ally",
+    "x": 1,
+    "y": 2,
+    "hp": 100,
+    "maxHp": 100,
+    "mp": 0,
+    "tp": 0,
+    "readyAt": 0,
+    "baseRT": 90,
+    "moved": false,
+    "acted": false,
+    "skillUsed": false,
+    "skillRT": 0,
+    "moveRT": 0,
+    "actionRT": 0,
+    "atk": 26,
+    "def": 9,
+    "move": 4,
+    "range": 1,
+    "jump": 1,
+    "done": false,
+    "guard": true,
+    "facing": "SE"
+  },
+  "resized": {
+    "width": 1280,
+    "height": 900,
+    "backingWidth": 2560,
+    "backingHeight": 1800,
+    "dpr": 2
+  },
+  "dprChanged": {
+    "width": 1024,
+    "height": 768,
+    "backingWidth": 1024,
+    "backingHeight": 768,
+    "dpr": 1
+  },
+  "tabBinding": "Tab",
+  "tabBefore": {
+    "x": 1,
+    "y": 2
+  },
+  "tabAfter": {
+    "x": 1,
+    "y": 2
+  },
+  "spaceBefore": {
+    "mode": "command",
+    "top": false
+  },
+  "spaceAfter": {
+    "mode": "move",
+    "top": true
+  },
+  "padKeyboardCapture": {
+    "text": "INPUT & ACCESSIBILITY\n입력 설정\n\n「위」에 사용할 키를 누르세요. Esc: 취소\n\n위\nArrowUp\n패드 12\n아래\nArrowDown\n패드 13\n왼쪽\nArrowLeft\n패드 14\n오른쪽\nArrowRight\n패드 15\n확인\nEnter\n패드 0\n취소 / 뒤로\nEscape\n패드 1\n일시정지\nKeyP\n패드 9\n다음 유닛\nKeyE\n패드 5\n이전 유닛\nKeyQ\n패드 4\n기본 동작\n카메라 / 시점\n기본값 복원\n저장하고 돌아가기\n왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30\n표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요.",
+    "modal": "settings"
+  },
+  "padCancelRebind": {
+    "up": 1,
+    "down": 13,
+    "left": 14,
+    "right": 15,
+    "confirm": 0,
+    "cancel": 12,
+    "menu": 9,
+    "next": 5,
+    "previous": 4,
+    "view": 3,
+    "zoomIn": 7,
+    "zoomOut": 6,
+    "cameraUp": -1,
+    "cameraDown": -1,
+    "cameraLeft": -1,
+    "cameraRight": -1,
+    "cameraReset": 11
+  },
+  "errors": []
+}

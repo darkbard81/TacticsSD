@@ -1,0 +1,710 @@
+{
+  "class": "Knight",
+  "dimensions": [
+    1792,
+    1024
+  ],
+  "mode": "RGBA",
+  "alpha": {
+    "transparent": 1502042,
+    "opaque": 265508
+  },
+  "blank_cells": [
+    [
+      6,
+      2
+    ],
+    [
+      6,
+      3
+    ]
+  ],
+  "unique_pose_hashes": 26,
+  "frames": {
+    "front_idle": {
+      "source": "raw/locomotion.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        111,
+        25,
+        393,
+        490
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        64,
+        42
+      ],
+      "bounds": [
+        64,
+        42,
+        178,
+        230
+      ],
+      "sha256": "079d5df6a1b279819a68133f61f5205a450d3d83a4e534fbe7c4ac4c42282bf3"
+    },
+    "front_walk_right": {
+      "source": "raw/gait3.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        122,
+        36,
+        552,
+        606
+      ],
+      "uniform_group_scale": 0.33,
+      "offset": [
+        45,
+        42
+      ],
+      "bounds": [
+        45,
+        42,
+        187,
+        230
+      ],
+      "sha256": "a2dd8783040f02d7fc9c077acb559936213e649649f00ea8446f06ccc7e9eb1e"
+    },
+    "front_walk_left": {
+      "source": "raw/tucked.png",
+      "source_cell": [
+        1,
+        0
+      ],
+      "source_bbox": [
+        216,
+        26,
+        564,
+        479
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        35,
+        47
+      ],
+      "bounds": [
+        35,
+        47,
+        176,
+        230
+      ],
+      "sha256": "a611448fdd01be44a98f75f877a128df0ca5bfd8f32c4078029cd125e06f6cad"
+    },
+    "front_hurt": {
+      "source": "raw/reaction.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        156,
+        30,
+        768,
+        488
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        39,
+        45
+      ],
+      "bounds": [
+        39,
+        45,
+        220,
+        230
+      ],
+      "sha256": "ec3d001913a3ec3e507d65b6be9af68e566f07a4770c1bd3c9143aee4fca87f8"
+    },
+    "front_jump1": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        101,
+        161,
+        416,
+        482
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        62,
+        108
+      ],
+      "bounds": [
+        62,
+        108,
+        182,
+        230
+      ],
+      "sha256": "f968f325fecf36c1ce185ecc288999017740f009fc3a39237f014bbd5afdc659"
+    },
+    "front_jump2": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        1,
+        0
+      ],
+      "source_bbox": [
+        86,
+        51,
+        379,
+        412
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        56,
+        73
+      ],
+      "bounds": [
+        56,
+        73,
+        167,
+        210
+      ],
+      "sha256": "21c7e8f6db4503fa71c6f787a774392622dae96074e260ae8fe00b15b3007818"
+    },
+    "front_jump3": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        2,
+        0
+      ],
+      "source_bbox": [
+        60,
+        18,
+        445,
+        505
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        46,
+        15
+      ],
+      "bounds": [
+        46,
+        15,
+        192,
+        200
+      ],
+      "sha256": "789ed052953cc1923fd301e9e42ea8e8e8cf0d7b073bf7a940696c654fbcbb6a"
+    },
+    "front_collapse": {
+      "source": "raw/collapse.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        30,
+        344,
+        596,
+        560
+      ],
+      "uniform_group_scale": 0.34,
+      "offset": [
+        32,
+        157
+      ],
+      "bounds": [
+        32,
+        157,
+        224,
+        230
+      ],
+      "sha256": "e200a70dd056f48f35c4f552110b5897a502ca9ec8636b65f9bf020222adfb6d"
+    },
+    "front_attack1": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_bbox": [
+        68,
+        23,
+        331,
+        379
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        61,
+        48
+      ],
+      "bounds": [
+        61,
+        48,
+        195,
+        230
+      ],
+      "sha256": "fffa0f197ad33a0a3b05d2235fceb090e0d719c882ca79bd0e0c82038bfd509b"
+    },
+    "front_attack2": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        1,
+        0
+      ],
+      "source_bbox": [
+        45,
+        14,
+        316,
+        379
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        49,
+        44
+      ],
+      "bounds": [
+        49,
+        44,
+        187,
+        230
+      ],
+      "sha256": "88c589045b47b44b91a172667ca2137fc662931effc3126c365fa46e5735b3a6"
+    },
+    "front_attack3": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        2,
+        0
+      ],
+      "source_bbox": [
+        22,
+        25,
+        366,
+        379
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        37,
+        49
+      ],
+      "bounds": [
+        37,
+        49,
+        212,
+        230
+      ],
+      "sha256": "fdffd0a1cbfadb0ba21a505e0b78453d5964f3f3d078a490363c84b324448698"
+    },
+    "front_attack4": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        3,
+        0
+      ],
+      "source_bbox": [
+        17,
+        90,
+        347,
+        377
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        35,
+        84
+      ],
+      "bounds": [
+        35,
+        84,
+        203,
+        230
+      ],
+      "sha256": "6698de16936b28fd397c0b4e4c6159c207a8f0df9506eb17f1c8d6ff6fd72a3e"
+    },
+    "front_attack5": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        4,
+        0
+      ],
+      "source_bbox": [
+        74,
+        21,
+        300,
+        379
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        64,
+        47
+      ],
+      "bounds": [
+        64,
+        47,
+        179,
+        230
+      ],
+      "sha256": "2bab787d6c391b63a453268a6714b42fb1a8c52af1d70207fe0b33ab85dc291c"
+    },
+    "back_idle": {
+      "source": "raw/locomotion.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        101,
+        23,
+        386,
+        486
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        60,
+        42
+      ],
+      "bounds": [
+        60,
+        42,
+        175,
+        230
+      ],
+      "sha256": "0ed3cd1c8896e0a09f1d9a2be0694cd1cf8d7e908e753f0d281cf1bf8ef1affb"
+    },
+    "back_walk_right": {
+      "source": "raw/gait3.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        117,
+        8,
+        599,
+        586
+      ],
+      "uniform_group_scale": 0.33,
+      "offset": [
+        43,
+        39
+      ],
+      "bounds": [
+        43,
+        39,
+        202,
+        230
+      ],
+      "sha256": "a8e00b5ad1f286bcb09a7a3112e97b58b11b31a4491e1ede758e5e0645adbdb2"
+    },
+    "back_walk_left": {
+      "source": "raw/tucked.png",
+      "source_cell": [
+        1,
+        1
+      ],
+      "source_bbox": [
+        230,
+        8,
+        586,
+        472
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        41,
+        42
+      ],
+      "bounds": [
+        41,
+        42,
+        185,
+        230
+      ],
+      "sha256": "3847f1ec9985ea33652cc79f9a9100c973665bfb6043eece4e544973ed2492cf"
+    },
+    "back_hurt": {
+      "source": "raw/reaction.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        153,
+        9,
+        768,
+        449
+      ],
+      "uniform_group_scale": 0.405,
+      "offset": [
+        38,
+        52
+      ],
+      "bounds": [
+        38,
+        52,
+        219,
+        230
+      ],
+      "sha256": "1f04207635f987daec3eaeab3562fb5e7fe6337316eaead7719ba8b67136d4fd"
+    },
+    "back_jump1": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        79,
+        128,
+        422,
+        468
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        54,
+        101
+      ],
+      "bounds": [
+        54,
+        101,
+        184,
+        230
+      ],
+      "sha256": "fd8b0be628f2b4efecf0d8f72bfeaf8dc9156ed50e997440d9d6e0394e6408fd"
+    },
+    "back_jump2": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        1,
+        1
+      ],
+      "source_bbox": [
+        71,
+        27,
+        383,
+        387
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        50,
+        73
+      ],
+      "bounds": [
+        50,
+        73,
+        169,
+        210
+      ],
+      "sha256": "7132039c899f72088a4274e5d2c911b88a7ed3885ef4feee7c4be10d14e6648f"
+    },
+    "back_jump3": {
+      "source": "raw/jump.png",
+      "source_cell": [
+        2,
+        1
+      ],
+      "source_bbox": [
+        48,
+        13,
+        458,
+        491
+      ],
+      "uniform_group_scale": 0.38,
+      "offset": [
+        42,
+        18
+      ],
+      "bounds": [
+        42,
+        18,
+        198,
+        200
+      ],
+      "sha256": "01e5d4e9d55f21eda7f8cc76446fa613eb6b94e02f89052a43aa8c522f43ce01"
+    },
+    "back_collapse": {
+      "source": "raw/collapse.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        31,
+        296,
+        610,
+        517
+      ],
+      "uniform_group_scale": 0.34,
+      "offset": [
+        30,
+        155
+      ],
+      "bounds": [
+        30,
+        155,
+        227,
+        230
+      ],
+      "sha256": "9b9cd7039384139dce491547cb23bc9ae9dbffe5d132b39749b478d535f37663"
+    },
+    "back_attack1": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_bbox": [
+        61,
+        13,
+        322,
+        375
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        57,
+        45
+      ],
+      "bounds": [
+        57,
+        45,
+        190,
+        230
+      ],
+      "sha256": "ed17df9c03914390dc762f90e28856853142ae95d649d2144375fcd490867c52"
+    },
+    "back_attack2": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        1,
+        1
+      ],
+      "source_bbox": [
+        48,
+        7,
+        340,
+        374
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        50,
+        43
+      ],
+      "bounds": [
+        50,
+        43,
+        199,
+        230
+      ],
+      "sha256": "228c1898d9edae143e16307dafdaca71a2279bf8ca9509dfc72257326b174ca9"
+    },
+    "back_attack3": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        2,
+        1
+      ],
+      "source_bbox": [
+        22,
+        14,
+        365,
+        374
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        37,
+        46
+      ],
+      "bounds": [
+        37,
+        46,
+        212,
+        230
+      ],
+      "sha256": "306f4ab550ebef2e27fac14c790ba41e151a210a9f9d086996a602a446460bd9"
+    },
+    "back_attack4": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        3,
+        1
+      ],
+      "source_bbox": [
+        15,
+        78,
+        347,
+        371
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        34,
+        81
+      ],
+      "bounds": [
+        34,
+        81,
+        203,
+        230
+      ],
+      "sha256": "f1bdfffcaa3828fafc0a70e15b4b5f412986be2872bfdc071056c51b8e411c07"
+    },
+    "back_attack5": {
+      "source": "raw/attack.png",
+      "source_cell": [
+        4,
+        1
+      ],
+      "source_bbox": [
+        76,
+        13,
+        314,
+        375
+      ],
+      "uniform_group_scale": 0.51,
+      "offset": [
+        65,
+        45
+      ],
+      "bounds": [
+        65,
+        45,
+        186,
+        230
+      ],
+      "sha256": "35d26c184718c7d37205f898ece596e0fc50d9e8a55e2702f2d076e6b6e4dc4e"
+    }
+  },
+  "visual_review": {
+    "status": "passed",
+    "reviewed_all_26": true,
+    "central_review": "Integration owner independently reviewed contact.png and passed before freeze",
+    "notes": [
+      "Original silverplate, blue tabard, short blue cape and pearl-white bob identity persists front/back.",
+      "Locomotion repaired after independent anatomical QA: walk_right foreground thigh crosses in front of pelvis with raised forward knee and boot; walk_left retains near trailing tucked boot. True near/far phase exchange visually reviewed. No mirrored or transformed pose art.",
+      "Ten unique attack frames visibly change guard, overhead windup, release, low follow-through, and recovery.",
+      "Jump2/3 ground-contact displacement is20/30px respectively; jump1 remains grounded crouch.",
+      "Collapse remains horizontal and low.",
+      "No wings, weapons, scenery, labels, clipping, or opaque cell backgrounds.",
+      "Uniform scale within each raw action group; per-group scale chosen to match anatomical head/body scale. No per-frame fit.",
+      "Hand socket coordinates manually measured from final frames for dominant equipment hand."
+    ]
+  },
+  "blank_cells_verified": true,
+  "minimum_gutter_px": 15,
+  "socket_count": 26,
+  "gait_repair": {
+    "reason": "Earlier extended-to-tucked variation did not exchange anatomical lead leg.",
+    "accepted_source": "raw/gait3.png",
+    "rejected_for_proportion": "raw/gait2.png",
+    "changed_frames": [
+      "front_walk_right",
+      "back_walk_right"
+    ],
+    "unchanged_opposite_frames": [
+      "front_walk_left",
+      "back_walk_left"
+    ],
+    "method": "ImageGen from original Knight identity and anatomically accepted gait2 pose-only reference, with explicit compact adult SD proportions.",
+    "evidence": "Foreground thigh now crosses in front of pelvis; forward raised knee/boot exchanges phase with near trailing tucked boot. Opposite leg supports body.",
+    "source_uniform_scale": 0.33,
+    "parent_review": "gait2 anatomical phase accepted; gait3 compact final submitted for centralized review"
+  }
+}

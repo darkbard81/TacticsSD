@@ -1,0 +1,1 @@
+import {defineConfig} from '/home/deck/Documents/TacticsSD/node_modules/@playwright/test/index.mjs'; export default defineConfig({testDir:'/tmp/elf-pad',testMatch:'full-pad.spec.ts',workers:1,outputDir:'/tmp/elf-pad/results',use:{baseURL:'http://127.0.0.1:4173',launchOptions:{args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}});

@@ -69,4 +69,28 @@ npm run verify
 
 이 프로젝트는 **로컬 `npm run verify` 결과를 CI 테스트 결과로 간주**합니다. 타입 검사 → 프로덕션 빌드 → 도메인 테스트 → Chromium 브라우저 테스트를 실행하며, GitHub Actions 워크플로는 사용하지 않습니다. 추가 Actions 설정은 필요하지 않습니다.
 
-`npm run test:all`은 도메인·브라우저 테스트만 실행합니다. 브라우저 검증 서버도 `npm run tool`로 시작합니다.
+`npm run test:all`은 도메인·브라우저 테스트만 실행합니다. 브라우저 검증 서버는 `npm run tool`로 전용 루프백 포트 4186에서 시작하며 기존 서버를 재사용하지 않습니다. 점유 중이면 `TACTICSSD_TEST_PORT=4187 npm run verify`처럼 별도 포트를 지정하세요.
+
+## 은빛 여명 게임
+
+프로젝트 루트에서 바로 게임을 실행합니다.
+
+```sh
+cd /home/deck/Documents/TacticsSD
+npm run game
+```
+
+**http://127.0.0.1:5173/game/** 을 기본 브라우저로 엽니다. 자동으로 열리지 않으면 이 URL에 직접 접속하세요. 로컬 루프백만 사용하며 5173이 점유되면 오류를 내고 종료합니다. 기존 서버를 종료하지 않고 다른 포트로 실행하려면 `npm run game -- --port 5174` 후 http://127.0.0.1:5174/game/ 을 사용하세요.
+
+`npm run tool` 후 [게임](http://localhost:5173/game/)을 열거나 메인 화면의 **은빛 여명 · 게임 시작**을 선택하세요. 키보드와 브라우저 Gamepad API로 월드맵/편성/장비/대화/전투/승패/설정까지 진행합니다. 최소지원은1024×768 CSS픽셀, 필수검증 DPR2이며 런타임은 실제 브라우저 크기/DPR를 따릅니다.
+
+- [실행·입력표·저장](docs/game/CONTROLS.md)
+- [구현 기준과 후속 요구](docs/game/IMPLEMENTATION.md)
+- [계산식과 콘텐츠 확장](docs/game/CALCULATION.md)
+- [8종 클래스 스프라이트·제자리 걷기·저장 호환](docs/game/CLASS_SPRITES.md)
+- [생성 아트·게임 리그의 에디터 재사용](docs/game/ART.md)
+- [자료 대비 추적표](docs/game/TRACEABILITY.md)
+- [PSP 기준과 자체 규칙 구분](docs/game/PSP_REFERENCE.md)
+- [검증 기록과 재현](docs/game/VALIDATION.md)
+
+새 게임 코드는 `game/`에 독립 배치되며 제작 도구 원본을 변경하지 않습니다. `npm run lint`는 TypeScript strict/noUnused 검사와 Git whitespace 검사입니다(별도 ESLint 설정은 없음). `npm run verify`는 lint → build → 전체 도메인/브라우저 테스트를 실행합니다.

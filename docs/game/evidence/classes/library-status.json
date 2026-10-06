@@ -1,0 +1,47 @@
+{
+  "status": "saved",
+  "route": "Official host-upload create fallback after prepared route unavailable",
+  "results": [
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/TacticsSD-eight-class-contact.png",
+      "file_id": "file_000000001c0882068fb11480cda20e79",
+      "library_file_id": "libfile_74e0b58b79208191b6fa428197c38bbf",
+      "file_name": "TacticsSD-eight-class-contact.png",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "libdir_c21362f3afd88191bfe2a2ef5bfbec2f",
+      "mime_type": "image/png",
+      "library_artifact_type": "other",
+      "file_size_bytes": 503017
+    },
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/TacticsSD-class-idle-motion.mp4",
+      "file_id": "file_00000000e75c82069244732e35eefaef",
+      "library_file_id": "libfile_c60ac584803c8191a55dc82abb47662b",
+      "file_name": "TacticsSD-class-idle-motion.mp4",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "libdir_c21362f3afd88191bfe2a2ef5bfbec2f",
+      "mime_type": "video/mp4",
+      "library_artifact_type": "other",
+      "file_size_bytes": 1438923
+    }
+  ],
+  "localIdentityPersisted": true
+}

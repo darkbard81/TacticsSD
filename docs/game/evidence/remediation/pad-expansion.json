@@ -1,0 +1,15 @@
+{
+  "input": "mock Gamepad only; no keyboard or mouse",
+  "party": [
+    2,
+    4,
+    0
+  ],
+  "abilityId": "moon-bolt",
+  "move": 4,
+  "mpBefore": 0,
+  "mpAfter": 12,
+  "stockBefore": 1,
+  "stockAfter": 0,
+  "errors": []
+}

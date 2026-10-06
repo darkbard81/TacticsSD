@@ -1,0 +1,42 @@
+[
+  {
+    "operation": "create_library_file",
+    "status": "succeeded",
+    "path": "/TacticsSD-SD-Elf-motion.gif",
+    "file_id": "file_0000000074f8820687edcb2c87785450",
+    "library_file_id": "libfile_11fa1df568ac819182d58658ea715500",
+    "file_name": "TacticsSD-SD-Elf-motion.gif",
+    "current_version_number": 0,
+    "restored_from_version_number": null,
+    "xattrs": [
+      {
+        "name": "user.library-file-version",
+        "value": "0"
+      }
+    ],
+    "directory_id": "libdir_c21362f3afd88191bfe2a2ef5bfbec2f",
+    "mime_type": "image/gif",
+    "library_artifact_type": "image",
+    "file_size_bytes": 6389939
+  },
+  {
+    "operation": "create_library_file",
+    "status": "succeeded",
+    "path": "/TacticsSD-SD-Elf-battle.png",
+    "file_id": "file_00000000e5008206a08c966dbaee17d9",
+    "library_file_id": "libfile_be9d39f523608191ac02b41536d3bf49",
+    "file_name": "TacticsSD-SD-Elf-battle.png",
+    "current_version_number": 0,
+    "restored_from_version_number": null,
+    "xattrs": [
+      {
+        "name": "user.library-file-version",
+        "value": "0"
+      }
+    ],
+    "directory_id": "libdir_c21362f3afd88191bfe2a2ef5bfbec2f",
+    "mime_type": "image/png",
+    "library_artifact_type": "image",
+    "file_size_bytes": 1929625
+  }
+]

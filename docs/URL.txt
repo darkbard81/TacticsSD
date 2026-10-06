@@ -1,0 +1,7 @@
+https://ogre-db.github.io/one-vision/weapons.html
+https://ogre-db.github.io/one-vision/armor.html
+https://ogre-db.github.io/one-vision/sundries.html
+https://ogre-db.github.io/one-vision/calculator.html
+https://ogre-db.github.io/one-vision/classes.html
+https://ogre-db.github.io/one-vision/skills.html
+https://ogre-db.github.io/one-vision/abilities.html

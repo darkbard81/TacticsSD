@@ -1,0 +1,331 @@
+--- a/README.md
++++ b/README.md
+@@ -87,6 +87,7 @@
+ - [실행·입력표·저장](docs/game/CONTROLS.md)
+ - [구현 기준과 후속 요구](docs/game/IMPLEMENTATION.md)
+ - [계산식과 콘텐츠 확장](docs/game/CALCULATION.md)
++- [8종 클래스 스프라이트·제자리 걷기·저장 호환](docs/game/CLASS_SPRITES.md)
+ - [생성 아트·게임 리그의 에디터 재사용](docs/game/ART.md)
+ - [자료 대비 추적표](docs/game/TRACEABILITY.md)
+ - [PSP 기준과 자체 규칙 구분](docs/game/PSP_REFERENCE.md)
+--- a/game/content.ts
++++ b/game/content.ts
+@@ -29,8 +29,16 @@
+     { id: 'healer', name: '치유사', icon: '☀', baseRT: 85, hp: 80, mp: 36, atk: 20, def: 6, move: 4, range: 3, jump: 1, abilityId: 'dawn-heal', skillId: 'focus-training', weaponFamily: 'sun', scaling: 'focus', base: base(8, 11, 10, 13, 17, 15), growth: base(5, 7, 6, 8, 12, 10) },
+ ]);
+ CLASSES.push(classSchema.parse({...CLASSES[0], id:'sentinel', name:'파수기사', icon:'♜', hp:112, def:13, move:3, baseRT:100, abilityId:'rally-aegis'}), classSchema.parse({...CLASSES[3], id:'sage', name:'현자', icon:'✧', hp:72, mp:40, abilityId:'circle-of-dawn'}));
++// Additive class IDs keep existing save references, equipment families and learning intact.
++CLASSES.push(
++    classSchema.parse({...CLASSES[0], id:'warrior', name:'전사 · Warrior', hp:96, def:7, baseRT:85}),
++    classSchema.parse({...CLASSES[0], id:'spellblade', name:'마법검사 · Spellblade', hp:88, mp:36, abilityId:'moon-bolt', base:base(13,12,12,13,12,11)}),
++    classSchema.parse({...CLASSES[4], id:'terror-knight', name:'공포기사 · Terror Knight', hp:108, abilityId:'dawn-strike'}),
++    classSchema.parse({...CLASSES[0], id:'berserker', name:'광전사 · Berserker', hp:108, atk:30, def:5, baseRT:95})
++);
+ export const CLASS_ABILITIES: Record<string, string[]> = {knight:['dawn-strike'], ranger:['piercing-shot'], arcanist:['starburst','moon-bolt'], healer:['dawn-heal','circle-of-dawn'], sentinel:['rally-aegis','dawn-strike'], sage:['circle-of-dawn','moon-bolt','dawn-heal']};
+-export const ROSTER = [{ id: 'erin', name: '에린', classId: 'knight' }, { id: 'rowan', name: '로웬', classId: 'ranger' }, { id: 'sera', name: '세라', classId: 'arcanist' }, { id: 'miel', name: '미엘', classId: 'healer' }, {id:'lena',name:'레나',classId:'sentinel'}, {id:'iris',name:'이리스',classId:'sage'}];
++Object.assign(CLASS_ABILITIES, {warrior:['dawn-strike'], spellblade:['moon-bolt','dawn-strike'], 'terror-knight':['dawn-strike','rally-aegis'], berserker:['dawn-strike']});
++export const ROSTER = [{ id: 'erin', name: '에린', classId: 'knight' }, { id: 'rowan', name: '로웬', classId: 'ranger' }, { id: 'sera', name: '세라', classId: 'arcanist' }, { id: 'miel', name: '미엘', classId: 'healer' }, {id:'lena',name:'레나',classId:'sentinel'}, {id:'iris',name:'이리스',classId:'sage'}, {id:'brina',name:'브리나',classId:'warrior'}, {id:'aelis',name:'엘리스',classId:'spellblade'}, {id:'nyra',name:'니라',classId:'terror-knight'}, {id:'kaela',name:'카엘라',classId:'berserker'}];
+ export const weaponSchema = z.object({ id, name: z.string(), family: z.string(), bonus: z.number(), frame: z.number().int().min(0).max(7), iconId:z.string().optional(), grip: z.object({ x: z.number(), y: z.number() }), animation: z.enum(['slash', 'thrust', 'shoot', 'cast', 'heal']) });
+ export const WEAPONS = weaponSchema.array().parse(['sword', 'bow', 'arcane', 'sun'].flatMap((family, j) => [0, 1].map(variant => ({ id: `${family}-${variant ? 'dawn' : 'field'}`, name: `${variant ? '여명' : '기본'} ${['검', '활', '별 지팡이', '성광 지팡이'][j]}`, family, bonus: variant * 5, frame: j * 2 + variant, grip: { x: [.62, .52, .45, .48, .61, .50, .46, .46][j * 2 + variant], y: family === 'bow' ? .5 : .82 }, animation: family === 'sword' ? (variant ? 'thrust' : 'slash') : family === 'bow' ? 'shoot' : family === 'arcane' ? 'cast' : 'heal' }))));
+ export const abilityById = (id: string) => ABILITIES.find(a => a.id === id)!;
+--- a/game/domain.ts
++++ b/game/domain.ts
+@@ -17,13 +17,21 @@
+ export function parseCampaign(raw: string | null): Campaign | null {
+     try {
+         const v = JSON.parse(raw ?? '');
++        // Newly added recruits bring only their equipped starter kit into finite inventories.
++        // Existing owned gear, consumables, currency and training remain unchanged.
++        const addRecruitKit = (hero: number) => {
++            if (hero < 6 || !v.inventory) return;
++            for (const id of [weaponFor(hero, 0).id, ARMOR[0].id]) {
++                const count = v.inventory[id] ?? 0;
++                v.inventory[id] = Number.isInteger(count) && count >= 0 && count <= 999 ? Math.min(999, count + 1) : count;
++            }
++        };
+         if (v.version === 2) {
+             const disk = z.object({ version: z.literal(2), unlocked: z.number(), gold: z.number(), cleared: z.array(z.number()), party: z.array(z.string()), equipment: z.record(z.string(), z.object({ weaponId: z.string(), armorId: z.string(), offhandId:z.string().optional(), armguardId:z.string().optional(), accessoryId:z.string().optional() })) }).parse(v);
+             const party = disk.party.map(id => ROSTER.findIndex(r => r.id === id));
+             const gear = ROSTER.map((r, i) => {
+                 const equipment = disk.equipment[r.id];
+-                if (!equipment)
+-                    return { weapon: 0, armor: 0 };
++                if (!equipment) { addRecruitKit(i); return { weapon: 0, armor: 0 }; }
+                 const w = WEAPONS.find(w => w.id === equipment.weaponId);
+                 if (!w || w.family !== jobForHero(i).weaponFamily)
+                     throw Error('Unknown equipment reference');
+@@ -32,7 +40,7 @@
+             });
+             return validateCampaign(campaignSchema.parse({ ...disk, version: 1, party, gear, levels:v.levels??{}, training:v.training??{},inventory:v.inventory }));
+         }
+-        if (v.version === 1 && Array.isArray(v.gear)) while(v.gear.length < ROSTER.length) v.gear.push({weapon:0,armor:0});
++        if (v.version === 1 && Array.isArray(v.gear)) while(v.gear.length < ROSTER.length) { addRecruitKit(v.gear.length); v.gear.push({weapon:0,armor:0}); }
+         return validateCampaign(campaignSchema.parse(v));
+     }
+     catch {
+--- a/game/elf-sprites.ts
++++ b/game/elf-sprites.ts
+@@ -1,5 +1,7 @@
+ import atlas from './assets/elf-sd-sheet-v2/frames.json' with { type: 'json' };
+ import itemFrames from './assets/items.json' with { type: 'json' };
++import { classSpriteFor, CLASS_SPRITE_URLS } from './class-sprites';
++import classSockets from './assets/classes/sockets.json' with { type: 'json' };
+ import { weaponFor } from './content';
+ import type { DirectionId } from '../tools/characterRig/domain/rig';
+ 
+@@ -20,17 +22,18 @@
+     const at = (state: ElfState, phase: number): ElfFrame => ({ state, frame: Math.min(atlas.sequences.front[state].length - 1, Math.floor(Math.max(0, phase) * atlas.sequences.front[state].length)) });
+     if (hurt > 0) return at('hurt', 1 - hurt);
+     if (progress < 1) return at(motion === 'item' ? 'item' : motion === 'jump' ? 'jump' : motion === 'collapse' ? 'collapse' : 'common_attack', progress);
+-    if (walking) return { state: 'walk', frame: Math.floor(Math.max(0, time) * 9) % 4 };
+-    return { state: 'idle', frame: 0 };
++    // Presentation clock only: waiting uses a relaxed walk loop without changing simulation.
++    return { state: 'walk', frame: Math.floor(Math.max(0, time) * (walking ? 9 : 5)) % 4 };
+ }
+ // One hand per painted pose, in cell pixels. Mirroring is inherited by body and gear together.
+ const hands: Record<'front' | 'back', Record<string, number[]>> = {
+     front: { idle: [99, 158], walk_right: [86, 158], walk_left: [143, 132], hurt: [181, 112], jump1: [84, 203], jump2: [92, 137], jump3: [91, 60], collapse: [188, 218], attack1: [157, 106], attack2: [106, 49], attack3: [211, 109], attack4: [174, 187], attack5: [100, 135] },
+     back: { idle: [102, 157], walk_right: [72, 157], walk_left: [139, 133], hurt: [159, 119], jump1: [80, 194], jump2: [89, 131], jump3: [154, 32], collapse: [185, 215], attack1: [157, 115], attack2: [106, 48], attack3: [209, 108], attack4: [181, 180], attack5: [105, 132] },
+ };
+-export function elfSocket(direction: DirectionId, pose: ElfFrame): Socket {
++export function elfSocket(direction: DirectionId, pose: ElfFrame, hero?: number): Socket {
+     const { view } = elfDirection(direction), semantic = elfPose(direction, pose).semantic;
+-    return { hand: hands[view][semantic], behind: view === 'back' && ['idle', 'walk_right', 'attack5'].includes(semantic) };
++    const authored = hero === undefined ? hands : (classSockets as Record<string, typeof hands>)[classSpriteFor(hero)];
++    return { hand: authored[view][semantic], behind: view === 'back' && ['idle', 'walk_right', 'attack5'].includes(semantic) };
+ }
+ export function elfWeaponAngle(pose: ElfFrame, motion: string) {
+     if (pose.state === 'common_attack') {
+@@ -43,39 +46,25 @@
+ 
+ /** Whole painted body frames. Equipment remains independently swappable at authored sockets. */
+ export class ElfSprites {
+-    private sheet = new Image();
++    private sheets = new Map<string, HTMLImageElement>();
+     private weapons = new Image();
+     private items = new Image();
+-    private palettes: HTMLCanvasElement[] = [];
+     private weaponCache = new Map<string, HTMLCanvasElement>();
+     readonly ready: Promise<void>;
+     loaded = false;
+     constructor() {
+-        this.sheet.src = new URL('./assets/elf-sd-sheet-v2/elf-adult-26pose-sheet.png', import.meta.url).href;
++        for (const [id, url] of Object.entries(CLASS_SPRITE_URLS)) {
++            const sheet = new Image(); sheet.src = url; this.sheets.set(id, sheet);
++        }
+         this.weapons.src = new URL('./assets/weapons.png', import.meta.url).href;
+         this.items.src = new URL('./assets/items.png', import.meta.url).href;
+-        this.ready = Promise.all([this.sheet, this.weapons, this.items].map(image => image.decode())).then(() => {
+-            this.palettes = this.tint(this.sheet);
++        this.ready = Promise.all([...this.sheets.values(), this.weapons, this.items].map(image => image.decode())).then(() => {
+             this.loaded = true;
+         });
+         // A failed asset still leaves the existing rig available; no unhandled rejection.
+         void this.ready.catch(() => undefined);
+     }
+-    private tint(image: HTMLImageElement) {
+-        return [0, 34, 202, 305, 82, 255].map(hue => {
+-            const c = document.createElement('canvas'); c.width = image.width; c.height = image.height;
+-            const ctx = c.getContext('2d')!; ctx.drawImage(image, 0, 0);
+-            const original = ctx.getImageData(0, 0, c.width, c.height);
+-            ctx.clearRect(0, 0, c.width, c.height); ctx.filter = `hue-rotate(${hue}deg)`; ctx.drawImage(image, 0, 0); ctx.filter = 'none';
+-            const tinted = ctx.getImageData(0, 0, c.width, c.height);
+-            // Only teal cloth/armor changes. Silver hair, eyes, skin, ivory, leather and gold are stable.
+-            for (let i = 0; i < original.data.length; i += 4) {
+-                const r = original.data[i], g = original.data[i + 1], b = original.data[i + 2];
+-                if (!(g > r * 1.12 && b > r * 1.08 && g > 30)) for (let j = 0; j < 3; j++) tinted.data[i + j] = original.data[i + j];
+-            }
+-            ctx.putImageData(tinted, 0, 0); return c;
+-        });
+-    }
++    sheetFor(hero: number) { return this.sheets.get(classSpriteFor(hero))!; }
+     private weaponImage(hero: number, variant: number) {
+         const weapon = weaponFor(hero, variant);
+         let c = this.weaponCache.get(weapon.id);
+@@ -89,8 +78,8 @@
+     }
+     draw(c: CanvasRenderingContext2D, hero: number, variant: number, direction: DirectionId, time: number, size: number, walking = false, progress = 1, motion = '', hurt = 0) {
+         if (!this.loaded) return false;
+-        const { flip } = elfDirection(direction), pose = elfFrame(time, walking, progress, motion, hurt), socket = elfSocket(direction, pose);
+-        const sheet = this.palettes[hero % 6], { rect } = elfPose(direction, pose);
++        const { flip } = elfDirection(direction), pose = elfFrame(time, walking, progress, motion, hurt), socket = elfSocket(direction, pose, hero);
++        const sheet = this.sheetFor(hero), { rect } = elfPose(direction, pose);
+         const attacking = pose.state === 'common_attack';
+         const weapon = weaponFor(hero, variant), bow = weapon.family === 'bow';
+         c.save(); c.scale((flip ? -1 : 1) * size / 256, size / 256); c.translate(-ELF_ANCHOR.x, -ELF_ANCHOR.y);
+--- a/game/main.ts
++++ b/game/main.ts
+@@ -646,7 +646,7 @@
+         inner = `${title('FIELD MANUAL', '전술 안내')}<p>① 월드맵에서 거점을 고르고 세 명을 편성합니다.<br>② RT가 0이 된 유닛을 Q/E 또는 확인으로 선택합니다.<br>③ 이동 1회·행동 1회·별도 기술(결의) 1회를 원하는 순서로 수행합니다.<br>④ AT 종료에서 방향을 확정하면 다음 유닛으로 넘어갑니다. 이동·행동을 생략하면 다음 차례가 빨라집니다.</p><p>높이차 1까지 오르내립니다(궁수 2). 수면·성벽·다른 유닛은 통과할 수 없습니다. 공격 전 예상 피해를 확인하세요. 마도사 기술은 인접 적에게도 피해를 주고, 치유사는 아군을 회복합니다.</p><p>V / 패드 3: 등각↔Top view<br>IJKL / 오른쪽 스틱: 카메라 · −/+ / 트리거: 줌 · R / R3: 복원<br>게임은 브라우저 Gamepad API 표준 매핑을 사용합니다.</p>${btn('close', '돌아가기')}`;
+     if (modal === 'settings')
+         inner = `${title('INPUT & ACCESSIBILITY', '입력 설정')}<p>${input.capture ? `<strong>「${LABELS[input.capture.action]}」에 사용할 ${input.capture.kind === 'keys' ? '키' : '패드 버튼'}를 누르세요. Esc / 패드 Back(8): 취소</strong>` : '변경할 입력을 선택하세요. 중복 입력은 기존 동작과 교환됩니다.'}</p><div class="bindings">${ACTIONS.slice(settingsOffset, settingsOffset + 9).map(a => `<div><span>${LABELS[a]}</span>${btn('bind-keys-' + ACTIONS.indexOf(a), escape(input.bindings.keys[a]))}${btn('bind-buttons-' + ACTIONS.indexOf(a), input.bindings.buttons[a] < 0 ? '오른쪽 스틱' : '패드 ' + input.bindings.buttons[a])}</div>`).join('')}</div><div class="row">${btn('settings-prev', '기본 동작', settingsOffset === 0)}${btn('settings-next', '카메라 / 시점', settingsOffset !== 0)}</div><div class="row">${btn('defaults', '기본값 복원')}${btn('close', '저장하고 돌아가기')}</div><small>왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30 · 재설정 취소: Back(8)<br>표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요.</small>`;
+-    if(modal==='rig') inner=`${title('CHARACTER RIG','리그와 파츠')}<p>리깅 도구에서 저장한 v2 JSON과 참조하는 모든 PNG를 함께 선택하세요. 앞·뒤 이미지와 개별 교체 파츠를 그대로 재생합니다.</p><p>기본 캐릭터는 SD 프레임 애니메이션입니다. 가져온 리그는 여섯 대원에게 적용되며 이 브라우저에 저장됩니다. 무기 그립은 오른팔 아래쪽 손 위치를 따릅니다.</p>${btn('rig-load','JSON + 이미지 불러오기')}${btn('rig-reset','SD 프레임 캐릭터로 복원')}${btn('close','돌아가기')}`;
++    if(modal==='rig') inner=`${title('CHARACTER RIG','리그와 파츠')}<p>리깅 도구에서 저장한 v2 JSON과 참조하는 모든 PNG를 함께 선택하세요. 앞·뒤 이미지와 개별 교체 파츠를 그대로 재생합니다.</p><p>기본 캐릭터는 SD 프레임 애니메이션입니다. 가져온 리그는 모든 대원에게 적용되며 이 브라우저에 저장됩니다. 무기 그립은 오른팔 아래쪽 손 위치를 따릅니다.</p>${btn('rig-load','JSON + 이미지 불러오기')}${btn('rig-reset','SD 프레임 캐릭터로 복원')}${btn('close','돌아가기')}`;
+     return `<div class="modal-shade"><section class="modal paper" role="dialog" aria-modal="true" aria-label="${modal === 'settings' ? '입력 설정' : modal === 'help' ? '전술 안내' : modal === 'rig' ? '리그와 파츠' : '일시정지'}">${inner}</section></div>`;
+ }
+ window.addEventListener('keydown', e => {
+--- a/game/style.css
++++ b/game/style.css
+@@ -15,3 +15,13 @@
+ #game[data-screen=items] .supply-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}#game[data-screen=items] .supply-list article{padding:7px;font-size:12px;min-height:62px}#game[data-screen=items] .supply-list article p{font-size:10px;margin:4px 0}#game[data-screen=items] .supply-list .item-icon{width:25px;height:25px;margin-right:4px}#game[data-screen=items] .roster-main>p{font-size:11px;line-height:1.4;margin:6px 0}#game[data-screen=items] .roster-main>h2{font-size:19px;margin:5px 0}#game[data-screen=items] .roster-main>h3{font-size:15px;margin:6px 0}
+ #game[data-screen=items] .supply-list article{min-height:54px;margin-bottom:0;padding:5px 7px}#game[data-screen=items] .supply-list article p{line-height:1.3;margin:2px 0}
+ @media(min-width:701px) and (max-width:1050px){.region-map{right:9%;width:30%;top:26%}}
++
++/* Ten recruits remain selectable above the footer at the 1024×768 game viewport. */
++#game[data-screen=party] .unit-cards{grid-template-columns:repeat(5,minmax(0,1fr))}
++#game[data-screen=party] .unit-cards .portrait{height:48px}
++#game[data-screen=party] .unit-cards small{min-height:26px;font-size:9px}
++#game[data-screen=party] .roster-main>h2{margin-top:0;margin-bottom:6px}
++#game[data-screen=party] .formation-board .portrait{height:34px}
++#game[data-screen=party] .roster-main>p{line-height:1.4;margin:5px 0}
++#game[data-screen=equipment] .roster-main>.row:first-child,#game[data-screen=training] .roster-main>.row:first-child{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
++#game[data-screen=equipment] .roster-main>.row:first-child button,#game[data-screen=training] .roster-main>.row:first-child button{min-height:32px;padding:5px 8px;font-size:12px}
+--- a/tests/game/elf-sprites.test.ts
++++ b/tests/game/elf-sprites.test.ts
+@@ -27,10 +27,11 @@
+             expect(poses.map(f => f.airborneOffsetY)).toEqual([0, -30, -20, 0]);
+         }
+     });
+-    it('cycles walking, prioritizes hurt, and returns to idle after actions', () => {
++    it('cycles walking, prioritizes hurt, and returns to in-place walking after actions', () => {
+         expect([0, 1, 2, 3, 4].map(i => elfPose('SE', elfFrame(i / 9 + .001, true, 1, '', 0)).semantic)).toEqual(['idle', 'walk_right', 'idle', 'walk_left', 'idle']);
+         expect(elfPose('NE', elfFrame(0, true, .5, 'slash', .5)).semantic).toBe('hurt');
+-        expect(elfFrame(3, false, 1, 'item', 0)).toEqual({ state: 'idle', frame: 0 });
++        expect(elfFrame(3, false, 1, 'item', 0)).toEqual({ state: 'walk', frame: 3 });
++        expect([0,1,2,3,4].map(i => elfPose('SE', elfFrame(i / 5 + .001, false, 1, '', 0)).semantic)).toEqual(['idle','walk_right','idle','walk_left','idle']);
+         expect(elfPose('SE', elfFrame(0, false, .9, 'collapse', 0)).semantic).toBe('collapse');
+     });
+     it('addresses all 26 cells with a shared anchor, and never samples the two blanks', () => {
+--- a/tests/game/expansion.test.ts
++++ b/tests/game/expansion.test.ts
+@@ -5,7 +5,7 @@
+ it('accuracy responds to AGI and AVD, respects direction floors, and caps at 100',()=>{const a=derive(0,1,{weapon:0,armor:0}),t=derive(0,1,{weapon:0,armor:0});const base=calculateAccuracy(a,t,'front');expect(calculateAccuracy({...a,stats:{...a.stats,agi:a.stats.agi+3}},t,'front').chance).toBeGreaterThan(base.chance);expect(calculateAccuracy(a,{...t,stats:{...t.stats,avd:t.stats.avd+10}},'front').chance).toBeLessThan(base.chance);expect(calculateAccuracy(a,{...t,stats:{...t.stats,avd:1000}},'back').chance).toBe(60);});
+ it('learned abilities, equipped support and shared class levels survive save and revisiting stage one',()=>{const c=newCampaign();expect(learnAbility(c,2,'moon-bolt')).toBe(true);expect(trainingFor(c,2).sp).toBe(0);equipSupport(c,2,'fleet-foot');const before=makeBattle(0,c).units[2];expect(before.abilityId).toBe('moon-bolt');expect(before.move).toBe(4);reward(c,0);expect(classLevel(c,2)).toBe(2);expect(makeBattle(0,c).units[2].derived.stats.int).toBeGreaterThan(before.derived.stats.int);expect(parseCampaign(encodeCampaign(c))).toEqual(c);});
+ it('a newly shipped class casts a registry-based area guard on allies only',()=>{const c=newCampaign();c.party=[4,0,1];const b=makeBattle(0,c),u=b.units[0];u.tp=20;expect(u.classId).toBe('sentinel');expect(act(b,u,b.units[1],'skill')).toBe(true);expect(b.units[1].guard).toBe(true);expect(b.units.filter(v=>v.team==='enemy').every(v=>!v.guard)).toBe(true);});
+-it('old four-character v2 saves gain default equipment for new recruits',()=>{const c=newCampaign();const disk=JSON.parse(encodeCampaign(c));delete disk.equipment.lena;delete disk.equipment.iris;delete disk.levels;delete disk.training;const loaded=parseCampaign(JSON.stringify(disk));expect(loaded?.gear).toHaveLength(6);expect(loaded?.party).toEqual([0,1,2]);});
++it('old four-character v2 saves gain default equipment for new recruits',()=>{const c=newCampaign();const disk=JSON.parse(encodeCampaign(c));delete disk.equipment.lena;delete disk.equipment.iris;delete disk.levels;delete disk.training;const loaded=parseCampaign(JSON.stringify(disk));expect(loaded?.gear).toHaveLength(10);expect(loaded?.party).toEqual([0,1,2]);});
+ 
+ it('MP and TP items preview exact capped restoration, spend one charge, and grant no damage TP',()=>{for(const [item,resource,maximum] of [['aether-draught','mp',24],['valor-draught','tp',100]] as const){const b=makeBattle(0,newCampaign()),u=b.units[0];u.itemId=item;u[resource]=maximum-3;const hp=u.hp;expect(damage(b,u,u,'item')).toBe(3);expect(targets(b,u,'item')).toContain(u);expect(act(b,u,u,'item')).toBe(true);expect(u[resource]).toBe(maximum);expect(u.hp).toBe(hp);expect(itemStock(b,u)).toBe(0);expect(targets(b,u,'item')).toEqual([]);if(resource==='mp')expect(u.tp).toBe(0);}});
+ it('invalid learned/equipped ability references cannot enter a saved campaign',()=>{const disk=JSON.parse(encodeCampaign(newCampaign()));disk.training={erin:{sp:8,learned:['unknown'],abilityId:'unknown',supportId:'weapon-study'}};expect(parseCampaign(JSON.stringify(disk))).toBeNull();});
+--- a/tests/game/shop.test.ts
++++ b/tests/game/shop.test.ts
+@@ -21,13 +21,13 @@
+   const c=newCampaign();const n=trade(c,{kind:'buy',id:'mend-leaf',quantity:10})!;expect(n.gold).toBe(0);expect(n.inventory!['mend-leaf']).toBe(13);expect(trade(n,{kind:'buy',id:'mend-leaf',quantity:1})).toBeNull();const sold=trade(n,{kind:'sell',id:'mend-leaf',quantity:10})!;expect(sold.gold).toBe(50);expect(sold.inventory!['mend-leaf']).toBe(3);expect(c.gold).toBe(100);
+  });
+  it('counts bench equipment, blocks selling equipped copies, and frees copies on swap',()=>{
+-  const c=newCampaign();c.inventory=inventoryFor(c);expect(equippedCount(c,'sword-field')).toBe(2);expect(trade(c,{kind:'sell',id:'sword-field',quantity:1})).toBeNull();expect(equip(c,0,'weapon',1)).toBe(true);expect(trade(c,{kind:'sell',id:'sword-field',quantity:1})!.inventory!['sword-field']).toBe(1);expect(equip(c,1,'weapon',4)).toBe(false);
++  const c=newCampaign();c.inventory=inventoryFor(c);expect(equippedCount(c,'sword-field')).toBe(6);expect(trade(c,{kind:'sell',id:'sword-field',quantity:1})).toBeNull();expect(equip(c,0,'weapon',1)).toBe(true);expect(trade(c,{kind:'sell',id:'sword-field',quantity:1})!.inventory!['sword-field']).toBe(5);expect(equip(c,1,'weapon',4)).toBe(false);
+  });
+  it('preserves stable source gear IDs and inventory through saves; rejects missing copies and unknown IDs',()=>{
+   let c=newCampaign();c.gold=2000;c=trade(c,{kind:'buy',id:'ov-313',quantity:1})!;expect(equip(c,1,'weapon',2)).toBe(true);const raw=encodeCampaign(c);expect(raw).toContain('ov-313');expect(parseCampaign(raw)).toEqual(c);
+   const malformed=JSON.parse(raw);malformed.inventory['ov-313']=0;expect(parseCampaign(JSON.stringify(malformed))).toBeNull();malformed.inventory['ov-313']=1;malformed.inventory.fake=1;expect(parseCampaign(JSON.stringify(malformed))).toBeNull();
+  });
+- it('retains original finite armory and consumables for legacy saves',()=>{const c=newCampaign();expect(parseCampaign(encodeCampaign(c))).toEqual(c);const legacy={...c,gear:c.gear.slice(0,4)};const restored=parseCampaign(JSON.stringify(legacy))!;expect(restored.gear).toHaveLength(6);expect(inventoryFor(restored)['mend-leaf']).toBe(3);expect(inventoryFor(restored)['silver-mail']).toBe(6);});
++ it('retains original finite armory and consumables for legacy saves',()=>{const c=newCampaign();expect(parseCampaign(encodeCampaign(c))).toEqual(c);const legacy={...c,gear:c.gear.slice(0,4)};const restored=parseCampaign(JSON.stringify(legacy))!;expect(restored.gear).toHaveLength(10);expect(inventoryFor(restored)['mend-leaf']).toBe(3);expect(inventoryFor(restored)['silver-mail']).toBe(10);});
+  it('enforces inventory and currency caps without overflow',()=>{const c=newCampaign();c.inventory={...inventoryFor(c),'mend-leaf':999};expect(trade(c,{kind:'buy',id:'mend-leaf',quantity:1})).toBeNull();c.gold=99999;expect(trade(c,{kind:'sell',id:'mend-leaf',quantity:1})).toBeNull();expect(()=>validateInventory({...c,inventory:{...c.inventory,'mend-leaf':1000}})).toThrow();});
+  it('applies bought source armor, accessory attack and stats to the same combat derivation',()=>{
+   let c=newCampaign();c.gold=5000;c.unlocked=1;for(const id of ['ov-448','ov-537','ov-490'])c=trade(c,{kind:'buy',id,quantity:1})!;
+--- a/tests/game/tests/browser/expansion.spec.ts
++++ b/tests/game/tests/browser/expansion.spec.ts
+@@ -17,7 +17,7 @@
+  await page.reload();await page.waitForFunction('window.tacticsDiagnostics');await choose(page,'continue');await choose(page,'stage-0');await choose(page,'party');await expect.poll(()=>cyan(page)).toBeGreaterThan(300);
+  await choose(page,'equipment');await choose(page,'rig-settings');await choose(page,'rig-reset');await expect(page.locator('footer')).toContainText('진행 중인 편성은 유지');await expect.poll(()=>cyan(page)).toBe(0);expect(await page.evaluate('window.tacticsDiagnostics().screen')).toBe('equipment');
+ });
+-test('six recruits and training actions stay visible at 1024×768 DPR2 and saved learning is playable',async({page})=>{await party(page);for(const id of ['toggle-5','training','deploy']){const r=await page.locator(`[data-id="${id}"]`).boundingBox();expect(r!.y+r!.height).toBeLessThan(668);}
++test('ten recruits and training actions stay visible at 1024×768 DPR2 and saved learning is playable',async({page})=>{await party(page);for(const id of ['toggle-0','toggle-5','toggle-9','training','deploy']){const r=await page.locator(`[data-id="${id}"]`).boundingBox();expect(r!.y+r!.height).toBeLessThan(668);}
+  await choose(page,'training');await choose(page,'hero-2');await choose(page,'learn-moon-bolt');await choose(page,'support-fleet-foot');const r=await page.locator('[data-id="party"]').boundingBox();expect(r!.y+r!.height).toBeLessThan(668);await choose(page,'party');for(const id of ['deploy','talk-0','talk-0'])await choose(page,id);const d=await page.evaluate('window.tacticsDiagnostics()') as any;expect(d.battle.units[2].abilityId).toBe('moon-bolt');expect(d.battle.units[2].move).toBe(4);expect(d.dimensions).toMatchObject({width:1024,height:768,backingWidth:2048,backingHeight:1536,dpr:2});
+ });
+ test('mockpad equips all five slots, sees summed stats and restores them into battle',async({page})=>{await page.addInitScript(()=>{(window as any).padButtons=[];Object.defineProperty(navigator,'getGamepads',{value:()=>[{connected:true,index:0,mapping:'standard',axes:[0,0,0,0],buttons:Array.from({length:16},(_,i)=>({pressed:(window as any).padButtons.includes(i),value:(window as any).padButtons.includes(i)?1:0}))}]});});
+--- a/tests/game/tests/browser/elf-sprites.spec.ts
++++ b/tests/game/tests/browser/elf-sprites.spec.ts
+@@ -1,14 +1,17 @@
+ import { test, expect } from '@playwright/test';
+ test.use({ viewport: { width: 1024, height: 768 }, deviceScaleFactor: 2 });
+ 
+-test('all sprite frames have transparent gutters and hand sockets intersect the painted glove', async ({ page }) => {
++test('all eight class sheets have unique poses, transparent gutters and painted hand sockets', async ({ page }) => {
+     await page.goto('/game/');
+     const result = await page.evaluate(async () => {
+         const path = '/game/elf-sprites.ts'; const { ElfSprites, ELF_STATES, elfSocket, elfPose } = await import(path);
+         const atlasPath = '/game/assets/elf-sd-sheet-v2/frames.json'; const atlas = (await import(atlasPath)).default;
+         const sprites = new ElfSprites(); await sprites.ready;
+         const bad: string[] = [], hashes = new Set<number>();
+-        const sheet = sprites.sheet, c = document.createElement('canvas'); c.width = 1792; c.height = 1024;
++        const signatures = new Set<string>();
++        for (const hero of [0,1,2,3,6,7,8,9]) {
++        hashes.clear();
++        const sheet = sprites.sheetFor(hero), c = document.createElement('canvas'); c.width = 1792; c.height = 1024;
+         const ctx = c.getContext('2d')!; ctx.drawImage(sheet, 0, 0);
+         for (const direction of ['SE', 'NE']) for (const state of ELF_STATES) for (let frame = 0; frame < atlas.sequences.front[state].length; frame++) {
+             const pose = { state, frame }, f = elfPose(direction, pose);
+@@ -20,14 +23,16 @@
+                 if ((x < 8 || x >= 248 || y < 8 || y >= 248) && alpha > 32) bad.push(`${f.id}: clipping`);
+             }
+             hashes.add(hash);
+-            const { hand } = elfSocket(direction, pose), [x, y] = hand.map(Math.round);
++            const { hand } = elfSocket(direction, pose, hero), [x, y] = hand.map(Math.round);
+             if (data[(y * 256 + x) * 4 + 3] < 100) bad.push(`${f.id}: empty hand socket ${hand}`);
+         }
+         if (hashes.size !== 26) bad.push(`unique frames: ${hashes.size}`);
+         for (const y of [512, 768]) if (ctx.getImageData(1536, y, 256, 256).data.some((v, i) => i % 4 === 3 && v)) bad.push('blank cell has pixels');
+-        return { loaded: sprites.loaded, bad, dpr: devicePixelRatio };
++        signatures.add(c.toDataURL());
++        }
++        return { loaded: sprites.loaded, bad, dpr: devicePixelRatio, classes: signatures.size };
+     });
+-    expect(result).toEqual({ loaded: true, bad: [], dpr: 2 });
++    expect(result).toEqual({ loaded: true, bad: [], dpr: 2, classes: 8 });
+ });
+ 
+ test('actual canvas equipment and all four directions mirror together in both view scales', async ({ page }) => {
+@@ -40,7 +45,7 @@
+             const c = canvas.getContext('2d')!; c.translate(256, 420); sprites.draw(c, hero, variant, dir, 0, size, false, progress, motion);
+             return c.getImageData(0, 0, 512, 512).data;
+         };
+-        for (const size of [54, 84]) for (const [hero, variant, motion] of [[0, 0, 'slash'], [0, 1, 'thrust'], [1, 0, 'shoot'], [1, 2, 'shoot'], [1, 3, 'shoot'], [1, 4, 'shoot'], [2, 1, 'cast'], [3, 1, 'heal']] as const) {
++        for (const size of [54, 84]) for (const [hero, variant, motion] of [[0, 0, 'slash'], [0, 1, 'thrust'], [1, 0, 'shoot'], [1, 2, 'shoot'], [1, 3, 'shoot'], [1, 4, 'shoot'], [2, 1, 'cast'], [3, 1, 'heal'], [6, 1, 'slash'], [7, 0, 'cast'], [8, 1, 'slash'], [9, 0, 'slash']] as const) {
+             for (const [a, b] of [['SE', 'SW'], ['NE', 'NW']]) for (const phase of [.1, .35, .6, .85]) {
+                 const left = draw(hero, variant, a, size, motion, phase), right = draw(hero, variant, b, size, motion, phase);
+                 let difference = 0, alpha = 0, hash = 0;
+@@ -54,7 +59,7 @@
+         }
+         return { failures, unique: new Set(hashes).size, samples: hashes.length };
+     });
+-    expect(result.failures).toEqual([]); expect(result.samples).toBe(128); expect(result.unique).toBeGreaterThan(100);
++    expect(result.failures).toEqual([]); expect(result.samples).toBe(192); expect(result.unique).toBeGreaterThan(150);
+ });
+ 
+ test('walking follows each path segment and pausing or switching view does not advance the body clock', async ({ page }) => {
+@@ -115,3 +120,24 @@
+         await expect.poll(read).toMatchObject({ width: 1024, height: 768, backingWidth: 1536, backingHeight: 1152, dpr: 1.5 });
+     } finally { await context.close(); }
+ });
++
++
++test('idle walks in place in both views without moving units, spending RT, or changing gameplay', async ({page})=>{
++ await page.goto('/game/');
++ const result=await page.evaluate(async()=>{
++  const rp='/game/render.ts',dp='/game/domain.ts';
++  const {Renderer}=await import(rp),{makeBattle,newCampaign}=await import(dp);
++  const r=new Renderer(document.createElement('div'));await r.elf.ready;
++  const b=makeBattle(0,newCampaign()),snapshot=JSON.stringify(b),u=b.units[0];
++  const s={command:'attack',battle:b,cursor:{x:1,y:2},selected:null,mode:'unit',top:false,zoom:1,pan:{x:0,y:0},paused:false};
++  const changed=[];
++  for(const top of [false,true]){
++   r.draw({...s,top},top?1000:0);const before=r.canvas.toDataURL(),position=r.visualPosition(u,b);
++   r.draw({...s,top},top?1210:210);
++   changed.push(before!==r.canvas.toDataURL());
++   if(JSON.stringify(position)!==JSON.stringify(r.visualPosition(u,b)))throw Error('Idle position drift');
++  }
++  return {changed,unchanged:JSON.stringify(b)===snapshot,routeCount:r.routes.size};
++ });
++ expect(result).toEqual({changed:[true,true],unchanged:true,routeCount:0});
++});
+--- a/docs/game/ELF_SPRITES.md
++++ b/docs/game/ELF_SPRITES.md
+@@ -1,3 +1,5 @@
++> 최신 기본 아트는 [8종 클래스별 시트](CLASS_SPRITES.md)이며, 아래는 공통 26포즈 계약과 이전 단일 시트 적용 기록이다. 대기는 이제 5fps 제자리 걷기 시퀀스이다.
++
+ # 정규화 26포즈 런타임 · 2026-10-05
+ 
+ 기본 캐릭터는 승인된 `game/assets/elf-sd-sheet-v2/elf-adult-26pose-sheet.png` 한 장을 사용한다. 1792×1024 RGBA, 256² 셀, 7열×4행, 실제 포즈 26개이며 아래 두 행의 마지막 셀은 비어 있다. 아틀라스와 `frames.json` 원본은 변경하지 않았다.

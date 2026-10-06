@@ -16,6 +16,7 @@ root.innerHTML = `
       <h1>작업에 필요한 도구를 선택하세요<span>.</span></h1>
       <p>각 도구의 전용 작업 공간에서 에셋을 만들고 다듬으세요.</p>
     </div>
+    <p><a class="game-entry" href="/game/">⚔ 은빛 여명 · 게임 시작 →</a></p>
     <section class="tool-grid" aria-label="도구 목록">
       ${TOOLS.map(tool => `
         <article class="tool-card" aria-labelledby="title-${tool.id}">

@@ -1,0 +1,87 @@
+{
+  "errors": [],
+  "dimensions": {
+    "width": 1024,
+    "height": 768,
+    "backingWidth": 2048,
+    "backingHeight": 1536,
+    "dpr": 2
+  },
+  "idleGameStateUnchanged": true,
+  "before": [
+    {
+      "id": "a0",
+      "x": 1,
+      "y": 2,
+      "readyAt": 0
+    },
+    {
+      "id": "a1",
+      "x": 1,
+      "y": 3,
+      "readyAt": 5
+    },
+    {
+      "id": "a2",
+      "x": 1,
+      "y": 4,
+      "readyAt": 10
+    },
+    {
+      "id": "e0",
+      "x": 5,
+      "y": 3,
+      "readyAt": 35
+    },
+    {
+      "id": "e1",
+      "x": 6,
+      "y": 2,
+      "readyAt": 40
+    },
+    {
+      "id": "e2",
+      "x": 6,
+      "y": 5,
+      "readyAt": 45
+    }
+  ],
+  "afterMove": [
+    {
+      "id": "a0",
+      "x": 4,
+      "y": 3,
+      "readyAt": 0
+    },
+    {
+      "id": "a1",
+      "x": 1,
+      "y": 3,
+      "readyAt": 5
+    },
+    {
+      "id": "a2",
+      "x": 1,
+      "y": 4,
+      "readyAt": 10
+    },
+    {
+      "id": "e0",
+      "x": 5,
+      "y": 3,
+      "readyAt": 35
+    },
+    {
+      "id": "e1",
+      "x": 6,
+      "y": 2,
+      "readyAt": 40
+    },
+    {
+      "id": "e2",
+      "x": 6,
+      "y": 5,
+      "readyAt": 45
+    }
+  ]
+}

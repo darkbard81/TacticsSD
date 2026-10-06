@@ -1,0 +1,10 @@
+{
+  "focused": "back-command",
+  "modeBefore": "target",
+  "modeAfter": "animating",
+  "hpBefore": 55,
+  "hpAfter": 24,
+  "blurred": "pause",
+  "focusedModal": null,
+  "disconnectModal": null
+}

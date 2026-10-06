@@ -1,0 +1,1197 @@
+{
+  "diagnostics": {
+    "screen": "battle",
+    "mode": "select",
+    "modal": null,
+    "campaign": {
+      "version": 1,
+      "unlocked": 0,
+      "gold": 100,
+      "party": [
+        0,
+        1,
+        2
+      ],
+      "gear": [
+        {
+          "weapon": 0,
+          "armor": 0
+        },
+        {
+          "weapon": 0,
+          "armor": 0
+        },
+        {
+          "weapon": 0,
+          "armor": 0
+        },
+        {
+          "weapon": 0,
+          "armor": 0
+        },
+        {
+          "weapon": 0,
+          "armor": 0
+        },
+        {
+          "weapon": 0,
+          "armor": 0
+        }
+      ],
+      "cleared": [],
+      "levels": {},
+      "training": {
+        "erin": {
+          "sp": 8,
+          "learned": [
+            "dawn-strike"
+          ],
+          "abilityId": "dawn-strike",
+          "supportId": "weapon-study"
+        },
+        "rowan": {
+          "sp": 8,
+          "learned": [
+            "piercing-shot"
+          ],
+          "abilityId": "piercing-shot",
+          "supportId": "weapon-study"
+        },
+        "sera": {
+          "sp": 8,
+          "learned": [
+            "starburst"
+          ],
+          "abilityId": "starburst",
+          "supportId": "weapon-study"
+        }
+      }
+    },
+    "battle": {
+      "stage": 0,
+      "tiles": [
+        {
+          "x": 0,
+          "y": 0,
+          "h": 1,
+          "kind": "grass",
+          "block": true
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 0,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 0,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 0,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 1,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 1,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 1,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 2,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 2,
+          "h": 2,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 3,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 3,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 3,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "h": 1,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 4,
+          "h": 2,
+          "kind": "stone",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 5,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 6,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 6,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 0,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 1,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 2,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 3,
+          "y": 7,
+          "h": 0,
+          "kind": "water",
+          "block": false
+        },
+        {
+          "x": 4,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 5,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 6,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": false
+        },
+        {
+          "x": 7,
+          "y": 7,
+          "h": 1,
+          "kind": "grass",
+          "block": true
+        }
+      ],
+      "units": [
+        {
+          "id": "a0",
+          "hero": 0,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "knight",
+          "abilityId": "dawn-strike",
+          "derived": {
+            "stats": {
+              "str": 25,
+              "vit": 25,
+              "dex": 22,
+              "int": 17,
+              "mnd": 18,
+              "res": 20,
+              "agi": 22,
+              "avd": 25
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 7,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              }
+            },
+            "attack": 26,
+            "defense": 9,
+            "offense": 47.2,
+            "toughness": 37.5,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 100,
+            "mp": 24,
+            "move": 4,
+            "weaponRank": 1,
+            "spellPower": 31.199999999999996,
+            "resilience": 29
+          },
+          "name": "에린",
+          "job": 0,
+          "team": "ally",
+          "x": 1,
+          "y": 2,
+          "hp": 100,
+          "maxHp": 100,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 0,
+          "baseRT": 90,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 26,
+          "def": 9,
+          "move": 4,
+          "range": 1,
+          "jump": 1,
+          "done": false,
+          "guard": false,
+          "facing": "SE"
+        },
+        {
+          "id": "a1",
+          "hero": 1,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "ranger",
+          "abilityId": "piercing-shot",
+          "derived": {
+            "stats": {
+              "str": 22,
+              "vit": 20,
+              "dex": 26,
+              "int": 18,
+              "mnd": 19,
+              "res": 18,
+              "agi": 26,
+              "avd": 20
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 9,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              }
+            },
+            "attack": 23,
+            "defense": 5,
+            "offense": 48.4,
+            "toughness": 31,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 76,
+            "mp": 24,
+            "move": 4,
+            "weaponRank": 1,
+            "spellPower": 33,
+            "resilience": 27.5
+          },
+          "name": "로웬",
+          "job": 1,
+          "team": "ally",
+          "x": 1,
+          "y": 3,
+          "hp": 76,
+          "maxHp": 76,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 5,
+          "baseRT": 80,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 23,
+          "def": 5,
+          "move": 4,
+          "range": 4,
+          "jump": 2,
+          "done": false,
+          "guard": false,
+          "facing": "SE"
+        },
+        {
+          "id": "a2",
+          "hero": 2,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "arcanist",
+          "abilityId": "starburst",
+          "derived": {
+            "stats": {
+              "str": 17,
+              "vit": 18,
+              "dex": 21,
+              "int": 26,
+              "mnd": 25,
+              "res": 22,
+              "agi": 21,
+              "avd": 18
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 7,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 11,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 11,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              }
+            },
+            "attack": 27,
+            "defense": 3,
+            "offense": 47.199999999999996,
+            "toughness": 26.5,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 68,
+            "mp": 36,
+            "move": 3,
+            "weaponRank": 1,
+            "spellPower": 46.2,
+            "resilience": 34.5
+          },
+          "name": "세라",
+          "job": 2,
+          "team": "ally",
+          "x": 1,
+          "y": 4,
+          "hp": 68,
+          "maxHp": 68,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 10,
+          "baseRT": 95,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 27,
+          "def": 3,
+          "move": 3,
+          "range": 3,
+          "jump": 1,
+          "done": false,
+          "guard": false,
+          "facing": "SE"
+        },
+        {
+          "id": "e0",
+          "hero": 0,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "knight",
+          "abilityId": "dawn-strike",
+          "derived": {
+            "stats": {
+              "str": 25,
+              "vit": 25,
+              "dex": 22,
+              "int": 17,
+              "mnd": 18,
+              "res": 20,
+              "agi": 22,
+              "avd": 25
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 7,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              }
+            },
+            "attack": 26,
+            "defense": 9,
+            "offense": 47.2,
+            "toughness": 37.5,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 100,
+            "mp": 24,
+            "move": 4,
+            "weaponRank": 1,
+            "spellPower": 31.199999999999996,
+            "resilience": 29
+          },
+          "name": "잿빛 기사",
+          "job": 0,
+          "team": "enemy",
+          "x": 5,
+          "y": 3,
+          "hp": 55,
+          "maxHp": 55,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 35,
+          "baseRT": 90,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 16,
+          "def": 4,
+          "move": 4,
+          "range": 1,
+          "jump": 1,
+          "done": false,
+          "guard": false,
+          "facing": "SW"
+        },
+        {
+          "id": "e1",
+          "hero": 1,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "ranger",
+          "abilityId": "piercing-shot",
+          "derived": {
+            "stats": {
+              "str": 22,
+              "vit": 20,
+              "dex": 26,
+              "int": 18,
+              "mnd": 19,
+              "res": 18,
+              "agi": 26,
+              "avd": 20
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 9,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 10,
+                "gear": 0
+              }
+            },
+            "attack": 23,
+            "defense": 5,
+            "offense": 48.4,
+            "toughness": 31,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 76,
+            "mp": 24,
+            "move": 4,
+            "weaponRank": 1,
+            "spellPower": 33,
+            "resilience": 27.5
+          },
+          "name": "그늘 궁수",
+          "job": 1,
+          "team": "enemy",
+          "x": 6,
+          "y": 2,
+          "hp": 55,
+          "maxHp": 55,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 40,
+          "baseRT": 80,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 16,
+          "def": 4,
+          "move": 4,
+          "range": 4,
+          "jump": 2,
+          "done": false,
+          "guard": false,
+          "facing": "SW"
+        },
+        {
+          "id": "e2",
+          "hero": 2,
+          "weaponVariant": 0,
+          "itemId": "mend-leaf",
+          "classId": "arcanist",
+          "abilityId": "starburst",
+          "derived": {
+            "stats": {
+              "str": 17,
+              "vit": 18,
+              "dex": 21,
+              "int": 26,
+              "mnd": 25,
+              "res": 22,
+              "agi": 21,
+              "avd": 18
+            },
+            "statBreakdown": {
+              "str": {
+                "base": 10,
+                "class": 7,
+                "gear": 0
+              },
+              "vit": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              },
+              "dex": {
+                "base": 10,
+                "class": 11,
+                "gear": 0
+              },
+              "int": {
+                "base": 10,
+                "class": 16,
+                "gear": 0
+              },
+              "mnd": {
+                "base": 10,
+                "class": 15,
+                "gear": 0
+              },
+              "res": {
+                "base": 10,
+                "class": 12,
+                "gear": 0
+              },
+              "agi": {
+                "base": 10,
+                "class": 11,
+                "gear": 0
+              },
+              "avd": {
+                "base": 10,
+                "class": 8,
+                "gear": 0
+              }
+            },
+            "attack": 27,
+            "defense": 3,
+            "offense": 47.199999999999996,
+            "toughness": 26.5,
+            "damageBonus": 10,
+            "resistance": 0,
+            "hp": 68,
+            "mp": 36,
+            "move": 3,
+            "weaponRank": 1,
+            "spellPower": 46.2,
+            "resilience": 34.5
+          },
+          "name": "황혼 마녀",
+          "job": 2,
+          "team": "enemy",
+          "x": 6,
+          "y": 5,
+          "hp": 55,
+          "maxHp": 55,
+          "mp": 0,
+          "tp": 0,
+          "readyAt": 45,
+          "baseRT": 95,
+          "moved": false,
+          "acted": false,
+          "skillUsed": false,
+          "skillRT": 0,
+          "moveRT": 0,
+          "actionRT": 0,
+          "atk": 16,
+          "def": 4,
+          "move": 3,
+          "range": 3,
+          "jump": 1,
+          "done": false,
+          "guard": false,
+          "facing": "SW"
+        }
+      ],
+      "round": 1,
+      "clock": 0,
+      "rng": 117,
+      "activeId": "a0",
+      "phase": "ally",
+      "potions": 3,
+      "inventory": {
+        "mend-leaf": 3,
+        "aether-draught": 1,
+        "valor-draught": 1,
+        "ov-1004": 0,
+        "ov-1008": 0,
+        "ov-1012": 0,
+        "ov-1013": 0
+      },
+      "log": [
+        "은빛 여명 원정대 · 모든 적을 쓰러뜨리세요."
+      ]
+    },
+    "selected": null,
+    "cursor": {
+      "x": 1,
+      "y": 2
+    },
+    "top": true,
+    "zoom": 1,
+    "pan": {
+      "x": 0,
+      "y": 0
+    },
+    "bindings": {
+      "keys": {
+        "up": "ArrowUp",
+        "down": "ArrowDown",
+        "left": "ArrowLeft",
+        "right": "ArrowRight",
+        "confirm": "Enter",
+        "cancel": "Escape",
+        "menu": "KeyP",
+        "next": "KeyE",
+        "previous": "KeyQ",
+        "view": "KeyV",
+        "zoomIn": "Equal",
+        "zoomOut": "Minus",
+        "cameraUp": "KeyI",
+        "cameraDown": "KeyK",
+        "cameraLeft": "KeyJ",
+        "cameraRight": "KeyL",
+        "cameraReset": "KeyR"
+      },
+      "buttons": {
+        "up": 12,
+        "down": 13,
+        "left": 14,
+        "right": 15,
+        "confirm": 0,
+        "cancel": 1,
+        "menu": 9,
+        "next": 5,
+        "previous": 4,
+        "view": 3,
+        "zoomIn": 7,
+        "zoomOut": 6,
+        "cameraUp": -1,
+        "cameraDown": -1,
+        "cameraLeft": -1,
+        "cameraRight": -1,
+        "cameraReset": 11
+      }
+    },
+    "dimensions": {
+      "width": 1024,
+      "height": 768,
+      "backingWidth": 2048,
+      "backingHeight": 1536,
+      "dpr": 2
+    }
+  },
+  "errors": []
+}

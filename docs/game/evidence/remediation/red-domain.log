@@ -1,0 +1,53 @@
+
+ RUN  v5.0.2 /home/deck/Documents/TacticsSD
+
+ ❯ tests/game/regression.test.ts (2 tests | 2 failed) 16ms
+   × F06 misses never grant damage-dealt or damage-taken TP 12ms
+   × F07 a valid area heal affects wounded allies and never adjacent enemies 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/game/regression.test.ts > F06 misses never grant damage-dealt or damage-taken TP
+AssertionError: expected 4 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 4
+
+ ❯ tests/game/regression.test.ts:7:128
+      5|  const b=makeBattle(0,newCampaign()),u=b.units[0],t=b.units[3];t.x=2;t…
+      6|  for(let seed=0;seed<1000;seed++)if(((Math.imul(seed,1664525)+10139042…
+      7|  const hp=t.hp;expect(act(b,u,t,'attack')).toBe(true);expect(t.hp).toB…
+       |                                                                                                                                ^
+      8| });
+      9| it('F07 a valid area heal affects wounded allies and never adjacent en…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/game/regression.test.ts > F07 a valid area heal affects wounded allies and never adjacent enemies
+AssertionError: expected 10 to be 54 // Object.is equality
+
+- Expected
++ Received
+
+- 54
++ 10
+
+ ❯ tests/game/regression.test.ts:12:82
+     10|  const b=makeBattle(0,newCampaign()),u=b.units[0],ally=b.units[1],enem…
+     11|  ABILITIES.push({...ABILITIES.find(a=>a.effect==='heal')!,id:'audit-gr…
+     12|  try {validateContent();expect(act(b,u,ally,'skill')).toBe(true);expec…
+       |                                                                                  ^
+     13| });
+     14|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  16:29:18
+   Duration  393ms (import 45%, transform 45%, tests 8%, worker 3%)
+

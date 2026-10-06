@@ -1,0 +1,1370 @@
+{
+  "changedFiles": [
+    "README.md",
+    "game/content.ts",
+    "game/domain.ts",
+    "game/elf-sprites.ts",
+    "game/main.ts",
+    "game/style.css",
+    "tests/game/elf-sprites.test.ts",
+    "tests/game/expansion.test.ts",
+    "tests/game/shop.test.ts",
+    "tests/game/tests/browser/expansion.spec.ts",
+    "tests/game/tests/browser/elf-sprites.spec.ts",
+    "docs/game/ELF_SPRITES.md",
+    "docs/game/VALIDATION.md",
+    "game/class-sprites.ts",
+    "game/scripts/audit-classes.py",
+    "tests/game/classes.test.ts",
+    "docs/game/CLASS_SPRITES.md"
+  ],
+  "assets": {
+    "warrior": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          71,
+          38,
+          186,
+          228
+        ],
+        "front_walk_right": [
+          58,
+          30,
+          199,
+          228
+        ],
+        "front_walk_left": [
+          63,
+          37,
+          203,
+          228
+        ],
+        "front_hurt": [
+          46,
+          35,
+          199,
+          228
+        ],
+        "front_jump1": [
+          60,
+          72,
+          191,
+          227
+        ],
+        "front_jump2": [
+          46,
+          39,
+          187,
+          208
+        ],
+        "front_jump3": [
+          36,
+          26,
+          216,
+          197
+        ],
+        "front_collapse": [
+          21,
+          145,
+          220,
+          228
+        ],
+        "front_attack1": [
+          63,
+          35,
+          208,
+          227
+        ],
+        "front_attack2": [
+          38,
+          24,
+          212,
+          227
+        ],
+        "front_attack3": [
+          13,
+          38,
+          232,
+          228
+        ],
+        "front_attack4": [
+          30,
+          59,
+          214,
+          228
+        ],
+        "front_attack5": [
+          48,
+          32,
+          207,
+          228
+        ],
+        "back_idle": [
+          71,
+          36,
+          189,
+          228
+        ],
+        "back_walk_right": [
+          60,
+          30,
+          222,
+          228
+        ],
+        "back_walk_left": [
+          65,
+          36,
+          215,
+          228
+        ],
+        "back_hurt": [
+          45,
+          36,
+          203,
+          228
+        ],
+        "back_jump1": [
+          52,
+          64,
+          196,
+          228
+        ],
+        "back_jump2": [
+          46,
+          40,
+          185,
+          208
+        ],
+        "back_jump3": [
+          34,
+          29,
+          220,
+          198
+        ],
+        "back_collapse": [
+          19,
+          145,
+          224,
+          228
+        ],
+        "back_attack1": [
+          71,
+          36,
+          200,
+          228
+        ],
+        "back_attack2": [
+          60,
+          37,
+          194,
+          228
+        ],
+        "back_attack3": [
+          51,
+          38,
+          223,
+          228
+        ],
+        "back_attack4": [
+          54,
+          67,
+          219,
+          228
+        ],
+        "back_attack5": [
+          65,
+          36,
+          194,
+          228
+        ]
+      },
+      "errors": [],
+      "sha256": "a0b69ce2206904c3eb3d1e1f65ecbbce57cc48615a5343cbdb504389f4dc79a4"
+    },
+    "archer": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          78,
+          39,
+          172,
+          230
+        ],
+        "front_walk_right": [
+          70,
+          37,
+          185,
+          230
+        ],
+        "front_walk_left": [
+          45,
+          40,
+          161,
+          230
+        ],
+        "front_hurt": [
+          81,
+          44,
+          200,
+          230
+        ],
+        "front_jump1": [
+          71,
+          103,
+          184,
+          230
+        ],
+        "front_jump2": [
+          68,
+          34,
+          175,
+          210
+        ],
+        "front_jump3": [
+          72,
+          19,
+          178,
+          200
+        ],
+        "front_collapse": [
+          29,
+          157,
+          228,
+          230
+        ],
+        "front_attack1": [
+          67,
+          44,
+          204,
+          230
+        ],
+        "front_attack2": [
+          50,
+          37,
+          201,
+          230
+        ],
+        "front_attack3": [
+          27,
+          61,
+          219,
+          230
+        ],
+        "front_attack4": [
+          53,
+          70,
+          221,
+          230
+        ],
+        "front_attack5": [
+          63,
+          36,
+          199,
+          230
+        ],
+        "back_idle": [
+          66,
+          41,
+          169,
+          230
+        ],
+        "back_walk_right": [
+          69,
+          43,
+          190,
+          230
+        ],
+        "back_walk_left": [
+          43,
+          40,
+          166,
+          230
+        ],
+        "back_hurt": [
+          51,
+          36,
+          170,
+          230
+        ],
+        "back_jump1": [
+          74,
+          96,
+          191,
+          230
+        ],
+        "back_jump2": [
+          72,
+          36,
+          178,
+          210
+        ],
+        "back_jump3": [
+          68,
+          11,
+          180,
+          200
+        ],
+        "back_collapse": [
+          26,
+          160,
+          230,
+          230
+        ],
+        "back_attack1": [
+          66,
+          36,
+          190,
+          230
+        ],
+        "back_attack2": [
+          57,
+          26,
+          188,
+          230
+        ],
+        "back_attack3": [
+          39,
+          39,
+          207,
+          230
+        ],
+        "back_attack4": [
+          42,
+          60,
+          215,
+          230
+        ],
+        "back_attack5": [
+          66,
+          44,
+          177,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "fa5bb2bc468856d10c43427ad67a5a23a0967562a7af4eb190640251fdbfbe92"
+    },
+    "wizard": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          79,
+          39,
+          177,
+          230
+        ],
+        "front_walk_right": [
+          72,
+          38,
+          184,
+          230
+        ],
+        "front_walk_left": [
+          61,
+          38,
+          195,
+          230
+        ],
+        "front_hurt": [
+          54,
+          37,
+          203,
+          230
+        ],
+        "front_jump1": [
+          66,
+          71,
+          190,
+          230
+        ],
+        "front_jump2": [
+          73,
+          26,
+          183,
+          210
+        ],
+        "front_jump3": [
+          69,
+          26,
+          188,
+          200
+        ],
+        "front_collapse": [
+          16,
+          149,
+          241,
+          230
+        ],
+        "front_attack1": [
+          70,
+          40,
+          186,
+          230
+        ],
+        "front_attack2": [
+          57,
+          39,
+          199,
+          230
+        ],
+        "front_attack3": [
+          48,
+          40,
+          208,
+          230
+        ],
+        "front_attack4": [
+          50,
+          71,
+          207,
+          230
+        ],
+        "front_attack5": [
+          77,
+          40,
+          179,
+          230
+        ],
+        "back_idle": [
+          77,
+          41,
+          180,
+          230
+        ],
+        "back_walk_right": [
+          67,
+          42,
+          190,
+          230
+        ],
+        "back_walk_left": [
+          61,
+          41,
+          195,
+          230
+        ],
+        "back_hurt": [
+          56,
+          43,
+          200,
+          230
+        ],
+        "back_jump1": [
+          64,
+          70,
+          192,
+          230
+        ],
+        "back_jump2": [
+          72,
+          25,
+          184,
+          210
+        ],
+        "back_jump3": [
+          69,
+          16,
+          187,
+          200
+        ],
+        "back_collapse": [
+          15,
+          149,
+          241,
+          230
+        ],
+        "back_attack1": [
+          65,
+          42,
+          192,
+          230
+        ],
+        "back_attack2": [
+          58,
+          39,
+          198,
+          230
+        ],
+        "back_attack3": [
+          48,
+          41,
+          208,
+          230
+        ],
+        "back_attack4": [
+          51,
+          66,
+          206,
+          230
+        ],
+        "back_attack5": [
+          73,
+          40,
+          184,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "4d4ef196b31c320aa6c2c5e556e84295f44a2c4cef9bb21d98d4c4ecd4152a56"
+    },
+    "cleric": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          73,
+          40,
+          184,
+          230
+        ],
+        "front_walk_right": [
+          71,
+          39,
+          185,
+          230
+        ],
+        "front_walk_left": [
+          57,
+          41,
+          200,
+          230
+        ],
+        "front_hurt": [
+          61,
+          40,
+          196,
+          230
+        ],
+        "front_jump1": [
+          62,
+          75,
+          195,
+          230
+        ],
+        "front_jump2": [
+          62,
+          27,
+          194,
+          210
+        ],
+        "front_jump3": [
+          60,
+          13,
+          196,
+          200
+        ],
+        "front_collapse": [
+          14,
+          153,
+          242,
+          230
+        ],
+        "front_attack1": [
+          62,
+          44,
+          195,
+          230
+        ],
+        "front_attack2": [
+          52,
+          45,
+          204,
+          230
+        ],
+        "front_attack3": [
+          48,
+          47,
+          208,
+          230
+        ],
+        "front_attack4": [
+          55,
+          83,
+          202,
+          230
+        ],
+        "front_attack5": [
+          77,
+          40,
+          180,
+          230
+        ],
+        "back_idle": [
+          75,
+          40,
+          181,
+          230
+        ],
+        "back_walk_right": [
+          65,
+          41,
+          191,
+          230
+        ],
+        "back_walk_left": [
+          56,
+          39,
+          201,
+          230
+        ],
+        "back_hurt": [
+          59,
+          40,
+          197,
+          230
+        ],
+        "back_jump1": [
+          66,
+          75,
+          190,
+          230
+        ],
+        "back_jump2": [
+          65,
+          22,
+          191,
+          210
+        ],
+        "back_jump3": [
+          72,
+          11,
+          185,
+          200
+        ],
+        "back_collapse": [
+          11,
+          148,
+          245,
+          230
+        ],
+        "back_attack1": [
+          61,
+          44,
+          196,
+          230
+        ],
+        "back_attack2": [
+          54,
+          44,
+          203,
+          230
+        ],
+        "back_attack3": [
+          46,
+          47,
+          211,
+          230
+        ],
+        "back_attack4": [
+          56,
+          77,
+          200,
+          230
+        ],
+        "back_attack5": [
+          74,
+          40,
+          182,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "b653e43fd4807401237ae91ba4f6c6a91a61a0c67997af0a9faca28d19ac1a15"
+    },
+    "spellblade": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          46,
+          42,
+          175,
+          230
+        ],
+        "front_walk_right": [
+          40,
+          38,
+          194,
+          230
+        ],
+        "front_walk_left": [
+          40,
+          37,
+          192,
+          230
+        ],
+        "front_hurt": [
+          26,
+          58,
+          221,
+          230
+        ],
+        "front_jump1": [
+          55,
+          87,
+          180,
+          230
+        ],
+        "front_jump2": [
+          44,
+          55,
+          165,
+          211
+        ],
+        "front_jump3": [
+          34,
+          9,
+          164,
+          200
+        ],
+        "front_collapse": [
+          11,
+          159,
+          244,
+          231
+        ],
+        "front_attack1": [
+          40,
+          37,
+          183,
+          230
+        ],
+        "front_attack2": [
+          29,
+          26,
+          193,
+          230
+        ],
+        "front_attack3": [
+          52,
+          43,
+          235,
+          230
+        ],
+        "front_attack4": [
+          49,
+          56,
+          221,
+          231
+        ],
+        "front_attack5": [
+          41,
+          39,
+          193,
+          231
+        ],
+        "back_idle": [
+          38,
+          41,
+          180,
+          231
+        ],
+        "back_walk_right": [
+          32,
+          44,
+          202,
+          230
+        ],
+        "back_walk_left": [
+          37,
+          35,
+          194,
+          231
+        ],
+        "back_hurt": [
+          23,
+          53,
+          223,
+          230
+        ],
+        "back_jump1": [
+          50,
+          84,
+          184,
+          230
+        ],
+        "back_jump2": [
+          43,
+          59,
+          174,
+          210
+        ],
+        "back_jump3": [
+          23,
+          23,
+          161,
+          201
+        ],
+        "back_collapse": [
+          12,
+          160,
+          243,
+          231
+        ],
+        "back_attack1": [
+          41,
+          30,
+          178,
+          231
+        ],
+        "back_attack2": [
+          33,
+          24,
+          189,
+          231
+        ],
+        "back_attack3": [
+          45,
+          36,
+          223,
+          231
+        ],
+        "back_attack4": [
+          46,
+          51,
+          218,
+          230
+        ],
+        "back_attack5": [
+          42,
+          34,
+          191,
+          231
+        ]
+      },
+      "errors": [],
+      "sha256": "1e8764d538459eeb2592edeba4873852d1a7a14d6c8d943903551b4543a062d8"
+    },
+    "knight": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          64,
+          42,
+          178,
+          230
+        ],
+        "front_walk_right": [
+          45,
+          42,
+          187,
+          230
+        ],
+        "front_walk_left": [
+          35,
+          47,
+          176,
+          230
+        ],
+        "front_hurt": [
+          39,
+          45,
+          218,
+          230
+        ],
+        "front_jump1": [
+          62,
+          108,
+          182,
+          230
+        ],
+        "front_jump2": [
+          56,
+          73,
+          167,
+          210
+        ],
+        "front_jump3": [
+          46,
+          15,
+          192,
+          200
+        ],
+        "front_collapse": [
+          32,
+          157,
+          224,
+          230
+        ],
+        "front_attack1": [
+          61,
+          48,
+          195,
+          230
+        ],
+        "front_attack2": [
+          49,
+          44,
+          187,
+          230
+        ],
+        "front_attack3": [
+          37,
+          49,
+          212,
+          230
+        ],
+        "front_attack4": [
+          35,
+          84,
+          203,
+          230
+        ],
+        "front_attack5": [
+          64,
+          47,
+          179,
+          230
+        ],
+        "back_idle": [
+          60,
+          42,
+          175,
+          230
+        ],
+        "back_walk_right": [
+          43,
+          39,
+          202,
+          230
+        ],
+        "back_walk_left": [
+          41,
+          42,
+          185,
+          230
+        ],
+        "back_hurt": [
+          38,
+          52,
+          217,
+          230
+        ],
+        "back_jump1": [
+          54,
+          101,
+          184,
+          230
+        ],
+        "back_jump2": [
+          50,
+          73,
+          169,
+          210
+        ],
+        "back_jump3": [
+          42,
+          18,
+          198,
+          200
+        ],
+        "back_collapse": [
+          30,
+          155,
+          227,
+          230
+        ],
+        "back_attack1": [
+          57,
+          45,
+          190,
+          230
+        ],
+        "back_attack2": [
+          50,
+          43,
+          199,
+          230
+        ],
+        "back_attack3": [
+          37,
+          46,
+          212,
+          230
+        ],
+        "back_attack4": [
+          34,
+          81,
+          203,
+          230
+        ],
+        "back_attack5": [
+          65,
+          45,
+          186,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "e019b6965f0e23c245ab975ac8dd054928db166d1a7bfa2f1efcae78a8ff48c9"
+    },
+    "terror-knight": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          48,
+          39,
+          182,
+          230
+        ],
+        "front_walk_right": [
+          46,
+          37,
+          201,
+          230
+        ],
+        "front_walk_left": [
+          8,
+          36,
+          174,
+          230
+        ],
+        "front_hurt": [
+          14,
+          40,
+          201,
+          230
+        ],
+        "front_jump1": [
+          44,
+          71,
+          197,
+          230
+        ],
+        "front_jump2": [
+          54,
+          29,
+          212,
+          210
+        ],
+        "front_jump3": [
+          47,
+          16,
+          222,
+          200
+        ],
+        "front_collapse": [
+          20,
+          152,
+          237,
+          230
+        ],
+        "front_attack1": [
+          26,
+          38,
+          192,
+          230
+        ],
+        "front_attack2": [
+          28,
+          37,
+          198,
+          230
+        ],
+        "front_attack3": [
+          18,
+          42,
+          219,
+          230
+        ],
+        "front_attack4": [
+          18,
+          69,
+          219,
+          230
+        ],
+        "front_attack5": [
+          30,
+          48,
+          187,
+          230
+        ],
+        "back_idle": [
+          44,
+          41,
+          184,
+          230
+        ],
+        "back_walk_right": [
+          38,
+          40,
+          205,
+          230
+        ],
+        "back_walk_left": [
+          8,
+          36,
+          186,
+          230
+        ],
+        "back_hurt": [
+          10,
+          33,
+          200,
+          230
+        ],
+        "back_jump1": [
+          40,
+          69,
+          202,
+          230
+        ],
+        "back_jump2": [
+          39,
+          33,
+          209,
+          210
+        ],
+        "back_jump3": [
+          41,
+          17,
+          215,
+          200
+        ],
+        "back_collapse": [
+          20,
+          152,
+          236,
+          230
+        ],
+        "back_attack1": [
+          23,
+          48,
+          197,
+          230
+        ],
+        "back_attack2": [
+          22,
+          49,
+          196,
+          230
+        ],
+        "back_attack3": [
+          15,
+          48,
+          214,
+          230
+        ],
+        "back_attack4": [
+          10,
+          67,
+          222,
+          230
+        ],
+        "back_attack5": [
+          37,
+          56,
+          188,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "adc739bf7cdc1211bd981c2dc7db202ac8ff9be1571a154fdf1552681c6b4452"
+    },
+    "berserker": {
+      "dimensions": [
+        1792,
+        1024
+      ],
+      "mode": "RGBA",
+      "uniquePoses": 26,
+      "bounds": {
+        "front_idle": [
+          70,
+          41,
+          175,
+          230
+        ],
+        "front_walk_right": [
+          59,
+          39,
+          187,
+          230
+        ],
+        "front_walk_left": [
+          35,
+          43,
+          163,
+          230
+        ],
+        "front_hurt": [
+          59,
+          39,
+          180,
+          230
+        ],
+        "front_jump1": [
+          66,
+          108,
+          189,
+          230
+        ],
+        "front_jump2": [
+          82,
+          57,
+          176,
+          210
+        ],
+        "front_jump3": [
+          72,
+          21,
+          178,
+          200
+        ],
+        "front_collapse": [
+          23,
+          159,
+          233,
+          230
+        ],
+        "front_attack1": [
+          63,
+          41,
+          197,
+          230
+        ],
+        "front_attack2": [
+          51,
+          33,
+          197,
+          230
+        ],
+        "front_attack3": [
+          35,
+          45,
+          224,
+          230
+        ],
+        "front_attack4": [
+          24,
+          65,
+          195,
+          230
+        ],
+        "front_attack5": [
+          61,
+          39,
+          181,
+          230
+        ],
+        "back_idle": [
+          67,
+          39,
+          171,
+          230
+        ],
+        "back_walk_right": [
+          76,
+          41,
+          205,
+          230
+        ],
+        "back_walk_left": [
+          30,
+          39,
+          175,
+          230
+        ],
+        "back_hurt": [
+          47,
+          41,
+          161,
+          230
+        ],
+        "back_jump1": [
+          68,
+          100,
+          193,
+          230
+        ],
+        "back_jump2": [
+          84,
+          52,
+          180,
+          210
+        ],
+        "back_jump3": [
+          77,
+          13,
+          181,
+          200
+        ],
+        "back_collapse": [
+          24,
+          154,
+          233,
+          230
+        ],
+        "back_attack1": [
+          63,
+          38,
+          203,
+          230
+        ],
+        "back_attack2": [
+          57,
+          39,
+          219,
+          230
+        ],
+        "back_attack3": [
+          35,
+          41,
+          220,
+          230
+        ],
+        "back_attack4": [
+          46,
+          70,
+          222,
+          230
+        ],
+        "back_attack5": [
+          64,
+          38,
+          193,
+          230
+        ]
+      },
+      "errors": [],
+      "sha256": "8a35d8a052daf03202a4a8bc558cdf497fac0ed23f1299bfaa4a91192e409173"
+    }
+  },
+  "protectedSourceFiles": 45,
+  "protectedSourcesUnchanged": true,
+  "commitPushDeploy": false
+}

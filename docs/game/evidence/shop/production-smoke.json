@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:4173/game/",
+  "screen": "shop",
+  "dimensions": {
+    "width": 1024,
+    "height": 768,
+    "backingWidth": 2048,
+    "backingHeight": 1536,
+    "dpr": 2
+  },
+  "errors": []
+}

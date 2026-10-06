@@ -1,5 +1,5 @@
 import { matrix, multiply, inverse, apply, decompose } from './transform.ts';
-import { CURRENT_SCHEMA_VERSION, HUMANOID, DIRECTIONS, VIEWS, type Transform, type Part, type RigView, type ViewId, type Rect, type ImageRef, type CharacterRigData } from './schema.ts';
+import { CURRENT_SCHEMA_VERSION, HUMANOID, DIRECTIONS, VIEWS, type Transform, type DirectionId, type Part, type RigView, type ViewId, type Rect, type ImageRef, type CharacterRigData } from './schema.ts';
 export * from './schema.ts';
 
 export const identity = (): Transform => ({ x: 0, y: 0, scaleX: 1, scaleY: 1, rotation: 0, skewX: 0, skewY: 0 });
@@ -63,10 +63,21 @@ export function makeView(viewId: ViewId, image: ImageRef | null = null): RigView
   for (const p of v.parts) if (p.id !== 'body') setParent(v, p, 'body');
   return v;
 }
+/** Project the character's horizontal axis onto a 45-degree, half-height board.
+ * Keep its vertical axis upright. The body's children inherit this once; root flip
+ * supplies screen-west. Front slopes down-right, Back up-right before mirroring.
+ * Pixi uses a=cos(skewY)*scaleX, b=sin(skewY)*scaleX, so a=sqrt(1/2), b=±sqrt(1/8).
+ */
+export function defaultDirectionCorrection(direction: DirectionId, partId: string) {
+  const projectedBody = !VIEWS.includes(direction as ViewId) && partId === 'body';
+  const back = direction === 'NE' || direction === 'NW';
+  return { ...identity(), scaleX: projectedBody ? Math.sqrt(5 / 8) : 1,
+    skewY: projectedBody ? (back ? -1 : 1) * Math.atan(0.5) : 0, zOffset: 0 };
+}
 export function createRig(): CharacterRigData {
   const directions = Object.fromEntries(DIRECTIONS.map(id => {
     const back = ['Back', 'NE', 'NW'].includes(id), iso = !VIEWS.includes(id as ViewId), west = id.endsWith('W');
-    const parts = Object.fromEntries(HUMANOID.map(p => [p.id, { ...identity(), scaleX: iso && p.role === 'body' ? 0.88 : 1, skewY: iso && p.role === 'body' ? (west ? -0.06 : 0.06) : 0, x: iso && p.role === 'head' ? (west ? -8 : 8) : 0, zOffset: 0 }]));
+    const parts = Object.fromEntries(HUMANOID.map(p => [p.id, defaultDirectionCorrection(id, p.id)]));
     return [id, { view: back ? 'Back' : 'Front', flip: iso && west, vector: { x: iso ? (west ? -0.866 : 0.866) : 0, y: back ? -0.5 : iso ? 0.5 : 1 }, motionSign: back ? -1 : 1, swapLimbs: false, parts }];
   })) as CharacterRigData['directions'];
   return { schemaVersion: CURRENT_SCHEMA_VERSION, id: 'elf-soldier', rigType: 'humanoid', views: { Front: makeView('Front'), Back: makeView('Back') }, motion: { presetId: 'SD_Walk', duration: 1, bounce: 0.008, lean: 0.012, headRecoil: 0.003, armSwing: 0.08, stride: 0.012, lift: 0.009, footScale: 0, stance: 0.6, depthOrder: 0.2 }, directions };

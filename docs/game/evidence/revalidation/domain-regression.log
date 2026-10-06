@@ -1,0 +1,9 @@
+
+ RUN  v5.0.2 /home/deck/Documents/TacticsSD
+
+
+ Test Files  5 passed (5)
+      Tests  61 passed (61)
+   Start at  16:06:37
+   Duration  654ms (import 41%, transform 35%, tests 22%, worker 2%)
+

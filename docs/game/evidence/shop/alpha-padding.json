@@ -1,0 +1,404 @@
+{
+  "width": 2048,
+  "height": 2048,
+  "mode": "RGBA",
+  "uniqueFrames": 36,
+  "frames": [
+    {
+      "id": "travel-mail",
+      "bbox": [
+        28,
+        14,
+        227,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "012c28eebfe5b736cb595525e0e49ce0208460c6ecf7a2fdc4a6078658a37a28"
+    },
+    {
+      "id": "silver-mail",
+      "bbox": [
+        14,
+        15,
+        242,
+        241
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "2a285879ecd0cc182fdfb3a57a8f7f29d2e48e0b741441a106dcbb0a1ddb2428"
+    },
+    {
+      "id": "wooden-shield",
+      "bbox": [
+        16,
+        14,
+        240,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "c938ab95f05654753ed592c2e2e5da9143b5c386a39e9806c29121fa068070d3"
+    },
+    {
+      "id": "silver-bracers",
+      "bbox": [
+        14,
+        28,
+        242,
+        228
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "13bea7444c371b61a08ce7af1af1ce4a3d4e8d3f2d50ad26d51827540c746ab5"
+    },
+    {
+      "id": "warrior-ring",
+      "bbox": [
+        14,
+        27,
+        242,
+        228
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "8257a414ee52844f4881d743e1ef0487bc7e53ca501152061c3c393c94123af6"
+    },
+    {
+      "id": "scholar-ring",
+      "bbox": [
+        14,
+        38,
+        242,
+        218
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "654f38bc6c141cb4b362ff2c444212c74826eee332fbb378f652464d1e0baabd"
+    },
+    {
+      "id": "aether-draught",
+      "bbox": [
+        60,
+        14,
+        196,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "81c945e5dd64c0c7ff6d0a50a752ec19954497112825f4ca671f289a1849c4bc"
+    },
+    {
+      "id": "valor-draught",
+      "bbox": [
+        46,
+        14,
+        209,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "bc28d3c73faa5e18b7b9f9d098e2d2018cfb2c3e39a6ac0027af05aecd375321"
+    },
+    {
+      "id": "ov-313",
+      "bbox": [
+        84,
+        14,
+        171,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "1b5f670c12db8643015f17b2021c706e2495e8cfc75d0e04d98f07a685d951af"
+    },
+    {
+      "id": "ov-314",
+      "bbox": [
+        94,
+        14,
+        161,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "157251ce154ee629d17f7d2d0c7a142474b99a81c3ede9853f86dd03c17dd4b8"
+    },
+    {
+      "id": "ov-315",
+      "bbox": [
+        95,
+        14,
+        161,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "c06ffb40d8f935e02d422e7f5bf617d83a5ab4f2f162f7d670e12e86a636b7bd"
+    },
+    {
+      "id": "ov-397",
+      "bbox": [
+        18,
+        15,
+        238,
+        240
+      ],
+      "minimumPadding": 15,
+      "pixelHash": "fa282e32e597baf50b62fc1058407414b77125960b35a0835eaac7f206219873"
+    },
+    {
+      "id": "ov-398",
+      "bbox": [
+        65,
+        14,
+        191,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "b73899e27b4ee75359189af2a71095057b0ebce0748807d49f380570f6b25cfb"
+    },
+    {
+      "id": "ov-443",
+      "bbox": [
+        34,
+        14,
+        221,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "ab1b942b88d159d591996721d8969dc41deb2957fd832c48dd37f30181e6e831"
+    },
+    {
+      "id": "ov-444",
+      "bbox": [
+        42,
+        14,
+        213,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "0de0f384d2f807eb85a0e109edb6c2694c9a05407c8ce52b896dd7f0fbe7e8d1"
+    },
+    {
+      "id": "ov-445",
+      "bbox": [
+        19,
+        14,
+        236,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "46c8da6960c0357fe968212b3ba501934cc4ada92e0b5f46bb4f9e1235c4a5f3"
+    },
+    {
+      "id": "ov-446",
+      "bbox": [
+        19,
+        14,
+        237,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "4ab34d0481ba2a54b7c566d6565629f6cf280d203955eef6209ac8e0dbfb23f5"
+    },
+    {
+      "id": "ov-447",
+      "bbox": [
+        37,
+        14,
+        218,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "95199a043396f55c96143d13fdbb417943394960d28a36b3eb6fc1d3bf800f58"
+    },
+    {
+      "id": "ov-448",
+      "bbox": [
+        14,
+        14,
+        241,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "2370ae961e06ae935ec758450b841fc8d511e66ca83ee850d7c94a93fa3cf73b"
+    },
+    {
+      "id": "ov-488",
+      "bbox": [
+        22,
+        14,
+        234,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "310aeb343adadfd9e5f408970fdefa2ec1486fa413e37efe92732584d7eff958"
+    },
+    {
+      "id": "ov-489",
+      "bbox": [
+        14,
+        19,
+        242,
+        237
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "f55ad791c56874c958f028900e6e1e4662e17d06e1324d8fd3712cf276edd4b4"
+    },
+    {
+      "id": "ov-490",
+      "bbox": [
+        14,
+        21,
+        242,
+        235
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "342f9b3f849a6009287bb4cba887c82a8836dfa449f654951149069b13e4ec9d"
+    },
+    {
+      "id": "ov-537",
+      "bbox": [
+        14,
+        32,
+        242,
+        224
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "dd2283324a23dad673e24a761dde38e8de14ac83b90bea7574a34ca11bd0a340"
+    },
+    {
+      "id": "ov-539",
+      "bbox": [
+        14,
+        25,
+        242,
+        231
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "3b6c947bf9e12144f949ca6b26f6a15dcbd71078c465800a968704eabbf05c5a"
+    },
+    {
+      "id": "ov-541",
+      "bbox": [
+        14,
+        25,
+        242,
+        230
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "967a90b9400389ae62693f9035e2727cc36bb11a3fbbcf77ab926e2647db4fae"
+    },
+    {
+      "id": "ov-543",
+      "bbox": [
+        14,
+        23,
+        242,
+        233
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "8aa67192149348da2712646c126a327991a98620daef4056479a0eccd35f973c"
+    },
+    {
+      "id": "ov-545",
+      "bbox": [
+        14,
+        17,
+        242,
+        239
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "1f260b11aee29dec01fdb96ef354dc3eda9e8a388e5bb7e7fa306179faeb7206"
+    },
+    {
+      "id": "ov-547",
+      "bbox": [
+        14,
+        21,
+        242,
+        235
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "0383653d71602e2b6bac533aef063f3cfb60f69265443c6fa58e0d47495a5c26"
+    },
+    {
+      "id": "ov-551",
+      "bbox": [
+        15,
+        14,
+        240,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "93aee9ac070a1ea230c1551f81a6ca8395b140d72a61fea0a3fdfd8356962ca6"
+    },
+    {
+      "id": "ov-553",
+      "bbox": [
+        14,
+        22,
+        242,
+        234
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "eb3036e21e9370e29ca729aeef51b19791d613d65488b184276de8fb6a858c2b"
+    },
+    {
+      "id": "ov-555",
+      "bbox": [
+        14,
+        15,
+        242,
+        241
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "2c0a86c4cbd736e7a24ca0833acce64c459280ab40e3a473c800f89bc87f0cd7"
+    },
+    {
+      "id": "mend-leaf",
+      "bbox": [
+        34,
+        14,
+        222,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "cd9b4459614405ea5a97caf3d52ae25363eaa5d4cf9e3316992abdfcba6e7600"
+    },
+    {
+      "id": "ov-1004",
+      "bbox": [
+        48,
+        14,
+        208,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "8eaf094275cfd44df59ff1de49a27652e650b5acee33c5e5d39de50412d645bd"
+    },
+    {
+      "id": "ov-1008",
+      "bbox": [
+        14,
+        17,
+        242,
+        239
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "8fd5653b77730fcbc0e42b8d20ba0998966befd1c713b051b0b3698c1124f08c"
+    },
+    {
+      "id": "ov-1012",
+      "bbox": [
+        40,
+        14,
+        215,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "9a5aa36234a19edab2e8b4ba73e0a9ca5b1b17ad856854d47c41b8be557a9c4d"
+    },
+    {
+      "id": "ov-1013",
+      "bbox": [
+        42,
+        14,
+        213,
+        242
+      ],
+      "minimumPadding": 14,
+      "pixelHash": "85a16bf9293a5c36b5111e821dc4e53d2175631ef05ab7a7672f259a1af628b6"
+    }
+  ]
+}

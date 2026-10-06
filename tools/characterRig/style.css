@@ -5,3 +5,5 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
 .app-header nav{flex-wrap:wrap}
+
+.preview-toolbar{height:auto;min-height:54px;flex-wrap:wrap}#camera-toolbar{justify-content:flex-start}#preview canvas[data-preview="3d"]{touch-action:none}

@@ -1,0 +1,398 @@
+[
+  {
+    "id": "travel-mail",
+    "sourceBox": [
+      0,
+      0,
+      314,
+      321
+    ],
+    "components": 1,
+    "alphaPixels": 56071
+  },
+  {
+    "id": "silver-mail",
+    "sourceBox": [
+      314,
+      0,
+      627,
+      321
+    ],
+    "components": 1,
+    "alphaPixels": 64560
+  },
+  {
+    "id": "wooden-shield",
+    "sourceBox": [
+      627,
+      0,
+      940,
+      321
+    ],
+    "components": 1,
+    "alphaPixels": 50260
+  },
+  {
+    "id": "silver-bracers",
+    "sourceBox": [
+      940,
+      0,
+      1254,
+      321
+    ],
+    "components": 1,
+    "alphaPixels": 40061
+  },
+  {
+    "id": "warrior-ring",
+    "sourceBox": [
+      20,
+      343,
+      304,
+      586
+    ],
+    "components": 1,
+    "alphaPixels": 33245
+  },
+  {
+    "id": "scholar-ring",
+    "sourceBox": [
+      338,
+      343,
+      607,
+      589
+    ],
+    "components": 1,
+    "alphaPixels": 32963
+  },
+  {
+    "id": "aether-draught",
+    "sourceBox": [
+      647,
+      318,
+      921,
+      622
+    ],
+    "components": 1,
+    "alphaPixels": 29340
+  },
+  {
+    "id": "valor-draught",
+    "sourceBox": [
+      950,
+      318,
+      1249,
+      622
+    ],
+    "components": 1,
+    "alphaPixels": 34865
+  },
+  {
+    "id": "ov-313",
+    "sourceBox": [
+      78,
+      588,
+      265,
+      913
+    ],
+    "components": 1,
+    "alphaPixels": 13630
+  },
+  {
+    "id": "ov-314",
+    "sourceBox": [
+      416,
+      598,
+      558,
+      918
+    ],
+    "components": 1,
+    "alphaPixels": 9305
+  },
+  {
+    "id": "ov-315",
+    "sourceBox": [
+      705,
+      625,
+      828,
+      919
+    ],
+    "components": 1,
+    "alphaPixels": 8356
+  },
+  {
+    "id": "ov-397",
+    "sourceBox": [
+      945,
+      635,
+      1234,
+      901
+    ],
+    "components": 1,
+    "alphaPixels": 39029
+  },
+  {
+    "id": "ov-398",
+    "sourceBox": [
+      54,
+      913,
+      299,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 35992
+  },
+  {
+    "id": "ov-443",
+    "sourceBox": [
+      343,
+      922,
+      612,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 51254
+  },
+  {
+    "id": "ov-444",
+    "sourceBox": [
+      647,
+      934,
+      916,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 52690
+  },
+  {
+    "id": "ov-445",
+    "sourceBox": [
+      948,
+      915,
+      1239,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 57711
+  },
+  {
+    "id": "ov-446",
+    "sourceBox": [
+      0,
+      0,
+      314,
+      314
+    ],
+    "components": 1,
+    "alphaPixels": 57607
+  },
+  {
+    "id": "ov-447",
+    "sourceBox": [
+      314,
+      0,
+      627,
+      314
+    ],
+    "components": 1,
+    "alphaPixels": 53004
+  },
+  {
+    "id": "ov-448",
+    "sourceBox": [
+      627,
+      0,
+      940,
+      314
+    ],
+    "components": 1,
+    "alphaPixels": 69317
+  },
+  {
+    "id": "ov-488",
+    "sourceBox": [
+      940,
+      0,
+      1254,
+      314
+    ],
+    "components": 1,
+    "alphaPixels": 44156
+  },
+  {
+    "id": "ov-489",
+    "sourceBox": [
+      0,
+      316,
+      314,
+      612
+    ],
+    "components": 1,
+    "alphaPixels": 53310
+  },
+  {
+    "id": "ov-490",
+    "sourceBox": [
+      314,
+      316,
+      627,
+      612
+    ],
+    "components": 1,
+    "alphaPixels": 47555
+  },
+  {
+    "id": "ov-537",
+    "sourceBox": [
+      627,
+      328,
+      940,
+      600
+    ],
+    "components": 1,
+    "alphaPixels": 52126
+  },
+  {
+    "id": "ov-539",
+    "sourceBox": [
+      940,
+      318,
+      1254,
+      603
+    ],
+    "components": 1,
+    "alphaPixels": 54058
+  },
+  {
+    "id": "ov-541",
+    "sourceBox": [
+      0,
+      617,
+      314,
+      899
+    ],
+    "components": 1,
+    "alphaPixels": 60339
+  },
+  {
+    "id": "ov-543",
+    "sourceBox": [
+      314,
+      617,
+      627,
+      899
+    ],
+    "components": 1,
+    "alphaPixels": 50719
+  },
+  {
+    "id": "ov-545",
+    "sourceBox": [
+      627,
+      615,
+      940,
+      898
+    ],
+    "components": 1,
+    "alphaPixels": 44411
+  },
+  {
+    "id": "ov-547",
+    "sourceBox": [
+      940,
+      615,
+      1254,
+      899
+    ],
+    "components": 1,
+    "alphaPixels": 47937
+  },
+  {
+    "id": "ov-551",
+    "sourceBox": [
+      0,
+      907,
+      314,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 51819
+  },
+  {
+    "id": "ov-553",
+    "sourceBox": [
+      314,
+      907,
+      627,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 58766
+  },
+  {
+    "id": "ov-555",
+    "sourceBox": [
+      627,
+      907,
+      940,
+      1234
+    ],
+    "components": 1,
+    "alphaPixels": 51342
+  },
+  {
+    "id": "mend-leaf",
+    "sourceBox": [
+      0,
+      0,
+      456,
+      617
+    ],
+    "components": 1,
+    "alphaPixels": 93528
+  },
+  {
+    "id": "ov-1004",
+    "sourceBox": [
+      456,
+      0,
+      803,
+      617
+    ],
+    "components": 1,
+    "alphaPixels": 76308
+  },
+  {
+    "id": "ov-1008",
+    "sourceBox": [
+      803,
+      0,
+      1254,
+      617
+    ],
+    "components": 1,
+    "alphaPixels": 102907
+  },
+  {
+    "id": "ov-1012",
+    "sourceBox": [
+      0,
+      617,
+      446,
+      1254
+    ],
+    "components": 1,
+    "alphaPixels": 102736
+  },
+  {
+    "id": "ov-1013",
+    "sourceBox": [
+      446,
+      617,
+      887,
+      1254
+    ],
+    "components": 1,
+    "alphaPixels": 100138
+  }
+]

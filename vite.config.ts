@@ -9,6 +9,7 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
+        game: resolve(import.meta.dirname, 'game/index.html'),
         ...Object.fromEntries(TOOLS.map(tool => [tool.id, resolve(import.meta.dirname, tool.path, 'index.html')])),
       },
     },

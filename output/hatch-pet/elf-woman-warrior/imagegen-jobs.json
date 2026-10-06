@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-05T16:21:28.379972+00:00",
+  "run_dir": "/home/deck/Documents/TacticsSD/output/hatch-pet/elf-woman-warrior",
+  "primary_generation_skill": "$imagegen",
+  "jobs": [
+    {
+      "id": "base",
+      "kind": "base-pet",
+      "status": "complete",
+      "prompt_file": "prompts/base-pet.md",
+      "input_images": [],
+      "output_path": "decoded/base.png",
+      "depends_on": [],
+      "generation_skill": "$imagegen",
+      "requires_grounded_generation": false,
+      "allow_prompt_only_generation": true,
+      "recording_owner": "parent",
+      "source_path": "/home/deck/.codex/generated_images/01a10cb2-022a-7390-8204-a6e347c13b58/ig_elf-warrior-base.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "8f3859db71cc49e7b9c1dab9f387dde8c9c92926c9750078075ec6d4e362cb96",
+      "output_sha256": "8f3859db71cc49e7b9c1dab9f387dde8c9c92926c9750078075ec6d4e362cb96",
+      "completed_at": "2026-10-05T16:23:46.593949+00:00",
+      "metadata": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGB",
+        "format": "PNG"
+      },
+      "canonical_reference_path": "references/canonical-base.png"
+    },
+    {
+      "id": "game-row-1",
+      "kind": "row-strip",
+      "status": "complete",
+      "prompt_file": "prompts/rows/game-row-1.md",
+      "output_path": "decoded/game-row-1.png",
+      "depends_on": [
+        "base"
+      ],
+      "input_images": [
+        {
+          "path": "references/canonical-base.png",
+          "role": "canonical identity reference"
+        },
+        {
+          "path": "decoded/base.png",
+          "role": "approved base"
+        },
+        {
+          "path": "references/pose-row-1.png",
+          "role": "body pose only, NOT character identity"
+        },
+        {
+          "path": "references/layout-guides/game-row-1.png",
+          "role": "layout only, never copy guide marks"
+        }
+      ],
+      "generation_skill": "$imagegen",
+      "allow_prompt_only_generation": false,
+      "requires_grounded_generation": true,
+      "recording_owner": "parent",
+      "frame_count": 7,
+      "source_path": "/home/deck/.codex/generated_images/01a10ce1-3796-79b1-9ade-4d358e8dbdb6/ig_elf-game-row-1.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "0e7a9c5f6e665bddd3bdf52e5ce9b0e9147063a1977538ffab57cb55f4e95761",
+      "output_sha256": "0e7a9c5f6e665bddd3bdf52e5ce9b0e9147063a1977538ffab57cb55f4e95761",
+      "completed_at": "2026-10-05T16:27:37.155768+00:00",
+      "metadata": {
+        "width": 2172,
+        "height": 724,
+        "mode": "RGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "id": "game-row-2",
+      "kind": "row-strip",
+      "status": "complete",
+      "prompt_file": "prompts/rows/game-row-2.md",
+      "output_path": "decoded/game-row-2.png",
+      "depends_on": [
+        "base"
+      ],
+      "input_images": [
+        {
+          "path": "references/canonical-base.png",
+          "role": "canonical identity reference"
+        },
+        {
+          "path": "decoded/base.png",
+          "role": "approved base"
+        },
+        {
+          "path": "references/pose-row-2.png",
+          "role": "body pose only, NOT character identity"
+        },
+        {
+          "path": "references/layout-guides/game-row-2.png",
+          "role": "layout only, never copy guide marks"
+        }
+      ],
+      "generation_skill": "$imagegen",
+      "allow_prompt_only_generation": false,
+      "requires_grounded_generation": true,
+      "recording_owner": "parent",
+      "frame_count": 7,
+      "source_path": "/home/deck/.codex/generated_images/01a10ce1-7953-7502-8292-25aee518c9ee/ig_elf-game-row-2.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "3e9ad37611a566052832b0e0a3563b0708fe09cae3c02ad7800ad50fe281f996",
+      "output_sha256": "3e9ad37611a566052832b0e0a3563b0708fe09cae3c02ad7800ad50fe281f996",
+      "completed_at": "2026-10-05T16:27:37.337350+00:00",
+      "metadata": {
+        "width": 2172,
+        "height": 724,
+        "mode": "RGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "id": "game-row-3",
+      "kind": "row-strip",
+      "status": "complete",
+      "prompt_file": "prompts/rows/game-row-3.md",
+      "output_path": "decoded/game-row-3.png",
+      "depends_on": [
+        "base"
+      ],
+      "input_images": [
+        {
+          "path": "references/canonical-base.png",
+          "role": "canonical identity reference"
+        },
+        {
+          "path": "decoded/base.png",
+          "role": "approved base"
+        },
+        {
+          "path": "references/pose-row-3.png",
+          "role": "body pose only, NOT character identity"
+        },
+        {
+          "path": "references/layout-guides/game-row-3.png",
+          "role": "layout only, never copy guide marks"
+        }
+      ],
+      "generation_skill": "$imagegen",
+      "allow_prompt_only_generation": false,
+      "requires_grounded_generation": true,
+      "recording_owner": "parent",
+      "frame_count": 6,
+      "source_path": "/home/deck/.codex/generated_images/01a10ce1-b52a-7390-8927-44a494b849fc/ig_elf-game-row-3.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "a0a356692cd3ebe3e7245009afc1adf4c7d4691bc7bcb94fb00d849785259986",
+      "output_sha256": "a0a356692cd3ebe3e7245009afc1adf4c7d4691bc7bcb94fb00d849785259986",
+      "completed_at": "2026-10-05T16:28:42.981536+00:00",
+      "metadata": {
+        "width": 2172,
+        "height": 724,
+        "mode": "RGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "id": "game-row-4",
+      "kind": "row-strip",
+      "status": "complete",
+      "prompt_file": "prompts/rows/game-row-4.md",
+      "output_path": "decoded/game-row-4.png",
+      "depends_on": [
+        "base",
+        "game-row-2"
+      ],
+      "input_images": [
+        {
+          "path": "references/canonical-base.png",
+          "role": "canonical identity reference"
+        },
+        {
+          "path": "decoded/base.png",
+          "role": "approved base"
+        },
+        {
+          "path": "references/pose-row-4.png",
+          "role": "body pose only, NOT character identity"
+        },
+        {
+          "path": "references/layout-guides/game-row-4.png",
+          "role": "layout only, never copy guide marks"
+        },
+        {
+          "path": "decoded/game-row-2.png",
+          "role": "approved actual back appearance reference, not action poses"
+        }
+      ],
+      "generation_skill": "$imagegen",
+      "allow_prompt_only_generation": false,
+      "requires_grounded_generation": true,
+      "recording_owner": "parent",
+      "frame_count": 6,
+      "source_path": "/home/deck/.codex/generated_images/01a10ce1-7953-7502-8292-25aee518c9ee/ig_elf-game-row-4.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "0cf12d77b419276aeecf0850b45605f28fd5a0ddf31ccd7aef94c043447b3592",
+      "output_sha256": "0cf12d77b419276aeecf0850b45605f28fd5a0ddf31ccd7aef94c043447b3592",
+      "completed_at": "2026-10-05T16:31:14.867415+00:00",
+      "metadata": {
+        "width": 2172,
+        "height": 724,
+        "mode": "RGB",
+        "format": "PNG"
+      }
+    },
+    {
+      "id": "game-row-1-cell-3",
+      "kind": "repair-cell",
+      "status": "complete",
+      "prompt_file": "prompts/rows/game-row-1-cell-3.md",
+      "output_path": "decoded/game-row-1-cell-3.png",
+      "depends_on": [
+        "base"
+      ],
+      "generation_skill": "$imagegen",
+      "allow_prompt_only_generation": false,
+      "recording_owner": "parent",
+      "input_images": [
+        {
+          "path": "references/canonical-base.png",
+          "role": "identity"
+        },
+        {
+          "path": "references/layout-guides/game-row-1-cell-3.png",
+          "role": "one frame spacing only"
+        }
+      ],
+      "source_path": "/home/deck/.codex/generated_images/01a10ce1-b52a-7390-8927-44a494b849fc/ig_elf-game-row-1-cell-3.png",
+      "source_provenance": "built-in-imagegen",
+      "source_sha256": "8121648a887de72ce74aec21551604e431b2fb61c9515773c3ffdab8944ed9ab",
+      "output_sha256": "8121648a887de72ce74aec21551604e431b2fb61c9515773c3ffdab8944ed9ab",
+      "completed_at": "2026-10-05T16:33:09.387588+00:00",
+      "metadata": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGB",
+        "format": "PNG"
+      }
+    }
+  ],
+  "canonical_identity_reference": {
+    "path": "references/canonical-base.png",
+    "source_job": "base",
+    "sha256": "8f3859db71cc49e7b9c1dab9f387dde8c9c92926c9750078075ec6d4e362cb96",
+    "metadata": {
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGB",
+      "format": "PNG"
+    }
+  }
+}

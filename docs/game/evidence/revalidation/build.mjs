@@ -1,0 +1,2 @@
+import {build,loadConfigFromFile} from '/home/deck/Documents/TacticsSD/node_modules/vite/dist/node/index.js';
+const root='/home/deck/Documents/TacticsSD';const loaded=await loadConfigFromFile({command:'build',mode:'production'},root+'/vite.config.ts',root,undefined,undefined,'runner');await build({...loaded.config,root,configFile:false,cacheDir:'/tmp/tacticssd-audit/build-cache',build:{...loaded.config.build,outDir:'/tmp/tacticssd-audit/dist',emptyOutDir:true}});

@@ -1,0 +1,417 @@
+{
+  "dimensions": [
+    1792,
+    1024
+  ],
+  "mode": "RGBA",
+  "cell": [
+    256,
+    256
+  ],
+  "poses": 26,
+  "unique_hashes": 26,
+  "blank_cells": [
+    [
+      6,
+      2
+    ],
+    [
+      6,
+      3
+    ]
+  ],
+  "blank_alpha_sum": [
+    0,
+    0
+  ],
+  "minimum_alpha32_gutter": 9,
+  "frames": [
+    {
+      "id": "front_idle",
+      "source": "raw/locomotion.png",
+      "source_cell": 0,
+      "bounds": [
+        46,
+        42,
+        175,
+        230
+      ],
+      "scale": 0.445,
+      "sha256": "aef0596838cf31a56a2f1b99c1bec5f316a61551a28143abe8a79a0ea899710c",
+      "alpha_pixels": 14487
+    },
+    {
+      "id": "front_walk_right",
+      "source": "raw/near-forward-compact.png",
+      "source_cell": 0,
+      "bounds": [
+        40,
+        38,
+        194,
+        230
+      ],
+      "scale": 0.345,
+      "sha256": "0b3333be72a875d22854936a6a5a8330bcef72302ac04febe2db54661852d850",
+      "alpha_pixels": 16248
+    },
+    {
+      "id": "front_walk_left",
+      "source": "raw/opposite.png",
+      "source_cell": 0,
+      "bounds": [
+        40,
+        37,
+        192,
+        230
+      ],
+      "scale": 0.42,
+      "sha256": "12bf4631e7a090f6d3d4c0e5cca806af626e89b9ce05d324d65b33e7e69b9d48",
+      "alpha_pixels": 16213
+    },
+    {
+      "id": "front_hurt",
+      "source": "raw/damage.png",
+      "source_cell": 0,
+      "bounds": [
+        26,
+        58,
+        221,
+        230
+      ],
+      "scale": 0.48,
+      "sha256": "52a9000d07c6ce4906a311fbda02158810fcde187163c08ee026fba7dca0c3a7",
+      "alpha_pixels": 17007
+    },
+    {
+      "id": "front_jump1",
+      "source": "raw/jump.png",
+      "source_cell": 0,
+      "bounds": [
+        55,
+        87,
+        180,
+        230
+      ],
+      "scale": 0.395,
+      "sha256": "a706a2ffaf1606164d4aee55f757eccfbd82eb1f48ca1d27446a6ac5ae012b6d",
+      "alpha_pixels": 11803
+    },
+    {
+      "id": "front_jump2",
+      "source": "raw/jump.png",
+      "source_cell": 1,
+      "bounds": [
+        44,
+        55,
+        165,
+        211
+      ],
+      "scale": 0.395,
+      "sha256": "a1c296e8844cfa0e0a1552150c56d820fcd5e3acdd3761d1f20ac1eab760b459",
+      "alpha_pixels": 12143
+    },
+    {
+      "id": "front_jump3",
+      "source": "raw/jump.png",
+      "source_cell": 2,
+      "bounds": [
+        34,
+        9,
+        164,
+        200
+      ],
+      "scale": 0.395,
+      "sha256": "abdc25b8d204036c9ee6adf5e1441e032eacd89f6eaad8ccfd498fe8a7c8e6ea",
+      "alpha_pixels": 13036
+    },
+    {
+      "id": "front_collapse",
+      "source": "raw/damage.png",
+      "source_cell": 1,
+      "bounds": [
+        11,
+        159,
+        244,
+        231
+      ],
+      "scale": 0.48,
+      "sha256": "492596c55ff9b529be9d363c23544acc589eb306c4028a602bf56f559c5ea306",
+      "alpha_pixels": 11709
+    },
+    {
+      "id": "front_attack1",
+      "source": "raw/attack-front.png",
+      "source_cell": 0,
+      "bounds": [
+        40,
+        37,
+        183,
+        230
+      ],
+      "scale": 0.445,
+      "sha256": "0807d3f6369625c9bf9419614a751d26e80265e02edb204ed863d84a9bcbfc0e",
+      "alpha_pixels": 15735
+    },
+    {
+      "id": "front_attack2",
+      "source": "raw/attack-front.png",
+      "source_cell": 1,
+      "bounds": [
+        29,
+        26,
+        193,
+        230
+      ],
+      "scale": 0.445,
+      "sha256": "d920baf75f50b5d29c3ca9f8d71753b863a650d0d2433ef1225bef44117ded0b",
+      "alpha_pixels": 17080
+    },
+    {
+      "id": "front_attack3",
+      "source": "raw/attack-front.png",
+      "source_cell": 2,
+      "bounds": [
+        52,
+        43,
+        235,
+        230
+      ],
+      "scale": 0.445,
+      "sha256": "bc93e29d516d267e7e85780fc00438a0c18b718dccf78f516a4d429563df5d91",
+      "alpha_pixels": 16833
+    },
+    {
+      "id": "front_attack4",
+      "source": "raw/attack-front.png",
+      "source_cell": 3,
+      "bounds": [
+        49,
+        56,
+        221,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "5dc082590d0b233b822dd3b53949dca60ea9b56af7b3a6941bd2b6689a3ef31f",
+      "alpha_pixels": 17136
+    },
+    {
+      "id": "front_attack5",
+      "source": "raw/attack-front.png",
+      "source_cell": 4,
+      "bounds": [
+        41,
+        39,
+        193,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "3c863ea3eb94b661ed9c8debdaaed87c4d12925b21c4be1edd4c052c655c5018",
+      "alpha_pixels": 15612
+    },
+    {
+      "id": "back_idle",
+      "source": "raw/locomotion.png",
+      "source_cell": 3,
+      "bounds": [
+        38,
+        41,
+        180,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "c9eb48846be405075a0f1bbd928b993e4474a01880e7687d146cd9de397665f3",
+      "alpha_pixels": 15162
+    },
+    {
+      "id": "back_walk_right",
+      "source": "raw/near-forward-compact.png",
+      "source_cell": 2,
+      "bounds": [
+        32,
+        44,
+        202,
+        230
+      ],
+      "scale": 0.345,
+      "sha256": "a0527048b20e8889147b8603cd461406dad120e03e34c52b38c763bb029c07a4",
+      "alpha_pixels": 16144
+    },
+    {
+      "id": "back_walk_left",
+      "source": "raw/opposite.png",
+      "source_cell": 2,
+      "bounds": [
+        37,
+        35,
+        194,
+        231
+      ],
+      "scale": 0.42,
+      "sha256": "0be2ed04cd53886272184f71cbbb4680b1b0e26d9e1c89d5391c439beb35ff14",
+      "alpha_pixels": 16462
+    },
+    {
+      "id": "back_hurt",
+      "source": "raw/damage.png",
+      "source_cell": 2,
+      "bounds": [
+        23,
+        53,
+        223,
+        230
+      ],
+      "scale": 0.48,
+      "sha256": "348d7b7c83c522d6de4de5c872df1292092088723e39d1db513a3f28f5d4fa12",
+      "alpha_pixels": 18424
+    },
+    {
+      "id": "back_jump1",
+      "source": "raw/jump.png",
+      "source_cell": 3,
+      "bounds": [
+        50,
+        84,
+        184,
+        230
+      ],
+      "scale": 0.395,
+      "sha256": "bd1e8fd45cae8f264eb5e8864615c0f74ef9093ff0b71d89d214355855874be4",
+      "alpha_pixels": 12131
+    },
+    {
+      "id": "back_jump2",
+      "source": "raw/jump.png",
+      "source_cell": 4,
+      "bounds": [
+        43,
+        59,
+        174,
+        210
+      ],
+      "scale": 0.395,
+      "sha256": "04bf14161d5d2a441f365d9d1dea9a156eac1d5b9f7f1bf40bf7c717408df805",
+      "alpha_pixels": 11388
+    },
+    {
+      "id": "back_jump3",
+      "source": "raw/jump.png",
+      "source_cell": 5,
+      "bounds": [
+        23,
+        23,
+        161,
+        201
+      ],
+      "scale": 0.395,
+      "sha256": "c3f52bb0d8943af263dec37ce5d89dfd60c8da470d725e0dec6e0d8e79d1543f",
+      "alpha_pixels": 12341
+    },
+    {
+      "id": "back_collapse",
+      "source": "raw/damage.png",
+      "source_cell": 3,
+      "bounds": [
+        12,
+        160,
+        243,
+        231
+      ],
+      "scale": 0.48,
+      "sha256": "320af0b811e9f3a0afba4a61270ef0b0c9d4a8ff83f46f135dcb615dd44f8e51",
+      "alpha_pixels": 11336
+    },
+    {
+      "id": "back_attack1",
+      "source": "raw/attack-back.png",
+      "source_cell": 0,
+      "bounds": [
+        41,
+        30,
+        178,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "ba2518f8b989c2c669e1936857118c95688fdc690908b441541cc680ee7d0f02",
+      "alpha_pixels": 15705
+    },
+    {
+      "id": "back_attack2",
+      "source": "raw/attack-back.png",
+      "source_cell": 1,
+      "bounds": [
+        33,
+        24,
+        189,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "95d881422e5fe6a64fb36c57d8f0353301593bde5d17a78762e92ea66897ba49",
+      "alpha_pixels": 16490
+    },
+    {
+      "id": "back_attack3",
+      "source": "raw/attack-back.png",
+      "source_cell": 2,
+      "bounds": [
+        45,
+        36,
+        223,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "829f32d0fbedd76d77e0fda29a1ceb94cbd6a448b2d7b0e64ce129593fa14ca5",
+      "alpha_pixels": 17059
+    },
+    {
+      "id": "back_attack4",
+      "source": "raw/attack-back.png",
+      "source_cell": 3,
+      "bounds": [
+        46,
+        51,
+        218,
+        230
+      ],
+      "scale": 0.445,
+      "sha256": "fc9df9b2e67887e44cf8225dd086fed921d288a9def9ef0e38b48d88b4003da0",
+      "alpha_pixels": 17135
+    },
+    {
+      "id": "back_attack5",
+      "source": "raw/attack-back.png",
+      "source_cell": 4,
+      "bounds": [
+        42,
+        34,
+        191,
+        231
+      ],
+      "scale": 0.445,
+      "sha256": "85a7abb034443c38d21099e139c3c1575d7035fcad08e87dd5dff8a65b2e1bcc",
+      "alpha_pixels": 15973
+    }
+  ],
+  "processing": "Actual ImageGen action groups, magenta key and fringe cleanup, uniform per-group scale; translation registers feet, no frame-specific resize/mirroring/rotation/pose fabrication.",
+  "visual_review": {
+    "status": "passed",
+    "reviewed": "All26 final frames and socket markers inspected. Integration owner independently accepted raw/near-forward-compact.png foreground thigh crossing in front of supporting far leg for both front and back; compact SD proportion and flat boots restored.",
+    "passed": [
+      "front_back_identity",
+      "opaque_covered_costume",
+      "distinct_attack_actions",
+      "true_opposite_anatomical_walk_phases",
+      "compact_adult_SD_proportion",
+      "consistent_boot_design",
+      "jump_displacement",
+      "low_collapse",
+      "hand_socket_measurements",
+      "no_visual_clipping"
+    ],
+    "requires_review": [],
+    "gait_resolution": "Previous near-trailing support-leg repetition resolved by cropped upper-body identity reference plus color-coded explicit near/far leg geometry. Generated high near-knee phase retained thigh occlusion during compact-proportion and boot correction. Final walk_right uses near-forward-compact.png cells0/2; walk_left retains near-leg tucked trailing phase from opposite.png cells0/2. All prior rejected generations are preserved.",
+    "scale_contract": "Uniform per-group scale: .445 original locomotion/attacks, .395 jumps, .48 damage, .42 tucked phase, .345 high-near-knee phase. Raw source resolutions and camera scales differ. No per-frame fit, mirroring, rotation or synthesized limbs.",
+    "processor_note": "Bundled processor initial attack strict QC flagged its4px source trimming and raw footline dispersion. Final deterministic assembly keys original untrimmed raw images, registers footline230 and verifies final alpha32 gutters of at least8px. Jump footlines210/200 retain20/30px airborne displacement."
+  },
+  "socket_count": 26,
+  "socket_centers_opaque": true
+}

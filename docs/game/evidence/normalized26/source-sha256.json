@@ -1,0 +1,13 @@
+{
+  "package.json": "e65e15d0cc0e2ea1c238806eb2d264e1308bb99feded86f08035036b7c8d43d3",
+  "playwright.config.ts": "132b7d5ff1a12ce210f7e1eeb57e3b22a2cc0156aa066491fa971c842db22b87",
+  "game/elf-sprites.ts": "8908f2a0353e7033dd014e2afd80f60747f34fbc7ee16cee95a3f65bf1f606de",
+  "game/render.ts": "685b09bc7493aa7c808eb7e8ebba8d1ca6c452b9eaafc7f8cda94be8a4bbf30c",
+  "tests/game/elf-sprites.test.ts": "7e1a57b84c2884d512bda4c740fc675bbc69210b8f8998e28683417284812b7a",
+  "tests/game/tests/browser/elf-sprites.spec.ts": "d34c24e681425b88e689a0a0b801c3ee8b4ed9f19951d980d40b15a37d13b066",
+  "game/assets/elf-sd-sheet-v2/elf-adult-26pose-sheet.png": "9a09e2a046f08d273a9513285f2a4a150c4f221044649d36af231d80e3f78a49",
+  "game/assets/elf-sd-sheet-v2/frames.json": "28dbf0b44c06486e2e588c0f60f7ac2cd1c0ee46fdbb09298ceee9d4c20a664c",
+  "tools/characterRig/main.ts": "8effbe6b076bf61da24951b673611a6edbe5f8ed605c92ae29f95b3b3ce6d70e",
+  "tools/characterRig/domain/rig.ts": "87edfaaf7bf6b284c7a2c86695ccab6f087bd58cf4346282b2e1ac21858933c7",
+  "tools/characterRig/assets/default-rig.json": "e83eb576d9ba34104f59d423aaa284c41d3b18f1b8cab90623dcf79048efa347"
+}

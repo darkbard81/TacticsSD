@@ -1,0 +1,16 @@
+{
+  "dimensions": [
+    1792,
+    1024
+  ],
+  "mode": "RGBA",
+  "poseCount": 26,
+  "transparentPixels": 1483402,
+  "uniqueFrameHashes": 26,
+  "allFrameMarginsAtLeast8px": true,
+  "blankCellAlphaMax": [
+    0,
+    0
+  ],
+  "validationScope": "Asset-level inspection and exact sequence preview; no game runtime integration or change."
+}

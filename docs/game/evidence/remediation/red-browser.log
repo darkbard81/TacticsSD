@@ -1,0 +1,243 @@
+
+Running 7 tests using 1 worker
+
+(node:458290) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:9:1 › F01 keyboard focus on target cancel returns without attacking (6.1s)
+(node:458395) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:10:1 › F02 controller can cancel both keyboard and button capture without a keyboard (6.5s)
+(node:458504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:11:1 › F03 reserved Tab is not saved; a remapped Space performs only its action (2.2s)
+(node:458608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:12:1 › F04 held input cannot dismiss pause on refocus or controller disconnect (2.4s)
+(node:458708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:13:1 › F05 canceling end-turn grants no free guard (3.3s)
+(node:458815) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  6 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:14:1 › F08 editor replacement references are rendered rather than silently discarded (1.3s)
+(node:458925) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  7 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:15:1 › F09 unit labels are drawn after all opaque terrain and sprites in both projections (1.4s)
+
+
+  1) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:9:1 › F01 keyboard focus on target cancel returns without attacking 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "command"
+    Received: "animating"
+
+       7 | async function mock(p:Page){await p.addInitScript(`window.padButtons=[];window.padConnected=true;Object.defineProperty(navigator,'getGamepads',{value:()=>window.padConnected?[{connected:true,index:0,mapping:'standard',axes:[0,0,0,0],buttons:Array.from({length:16},(_,i)=>({pressed:window.padButtons.includes(i),value:window.padButtons.includes(i)?1:0}))}]:[]});`);}
+       8 | async function pad(p:Page,buttons:number[]){await p.evaluate(v=>{(window as any).padButtons=v},buttons);await p.waitForTimeout(65);await p.evaluate(()=>{(window as any).padButtons=[]});await p.waitForTimeout(65);}
+    >  9 | test('F01 keyboard focus on target cancel returns without attacking',async({page})=>{await battle(page);await page.keyboard.press('e');await choose(page,'move');for(const k of ['ArrowRight','ArrowDown','ArrowRight','ArrowRight'])await page.keyboard.press(k);await page.keyboard.press('Enter');await expect.poll(async()=> (await diag(page)).mode).toBe('command');await choose(page,'attack');for(let i=0;i<20&&await page.evaluate(()=>(document.activeElement as HTMLElement)?.dataset.id)!=='back-command';i++)await page.keyboard.press('Tab');await expect(page.locator('[data-id=back-command]')).toBeFocused();const before=(await diag(page)).battle;await page.keyboard.press('Enter');expect((await diag(page)).mode).toBe('command');expect((await diag(page)).battle).toEqual(before);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      10 | test('F02 controller can cancel both keyboard and button capture without a keyboard',async({page})=>{await mock(page);await boot(page);await choose(page,'settings');await choose(page,'bind-keys-0');await pad(page,[1]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 키를');await choose(page,'bind-buttons-0');const before=(await diag(page)).bindings;await pad(page,[8,9]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 패드 버튼');expect((await diag(page)).bindings).toEqual(before);});
+      11 | test('F03 reserved Tab is not saved; a remapped Space performs only its action',async({page})=>{await battle(page);await page.keyboard.press('p');await choose(page,'settings');await choose(page,'bind-keys-0');await page.keyboard.press('Tab');expect((await diag(page)).bindings.keys.up).toBe('ArrowUp');await page.keyboard.press('Escape');await choose(page,'settings-next');await choose(page,'bind-keys-9');await page.keyboard.press('Space');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('e');const before=await diag(page);await page.keyboard.press('Space');const after=await diag(page);expect(after.top).not.toBe(before.top);expect(after.mode).toBe(before.mode);});
+      12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:9:713
+
+    Error Context: ../test-results/tests-game-tests-browser-r-85f39-l-returns-without-attacking/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-85f39-l-returns-without-attacking/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-85f39-l-returns-without-attacking/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:10:1 › F02 controller can cancel both keyboard and button capture without a keyboard 
+
+    Error: expect(locator).not.toContainText(expected) failed
+
+    Locator: locator('[role=dialog]')
+    Expected substring: not "사용할 키를"
+    Received string: "INPUT & ACCESSIBILITY입력 설정「위」에 사용할 키를 누르세요. Esc: 취소위ArrowUp패드 12아래ArrowDown패드 13왼쪽ArrowLeft패드 14오른쪽ArrowRight패드 15확인Enter패드 0취소 / 뒤로Escape패드 1일시정지KeyP패드 9다음 유닛KeyE패드 5이전 유닛KeyQ패드 4기본 동작카메라 / 시점기본값 복원저장하고 돌아가기왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "not toContainText" locator('[role=dialog]') with timeout 5000ms
+      - waiting for locator('[role=dialog]')
+        14 × locator resolved to <section role="dialog" aria-modal="true" aria-label="입력 설정" class="modal paper">…</section>
+           - unexpected value "INPUT & ACCESSIBILITY입력 설정「위」에 사용할 키를 누르세요. Esc: 취소위ArrowUp패드 12아래ArrowDown패드 13왼쪽ArrowLeft패드 14오른쪽ArrowRight패드 15확인Enter패드 0취소 / 뒤로Escape패드 1일시정지KeyP패드 9다음 유닛KeyE패드 5이전 유닛KeyQ패드 4기본 동작카메라 / 시점기본값 복원저장하고 돌아가기왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요."
+
+
+       8 | async function pad(p:Page,buttons:number[]){await p.evaluate(v=>{(window as any).padButtons=v},buttons);await p.waitForTimeout(65);await p.evaluate(()=>{(window as any).padButtons=[]});await p.waitForTimeout(65);}
+       9 | test('F01 keyboard focus on target cancel returns without attacking',async({page})=>{await battle(page);await page.keyboard.press('e');await choose(page,'move');for(const k of ['ArrowRight','ArrowDown','ArrowRight','ArrowRight'])await page.keyboard.press(k);await page.keyboard.press('Enter');await expect.poll(async()=> (await diag(page)).mode).toBe('command');await choose(page,'attack');for(let i=0;i<20&&await page.evaluate(()=>(document.activeElement as HTMLElement)?.dataset.id)!=='back-command';i++)await page.keyboard.press('Tab');await expect(page.locator('[data-id=back-command]')).toBeFocused();const before=(await diag(page)).battle;await page.keyboard.press('Enter');expect((await diag(page)).mode).toBe('command');expect((await diag(page)).battle).toEqual(before);});
+    > 10 | test('F02 controller can cancel both keyboard and button capture without a keyboard',async({page})=>{await mock(page);await boot(page);await choose(page,'settings');await choose(page,'bind-keys-0');await pad(page,[1]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 키를');await choose(page,'bind-buttons-0');const before=(await diag(page)).bindings;await pad(page,[8,9]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 패드 버튼');expect((await diag(page)).bindings).toEqual(before);});
+         |                                                                                                                                                                                                                                                                           ^
+      11 | test('F03 reserved Tab is not saved; a remapped Space performs only its action',async({page})=>{await battle(page);await page.keyboard.press('p');await choose(page,'settings');await choose(page,'bind-keys-0');await page.keyboard.press('Tab');expect((await diag(page)).bindings.keys.up).toBe('ArrowUp');await page.keyboard.press('Escape');await choose(page,'settings-next');await choose(page,'bind-keys-9');await page.keyboard.press('Space');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('e');const before=await diag(page);await page.keyboard.press('Space');const after=await diag(page);expect(after.top).not.toBe(before.top);expect(after.mode).toBe(before.mode);});
+      12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+      13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:10:267
+
+    Error Context: ../test-results/tests-game-tests-browser-r-3ce8f--capture-without-a-keyboard/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-3ce8f--capture-without-a-keyboard/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-3ce8f--capture-without-a-keyboard/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:11:1 › F03 reserved Tab is not saved; a remapped Space performs only its action 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "ArrowUp"
+    Received: "Tab"
+
+       9 | test('F01 keyboard focus on target cancel returns without attacking',async({page})=>{await battle(page);await page.keyboard.press('e');await choose(page,'move');for(const k of ['ArrowRight','ArrowDown','ArrowRight','ArrowRight'])await page.keyboard.press(k);await page.keyboard.press('Enter');await expect.poll(async()=> (await diag(page)).mode).toBe('command');await choose(page,'attack');for(let i=0;i<20&&await page.evaluate(()=>(document.activeElement as HTMLElement)?.dataset.id)!=='back-command';i++)await page.keyboard.press('Tab');await expect(page.locator('[data-id=back-command]')).toBeFocused();const before=(await diag(page)).battle;await page.keyboard.press('Enter');expect((await diag(page)).mode).toBe('command');expect((await diag(page)).battle).toEqual(before);});
+      10 | test('F02 controller can cancel both keyboard and button capture without a keyboard',async({page})=>{await mock(page);await boot(page);await choose(page,'settings');await choose(page,'bind-keys-0');await pad(page,[1]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 키를');await choose(page,'bind-buttons-0');const before=(await diag(page)).bindings;await pad(page,[8,9]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 패드 버튼');expect((await diag(page)).bindings).toEqual(before);});
+    > 11 | test('F03 reserved Tab is not saved; a remapped Space performs only its action',async({page})=>{await battle(page);await page.keyboard.press('p');await choose(page,'settings');await choose(page,'bind-keys-0');await page.keyboard.press('Tab');expect((await diag(page)).bindings.keys.up).toBe('ArrowUp');await page.keyboard.press('Escape');await choose(page,'settings-next');await choose(page,'bind-keys-9');await page.keyboard.press('Space');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('e');const before=await diag(page);await page.keyboard.press('Space');const after=await diag(page);expect(after.top).not.toBe(before.top);expect(after.mode).toBe(before.mode);});
+         |                                                                                                                                                                                                                                                                                               ^
+      12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+      13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+      14 | test('F08 editor replacement references are rendered rather than silently discarded',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const rig=(await import('/game/assets/dawn-rig.json')).default;const copy=structuredClone(rig);copy.views.Front.parts.find(p=>p.id==='armR').replacement={id:'audit-blue',name:'audit-blue.png',width:10,height:10};const cv=document.createElement('canvas');cv.width=10;cv.height=10;cv.getContext('2d').fillStyle='#00ffff';cv.getContext('2d').fillRect(0,0,10,10);const image=cv.toDataURL();const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await r.setRig(copy,'/game/assets/dawn-parts.png',{'audit-blue':image});await new Promise(q=>setTimeout(q,100));const calls=[];const ctx=r.canvas.getContext('2d'),original=ctx.drawImage.bind(ctx);ctx.drawImage=(img,...args)=>{calls.push(img.src||'tint');original(img,...args)};r.cell=100;r.actor(makeBattle(0,newCampaign()).units[0],{x:150,y:300},false,false,false);return calls.some(src=>src.startsWith('data:image/png'))})()`);expect(result).toBe(true);});
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:11:287
+
+    Error Context: ../test-results/tests-game-tests-browser-r-996bd-ce-performs-only-its-action/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-996bd-ce-performs-only-its-action/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-996bd-ce-performs-only-its-action/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:12:1 › F04 held input cannot dismiss pause on refocus or controller disconnect 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "pause"
+    Received: null
+
+      10 | test('F02 controller can cancel both keyboard and button capture without a keyboard',async({page})=>{await mock(page);await boot(page);await choose(page,'settings');await choose(page,'bind-keys-0');await pad(page,[1]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 키를');await choose(page,'bind-buttons-0');const before=(await diag(page)).bindings;await pad(page,[8,9]);await expect(page.locator('[role=dialog]')).not.toContainText('사용할 패드 버튼');expect((await diag(page)).bindings).toEqual(before);});
+      11 | test('F03 reserved Tab is not saved; a remapped Space performs only its action',async({page})=>{await battle(page);await page.keyboard.press('p');await choose(page,'settings');await choose(page,'bind-keys-0');await page.keyboard.press('Tab');expect((await diag(page)).bindings.keys.up).toBe('ArrowUp');await page.keyboard.press('Escape');await choose(page,'settings-next');await choose(page,'bind-keys-9');await page.keyboard.press('Space');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('e');const before=await diag(page);await page.keyboard.press('Space');const after=await diag(page);expect(after.top).not.toBe(before.top);expect(after.mode).toBe(before.mode);});
+    > 12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+      14 | test('F08 editor replacement references are rendered rather than silently discarded',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const rig=(await import('/game/assets/dawn-rig.json')).default;const copy=structuredClone(rig);copy.views.Front.parts.find(p=>p.id==='armR').replacement={id:'audit-blue',name:'audit-blue.png',width:10,height:10};const cv=document.createElement('canvas');cv.width=10;cv.height=10;cv.getContext('2d').fillStyle='#00ffff';cv.getContext('2d').fillRect(0,0,10,10);const image=cv.toDataURL();const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await r.setRig(copy,'/game/assets/dawn-parts.png',{'audit-blue':image});await new Promise(q=>setTimeout(q,100));const calls=[];const ctx=r.canvas.getContext('2d'),original=ctx.drawImage.bind(ctx);ctx.drawImage=(img,...args)=>{calls.push(img.src||'tint');original(img,...args)};r.cell=100;r.actor(makeBattle(0,newCampaign()).units[0],{x:150,y:300},false,false,false);return calls.some(src=>src.startsWith('data:image/png'))})()`);expect(result).toBe(true);});
+      15 | test('F09 unit labels are drawn after all opaque terrain and sprites in both projections',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await new Promise(q=>setTimeout(q,120));const b=makeBattle(0,newCampaign());const c=r.canvas.getContext('2d'),img=c.drawImage.bind(c),text=c.fillText.bind(c),ops=[];c.drawImage=(...a)=>{ops.push('image');img(...a)};c.fillText=(label,...a)=>{ops.push(b.units.some(u=>u.name===label)?'name':'other');text(label,...a)};const result=[];for(const top of [false,true]){ops.length=0;r.draw({command:'attack',battle:b,cursor:{x:1,y:2},selected:null,mode:'select',top,zoom:1,pan:{x:0,y:0},paused:false},1000);result.push(ops.slice(ops.indexOf('name')).includes('image'));}return result})()`);expect(result).toEqual([false,false]);});
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:12:447
+
+    Error Context: ../test-results/tests-game-tests-browser-r-419f3-us-or-controller-disconnect/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-419f3-us-or-controller-disconnect/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-419f3-us-or-controller-disconnect/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:13:1 › F05 canceling end-turn grants no free guard 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -25,11 +25,11 @@
+          },
+          "toughness": 37.5,
+        },
+        "done": false,
+        "facing": "SE",
+    -   "guard": false,
+    +   "guard": true,
+        "hero": 0,
+        "hp": 100,
+        "id": "a0",
+        "job": 0,
+        "jump": 1,
+
+      11 | test('F03 reserved Tab is not saved; a remapped Space performs only its action',async({page})=>{await battle(page);await page.keyboard.press('p');await choose(page,'settings');await choose(page,'bind-keys-0');await page.keyboard.press('Tab');expect((await diag(page)).bindings.keys.up).toBe('ArrowUp');await page.keyboard.press('Escape');await choose(page,'settings-next');await choose(page,'bind-keys-9');await page.keyboard.press('Space');await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.keyboard.press('e');const before=await diag(page);await page.keyboard.press('Space');const after=await diag(page);expect(after.top).not.toBe(before.top);expect(after.mode).toBe(before.mode);});
+      12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+    > 13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+         |                                                                                                                                                                                                                                                                               ^
+      14 | test('F08 editor replacement references are rendered rather than silently discarded',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const rig=(await import('/game/assets/dawn-rig.json')).default;const copy=structuredClone(rig);copy.views.Front.parts.find(p=>p.id==='armR').replacement={id:'audit-blue',name:'audit-blue.png',width:10,height:10};const cv=document.createElement('canvas');cv.width=10;cv.height=10;cv.getContext('2d').fillStyle='#00ffff';cv.getContext('2d').fillRect(0,0,10,10);const image=cv.toDataURL();const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await r.setRig(copy,'/game/assets/dawn-parts.png',{'audit-blue':image});await new Promise(q=>setTimeout(q,100));const calls=[];const ctx=r.canvas.getContext('2d'),original=ctx.drawImage.bind(ctx);ctx.drawImage=(img,...args)=>{calls.push(img.src||'tint');original(img,...args)};r.cell=100;r.actor(makeBattle(0,newCampaign()).units[0],{x:150,y:300},false,false,false);return calls.some(src=>src.startsWith('data:image/png'))})()`);expect(result).toBe(true);});
+      15 | test('F09 unit labels are drawn after all opaque terrain and sprites in both projections',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await new Promise(q=>setTimeout(q,120));const b=makeBattle(0,newCampaign());const c=r.canvas.getContext('2d'),img=c.drawImage.bind(c),text=c.fillText.bind(c),ops=[];c.drawImage=(...a)=>{ops.push('image');img(...a)};c.fillText=(label,...a)=>{ops.push(b.units.some(u=>u.name===label)?'name':'other');text(label,...a)};const result=[];for(const top of [false,true]){ops.length=0;r.draw({command:'attack',battle:b,cursor:{x:1,y:2},selected:null,mode:'select',top,zoom:1,pan:{x:0,y:0},paused:false},1000);result.push(ops.slice(ops.indexOf('name')).includes('image'));}return result})()`);expect(result).toEqual([false,false]);});
+      16 |
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:13:271
+
+    Error Context: ../test-results/tests-game-tests-browser-r-3c519-d-turn-grants-no-free-guard/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-3c519-d-turn-grants-no-free-guard/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-3c519-d-turn-grants-no-free-guard/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:14:1 › F08 editor replacement references are rendered rather than silently discarded 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      12 | test('F04 held input cannot dismiss pause on refocus or controller disconnect',async({page})=>{await mock(page);await battle(page);await page.evaluate(()=>{(window as any).padButtons=[0]});await page.waitForTimeout(70);await page.evaluate(()=>dispatchEvent(new Event('blur')));expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>dispatchEvent(new Event('focus')));await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.evaluate(()=>{(window as any).padButtons=[]});await page.waitForTimeout(70);await pad(page,[0]);expect((await diag(page)).modal).toBeNull();await page.keyboard.down('Enter');await page.evaluate(()=>{(window as any).padConnected=false});await page.waitForTimeout(70);expect((await diag(page)).modal).toBe('pause');await page.keyboard.up('Enter');});
+      13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+    > 14 | test('F08 editor replacement references are rendered rather than silently discarded',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const rig=(await import('/game/assets/dawn-rig.json')).default;const copy=structuredClone(rig);copy.views.Front.parts.find(p=>p.id==='armR').replacement={id:'audit-blue',name:'audit-blue.png',width:10,height:10};const cv=document.createElement('canvas');cv.width=10;cv.height=10;cv.getContext('2d').fillStyle='#00ffff';cv.getContext('2d').fillRect(0,0,10,10);const image=cv.toDataURL();const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await r.setRig(copy,'/game/assets/dawn-parts.png',{'audit-blue':image});await new Promise(q=>setTimeout(q,100));const calls=[];const ctx=r.canvas.getContext('2d'),original=ctx.drawImage.bind(ctx);ctx.drawImage=(img,...args)=>{calls.push(img.src||'tint');original(img,...args)};r.cell=100;r.actor(makeBattle(0,newCampaign()).units[0],{x:150,y:300},false,false,false);return calls.some(src=>src.startsWith('data:image/png'))})()`);expect(result).toBe(true);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      15 | test('F09 unit labels are drawn after all opaque terrain and sprites in both projections',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await new Promise(q=>setTimeout(q,120));const b=makeBattle(0,newCampaign());const c=r.canvas.getContext('2d'),img=c.drawImage.bind(c),text=c.fillText.bind(c),ops=[];c.drawImage=(...a)=>{ops.push('image');img(...a)};c.fillText=(label,...a)=>{ops.push(b.units.some(u=>u.name===label)?'name':'other');text(label,...a)};const result=[];for(const top of [false,true]){ops.length=0;r.draw({command:'attack',battle:b,cursor:{x:1,y:2},selected:null,mode:'select',top,zoom:1,pan:{x:0,y:0},paused:false},1000);result.push(ops.slice(ops.indexOf('name')).includes('image'));}return result})()`);expect(result).toEqual([false,false]);});
+      16 |
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:14:1201
+
+    Error Context: ../test-results/tests-game-tests-browser-r-53146-her-than-silently-discarded/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-53146-her-than-silently-discarded/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-53146-her-than-silently-discarded/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:15:1 › F09 unit labels are drawn after all opaque terrain and sprites in both projections 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+    -   false,
+    -   false,
+    +   true,
+    +   true,
+      ]
+
+      13 | test('F05 canceling end-turn grants no free guard',async({page})=>{await battle(page);await page.keyboard.press('e');const before=(await diag(page)).battle.units[0];await choose(page,'wait');await page.keyboard.press('Escape');expect((await diag(page)).battle.units[0]).toEqual(before);});
+      14 | test('F08 editor replacement references are rendered rather than silently discarded',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const rig=(await import('/game/assets/dawn-rig.json')).default;const copy=structuredClone(rig);copy.views.Front.parts.find(p=>p.id==='armR').replacement={id:'audit-blue',name:'audit-blue.png',width:10,height:10};const cv=document.createElement('canvas');cv.width=10;cv.height=10;cv.getContext('2d').fillStyle='#00ffff';cv.getContext('2d').fillRect(0,0,10,10);const image=cv.toDataURL();const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await r.setRig(copy,'/game/assets/dawn-parts.png',{'audit-blue':image});await new Promise(q=>setTimeout(q,100));const calls=[];const ctx=r.canvas.getContext('2d'),original=ctx.drawImage.bind(ctx);ctx.drawImage=(img,...args)=>{calls.push(img.src||'tint');original(img,...args)};r.cell=100;r.actor(makeBattle(0,newCampaign()).units[0],{x:150,y:300},false,false,false);return calls.some(src=>src.startsWith('data:image/png'))})()`);expect(result).toBe(true);});
+    > 15 | test('F09 unit labels are drawn after all opaque terrain and sprites in both projections',async({page})=>{await boot(page);const result=await page.evaluate(`(async()=>{const {Renderer}=await import('/game/render.ts');const {makeBattle,newCampaign}=await import('/game/domain.ts');const host=document.createElement('div');document.body.append(host);const r=new Renderer(host);await new Promise(q=>setTimeout(q,120));const b=makeBattle(0,newCampaign());const c=r.canvas.getContext('2d'),img=c.drawImage.bind(c),text=c.fillText.bind(c),ops=[];c.drawImage=(...a)=>{ops.push('image');img(...a)};c.fillText=(label,...a)=>{ops.push(b.units.some(u=>u.name===label)?'name':'other');text(label,...a)};const result=[];for(const top of [false,true]){ops.length=0;r.draw({command:'attack',battle:b,cursor:{x:1,y:2},selected:null,mode:'select',top,zoom:1,pan:{x:0,y:0},paused:false},1000);result.push(ops.slice(ops.indexOf('name')).includes('image'));}return result})()`);expect(result).toEqual([false,false]);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      16 |
+        at /home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:15:974
+
+    Error Context: ../test-results/tests-game-tests-browser-r-87f12-sprites-in-both-projections/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/tests-game-tests-browser-r-87f12-sprites-in-both-projections/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/tests-game-tests-browser-r-87f12-sprites-in-both-projections/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7 failed
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:9:1 › F01 keyboard focus on target cancel returns without attacking 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:10:1 › F02 controller can cancel both keyboard and button capture without a keyboard 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:11:1 › F03 reserved Tab is not saved; a remapped Space performs only its action 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:12:1 › F04 held input cannot dismiss pause on refocus or controller disconnect 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:13:1 › F05 canceling end-turn grants no free guard 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:14:1 › F08 editor replacement references are rendered rather than silently discarded 
+    ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:15:1 › F09 unit labels are drawn after all opaque terrain and sprites in both projections 

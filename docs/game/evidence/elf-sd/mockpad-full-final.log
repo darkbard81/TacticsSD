@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+(node:518952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 ../../../../tmp/elf-pad/full-pad.spec.ts:134:1 › INDEPENDENT mockpad full campaign, equipment, save and real 1024x768 DPR2 screenshots (3.7m)
+
+  1 passed (3.8m)

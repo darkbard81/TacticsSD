@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "warrior",
+  "processing": {
+    "cell_size": 256,
+    "fit_scale": 0.9,
+    "trim_border": 4,
+    "edge_clean_depth": 3,
+    "align": "feet",
+    "shared_scale": true,
+    "scale_strategy": "preserve",
+    "component_mode": "largest",
+    "component_padding": 0,
+    "min_component_area": 1,
+    "edge_touch_margin": 0
+  },
+  "output_origin": [
+    128.0,
+    244
+  ],
+  "reference": {
+    "target": "player",
+    "mode": "walk",
+    "rows": 2,
+    "cols": 3,
+    "body_scale_mean": 0.4911162886602478,
+    "body_scale_cv": 0.011468145683699792,
+    "anchor_y_mean": 0.8621031746031745
+  },
+  "qc": {
+    "max_body_scale_drift": 0.1
+  }
+}

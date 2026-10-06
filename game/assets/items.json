@@ -1,0 +1,614 @@
+{
+  "travel-mail": {
+    "assetId": "item-travel-mail",
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 0,
+    "sourceCrop": [
+      0,
+      0,
+      314,
+      321
+    ]
+  },
+  "silver-mail": {
+    "assetId": "item-silver-mail",
+    "x": 256,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 1,
+    "sourceCrop": [
+      314,
+      0,
+      627,
+      321
+    ]
+  },
+  "wooden-shield": {
+    "assetId": "item-wooden-shield",
+    "x": 512,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 2,
+    "sourceCrop": [
+      627,
+      0,
+      940,
+      321
+    ]
+  },
+  "silver-bracers": {
+    "assetId": "item-silver-bracers",
+    "x": 768,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 3,
+    "sourceCrop": [
+      940,
+      0,
+      1254,
+      321
+    ]
+  },
+  "warrior-ring": {
+    "assetId": "item-warrior-ring",
+    "x": 1024,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 4,
+    "sourceCrop": [
+      20,
+      343,
+      304,
+      586
+    ]
+  },
+  "scholar-ring": {
+    "assetId": "item-scholar-ring",
+    "x": 1280,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 5,
+    "sourceCrop": [
+      338,
+      343,
+      607,
+      589
+    ]
+  },
+  "aether-draught": {
+    "assetId": "item-aether-draught",
+    "x": 1536,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 6,
+    "sourceCrop": [
+      647,
+      318,
+      921,
+      622
+    ]
+  },
+  "valor-draught": {
+    "assetId": "item-valor-draught",
+    "x": 1792,
+    "y": 0,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 7,
+    "sourceCrop": [
+      950,
+      318,
+      1249,
+      622
+    ]
+  },
+  "ov-313": {
+    "assetId": "item-ov-313",
+    "x": 0,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 8,
+    "sourceCrop": [
+      78,
+      588,
+      265,
+      913
+    ]
+  },
+  "ov-314": {
+    "assetId": "item-ov-314",
+    "x": 256,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 9,
+    "sourceCrop": [
+      416,
+      598,
+      558,
+      918
+    ]
+  },
+  "ov-315": {
+    "assetId": "item-ov-315",
+    "x": 512,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 10,
+    "sourceCrop": [
+      705,
+      625,
+      828,
+      919
+    ]
+  },
+  "ov-397": {
+    "assetId": "item-ov-397",
+    "x": 768,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 11,
+    "sourceCrop": [
+      945,
+      635,
+      1234,
+      901
+    ]
+  },
+  "ov-398": {
+    "assetId": "item-ov-398",
+    "x": 1024,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 12,
+    "sourceCrop": [
+      54,
+      913,
+      299,
+      1234
+    ]
+  },
+  "ov-443": {
+    "assetId": "item-ov-443",
+    "x": 1280,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 13,
+    "sourceCrop": [
+      343,
+      922,
+      612,
+      1234
+    ]
+  },
+  "ov-444": {
+    "assetId": "item-ov-444",
+    "x": 1536,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 14,
+    "sourceCrop": [
+      647,
+      934,
+      916,
+      1234
+    ]
+  },
+  "ov-445": {
+    "assetId": "item-ov-445",
+    "x": 1792,
+    "y": 256,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "a",
+    "sourceCell": 15,
+    "sourceCrop": [
+      948,
+      915,
+      1239,
+      1234
+    ]
+  },
+  "ov-446": {
+    "assetId": "item-ov-446",
+    "x": 0,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 0,
+    "sourceCrop": [
+      0,
+      0,
+      314,
+      314
+    ]
+  },
+  "ov-447": {
+    "assetId": "item-ov-447",
+    "x": 256,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 1,
+    "sourceCrop": [
+      314,
+      0,
+      627,
+      314
+    ]
+  },
+  "ov-448": {
+    "assetId": "item-ov-448",
+    "x": 512,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 2,
+    "sourceCrop": [
+      627,
+      0,
+      940,
+      314
+    ]
+  },
+  "ov-488": {
+    "assetId": "item-ov-488",
+    "x": 768,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 3,
+    "sourceCrop": [
+      940,
+      0,
+      1254,
+      314
+    ]
+  },
+  "ov-489": {
+    "assetId": "item-ov-489",
+    "x": 1024,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 4,
+    "sourceCrop": [
+      0,
+      316,
+      314,
+      612
+    ]
+  },
+  "ov-490": {
+    "assetId": "item-ov-490",
+    "x": 1280,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 5,
+    "sourceCrop": [
+      314,
+      316,
+      627,
+      612
+    ]
+  },
+  "ov-537": {
+    "assetId": "item-ov-537",
+    "x": 1536,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 6,
+    "sourceCrop": [
+      627,
+      328,
+      940,
+      600
+    ]
+  },
+  "ov-539": {
+    "assetId": "item-ov-539",
+    "x": 1792,
+    "y": 512,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 7,
+    "sourceCrop": [
+      940,
+      318,
+      1254,
+      603
+    ]
+  },
+  "ov-541": {
+    "assetId": "item-ov-541",
+    "x": 0,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 8,
+    "sourceCrop": [
+      0,
+      617,
+      314,
+      899
+    ]
+  },
+  "ov-543": {
+    "assetId": "item-ov-543",
+    "x": 256,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 9,
+    "sourceCrop": [
+      314,
+      617,
+      627,
+      899
+    ]
+  },
+  "ov-545": {
+    "assetId": "item-ov-545",
+    "x": 512,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 10,
+    "sourceCrop": [
+      627,
+      615,
+      940,
+      898
+    ]
+  },
+  "ov-547": {
+    "assetId": "item-ov-547",
+    "x": 768,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 11,
+    "sourceCrop": [
+      940,
+      615,
+      1254,
+      899
+    ]
+  },
+  "ov-551": {
+    "assetId": "item-ov-551",
+    "x": 1024,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 12,
+    "sourceCrop": [
+      0,
+      907,
+      314,
+      1234
+    ]
+  },
+  "ov-553": {
+    "assetId": "item-ov-553",
+    "x": 1280,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 13,
+    "sourceCrop": [
+      314,
+      907,
+      627,
+      1234
+    ]
+  },
+  "ov-555": {
+    "assetId": "item-ov-555",
+    "x": 1536,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "b",
+    "sourceCell": 14,
+    "sourceCrop": [
+      627,
+      907,
+      940,
+      1234
+    ]
+  },
+  "mend-leaf": {
+    "assetId": "item-mend-leaf",
+    "x": 1792,
+    "y": 768,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "c",
+    "sourceCell": 0,
+    "sourceCrop": [
+      0,
+      0,
+      456,
+      617
+    ]
+  },
+  "ov-1004": {
+    "assetId": "item-ov-1004",
+    "x": 0,
+    "y": 1024,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "c",
+    "sourceCell": 1,
+    "sourceCrop": [
+      456,
+      0,
+      803,
+      617
+    ]
+  },
+  "ov-1008": {
+    "assetId": "item-ov-1008",
+    "x": 256,
+    "y": 1024,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "c",
+    "sourceCell": 2,
+    "sourceCrop": [
+      803,
+      0,
+      1254,
+      617
+    ]
+  },
+  "ov-1012": {
+    "assetId": "item-ov-1012",
+    "x": 512,
+    "y": 1024,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "c",
+    "sourceCell": 3,
+    "sourceCrop": [
+      0,
+      617,
+      446,
+      1254
+    ]
+  },
+  "ov-1013": {
+    "assetId": "item-ov-1013",
+    "x": 768,
+    "y": 1024,
+    "w": 256,
+    "h": 256,
+    "anchorX": 128,
+    "anchorY": 128,
+    "sourceAtlas": "c",
+    "sourceCell": 4,
+    "sourceCrop": [
+      446,
+      617,
+      887,
+      1254
+    ]
+  }
+}

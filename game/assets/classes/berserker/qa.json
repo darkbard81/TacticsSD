@@ -1,0 +1,1046 @@
+{
+  "size": [
+    1792,
+    1024
+  ],
+  "mode": "RGBA",
+  "poseCount": 26,
+  "uniqueHashes": 26,
+  "blankCells": [
+    [
+      6,
+      2
+    ],
+    [
+      6,
+      3
+    ]
+  ],
+  "blankCellsAlphaZero": true,
+  "edgeTouchFrames": [],
+  "groups": {
+    "locomotion": {
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "scale": 0.42696629213483145,
+      "referenceFrames": [
+        0,
+        3
+      ],
+      "rawBounds": [
+        [
+          141,
+          34,
+          387,
+          477
+        ],
+        [
+          128,
+          34,
+          387,
+          479
+        ],
+        [
+          127,
+          36,
+          398,
+          479
+        ],
+        [
+          150,
+          24,
+          393,
+          471
+        ],
+        [
+          133,
+          24,
+          393,
+          472
+        ],
+        [
+          128,
+          24,
+          391,
+          473
+        ]
+      ]
+    },
+    "walk2": {
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "grid": [
+        2,
+        2
+      ],
+      "scale": 0.3301476976542137,
+      "referenceFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rawBounds": [
+        [
+          178,
+          27,
+          512,
+          601
+        ],
+        [
+          93,
+          27,
+          507,
+          598
+        ],
+        [
+          176,
+          3,
+          550,
+          580
+        ],
+        [
+          143,
+          2,
+          462,
+          580
+        ]
+      ]
+    },
+    "alternate": {
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "grid": [
+        2,
+        2
+      ],
+      "scale": 0.4103671706263499,
+      "referenceFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rawBounds": [
+        [
+          258,
+          29,
+          655,
+          490
+        ],
+        [
+          185,
+          30,
+          536,
+          490
+        ],
+        [
+          247,
+          5,
+          657,
+          470
+        ],
+        [
+          171,
+          5,
+          532,
+          470
+        ]
+      ]
+    },
+    "opposite": {
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "grid": [
+        2,
+        2
+      ],
+      "scale": 0.4250559284116331,
+      "referenceFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rawBounds": [
+        [
+          217,
+          34,
+          524,
+          479
+        ],
+        [
+          213,
+          38,
+          514,
+          479
+        ],
+        [
+          224,
+          11,
+          554,
+          461
+        ],
+        [
+          205,
+          12,
+          547,
+          461
+        ]
+      ]
+    },
+    "attack": {
+      "rawSize": [
+        1983,
+        793
+      ],
+      "grid": [
+        5,
+        2
+      ],
+      "scale": 0.5344585091420534,
+      "referenceFrames": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "rawBounds": [
+        [
+          77,
+          28,
+          327,
+          382
+        ],
+        [
+          53,
+          14,
+          327,
+          383
+        ],
+        [
+          24,
+          36,
+          377,
+          383
+        ],
+        [
+          3,
+          75,
+          323,
+          383
+        ],
+        [
+          72,
+          27,
+          296,
+          384
+        ],
+        [
+          77,
+          10,
+          339,
+          369
+        ],
+        [
+          66,
+          9,
+          369,
+          367
+        ],
+        [
+          24,
+          17,
+          371,
+          371
+        ],
+        [
+          44,
+          66,
+          374,
+          365
+        ],
+        [
+          79,
+          9,
+          321,
+          369
+        ]
+      ]
+    },
+    "jump": {
+      "rawSize": [
+        1536,
+        1024
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "scale": 0.39280898876404496,
+      "referenceFrames": [
+        1,
+        4
+      ],
+      "rawBounds": [
+        [
+          99,
+          174,
+          412,
+          485
+        ],
+        [
+          138,
+          65,
+          377,
+          454
+        ],
+        [
+          113,
+          25,
+          382,
+          481
+        ],
+        [
+          103,
+          156,
+          422,
+          486
+        ],
+        [
+          143,
+          49,
+          387,
+          452
+        ],
+        [
+          126,
+          6,
+          390,
+          483
+        ]
+      ]
+    },
+    "injury": {
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "grid": [
+        2,
+        2
+      ],
+      "scale": 0.342034203420342,
+      "referenceFrames": [
+        0,
+        2
+      ],
+      "rawBounds": [
+        [
+          100,
+          30,
+          454,
+          589
+        ],
+        [
+          43,
+          369,
+          658,
+          576
+        ],
+        [
+          118,
+          6,
+          452,
+          558
+        ],
+        [
+          38,
+          306,
+          648,
+          529
+        ]
+      ]
+    },
+    "forward-gait": {
+      "rawSize": [
+        1254,
+        1254
+      ],
+      "grid": [
+        2,
+        2
+      ],
+      "scale": 0.33362598770851626,
+      "referenceFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rawBounds": [
+        [
+          202,
+          34,
+          585,
+          606
+        ],
+        [
+          149,
+          34,
+          552,
+          608
+        ],
+        [
+          203,
+          13,
+          590,
+          579
+        ],
+        [
+          153,
+          13,
+          540,
+          580
+        ]
+      ],
+      "poseReference": "../knight/raw/gait3.png; pose geometry only"
+    }
+  },
+  "frames": [
+    {
+      "pose": "front_idle",
+      "source": "locomotion",
+      "index": 0,
+      "bounds": [
+        70,
+        41,
+        175,
+        230
+      ],
+      "scale": 0.42696629213483145,
+      "placement": [
+        70,
+        41
+      ],
+      "sha256": "b7b929c71fbf078ea52c21965a75898b121fea21c6883a72458de3e2eb2c8f52",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_walk_right",
+      "source": "forward-gait",
+      "index": 0,
+      "bounds": [
+        59,
+        39,
+        187,
+        230
+      ],
+      "scale": 0.33362598770851626,
+      "placement": [
+        59,
+        39
+      ],
+      "sha256": "d59794e078b4cdcb3a258d039307e0a0171a1272fd6ab354bbd9b64c780f1418",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_walk_left",
+      "source": "opposite",
+      "index": 1,
+      "bounds": [
+        35,
+        43,
+        163,
+        230
+      ],
+      "scale": 0.4250559284116331,
+      "placement": [
+        35,
+        43
+      ],
+      "sha256": "7777dd97d8ef2ef64dea7a255853ec23bf9f713e715cc8abfcd88dd54812fddb",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_hurt",
+      "source": "injury",
+      "index": 0,
+      "bounds": [
+        59,
+        39,
+        180,
+        230
+      ],
+      "scale": 0.342034203420342,
+      "placement": [
+        59,
+        39
+      ],
+      "sha256": "0340cf5f4d872f0b41cfec33f0f55ca859a5fa85d100f3d92185d1f96ba8365f",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_jump1",
+      "source": "jump",
+      "index": 0,
+      "bounds": [
+        66,
+        108,
+        189,
+        230
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        66,
+        108
+      ],
+      "sha256": "9d53d252f130ddaf230dc4fa3910b33cdbefc7efd3905a88e2507dd0a3a76e91",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_jump2",
+      "source": "jump",
+      "index": 1,
+      "bounds": [
+        82,
+        57,
+        176,
+        210
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        82,
+        57
+      ],
+      "sha256": "731356a81f67244ef0093965b8069319264fa8e174aa346110c0b2305757762c",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_jump3",
+      "source": "jump",
+      "index": 2,
+      "bounds": [
+        72,
+        21,
+        178,
+        200
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        72,
+        21
+      ],
+      "sha256": "ec1a6b37beba9f18381765b2b30acdc427cba0759c089294e00709ee68b2f93f",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_collapse",
+      "source": "injury",
+      "index": 1,
+      "bounds": [
+        23,
+        159,
+        233,
+        230
+      ],
+      "scale": 0.342034203420342,
+      "placement": [
+        23,
+        159
+      ],
+      "sha256": "3c3d2a34648122d20745ac0a2ae4849e2a85437c39d946e20cbaf10355c0b8e8",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_attack1",
+      "source": "attack",
+      "index": 0,
+      "bounds": [
+        63,
+        41,
+        197,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        63,
+        41
+      ],
+      "sha256": "5c7d4d5fd12bdb6b46fd454354be13d607967472fe6192d2b5ab00dc3d725663",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_attack2",
+      "source": "attack",
+      "index": 1,
+      "bounds": [
+        51,
+        33,
+        197,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        51,
+        33
+      ],
+      "sha256": "2373647f52abdf156be99904bab95eee16964eadac687c177b97613ba28bba4b",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_attack3",
+      "source": "attack",
+      "index": 2,
+      "bounds": [
+        35,
+        45,
+        224,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        35,
+        45
+      ],
+      "sha256": "4e3a79a5496e2e774b80ee9071673517c19f3e01258745e646f414a15f3a5a21",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_attack4",
+      "source": "attack",
+      "index": 3,
+      "bounds": [
+        24,
+        65,
+        195,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        24,
+        65
+      ],
+      "sha256": "edf2ec53fd91a2c305ef4677614fc623e51569117336cda575ee02f41cf90afd",
+      "edgeTouch": false
+    },
+    {
+      "pose": "front_attack5",
+      "source": "attack",
+      "index": 4,
+      "bounds": [
+        61,
+        39,
+        181,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        61,
+        39
+      ],
+      "sha256": "3652c7c0eaf7ff0c24bd818101e6abdcbc13a819517de1618c9ec40d79a14fb6",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_idle",
+      "source": "locomotion",
+      "index": 3,
+      "bounds": [
+        67,
+        39,
+        171,
+        230
+      ],
+      "scale": 0.42696629213483145,
+      "placement": [
+        67,
+        39
+      ],
+      "sha256": "c9a16814d44df324ac5c348505b5612ef679d1e6e7251aaf1902be3d603e5559",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_walk_right",
+      "source": "forward-gait",
+      "index": 2,
+      "bounds": [
+        76,
+        41,
+        205,
+        230
+      ],
+      "scale": 0.33362598770851626,
+      "placement": [
+        76,
+        41
+      ],
+      "sha256": "64839acdf7a07104b55adf61328a0c47c8a7eb916abcd2b52b06a47ce4591b3c",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_walk_left",
+      "source": "opposite",
+      "index": 3,
+      "bounds": [
+        30,
+        39,
+        175,
+        230
+      ],
+      "scale": 0.4250559284116331,
+      "placement": [
+        30,
+        39
+      ],
+      "sha256": "6e29d745c404d43b5e47637c9a7838d8d0b33af78342062125c82f4b500d7b7d",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_hurt",
+      "source": "injury",
+      "index": 2,
+      "bounds": [
+        47,
+        41,
+        161,
+        230
+      ],
+      "scale": 0.342034203420342,
+      "placement": [
+        47,
+        41
+      ],
+      "sha256": "a92c7db6ba26cc777b54bae58d4f4d140e7d5e3b6a8bcf4e5fbe93f70736a35e",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_jump1",
+      "source": "jump",
+      "index": 3,
+      "bounds": [
+        68,
+        100,
+        193,
+        230
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        68,
+        100
+      ],
+      "sha256": "3d95f8af748c989ec9fdb4ea46516ba0176116743dce2471785459105ff28486",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_jump2",
+      "source": "jump",
+      "index": 4,
+      "bounds": [
+        84,
+        52,
+        180,
+        210
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        84,
+        52
+      ],
+      "sha256": "f232b72a15c6074c195cbf67cda04f74397949ed77889197681f0a2f168d203f",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_jump3",
+      "source": "jump",
+      "index": 5,
+      "bounds": [
+        77,
+        13,
+        181,
+        200
+      ],
+      "scale": 0.39280898876404496,
+      "placement": [
+        77,
+        13
+      ],
+      "sha256": "607d47234986fa6ca9049a4dfba827c50e461830cd915eec8862ff4ab814ad6f",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_collapse",
+      "source": "injury",
+      "index": 3,
+      "bounds": [
+        24,
+        154,
+        233,
+        230
+      ],
+      "scale": 0.342034203420342,
+      "placement": [
+        24,
+        154
+      ],
+      "sha256": "faf0e88d8a9f47d2373e8eee27f4eb07b95ccf28101f8d29a5b7dadafa6e400c",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_attack1",
+      "source": "attack",
+      "index": 5,
+      "bounds": [
+        63,
+        38,
+        203,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        63,
+        38
+      ],
+      "sha256": "460046f9224567c638443af282d3d9e90628bf5ca1c64116f92c5bdcf67af050",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_attack2",
+      "source": "attack",
+      "index": 6,
+      "bounds": [
+        57,
+        39,
+        219,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        57,
+        39
+      ],
+      "sha256": "19bc11c9620e4a07b546bd544b61646971aa0943892de1530ff1a5dfc029dad3",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_attack3",
+      "source": "attack",
+      "index": 7,
+      "bounds": [
+        35,
+        41,
+        220,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        35,
+        41
+      ],
+      "sha256": "90cfd3775d0078b99b058394dd7d9bec5043332e7380bcaa886393b037cd13e8",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_attack4",
+      "source": "attack",
+      "index": 8,
+      "bounds": [
+        46,
+        70,
+        222,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        46,
+        70
+      ],
+      "sha256": "37460060efc82c027bf3dac9de364116bafe968c7eb9c5506eafe736e742a049",
+      "edgeTouch": false
+    },
+    {
+      "pose": "back_attack5",
+      "source": "attack",
+      "index": 9,
+      "bounds": [
+        64,
+        38,
+        193,
+        230
+      ],
+      "scale": 0.5344585091420534,
+      "placement": [
+        64,
+        38
+      ],
+      "sha256": "7297b4d5e1a34f2c0ba77000b66ab85ea1a2d8991ccfb0ad08b60bf464226829",
+      "edgeTouch": false
+    }
+  ],
+  "visualReview": {
+    "status": "passed",
+    "adultIdentity": "Mature adult elf face, clearly covered bust, consistent short crimson hair/fur shoulder/cuirass/ochre belt/trousers/boots across front and back.",
+    "walk": "New ImageGen forward-gait indices0/2 use near foreground knee crossing over far straight support leg, paired with opposite indices1/3 using near boot tucked backward; pose geometry reference Knight gait3 with own class identity preserved.",
+    "actions": "Ten attack, six jump, two hurt and two collapse distinct. Twenty-six unique alpha frame hashes. No weapons or detached FX.",
+    "gutterPx": 8,
+    "alignment": "Ground soles230; jump2 soles210; jump3 soles200; source injury split shifted into empty gap to retain full collapsed boot; source jump row split at500 avoids neighboring raised-fist contamination. All within256x256.",
+    "processing": "ImageGen source only. Chroma key from generate2dsprite processor, explicit fringe removal, one uniform scale per action group, shared jump-group scale0.92x locomotion for raised-fist clearance. No per-pose scale/mirror/rotation/pose synthesis.",
+    "limits": "Socket coordinates are visually measured grip positions for integration overlay review; actual equipment/runtime check belongs to integration owner."
+  },
+  "socketAlphaAtCenter": [
+    [
+      "front",
+      "idle",
+      255
+    ],
+    [
+      "front",
+      "walk_right",
+      255
+    ],
+    [
+      "front",
+      "walk_left",
+      255
+    ],
+    [
+      "front",
+      "hurt",
+      255
+    ],
+    [
+      "front",
+      "jump1",
+      255
+    ],
+    [
+      "front",
+      "jump2",
+      255
+    ],
+    [
+      "front",
+      "jump3",
+      255
+    ],
+    [
+      "front",
+      "collapse",
+      255
+    ],
+    [
+      "front",
+      "attack1",
+      255
+    ],
+    [
+      "front",
+      "attack2",
+      255
+    ],
+    [
+      "front",
+      "attack3",
+      255
+    ],
+    [
+      "front",
+      "attack4",
+      255
+    ],
+    [
+      "front",
+      "attack5",
+      255
+    ],
+    [
+      "back",
+      "idle",
+      255
+    ],
+    [
+      "back",
+      "walk_right",
+      255
+    ],
+    [
+      "back",
+      "walk_left",
+      255
+    ],
+    [
+      "back",
+      "hurt",
+      255
+    ],
+    [
+      "back",
+      "jump1",
+      255
+    ],
+    [
+      "back",
+      "jump2",
+      255
+    ],
+    [
+      "back",
+      "jump3",
+      255
+    ],
+    [
+      "back",
+      "collapse",
+      255
+    ],
+    [
+      "back",
+      "attack1",
+      255
+    ],
+    [
+      "back",
+      "attack2",
+      255
+    ],
+    [
+      "back",
+      "attack3",
+      255
+    ],
+    [
+      "back",
+      "attack4",
+      255
+    ],
+    [
+      "back",
+      "attack5",
+      255
+    ]
+  ],
+  "forwardGaitChangedCells": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ]
+  ]
+}

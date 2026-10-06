@@ -1,0 +1,452 @@
+{
+  "cell": [
+    64,
+    64
+  ],
+  "sheet": [
+    448,
+    256
+  ],
+  "rows": [
+    7,
+    7,
+    6,
+    6
+  ],
+  "palette": [
+    "#202533",
+    "#374256",
+    "#596c79",
+    "#a5bdbe",
+    "#eff4d8",
+    "#8a5d50",
+    "#bc8663",
+    "#edba87",
+    "#ffdfac",
+    "#24453e",
+    "#36765b",
+    "#69a46d",
+    "#a6ce86",
+    "#755237",
+    "#bc9146",
+    "#eed286"
+  ],
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        64,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        128,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        192,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 4,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        256,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 5,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        320,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 0,
+      "column": 6,
+      "view": "front",
+      "action": "walk",
+      "rect": [
+        384,
+        0,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        0,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        128,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        192,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 4,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        256,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 5,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        320,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 1,
+      "column": 6,
+      "view": "back",
+      "action": "walk",
+      "rect": [
+        384,
+        64,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "view": "front",
+      "action": "crouch",
+      "rect": [
+        0,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "view": "front",
+      "action": "raise",
+      "rect": [
+        64,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "view": "front",
+      "action": "guard",
+      "rect": [
+        128,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "view": "front",
+      "action": "recoil",
+      "rect": [
+        192,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 4,
+      "view": "front",
+      "action": "cheer",
+      "rect": [
+        256,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 2,
+      "column": 5,
+      "view": "front",
+      "action": "slash",
+      "rect": [
+        320,
+        128,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "view": "back",
+      "action": "crouch",
+      "rect": [
+        0,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "view": "back",
+      "action": "raise",
+      "rect": [
+        64,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "view": "back",
+      "action": "guard",
+      "rect": [
+        128,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "view": "back",
+      "action": "recoil",
+      "rect": [
+        192,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 4,
+      "view": "back",
+      "action": "cheer",
+      "rect": [
+        256,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    },
+    {
+      "row": 3,
+      "column": 5,
+      "view": "back",
+      "action": "slash",
+      "rect": [
+        320,
+        192,
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        61
+      ]
+    }
+  ]
+}

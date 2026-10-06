@@ -1,0 +1,974 @@
+{
+  "schema": "tacticssd.sprite-sheet.v2",
+  "image": "elf-adult-26pose-sheet.png",
+  "width": 1792,
+  "height": 1024,
+  "cell": {
+    "width": 256,
+    "height": 256
+  },
+  "columns": 7,
+  "rows": 4,
+  "poseCount": 26,
+  "blankCells": [
+    {
+      "row": 3,
+      "column": 7
+    },
+    {
+      "row": 4,
+      "column": 7
+    }
+  ],
+  "character": {
+    "identity": "adult silver-haired elf woman",
+    "flying": false
+  },
+  "normalization": {
+    "sharedAnchor": [
+      128,
+      230
+    ],
+    "groupScales": {
+      "base": 0.72,
+      "walk": 0.324,
+      "actions": 0.49
+    },
+    "method": "One uniform scale per source generation group, calibrated to approximately 190px standing height. No per-frame bounding-box fit, rotation, mirroring, or anatomy warp. Preserve crouch/collapse size and explicit jump height.",
+    "alphaThreshold": 8
+  },
+  "frames": [
+    {
+      "id": "front_idle",
+      "semantic": "idle",
+      "facing": "front",
+      "row": 1,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        80,
+        41,
+        179,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        87,
+        11,
+        225,
+        273
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "front_walk_right",
+      "semantic": "walk_right",
+      "facing": "front",
+      "row": 1,
+      "column": 2,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        59,
+        40,
+        189,
+        230
+      ],
+      "sourceGroup": "walk",
+      "sourceRect": [
+        156,
+        15,
+        558,
+        600
+      ],
+      "groupScale": 0.324
+    },
+    {
+      "id": "front_walk_left",
+      "semantic": "walk_left",
+      "facing": "front",
+      "row": 1,
+      "column": 3,
+      "rect": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        56,
+        40,
+        195,
+        230
+      ],
+      "sourceGroup": "walk",
+      "sourceRect": [
+        753,
+        17,
+        1181,
+        604
+      ],
+      "groupScale": 0.324
+    },
+    {
+      "id": "front_hurt",
+      "semantic": "hurt",
+      "facing": "front",
+      "row": 1,
+      "column": 4,
+      "rect": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        49,
+        43,
+        192,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        757,
+        14,
+        956,
+        274
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "front_jump1",
+      "semantic": "jump1",
+      "facing": "front",
+      "row": 1,
+      "column": 5,
+      "rect": {
+        "x": 1024,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        66,
+        82,
+        178,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        994,
+        67,
+        1150,
+        273
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "front_jump2",
+      "semantic": "jump2",
+      "facing": "front",
+      "row": 1,
+      "column": 6,
+      "rect": {
+        "x": 1280,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": -20,
+      "alphaBounds": [
+        62,
+        37,
+        182,
+        210
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        1205,
+        7,
+        1372,
+        247
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "front_jump3",
+      "semantic": "jump3",
+      "facing": "front",
+      "row": 1,
+      "column": 7,
+      "rect": {
+        "x": 1536,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": -30,
+      "alphaBounds": [
+        62,
+        37,
+        191,
+        200
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        1458,
+        11,
+        1637,
+        237
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "back_idle",
+      "semantic": "idle",
+      "facing": "back",
+      "row": 2,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        73,
+        40,
+        187,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        77,
+        276,
+        235,
+        540
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "back_walk_right",
+      "semantic": "walk_right",
+      "facing": "back",
+      "row": 2,
+      "column": 2,
+      "rect": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        56,
+        42,
+        194,
+        230
+      ],
+      "sourceGroup": "walk",
+      "sourceRect": [
+        148,
+        614,
+        575,
+        1193
+      ],
+      "groupScale": 0.324
+    },
+    {
+      "id": "back_walk_left",
+      "semantic": "walk_left",
+      "facing": "back",
+      "row": 2,
+      "column": 3,
+      "rect": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        59,
+        42,
+        202,
+        230
+      ],
+      "sourceGroup": "walk",
+      "sourceRect": [
+        762,
+        613,
+        1204,
+        1193
+      ],
+      "groupScale": 0.324
+    },
+    {
+      "id": "back_hurt",
+      "semantic": "hurt",
+      "facing": "back",
+      "row": 2,
+      "column": 4,
+      "rect": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        40,
+        49,
+        185,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        745,
+        287,
+        946,
+        539
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "back_jump1",
+      "semantic": "jump1",
+      "facing": "back",
+      "row": 2,
+      "column": 5,
+      "rect": {
+        "x": 1024,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        60,
+        85,
+        185,
+        230
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        986,
+        337,
+        1159,
+        539
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "back_jump2",
+      "semantic": "jump2",
+      "facing": "back",
+      "row": 2,
+      "column": 6,
+      "rect": {
+        "x": 1280,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": -20,
+      "alphaBounds": [
+        72,
+        28,
+        189,
+        210
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        1218,
+        264,
+        1380,
+        517
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "back_jump3",
+      "semantic": "jump3",
+      "facing": "back",
+      "row": 2,
+      "column": 7,
+      "rect": {
+        "x": 1536,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": -30,
+      "alphaBounds": [
+        62,
+        22,
+        175,
+        200
+      ],
+      "sourceGroup": "base",
+      "sourceRect": [
+        1458,
+        270,
+        1615,
+        517
+      ],
+      "groupScale": 0.72
+    },
+    {
+      "id": "front_collapse",
+      "semantic": "collapse",
+      "facing": "front",
+      "row": 3,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        15,
+        159,
+        238,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        18,
+        255,
+        474,
+        400
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "front_attack1",
+      "semantic": "attack1",
+      "facing": "front",
+      "row": 3,
+      "column": 2,
+      "rect": {
+        "x": 256,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        71,
+        43,
+        186,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        494,
+        20,
+        728,
+        401
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "front_attack2",
+      "semantic": "attack2",
+      "facing": "front",
+      "row": 3,
+      "column": 3,
+      "rect": {
+        "x": 512,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        60,
+        38,
+        198,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        774,
+        9,
+        1055,
+        401
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "front_attack3",
+      "semantic": "attack3",
+      "facing": "front",
+      "row": 3,
+      "column": 4,
+      "rect": {
+        "x": 768,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        54,
+        46,
+        223,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1070,
+        24,
+        1414,
+        400
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "front_attack4",
+      "semantic": "attack4",
+      "facing": "front",
+      "row": 3,
+      "column": 5,
+      "rect": {
+        "x": 1024,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        56,
+        70,
+        189,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1394,
+        77,
+        1666,
+        404
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "front_attack5",
+      "semantic": "attack5",
+      "facing": "front",
+      "row": 3,
+      "column": 6,
+      "rect": {
+        "x": 1280,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        79,
+        34,
+        176,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1715,
+        9,
+        1912,
+        409
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_collapse",
+      "semantic": "collapse",
+      "facing": "back",
+      "row": 4,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        15,
+        154,
+        239,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        18,
+        628,
+        475,
+        783
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_attack1",
+      "semantic": "attack1",
+      "facing": "back",
+      "row": 4,
+      "column": 2,
+      "rect": {
+        "x": 256,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        71,
+        46,
+        189,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        493,
+        415,
+        734,
+        790
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_attack2",
+      "semantic": "attack2",
+      "facing": "back",
+      "row": 4,
+      "column": 3,
+      "rect": {
+        "x": 512,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        59,
+        46,
+        194,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        772,
+        417,
+        1048,
+        792
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_attack3",
+      "semantic": "attack3",
+      "facing": "back",
+      "row": 4,
+      "column": 4,
+      "rect": {
+        "x": 768,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        58,
+        48,
+        221,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1078,
+        417,
+        1411,
+        788
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_attack4",
+      "semantic": "attack4",
+      "facing": "back",
+      "row": 4,
+      "column": 5,
+      "rect": {
+        "x": 1024,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        61,
+        73,
+        196,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1403,
+        473,
+        1679,
+        794
+      ],
+      "groupScale": 0.49
+    },
+    {
+      "id": "back_attack5",
+      "semantic": "attack5",
+      "facing": "back",
+      "row": 4,
+      "column": 6,
+      "rect": {
+        "x": 1280,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "anchor": {
+        "x": 128,
+        "y": 230
+      },
+      "airborneOffsetY": 0,
+      "alphaBounds": [
+        83,
+        38,
+        173,
+        230
+      ],
+      "sourceGroup": "actions",
+      "sourceRect": [
+        1723,
+        409,
+        1906,
+        800
+      ],
+      "groupScale": 0.49
+    }
+  ],
+  "sequences": {
+    "front": {
+      "idle": [
+        "front_idle"
+      ],
+      "walk": [
+        "front_idle",
+        "front_walk_right",
+        "front_idle",
+        "front_walk_left"
+      ],
+      "hurt": [
+        "front_idle",
+        "front_hurt",
+        "front_idle"
+      ],
+      "jump": [
+        "front_idle",
+        "front_jump1",
+        "front_jump2",
+        "front_jump3",
+        "front_jump2",
+        "front_jump1",
+        "front_idle"
+      ],
+      "collapse": [
+        "front_idle",
+        "front_hurt",
+        "front_collapse",
+        "front_collapse"
+      ],
+      "common_attack": [
+        "front_idle",
+        "front_attack1",
+        "front_attack2",
+        "front_attack3",
+        "front_attack4",
+        "front_attack5",
+        "front_idle"
+      ],
+      "item": [
+        "front_idle",
+        "front_jump3",
+        "front_jump2",
+        "front_idle"
+      ]
+    },
+    "back": {
+      "idle": [
+        "back_idle"
+      ],
+      "walk": [
+        "back_idle",
+        "back_walk_right",
+        "back_idle",
+        "back_walk_left"
+      ],
+      "hurt": [
+        "back_idle",
+        "back_hurt",
+        "back_idle"
+      ],
+      "jump": [
+        "back_idle",
+        "back_jump1",
+        "back_jump2",
+        "back_jump3",
+        "back_jump2",
+        "back_jump1",
+        "back_idle"
+      ],
+      "collapse": [
+        "back_idle",
+        "back_hurt",
+        "back_collapse",
+        "back_collapse"
+      ],
+      "common_attack": [
+        "back_idle",
+        "back_attack1",
+        "back_attack2",
+        "back_attack3",
+        "back_attack4",
+        "back_attack5",
+        "back_idle"
+      ],
+      "item": [
+        "back_idle",
+        "back_jump3",
+        "back_jump2",
+        "back_idle"
+      ]
+    }
+  },
+  "actionAliases": {
+    "melee": "common_attack",
+    "bow": "common_attack",
+    "spell": "common_attack"
+  },
+  "semanticsProvenance": "User-defined intended game semantics; not a verified historical PSP animation sequence."
+}

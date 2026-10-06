@@ -1,10 +1,11 @@
 import { parseRig, serializeRig } from './io/rig-file';
 import './style.css';
-import { createRig, makeView, rigSchema, updateGeometry, setGround, setParent, TEMPLATES, VIEWS, DIRECTIONS, MOTION_FIELDS, identity, type CharacterRigData, type ViewId, type DirectionId, type Mode, type ImageRef } from './domain/rig';
+import { createRig, makeView, rigSchema, updateGeometry, setGround, setParent, TEMPLATES, VIEWS, DIRECTIONS, MOTION_FIELDS, defaultDirectionCorrection, type CharacterRigData, type ViewId, type DirectionId, type Mode, type ImageRef } from './domain/rig';
 import { createDefaultRig, DEFAULT_SHEET_URL, resetEditorPlacement } from './domain/default-rig';
 import { phaseAt } from './domain/animator';
 import { RigAssets, type Asset } from './runtime/assets';
 import { PixiRigRenderer } from './runtime/renderer';
+import { Preview3D } from './runtime/preview3d';
 import { SourceEditor } from './editor/source';
 
 const root = document.querySelector<HTMLDivElement>('#app')!;
@@ -14,7 +15,7 @@ root.innerHTML = `
 <div id="notice" role="status" aria-live="polite">에디터를 준비하고 있습니다.</div><div id="error" role="alert" hidden></div>
 <main class="workspace">
 <section class="panel source-panel" aria-labelledby="source-title"><div class="panel-title"><div><span class="eyebrow">SOURCE IMAGE</span><h2 id="source-title">원본 · 파츠 편집</h2></div><div class="segmented" id="view-tabs"><button data-view="Front">Front</button><button data-view="Back">Back</button></div></div><div class="source-toolbar"><label class="button small">이미지 불러오기<input id="load-image" type="file" accept="image/png,image/webp,image/jpeg" hidden></label><div class="tools"><button data-tool="select" title="영역 이동" aria-label="영역 이동">↖</button><button data-tool="draw" title="선택 파츠의 새 영역 그리기" aria-label="영역 그리기">▧</button><button data-tool="pan" title="화면 이동" aria-label="화면 이동">✥</button><button data-action="zoom-out" aria-label="축소">−</button><button data-action="zoom-in" aria-label="확대">+</button><button data-action="fit">맞춤</button></div></div><div id="source" class="checker viewport"><div id="source-empty" class="empty">앞면 또는 뒷면 이미지를 불러오세요.<small>PNG · WebP · JPG / 한쪽만 있어도 시작할 수 있어요.</small></div></div><div class="panel-footer"><span id="source-meta"></span><span>휠 확대 · Alt+드래그 이동</span></div><div id="parts" class="part-list" aria-label="파츠 선택"></div><p class="hint" id="side-hint"></p></section>
-<section class="panel preview-panel" aria-labelledby="preview-title"><div class="panel-title"><div><span class="eyebrow">LIVE PREVIEW</span><h2 id="preview-title">움직임 미리보기</h2></div><span class="live-badge">● LIVE</span></div><div class="preview-toolbar"><label>방향 <select id="direction">${DIRECTIONS.map(d => `<option>${d}</option>`).join('')}</select></label><button data-action="compare" id="compare" aria-pressed="false">▦ 4방향 비교</button><label class="check"><input id="checker" type="checkbox" checked>체크무늬</label></div><div id="preview" class="checker viewport"><div id="direction-labels"></div></div><div class="panel-footer"><span id="preview-meta"></span><span>지면 기준 고정 · 제자리 걷기</span></div><p class="hint">등각은 2D 파츠 보정입니다. 반전 시 장비의 좌우도 바뀔 수 있습니다.</p></section>
+<section class="panel preview-panel" aria-labelledby="preview-title"><div class="panel-title"><div><span class="eyebrow">LIVE PREVIEW</span><h2 id="preview-title">움직임 미리보기</h2></div><span class="live-badge">● LIVE</span></div><div class="preview-toolbar"><label>미리보기 <select id="preview-kind"><option>2D</option><option>3D</option></select></label><label>방향 <select id="direction">${DIRECTIONS.map(d => `<option>${d}</option>`).join('')}</select></label><button data-action="compare" id="compare" aria-pressed="false">▦ 4방향 비교</button><label class="check"><input id="checker" type="checkbox" checked>체크무늬</label></div><div id="camera-toolbar" class="preview-toolbar" hidden>카메라 <button data-camera="Front">Front</button><button data-camera="Back">Back</button><button data-camera="Side">Side</button><button data-camera="Isometric">Isometric</button><button data-action="capture-3d">PNG</button><button data-action="record-3d">3초 영상</button></div><div id="preview" class="checker viewport"><div id="direction-labels"></div></div><div class="panel-footer"><span id="preview-meta"></span><span>지면 기준 고정 · 제자리 걷기</span></div><p class="hint">2D 등각은 파츠 보정 · 3D는 앞뒤 PNG 실루엣 판 · 두께면은 먹색입니다. 드래그 회전 · 휠 확대.</p></section>
 <aside class="panel inspector"><div class="panel-title"><div><span class="eyebrow">PROPERTIES</span><h2>리그 설정</h2></div><span id="selected-tag" class="tag"></span></div><div id="inspector-content"></div></aside>
 <section class="panel transport" aria-label="재생 컨트롤"><div class="transport-main"><div class="segmented" id="modes"><button data-mode="Rest">Rest</button><button data-mode="Idle">Idle</button><button data-mode="Walk">Walk</button></div><button id="play" data-action="play" class="primary">▶ 재생</button><button data-action="reset" title="Rest 자세와 0초로 초기화">↶ 처음으로</button><label>속도 <select id="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div><div class="scrub"><span>사이클</span><input id="phase" aria-label="사이클 위치" type="range" min="0" max="1" step="0.001" value="0"><output id="phase-output">0.000</output></div></section>
 </main><section class="asset-panel panel"><div><h2>이미지 연결</h2><p>JSON에는 파일 식별자가 저장됩니다. 다른 세션에서 열면 원본 파일을 다시 연결하세요.</p></div><div id="asset-list"></div><label class="button" id="reconnect-label">누락 이미지 일괄 연결<input id="reconnect" type="file" accept="image/png,image/webp,image/jpeg" multiple hidden></label></section>
@@ -23,6 +24,8 @@ root.innerHTML = `
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 let rig = createRig(), viewId: ViewId = 'Front', selected = 'head', direction: DirectionId = 'Front';
 let compare = false, mode: Mode = 'Rest', playing = false, seconds = 0, speed = 1, solo: string | null = null, busy = false, disposed = false, dirty = false;
+let previewKind = '2D';
+let preview3d: Preview3D | undefined;
 const assets = new RigAssets();
 const controller = new AbortController();
 const view = () => rig.views[viewId];
@@ -33,7 +36,7 @@ const error = (e: unknown) => { $('error').textContent = e instanceof Error ? e.
 const source = new SourceEditor($('source'), finished => { dirty = true; refresh(finished); }, id => { selected = id; refresh(); });
 const renderer = new PixiRigRenderer($('preview'), delta => {
   if (playing && !document.hidden) seconds += delta * speed;
-  renderer.render(seconds, mode);
+  renderer.render(seconds, mode); preview3d?.render(seconds, mode);
   const phase = phaseAt(seconds, rig.motion.duration);
   if (document.activeElement !== $('phase')) ($('phase') as HTMLInputElement).value = String(phase);
   $('phase-output').textContent = phase.toFixed(3);
@@ -78,7 +81,11 @@ function refresh(rebuildInspector = true) {
     return `<span><b>${id}</b><small>${rig.directions[id].view}${missing ? ' · 원본 연결 필요' : ''}</small></span>`;
   }).join('');
   source.sync(view(), selected, assets.get(view().image?.id));
-  renderer.sync(rig, assets, dirs, solo); renderer.render(seconds, mode);
+  renderer.sync(rig, assets, dirs, solo); renderer.render(seconds, mode); preview3d?.render(seconds, mode);
+  if (previewKind === '3D') { preview3d?.sync(rig, assets, direction, solo); preview3d?.render(seconds, mode); }
+  $('direction-labels').hidden = previewKind === '3D';
+  $('camera-toolbar').hidden = previewKind !== '3D';
+  $('compare').hidden = previewKind === '3D';
   assets.prune(rig);
   if (rebuildInspector) inspector();
   const missing = assets.missing(rig);
@@ -134,11 +141,14 @@ root.addEventListener('click', e => {
   const button = (e.target as HTMLElement).closest<HTMLButtonElement>('button'); if (!button || button.disabled || busy) return;
   clearError();
   try {
+    if (button.dataset.camera) { preview3d?.cameraView(button.dataset.camera); preview3d?.render(seconds, mode); return; }
     if (button.dataset.part) { selected = button.dataset.part; refresh(); return; }
     if (button.dataset.view) { viewId = button.dataset.view as ViewId; direction = viewId; source.fit(); refresh(); return; }
     if (button.dataset.mode) { mode = button.dataset.mode as Mode; refresh(); return; }
     if (button.dataset.tool) { source.tool = button.dataset.tool; refresh(false); return; }
     switch (button.dataset.action) {
+      case 'capture-3d': preview3d?.capture(); return;
+      case 'record-3d': preview3d?.record(); notice('3초 동안 현재 3D 미리보기를 녹화합니다. 모션은 재생 버튼으로 시작하세요.'); return;
       case 'home': window.location.assign(import.meta.env.BASE_URL); return;
       case 'new': renderer.clear(); assets.destroy(); rig = createRig(); rig.id = 'untitled-rig'; viewId = 'Front'; direction = 'Front'; selected = 'head'; solo = null; seconds = 0; mode = 'Rest'; playing = false; dirty = false; notice('새 리그입니다. Front 또는 Back 이미지를 불러오세요.'); break;
       case 'sample': void run(sample); return;
@@ -152,7 +162,7 @@ root.addEventListener('click', e => {
       case 'reset-part': resetEditorPlacement(part(), view(), viewId); dirty = true; break;
       case 'reset-all': view().parts.forEach(p => resetEditorPlacement(p, view(), viewId)); dirty = true; break;
       case 'remove-replacement': delete part().replacement; dirty = true; break;
-      case 'reset-direction': rig.directions[direction].parts[selected] = { ...identity(), zOffset: 0 }; dirty = true; break;
+      case 'reset-direction': rig.directions[direction].parts[selected] = defaultDirectionCorrection(direction, selected); dirty = true; break;
       case 'copy-front': {
         const from = rig.views.Front, target = rig.views.Back, sx = target.width / from.width, sy = target.height / from.height;
         target.parts = structuredClone(from.parts).map(p => { p.rect = { x:p.rect.x*sx,y:p.rect.y*sy,width:p.rect.width*sx,height:p.rect.height*sy }; p.pivot = { x:p.pivot.x*sx,y:p.pivot.y*sy }; p.restTransform.x *= sx; p.restTransform.y *= sy; p.attachment.socket.x *= sx; p.attachment.socket.y *= sy; return p; });
@@ -171,7 +181,7 @@ root.addEventListener('input', e => {
   const input = e.target as HTMLInputElement;
   try {
     if (input.dataset.path) numeric(input);
-    if (input.id === 'phase') { playing = false; seconds = Number(input.value) * rig.motion.duration; renderer.render(seconds, mode); $('play').textContent = '▶ 재생'; $('phase-output').textContent = Number(input.value).toFixed(3); }
+    if (input.id === 'phase') { playing = false; seconds = Number(input.value) * rig.motion.duration; renderer.render(seconds, mode); preview3d?.render(seconds, mode); $('play').textContent = '▶ 재생'; $('phase-output').textContent = Number(input.value).toFixed(3); }
   } catch (e) { input.setAttribute('aria-invalid', 'true'); error(e); }
 }, { signal: controller.signal });
 async function relink(file: File, ref: ImageRef) {
@@ -212,6 +222,13 @@ root.addEventListener('change', e => {
   try {
     switch (input.id) {
       case 'parent-part': withCandidate(candidate => { const v = candidate.views[viewId]; setParent(v, v.parts.find(p=>p.id===selected)!, input.value === 'body' ? 'body' : null); }); return;
+      case 'preview-kind': {
+        previewKind = input.value;
+        if (previewKind === '3D' && !preview3d) { try { preview3d = new Preview3D($('preview')); } catch (e) { previewKind = '2D'; input.value = '2D'; throw e; } }
+        preview3d?.setActive(previewKind === '3D');
+        renderer.app.canvas.hidden = previewKind === '3D';
+        break;
+      }
       case 'direction': direction = input.value as DirectionId; break;
       case 'speed': speed = Number(input.value); break;
       case 'checker': $('preview').classList.toggle('checker', input.checked); break;
@@ -226,10 +243,10 @@ root.addEventListener('change', e => {
     refresh();
   } catch (e) { error(e); }
 }, { signal: controller.signal });
-function destroy() { if (disposed) return; disposed = true; controller.abort(); source.destroy(); renderer.destroy(); assets.destroy(); }
+function destroy() { if (disposed) return; disposed = true; controller.abort(); source.destroy(); preview3d?.destroy(); renderer.destroy(); assets.destroy(); }
 window.addEventListener('pagehide', e => { if (!e.persisted) destroy(); }, { signal: controller.signal });
 window.addEventListener('beforeunload', e => { if (dirty) e.preventDefault(); }, { signal: controller.signal });
 // Diagnostics expose snapshots, never mutable editor internals; available only in development.
-if (import.meta.env.DEV) Object.assign(window, { rigDiagnostics: () => ({ ...renderer.diagnostics(), rig: structuredClone(rig), seconds, mode, playing, missing: assets.missing(rig).length }) });
+if (import.meta.env.DEV) Object.assign(window, { rigDiagnostics: () => ({ ...renderer.diagnostics(), preview3d: preview3d?.diagnostics(), rig: structuredClone(rig), seconds, mode, playing, missing: assets.missing(rig).length }) });
 if (import.meta.hot) import.meta.hot.dispose(destroy);
 try { await renderer.init(); if (!disposed) await run(sample); } catch (e) { error(e); notice('그래픽 초기화에 실패했습니다. WebGL을 지원하는 브라우저에서 다시 열어 주세요.'); }

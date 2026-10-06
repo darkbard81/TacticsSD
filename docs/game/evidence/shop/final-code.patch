@@ -1,0 +1,1020 @@
+--- before/game/input.ts
++++ after/game/input.ts
+@@ -10,7 +10,7 @@
+     try {
+         const v = JSON.parse(raw ?? '');
+         for (const a of ACTIONS) {
+-            if (typeof v.keys[a] !== 'string' || v.keys[a].length > 30 || !Number.isInteger(v.buttons[a]) || v.buttons[a] < -1 || v.buttons[a] > 31)
++            if (typeof v.keys[a] !== 'string' || v.keys[a].length > 30 || v.keys[a] === 'Tab' || !Number.isInteger(v.buttons[a]) || v.buttons[a] < -1 || v.buttons[a] > 31)
+                 throw Error();
+         }
+         if (new Set(Object.values(v.keys)).size !== ACTIONS.length)
+@@ -111,6 +111,10 @@
+             if (this.capture?.kind === 'keys') {
+                 e.preventDefault();
+                 if (!e.repeat) {
++                    if (e.code === 'Tab' || ['ControlLeft','ControlRight','AltLeft','AltRight','MetaLeft','MetaRight'].includes(e.code)) {
++                        this.status('Tab과 조합 보조키는 탐색용으로 예약되어 있습니다. 다른 키를 선택하세요.', false);
++                        return;
++                    }
+                     if (e.code === 'Escape')
+                         this.capture = null;
+                     else {
+@@ -140,7 +144,7 @@
+         });
+         window.addEventListener('keyup', e => { this.blockedKeys.delete(e.code); this.keys.delete(e.code); this.tick(performance.now()); });
+         window.addEventListener('blur', () => { this.keys.clear(); this.blockedKeys.clear(); this.edges.clear(); this.suspended = true; this.status('창이 비활성화되었습니다.', true); });
+-        window.addEventListener('focus', () => { this.suspended = false; this.keys.clear(); });
++        window.addEventListener('focus', () => { this.suspended = false; this.keys.clear(); this.awaitNeutral = true; });
+     }
+     save() {
+         try {
+@@ -157,7 +161,9 @@
+         const pad = pads.find(p => p?.connected) ?? null;
+         if (Boolean(pad) !== this.connected) {
+             this.connected = Boolean(pad);
+-            this.awaitNeutral = Boolean(pad);
++            this.awaitNeutral = true;
++            for (const key of this.keys) this.blockedKeys.add(key);
++            this.keys.clear();
+             this.edges.clear();
+             this.previousPadButtons.clear();
+             this.status(pad ? `컨트롤러 연결 · ${pad.mapping === 'standard' ? '표준 매핑' : '비표준 · 버튼 설정 확인'}` : '컨트롤러 연결 해제 · 키보드로 계속할 수 있습니다.', !pad);
+@@ -168,13 +174,19 @@
+                 physical.add(i);
+         });
+         if (this.awaitNeutral) {
+-            if (physical.size === 0 && pad?.axes.every(a => Math.abs(a) < .3))
++            if (physical.size === 0 && (!pad || pad.axes.every(a => Math.abs(a) < .3)))
+                 this.awaitNeutral = false;
+             else {
+                 this.previousPadButtons = physical;
+             }
+         }
+         if (this.capture) {
++            // Back is an invariant capture cancel, including when all normal actions are remapped.
++            const cancel = physical.has(8) || this.capture.kind === 'keys' && physical.has(this.bindings.buttons.cancel);
++            if (cancel && !this.awaitNeutral) {
++                this.capture = null; this.awaitNeutral = true; this.keys.clear(); this.edges.clear(); this.changed();
++                return;
++            }
+             if (this.capture.kind === 'buttons' && !this.awaitNeutral) {
+                 const n = [...physical].find(i => !this.previousPadButtons.has(i));
+                 if (n !== undefined) {
+@@ -194,9 +206,10 @@
+         for (const a of ACTIONS)
+             if (this.keys.has(this.bindings.keys[a]))
+                 actions.add(a);
+-        if (this.keys.has('Space'))
++        if (this.keys.has('Space') && !Object.values(this.bindings.keys).includes('Space'))
+             actions.add('confirm');
+-        for (const a of this.edges.sample(actions, now))
+-            this.emit(a);
+-    }
+-}
++        const emitted=this.edges.sample(actions,now);
++        if(emitted.includes('cancel')){this.emit('cancel');return;}
++        for (const a of emitted) this.emit(a);
++    }
++}
+--- before/game/domain.ts
++++ after/game/domain.ts
+@@ -1,6 +1,7 @@
++import {inventoryFor,validateInventory} from './shop';
+ import { z } from 'zod';
+-import { ROSTER, jobForHero, abilityById, weaponFor, WEAPONS, type Ability } from './content';
+-import { derive, calculateDamage, type Derived } from './calculation';
++import { ROSTER, jobForHero, abilityById, weaponFor, WEAPONS, CLASS_ABILITIES, SUPPORT_SKILLS, CONSUMABLES, EXTRA_GEAR, ARMOR, type ExtraSlot, type Ability } from './content';
++import { derive, calculateDamage, calculateSpellDamage, calculateAccuracy, type Derived } from './calculation';
+ export type Pos = {
+     x: number;
+     y: number;
+@@ -9,15 +10,15 @@
+ export const JOBS = ROSTER.map((_, i) => { const c = jobForHero(i), a = abilityById(c.abilityId); return { ...c, skill: a.name, cost: a.cost, resource: a.resource }; });
+ export const HEROES = ROSTER.map(h => h.name);
+ export const STAGES = [{ name: '갈대의 관문', sub: 'THE REED GATE', desc: '강을 건너는 옛 길을 되찾으세요.', reward: 150 }, { name: '무너진 별의 다리', sub: 'THE FALLEN BRIDGE', desc: '고지대를 지키는 파수대를 돌파하세요.', reward: 200 }, { name: '은빛 성채', sub: 'THE SILVER CITADEL', desc: '성채의 봉인을 풀고 섬에 여명을 돌려주세요.', reward: 300 }];
+-export const gearSchema = z.object({ weapon: z.number().int().min(0).max(1), armor: z.number().int().min(0).max(1) });
+-export const campaignSchema = z.object({ version: z.literal(1), unlocked: z.number().int().min(0).max(3), gold: z.number().int().min(0).max(99999), party: z.array(z.number().int().min(0).max(ROSTER.length - 1)).min(1).max(3).refine(a => new Set(a).size === a.length), gear: z.array(gearSchema).length(ROSTER.length), cleared: z.array(z.number().int().min(0).max(2)).max(3).refine(a => new Set(a).size === a.length) });
++export const gearSchema = z.object({ weapon: z.number().int().min(0).max(WEAPONS.length-1), armor: z.number().int().min(0).max(ARMOR.length-1), offhand:z.number().int().min(0).max(EXTRA_GEAR.offhand.length-1).optional(), armguard:z.number().int().min(0).max(EXTRA_GEAR.armguard.length-1).optional(), accessory:z.number().int().min(0).max(EXTRA_GEAR.accessory.length-1).optional() });
++export const campaignSchema = z.object({ version: z.literal(1), inventory:z.record(z.string(),z.number().int().min(0).max(999)).optional(), unlocked: z.number().int().min(0).max(3), gold: z.number().int().min(0).max(99999), party: z.array(z.number().int().min(0).max(ROSTER.length - 1)).min(1).max(3).refine(a => new Set(a).size === a.length), gear: z.array(gearSchema).length(ROSTER.length), cleared: z.array(z.number().int().min(0).max(2)).max(3).refine(a => new Set(a).size === a.length), levels: z.record(z.string(),z.number().int().min(1).max(10)).default({}), training:z.record(z.string(),z.object({sp:z.number().int().nonnegative(), learned:z.array(z.string()), abilityId:z.string(), supportId:z.string()})).default({}) });
+ export type Campaign = z.infer<typeof campaignSchema>;
+-export const newCampaign = (): Campaign => ({ version: 1, unlocked: 0, gold: 100, party: [0, 1, 2], gear: Array.from({ length: ROSTER.length }, () => ({ weapon: 0, armor: 0 })), cleared: [] });
++export const newCampaign = (): Campaign => ({ version: 1, unlocked: 0, gold: 100, party: [0, 1, 2], gear: Array.from({ length: ROSTER.length }, () => ({ weapon: 0, armor: 0 })), cleared: [], levels:{}, training:{} });
+ export function parseCampaign(raw: string | null): Campaign | null {
+     try {
+         const v = JSON.parse(raw ?? '');
+         if (v.version === 2) {
+-            const disk = z.object({ version: z.literal(2), unlocked: z.number(), gold: z.number(), cleared: z.array(z.number()), party: z.array(z.string()), equipment: z.record(z.string(), z.object({ weaponId: z.string(), armorId: z.enum(['silver-mail', 'travel-mail']) })) }).parse(v);
++            const disk = z.object({ version: z.literal(2), unlocked: z.number(), gold: z.number(), cleared: z.array(z.number()), party: z.array(z.string()), equipment: z.record(z.string(), z.object({ weaponId: z.string(), armorId: z.string(), offhandId:z.string().optional(), armguardId:z.string().optional(), accessoryId:z.string().optional() })) }).parse(v);
+             const party = disk.party.map(id => ROSTER.findIndex(r => r.id === id));
+             const gear = ROSTER.map((r, i) => {
+                 const equipment = disk.equipment[r.id];
+@@ -26,11 +27,13 @@
+                 const w = WEAPONS.find(w => w.id === equipment.weaponId);
+                 if (!w || w.family !== jobForHero(i).weaponFamily)
+                     throw Error('Unknown equipment reference');
+-                return { weapon: w.bonus ? 1 : 0, armor: equipment.armorId === 'silver-mail' ? 1 : 0 };
++                const extras:Partial<Record<ExtraSlot,number>>={};for(const slot of ['offhand','armguard','accessory'] as const){const id=equipment[`${slot}Id`];if(id!==undefined){const n=EXTRA_GEAR[slot].findIndex(item=>item.id===id);if(n<0)throw Error('Unknown equipment reference');extras[slot]=n;}}
++                const armor=ARMOR.findIndex(a=>a.id===equipment.armorId);if(armor<0)throw Error('Unknown armor');return { weapon: WEAPONS.filter(x=>x.family===w.family).indexOf(w), armor, ...extras };
+             });
+-            return campaignSchema.parse({ ...disk, version: 1, party, gear });
+-        }
+-        return campaignSchema.parse(v);
++            return validateCampaign(campaignSchema.parse({ ...disk, version: 1, party, gear, levels:v.levels??{}, training:v.training??{},inventory:v.inventory }));
++        }
++        if (v.version === 1 && Array.isArray(v.gear)) while(v.gear.length < ROSTER.length) v.gear.push({weapon:0,armor:0});
++        return validateCampaign(campaignSchema.parse(v));
+     }
+     catch {
+         return null;
+@@ -45,6 +48,7 @@
+     id: string;
+     hero: number;
+     weaponVariant: number;
++    itemId: string;
+     classId: string;
+     abilityId: string;
+     derived: Derived;
+@@ -82,6 +86,7 @@
+     activeId: string;
+     phase: 'ally' | 'enemy' | 'won' | 'lost';
+     potions: number;
++    inventory: Record<string,number>;
+     log: string[];
+ };
+ export const distance = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+@@ -89,9 +94,9 @@
+ export const tileAt = (b: Battle, p: Pos) => b.tiles.find(t => same(t, p));
+ export const unitAt = (b: Battle, p: Pos) => b.units.find(u => u.hp > 0 && same(u, p));
+ export function makeBattle(stage: number, c: Campaign): Battle {
+-    const tiles: Tile[] = Array.from({ length: 64 }, (_, i) => { const x = i % 8, y = Math.floor(i / 8); const water = x === 3 && y !== 3 && y !== 4; return { x, y, h: water ? 0 : 1 + (x > 4 && y < 5 ? 1 : 0) + (stage === 2 && x > 5 && y < 3 ? 1 : 0), kind: water ? 'water' : x === 3 || y === 3 || y === 4 ? 'stone' : 'grass', block: (x === 0 && y === 0) || (x === 7 && y === 7) }; });
+-    const make = (hero: number, x: number, y: number, enemy = false, index = hero): Unit => { const j = JOBS[hero], g = enemy ? { weapon: 0, armor: 0 } : c.gear[hero], d = derive(hero, stage + 1, g); return { id: enemy ? 'e' + index : 'a' + hero, hero, weaponVariant: enemy ? 0 : g.weapon, classId: j.id, abilityId: j.abilityId, derived: d, name: enemy ? ['잿빛 기사', '그늘 궁수', '황혼 마녀', '성채 수호자'][index] : HEROES[hero], job: hero, team: enemy ? 'enemy' : 'ally', x, y, hp: enemy ? 55 + stage * 10 : d.hp, maxHp: enemy ? 55 + stage * 10 : d.hp, mp: 0, tp: 0, readyAt: enemy ? 35 + index * 5 : c.party.indexOf(hero) * 5, baseRT: j.baseRT, moved: false, acted: false, skillUsed: false, skillRT: 0, moveRT: 0, actionRT: 0, atk: enemy ? 16 + stage * 2 : d.attack, def: enemy ? 4 + stage : d.defense, move: d.move, range: j.range, jump: j.jump, done: false, guard: false, facing: enemy ? 'SW' : 'SE' }; };
+-    return { stage, tiles, units: [...c.party.map((h, i) => make(h, 1, 2 + i)), make(0, 5, 3, true, 0), make(1, 6, 2, true, 1), make(2, 6, 5, true, 2), ...(stage === 2 ? [make(0, 7, 1, true, 3)] : [])], round: 1, clock: 0, rng: 117 + stage, activeId: 'a' + c.party[0], phase: 'ally', potions: 3, log: ['은빛 여명 원정대 · 모든 적을 쓰러뜨리세요.'] };
++    const tiles: Tile[] = Array.from({ length: 64 }, (_, i) => { const x = i % 8, y = Math.floor(i / 8); const water = x === 3 && y !== 3 && y !== 4; return { x, y, h: water ? 0 : 1 + (x > 4 && y < 5 ? 1 : 0) + (stage === 2 && x > 5 && y < 3 ? 1 : 0) + (stage===1&&x>4&&y>4?1:0), kind: water ? 'water' : x === 3 || y === 3 || y === 4 ? 'stone' : 'grass', block: (x === 0 && y === 0) || (x === 7 && y === 7) || (stage===1 && ((x===5&&y===1)||(x===6&&y===6))) || (stage===2 && x===4 && (y===0||y===7)) }; });
++    const make = (hero: number, x: number, y: number, enemy = false, index = hero): Unit => { const j = JOBS[hero], g = enemy ? { weapon: 0, armor: 0 } : c.gear[hero], d = derive(hero, enemy ? stage + 1 : classLevel(c,hero), g, enemy ? 'weapon-study' : trainingFor(c,hero).supportId); return { id: enemy ? 'e' + index : 'a' + hero, hero, weaponVariant: enemy ? 0 : g.weapon, itemId:'mend-leaf', classId: j.id, abilityId: enemy ? j.abilityId : trainingFor(c,hero).abilityId, derived: d, name: enemy ? ['잿빛 기사', '그늘 궁수', '황혼 마녀', '성채 수호자'][index] : HEROES[hero], job: hero, team: enemy ? 'enemy' : 'ally', x, y, hp: enemy ? 55 + stage * 10 : d.hp, maxHp: enemy ? 55 + stage * 10 : d.hp, mp: 0, tp: 0, readyAt: enemy ? 35 + index * 5 : c.party.indexOf(hero) * 5, baseRT: j.baseRT, moved: false, acted: false, skillUsed: false, skillRT: 0, moveRT: 0, actionRT: 0, atk: enemy ? 16 + stage * 2 : d.attack, def: enemy ? 4 + stage : d.defense, move: d.move, range: j.range, jump: j.jump, done: false, guard: false, facing: enemy ? 'SW' : 'SE' }; };
++    return { stage, tiles, units: [...c.party.map((h, i) => make(h, 1, 2 + i)), make(0, 5, 3, true, 0), make(1, 6, 2, true, 1), make(2, 6, 5, true, 2), ...(stage === 2 ? [make(0, 7, 1, true, 3)] : [])], round: 1, clock: 0, rng: 117 + stage, activeId: 'a' + c.party[0], phase: 'ally', potions: inventoryFor(c)['mend-leaf']??0, inventory:Object.fromEntries(CONSUMABLES.map(i=>[i.abilityId,inventoryFor(c)[i.abilityId]??0])), log: ['은빛 여명 원정대 · 모든 적을 쓰러뜨리세요.'] };
+ }
+ export function reachable(b: Battle, u: Unit): Pos[] {
+     const q = [{ x: u.x, y: u.y, d: 0 }], seen = new Set([u.x + ',' + u.y]);
+@@ -124,30 +129,36 @@
+ export type Command = 'attack' | 'skill' | 'item';
+ export function commandAbility(u: Unit, cmd: Command): Ability {
+     if (cmd === 'item')
+-        return abilityById('mend-leaf');
++        return abilityById(u.itemId ?? 'mend-leaf');
+     if (cmd === 'skill')
+         return abilityById(u.abilityId);
+-    return { id: 'weapon-attack', name: '무기 공격', description: '장착 무기로 공격합니다.', cost: 0, resource: 'mp', range: u.range, radius: 0, target: 'enemy', effect: 'damage', power: 0, animation: jobForHero(u.hero).weaponFamily === 'bow' ? 'shoot' : 'slash' };
+-}
++    return { id: 'weapon-attack', name: '무기 공격', description: '장착 무기로 공격합니다.', cost: 0, resource: 'mp', range: u.range, radius: 0, target: 'enemy', effect: 'damage', power: 0, formula:'weapon', percent:0, animation: jobForHero(u.hero).weaponFamily === 'bow' ? 'shoot' : 'slash' };
++}
++const matchesTarget=(u:Unit,t:Unit,a:Ability)=>a.target==='enemy'?t.team!==u.team:t.team===u.team&&(a.target!=='wounded-ally'||t.hp<t.maxHp)&&(a.effect!=='mp'||t.mp<t.derived.mp)&&(a.effect!=='tp'||t.tp<100);
++export const itemStock=(b:Battle,u:Unit)=>u.itemId==='mend-leaf'?b.potions:b.inventory[u.itemId]??0;
+ export function targets(b: Battle, u: Unit, cmd: Command): Unit[] {
+     const a = commandAbility(u, cmd);
+-    if (u[a.resource] < a.cost || cmd === 'item' && b.potions === 0)
++    if (u[a.resource] < a.cost || cmd === 'item' && itemStock(b,u) === 0)
+         return [];
+-    return b.units.filter(t => t.hp > 0 && (a.target === 'wounded-ally' ? t.team === u.team && t.hp < t.maxHp : t.team !== u.team) && distance(u, t) <= a.range + (a.animation === 'shoot' ? Math.max(0, tileAt(b, u)!.h - tileAt(b, t)!.h) : 0) && hasSight(b, u, t));
++    return b.units.filter(t => t.hp > 0 && matchesTarget(u,t,a) && distance(u, t) <= a.range + (a.animation === 'shoot' ? Math.max(0, tileAt(b, u)!.h - tileAt(b, t)!.h) : 0) && hasSight(b, u, t));
+ }
+ export function damage(_b: Battle, u: Unit, t: Unit, cmd: Command) {
+     const a = commandAbility(u, cmd);
++    if(a.effect==='guard') return 8;
++    if(a.effect==='mp')return Math.min(t.derived.mp-t.mp,a.power+Math.floor(t.derived.mp*a.percent/100));
++    if(a.effect==='tp')return Math.min(100-t.tp,a.power+a.percent);
+     if (a.effect === 'heal')
+-        return Math.min(t.maxHp - t.hp, a.power);
++        return Math.min(t.maxHp - t.hp, a.power+Math.floor(t.maxHp*a.percent/100));
++    if (a.formula === 'spell') return calculateSpellDamage(u.derived,t.derived,a.power,t.def+(t.guard?8:0)).final;
+     return calculateDamage({ ...u.derived, attack: u.atk + a.power }, { ...t.derived, defense: t.def + (t.guard ? 8 : 0) }, 1).final;
+ }
+-/** Facing affects accuracy, never the damage formula. Authored rates. */
+-export function accuracy(b: Battle, u: Unit, t: Unit, cmd: Command) {
+-    if (commandAbility(u, cmd).effect === 'heal')
++/** OV stat coefficients, campaign normalization: see CALCULATION.md. */
++export function accuracy(_b: Battle, u: Unit, t: Unit, cmd: Command) {
++    if (commandAbility(u, cmd).effect !== 'damage')
+         return 100;
+     const delta = { SE: { x: 1, y: 0 }, NW: { x: -1, y: 0 }, SW: { x: 0, y: 1 }, NE: { x: 0, y: -1 } }[t.facing];
+     const dot = (u.x - t.x) * delta.x + (u.y - t.y) * delta.y;
+-    return Math.max(60, Math.min(100, (dot < 0 ? 100 : dot === 0 ? 95 : 90) - (tileAt(b, t)!.kind === 'grass' ? 3 : 0)));
++    return calculateAccuracy(u.derived,t.derived,dot<0?'back':dot===0?'side':'front',commandAbility(u,cmd).formula==='spell').chance;
+ }
+ function roll(b: Battle) { b.rng = (Math.imul(b.rng, 1664525) + 1013904223) >>> 0; return b.rng % 100; }
+ export function activateGuard(b: Battle, u: Unit) {
+@@ -160,40 +171,46 @@
+     b.log.push(u.name + ' · 결의: 다음 AT까지 방어 +8');
+     return true;
+ }
+-export const EFFECTS: Record<Ability['effect'], (target: Unit, amount: number) => void> = { damage: (t, n) => { t.hp = Math.max(0, t.hp - n); }, heal: (t, n) => { t.hp = Math.min(t.maxHp, t.hp + n); } };
++export const EFFECTS: Record<Ability['effect'], (target: Unit, amount: number) => void> = { damage: (t, n) => { t.hp = Math.max(0, t.hp - n); }, heal: (t, n) => { t.hp = Math.min(t.maxHp, t.hp + n); }, guard: t=>{t.guard=true;}, mp:(t,n)=>{t.mp=Math.min(t.derived.mp,t.mp+n);}, tp:(t,n)=>{t.tp=Math.min(100,t.tp+n);} };
+ export function checkOutcome(b: Battle) {
+     if (!b.units.some(u => u.team === 'enemy' && u.hp > 0))
+         b.phase = 'won';
+-    else if (!b.units.some(u => u.team === 'ally' && u.hp > 0) || b.round > 240)
++    else if (!b.units.some(u => u.team === 'ally' && u.hp > 0))
+         b.phase = 'lost';
+ }
+ export function face(u: Unit, p: Pos) { u.facing = Math.abs(p.x - u.x) >= Math.abs(p.y - u.y) ? p.x >= u.x ? 'SE' : 'NW' : p.y >= u.y ? 'SW' : 'NE'; }
++export function affectedTargets(b: Battle, u: Unit, t: Unit, cmd: Command): Unit[] {
++    const a = commandAbility(u, cmd);
++    return a.radius > 0 ? b.units.filter(v => v.hp > 0 && matchesTarget(u,v,a) && distance(v, t) <= a.radius) : [t];
++}
+ export function act(b: Battle, u: Unit, t: Unit, cmd: Command) {
+     if (u.id !== b.activeId || u.acted || u.hp <= 0 || !targets(b, u, cmd).some(x => x.id === t.id))
+         return false;
+     const ability = commandAbility(u, cmd);
+-    const heal = ability.effect === 'heal';
++    const beneficial = ability.effect !== 'damage';
+     face(u, t);
+-    const victims = ability.radius > 0 ? b.units.filter(v => v.hp > 0 && v.team !== u.team && distance(v, t) <= ability.radius) : [t];
++    const victims = affectedTargets(b, u, t, cmd);
++    const damaged: Unit[] = [];
+     for (const v of victims) {
+         const n = damage(b, u, v, cmd);
+-        if (!heal && roll(b) >= accuracy(b, u, v, cmd)) {
++        if (!beneficial && roll(b) >= accuracy(b, u, v, cmd)) {
+             b.log.push(`${u.name} → ${v.name} · 빗나감`);
+             continue;
+         }
++        const beforeHP = v.hp;
+         EFFECTS[ability.effect](v, n);
+-        b.log.push(`${u.name} → ${v.name} · ${heal ? '회복' : '피해'} ${n}`);
++        if (v.hp < beforeHP) damaged.push(v);
++        b.log.push(`${u.name} → ${v.name} · ${ability.effect==='heal'?'회복':ability.effect==='guard'?'방어 강화':ability.effect==='mp'?'MP 회복':ability.effect==='tp'?'TP 회복':'피해'} ${n}`);
+     }
+     u[ability.resource] -= ability.cost;
+-    if (!heal) {
++    if (damaged.length) {
+         u.tp = Math.min(100, u.tp + 6);
+-        for (const v of victims)
++        for (const v of damaged)
+             v.tp = Math.min(100, v.tp + 4);
+     }
+     u.acted = true;
+     u.actionRT = cmd === 'skill' ? 30 : cmd === 'item' ? 20 : 25;
+-    if (cmd === 'item')
+-        b.potions--;
++    if (cmd === 'item') {b.inventory[u.itemId]--;if(u.itemId==='mend-leaf')b.potions--;}
+     checkOutcome(b);
+     return true;
+ }
+@@ -271,7 +288,9 @@
+ export function reward(c: Campaign, stage: number) {
+     if (!c.cleared.includes(stage)) {
+         c.cleared.push(stage);
+-        c.gold += STAGES[stage].reward;
++        c.gold = Math.min(99999,c.gold+STAGES[stage].reward);
++        for (const id of new Set(c.party.map(h=>jobForHero(h).id))) c.levels[id]=Math.min(10,(c.levels[id]??1)+1);
++        for (const hero of c.party) trainingFor(c,hero).sp += 12;
+         c.unlocked = Math.max(c.unlocked, stage + 1);
+     }
+ }
+@@ -294,4 +313,24 @@
+     return [];
+ }
+ /** Persist stable roster/weapon IDs, independent of menu order. Legacy v1 is read-only migration. */
+-export function encodeCampaign(c: Campaign) { return JSON.stringify({ version: 2, unlocked: c.unlocked, gold: c.gold, cleared: c.cleared, party: c.party.map(i => ROSTER[i].id), equipment: Object.fromEntries(ROSTER.map((r, i) => [r.id, { weaponId: weaponFor(i, c.gear[i].weapon).id, armorId: c.gear[i].armor ? 'silver-mail' : 'travel-mail' }])) }); }
++export function encodeCampaign(c: Campaign) { return JSON.stringify({ version: 2, unlocked: c.unlocked, gold: c.gold, inventory:c.inventory, cleared: c.cleared, levels:c.levels, training:c.training, party: c.party.map(i => ROSTER[i].id), equipment: Object.fromEntries(ROSTER.map((r, i) => [r.id, { weaponId: weaponFor(i, c.gear[i].weapon).id, armorId: ARMOR[c.gear[i].armor].id, ...Object.fromEntries((['offhand','armguard','accessory'] as const).filter(slot=>c.gear[i][slot]!==undefined).map(slot=>[slot+'Id',EXTRA_GEAR[slot][c.gear[i][slot]!].id])) }])) }); }
++
++export const classLevel=(c:Campaign,hero:number)=>c.levels[jobForHero(hero).id]??1;
++export function trainingFor(c:Campaign,hero:number) {
++ const job=jobForHero(hero), id=ROSTER[hero].id;
++ return c.training[id]??(c.training[id]={sp:8,learned:[job.abilityId],abilityId:job.abilityId,supportId:'weapon-study'});
++}
++export function learnAbility(c:Campaign,hero:number,id:string) {
++ const training=trainingFor(c,hero),allowed=CLASS_ABILITIES[jobForHero(hero).id]??[jobForHero(hero).abilityId];
++ if(!allowed.includes(id))return false;
++ if(!training.learned.includes(id)){if(training.sp<8)return false;training.sp-=8;training.learned.push(id);}
++ training.abilityId=id;return true;
++}
++export function equipSupport(c:Campaign,hero:number,id:string) {if(!SUPPORT_SKILLS.some(s=>s.id===id))return false;trainingFor(c,hero).supportId=id;return true;}
++
++function validateCampaign(c:Campaign):Campaign {
++ for(let i=0;i<c.gear.length;i++)if(!weaponFor(i,c.gear[i].weapon))throw Error("Unknown weapon variant");
++ validateInventory(c);
++ for(const hero of ROSTER){const t=c.training[hero.id];if(!t)continue;const job=jobForHero(ROSTER.indexOf(hero));const allowed=CLASS_ABILITIES[job.id]??[job.abilityId];if(!t.learned.includes(t.abilityId)||t.learned.some(id=>!allowed.includes(id))||!SUPPORT_SKILLS.some(s=>s.id===t.supportId))throw Error('Unknown training reference');}
++ return c;
++}
+--- before/game/content.ts
++++ after/game/content.ts
+@@ -1,31 +1,41 @@
++import sourceItems from './source-items.json' with {type:'json'};
+ import { z } from 'zod';
+ const id = z.string().regex(/^[a-z][a-z0-9.-]+$/);
+-export const statsSchema = z.object({ str: z.number(), vit: z.number(), dex: z.number(), int: z.number(), mnd: z.number(), res: z.number() });
++export const statsSchema = z.object({ str: z.number(), vit: z.number(), dex: z.number(), int: z.number(), mnd: z.number(), res: z.number(), agi: z.number(), avd: z.number() });
+ export type Stats = z.infer<typeof statsSchema>;
+-export const abilitySchema = z.object({ id, name: z.string(), description: z.string(), cost: z.number().nonnegative(), resource: z.enum(['mp', 'tp']), range: z.number().int().positive(), radius: z.number().int().nonnegative(), target: z.enum(['enemy', 'wounded-ally']), effect: z.enum(['damage', 'heal']), power: z.number(), animation: z.enum(['slash', 'shoot', 'cast', 'heal']) });
++export const abilitySchema = z.object({ id, name: z.string(), description: z.string(), cost: z.number().nonnegative(), resource: z.enum(['mp', 'tp']), range: z.number().int().positive(), radius: z.number().int().nonnegative(), target: z.enum(['enemy', 'wounded-ally', 'ally']), effect: z.enum(['damage', 'heal', 'guard', 'mp', 'tp']), power: z.number(), formula: z.enum(['weapon','spell','fixed']).default('weapon'), animation: z.enum(['slash', 'shoot', 'cast', 'heal']), percent:z.number().default(0) });
+ export const ABILITIES = abilitySchema.array().parse([
+     { id: 'dawn-strike', name: '여명 강타', description: '무기의 힘을 모아 단일 적에게 강타합니다.', cost: 8, resource: 'tp', range: 2, radius: 0, target: 'enemy', effect: 'damage', power: 13, animation: 'slash' },
+     { id: 'piercing-shot', name: '관통 사격', description: '멀리 있는 적에게 강화 사격합니다.', cost: 8, resource: 'tp', range: 4, radius: 0, target: 'enemy', effect: 'damage', power: 13, animation: 'shoot' },
+-    { id: 'starburst', name: '별빛 폭발', description: '대상과 인접한 적들에게 별빛 피해를 줍니다.', cost: 12, resource: 'mp', range: 3, radius: 1, target: 'enemy', effect: 'damage', power: 13, animation: 'cast' },
++    { id: 'starburst', name: '별빛 폭발', description: '대상과 인접한 적들에게 별빛 피해를 줍니다.', cost: 12, resource: 'mp', range: 3, radius: 1, target: 'enemy', effect: 'damage', power: 13, formula: 'spell', animation: 'cast' },
+     { id: 'dawn-heal', name: '회복의 빛', description: '아군 한 명의 HP를 44 회복합니다.', cost: 10, resource: 'mp', range: 3, radius: 0, target: 'wounded-ally', effect: 'heal', power: 44, animation: 'heal' },
++    { id: 'rally-aegis', name:'수호의 진', description:'선택한 아군과 인접 아군에게 다음 AT까지 방어 +8을 부여합니다.',cost:8,resource:'tp',range:3,radius:1,target:'ally',effect:'guard',power:8,formula:'fixed',animation:'heal'},
++    { id: 'circle-of-dawn', name: '여명의 원', description: '선택한 아군과 인접 아군의 HP를 28 회복합니다.', cost: 12, resource: 'mp', range: 3, radius: 1, target: 'wounded-ally', effect: 'heal', power: 28, formula: 'fixed', animation: 'heal' },
++    { id: 'moon-bolt', name: '달빛 화살', description: '정신 능력과 상대 RES에 따라 마법 피해를 줍니다.', cost: 7, resource: 'mp', range: 4, radius: 0, target: 'enemy', effect: 'damage', power: 17, formula: 'spell', animation: 'cast' },
++    { id:'aether-draught',name:'마력의 물',description:'아군 MP를 12 회복합니다.',cost:0,resource:'mp',range:2,radius:0,target:'ally',effect:'mp',power:12,formula:'fixed',animation:'heal'},
++    { id:'valor-draught',name:'용기의 물',description:'아군 TP를 12 회복합니다.',cost:0,resource:'mp',range:2,radius:0,target:'ally',effect:'tp',power:12,formula:'fixed',animation:'heal'},
+     { id: 'mend-leaf', name: '치유의 잎', description: '치유의 잎 하나로 HP를 38 회복합니다.', cost: 0, resource: 'mp', range: 2, radius: 0, target: 'wounded-ally', effect: 'heal', power: 38, animation: 'heal' },
+ ]);
++export const CONSUMABLES=[{abilityId:'mend-leaf',icon:'♧',stock:3},{abilityId:'aether-draught',icon:'◈',stock:1},{abilityId:'valor-draught',icon:'✺',stock:1}];
+ export type Ability = z.infer<typeof abilitySchema>;
+ export const SKILLS = [{ id: 'blade-training', name: '검술 수련', weaponRank: 1 }, { id: 'bow-training', name: '궁술 수련', weaponRank: 1 }, { id: 'focus-training', name: '정신 집중', weaponRank: 1 }];
++export const SUPPORT_SKILLS = [{id:'weapon-study',name:'무기 수련',description:'무기 숙련 1랭크 · 피해/명중 보정',weaponRank:1,defense:0,move:0}, {id:'fleet-foot',name:'경쾌한 발걸음',description:'이동 +1 · 무기 숙련 보정 없음',weaponRank:0,defense:0,move:1}, {id:'iron-will',name:'강철의 의지',description:'방어 +4 · 무기 숙련 보정 없음',weaponRank:0,defense:4,move:0}];
+ export const classSchema = z.object({ id, name: z.string(), icon: z.string(), baseRT: z.number().positive(), hp: z.number().positive(), mp: z.number().nonnegative(), atk: z.number(), def: z.number(), move: z.number().int().positive(), range: z.number().int().positive(), jump: z.number().int().positive(), abilityId: id, skillId: id, weaponFamily: z.enum(['sword', 'bow', 'arcane', 'sun']), scaling: z.enum(['strength', 'dexterity', 'focus']), base: statsSchema, growth: statsSchema });
+-const base = (str: number, vit: number, dex: number, int: number, mnd: number, res: number) => ({ str, vit, dex, int, mnd, res });
++const base = (str: number, vit: number, dex: number, int: number, mnd: number, res: number) => ({ str, vit, dex, int, mnd, res, agi: dex, avd: vit });
+ export const CLASSES = classSchema.array().parse([
+     { id: 'knight', name: '기사', icon: '⚔', baseRT: 90, hp: 100, mp: 24, atk: 26, def: 9, move: 4, range: 1, jump: 1, abilityId: 'dawn-strike', skillId: 'blade-training', weaponFamily: 'sword', scaling: 'strength', base: base(15, 15, 12, 7, 8, 10), growth: base(10, 10, 8, 4, 5, 7) },
+     { id: 'ranger', name: '궁수', icon: '➶', baseRT: 80, hp: 76, mp: 24, atk: 23, def: 5, move: 4, range: 4, jump: 2, abilityId: 'piercing-shot', skillId: 'bow-training', weaponFamily: 'bow', scaling: 'dexterity', base: base(12, 10, 16, 8, 9, 8), growth: base(7, 6, 12, 5, 5, 6) },
+     { id: 'arcanist', name: '마도사', icon: '✦', baseRT: 95, hp: 68, mp: 36, atk: 27, def: 3, move: 3, range: 3, jump: 1, abilityId: 'starburst', skillId: 'focus-training', weaponFamily: 'arcane', scaling: 'focus', base: base(7, 8, 11, 16, 15, 12), growth: base(4, 5, 7, 12, 10, 8) },
+     { id: 'healer', name: '치유사', icon: '☀', baseRT: 85, hp: 80, mp: 36, atk: 20, def: 6, move: 4, range: 3, jump: 1, abilityId: 'dawn-heal', skillId: 'focus-training', weaponFamily: 'sun', scaling: 'focus', base: base(8, 11, 10, 13, 17, 15), growth: base(5, 7, 6, 8, 12, 10) },
+ ]);
+-export const ROSTER = [{ id: 'erin', name: '에린', classId: 'knight' }, { id: 'rowan', name: '로웬', classId: 'ranger' }, { id: 'sera', name: '세라', classId: 'arcanist' }, { id: 'miel', name: '미엘', classId: 'healer' }];
+-export const weaponSchema = z.object({ id, name: z.string(), family: z.string(), bonus: z.number(), frame: z.number().int().min(0).max(7), grip: z.object({ x: z.number(), y: z.number() }), animation: z.enum(['slash', 'thrust', 'shoot', 'cast', 'heal']) });
++CLASSES.push(classSchema.parse({...CLASSES[0], id:'sentinel', name:'파수기사', icon:'♜', hp:112, def:13, move:3, baseRT:100, abilityId:'rally-aegis'}), classSchema.parse({...CLASSES[3], id:'sage', name:'현자', icon:'✧', hp:72, mp:40, abilityId:'circle-of-dawn'}));
++export const CLASS_ABILITIES: Record<string, string[]> = {knight:['dawn-strike'], ranger:['piercing-shot'], arcanist:['starburst','moon-bolt'], healer:['dawn-heal','circle-of-dawn'], sentinel:['rally-aegis','dawn-strike'], sage:['circle-of-dawn','moon-bolt','dawn-heal']};
++export const ROSTER = [{ id: 'erin', name: '에린', classId: 'knight' }, { id: 'rowan', name: '로웬', classId: 'ranger' }, { id: 'sera', name: '세라', classId: 'arcanist' }, { id: 'miel', name: '미엘', classId: 'healer' }, {id:'lena',name:'레나',classId:'sentinel'}, {id:'iris',name:'이리스',classId:'sage'}];
++export const weaponSchema = z.object({ id, name: z.string(), family: z.string(), bonus: z.number(), frame: z.number().int().min(0).max(7), iconId:z.string().optional(), grip: z.object({ x: z.number(), y: z.number() }), animation: z.enum(['slash', 'thrust', 'shoot', 'cast', 'heal']) });
+ export const WEAPONS = weaponSchema.array().parse(['sword', 'bow', 'arcane', 'sun'].flatMap((family, j) => [0, 1].map(variant => ({ id: `${family}-${variant ? 'dawn' : 'field'}`, name: `${variant ? '여명' : '기본'} ${['검', '활', '별 지팡이', '성광 지팡이'][j]}`, family, bonus: variant * 5, frame: j * 2 + variant, grip: { x: [.62, .52, .45, .48, .61, .50, .46, .46][j * 2 + variant], y: family === 'bow' ? .5 : .82 }, animation: family === 'sword' ? (variant ? 'thrust' : 'slash') : family === 'bow' ? 'shoot' : family === 'arcane' ? 'cast' : 'heal' }))));
+ export const abilityById = (id: string) => ABILITIES.find(a => a.id === id)!;
+ export const jobForHero = (hero: number) => CLASSES.find(c => c.id === ROSTER[hero].classId)!;
+-export const weaponFor = (hero: number, variant: number) => WEAPONS.find(w => w.family === jobForHero(hero).weaponFamily && w.bonus === variant * 5)!;
++export const weaponFor = (hero: number, variant: number) => WEAPONS.filter(w => w.family === jobForHero(hero).weaponFamily)[variant]!;
+ export function validateContent(classes = CLASSES, abilities = ABILITIES) {
+     if (new Set(classes.map(c => c.id)).size !== classes.length || new Set(abilities.map(a => a.id)).size !== abilities.length)
+         throw Error('Duplicate content id');
+@@ -41,3 +51,30 @@
+     abilities.forEach(a => abilitySchema.parse(a));
+ }
+ validateContent();
++
++export type ExtraSlot = 'offhand'|'armguard'|'accessory';
++export type ExtraGear = {id:string;name:string;icon:string;description:string;stats:Partial<Stats>;defense:number;attack?:number;hp?:number;mp?:number;resistance?:number;move?:number};
++// Slot structure and summed gear stats follow docs equipment.jpg / OV calculator.
++// These small-campaign item names and values are authored, not copied OV records.
++export const EXTRA_GEAR:Record<ExtraSlot,ExtraGear[]>={
++ offhand:[{id:'empty-hand',name:'보조손 비움',icon:'◇',description:'추가 보정 없음',stats:{},defense:0},{id:'wooden-shield',name:'여행 방패',icon:'🛡',description:'DEF +2 · VIT +2',stats:{vit:2},defense:2}],
++ armguard:[{id:'plain-sleeves',name:'여행 소매',icon:'◇',description:'추가 보정 없음',stats:{},defense:0},{id:'silver-bracers',name:'은빛 완갑',icon:'▣',description:'DEF +1 · DEX +2',stats:{dex:2},defense:1}],
++ accessory:[{id:'no-jewel',name:'장신구 없음',icon:'◇',description:'추가 보정 없음',stats:{},defense:0},{id:'warrior-ring',name:'여명 근력반지',icon:'◉',description:'STR +3',stats:{str:3},defense:0},{id:'scholar-ring',name:'학자의 반지',icon:'✧',description:'INT +3 · MND +1',stats:{int:3,mnd:1},defense:0}]
++};
++export const extraGear=(gear:Partial<Record<ExtraSlot,number>>)=>Object.entries(EXTRA_GEAR).map(([slot,list])=>list[gear[slot as ExtraSlot]??0]);
++
++export const ARMOR:ExtraGear[]=[{id:'travel-mail',name:'여행 갑옷',icon:'',description:'추가 보정 없음',stats:{},defense:0},{id:'silver-mail',name:'은빛 중갑',icon:'',description:'DEF +4 · 저항 +5 · 이동 −1',stats:{},defense:4,resistance:5,move:-1}];
++export const gearDescription=(item:ExtraGear)=>[...Object.entries(item.stats).map(([k,v])=>`${k.toUpperCase()} ${v!>=0?'+':''}${v}`),...(['attack','defense','hp','mp','resistance','move'] as const).filter(k=>item[k]).map(k=>`${{attack:'ATK',defense:'DEF',hp:'HP',mp:'MP',resistance:'물리저항',move:'이동'}[k]} ${item[k]!>=0?'+':''}${item[k]}`)].join(' · ')||'추가 보정 없음';
++for(const item of sourceItems){
++ if(item.slot==='weapon')WEAPONS.push(weaponSchema.parse({id:item.id,name:item.name,family:'bow',bonus:item.applied.attack,frame:2,iconId:item.id,grip:{x:item.sourceId===313?.42:item.sourceId===314?.40:.44,y:.5},animation:'shoot'}));
++ else if(item.slot!=='consumable'){
++  const gear:ExtraGear={id:item.id,name:item.name,icon:'',description:'',...item.applied};gear.description=gearDescription(gear);
++  (item.slot==='armor'?ARMOR:EXTRA_GEAR[item.slot as ExtraSlot]).push(gear);
++ }
++}
++const restores=[['mend-leaf','heal',50,10],['ov-1004','heal',100,15],['ov-1008','heal',150,20],['ov-1012','mp',20,5],['ov-1013','tp',50,0]] as const;
++for(const [id,effect,power,percent] of restores){
++ const source=sourceItems.find(i=>i.id===id)!;
++ const ability=abilitySchema.parse({id,name:source.name,description:`${effect==='heal'?'HP':effect.toUpperCase()} ${power}${percent?' + 최대치 '+percent+'%':''} 회복`,cost:0,resource:'mp',range:2,radius:0,target:effect==='heal'?'wounded-ally':'ally',effect,power,percent,formula:'fixed',animation:'heal'});
++ const index=ABILITIES.findIndex(a=>a.id===id);if(index>=0)ABILITIES[index]=ability;else{ABILITIES.push(ability);CONSUMABLES.push({abilityId:id,icon:'',stock:0});}
++}
+--- before/game/style.css
++++ after/game/style.css
+@@ -1,2 +1,17 @@
+ 
+ :root{font-family:Georgia,'Noto Serif KR','Malgun Gothic',serif;color:#f5edda;background:#152b2e;font-synthesis:none;--paper:#e5dbc1;--ink:#273c3b;--gold:#d8b66d;--teal:#294e4f}*{box-sizing:border-box}html,body,#game{margin:0;width:100%;height:100%;overflow:hidden}button,a{touch-action:manipulation}button{font:inherit;border:1px solid #9f8f65;background:#f2ebd5;color:var(--ink);padding:11px 16px;min-height:44px;cursor:pointer;text-align:left;border-radius:2px;transition:background .15s}button:hover{background:#fff8df}button:disabled{opacity:.42;cursor:default}button:focus-visible,a:focus-visible{outline:3px solid #ffdf7e;outline-offset:3px;box-shadow:0 0 0 5px #233e42}button[aria-pressed=true]{background:#244e4b;color:#fff2c9;border-color:#e4c875}a{color:inherit}h1,h2,h3,p{margin:0 0 14px}h1{font-size:clamp(30px,4vw,57px);font-weight:500;letter-spacing:-2px}h2{font-size:23px;font-weight:500}h3{font-size:17px}p{line-height:1.75}small{font-family:system-ui,sans-serif;font-size:11px;letter-spacing:1.5px}#scene{position:absolute;inset:0;background:linear-gradient(90deg,#081d2b99,#10262608),url('./assets/world-map.png') center/cover}#scene canvas{position:absolute;inset:0}#ui{position:absolute;inset:0;pointer-events:none}.screen-content{height:100%;position:relative}#ui button,#ui a,.paper{pointer-events:auto}.paper{background:linear-gradient(120deg,#f3ead5f5,#d5c7a9f7);color:var(--ink);border:1px solid #f6edcd;box-shadow:0 12px 60px #071b2566,inset 0 0 0 4px #c0ac7f55;position:relative}.paper:before{content:'';position:absolute;inset:7px;border:1px solid #a2937066;pointer-events:none}.section-title small{color:#c9b274;display:block;margin-bottom:12px}.paper .section-title small{color:#776442}.title-screen{padding:12vh 8vw;width:58%;height:100%;background:linear-gradient(90deg,#10292ef0,#10292ecc 68%,transparent)}.title-screen h1{font-size:clamp(48px,7vw,88px);color:#ffedbd;text-shadow:0 3px 15px #14282e}.tagline{font-size:17px;color:#e3dfce;margin:22px 0 34px}.title-screen nav{display:grid;gap:10px;max-width:295px}.title-screen button{background:#183b3dde;color:#f5e9c8;border-color:#bdad78;padding:13px 20px}.title-screen button:first-child{background:#eadbb5;color:#173636}.title-screen button span{float:right}.title-screen a{font:12px system-ui;margin-top:8px}.edition{font:9px system-ui;letter-spacing:2px;margin-top:40px;color:#c4c6a6}footer{position:absolute;bottom:0;left:0;right:0;min-height:54px;max-height:82px;padding:11px 22px;background:#10282ef5;border-top:1px solid #b7ab7877;display:flex;gap:15px;align-items:center;flex-wrap:wrap;font:11px system-ui;color:#dfdfcd}footer small{width:100%;font-size:12px;letter-spacing:0;color:#ffe3a2}footer small:empty{display:none}kbd{border:1px solid #8a997e;padding:3px 5px;border-radius:3px;color:#fff9d2}.world-heading{position:absolute;left:5%;top:6%;text-shadow:0 2px 6px #132e30}.map-route{position:absolute;inset:14% 8% 16% 5%}.map-route svg{width:100%;height:100%;position:absolute;overflow:visible}.map-route path{fill:none;stroke:#f6e3af;stroke-width:5;stroke-dasharray:10 12;filter:drop-shadow(0 2px 2px #342f22)}.map-node{position:absolute;transform:translate(-50%,-50%)}.map-node button{background:#172e2ee8;border-color:#f3d68d;color:#fff3cf;text-align:center;display:grid;gap:7px;min-width:130px;box-shadow:0 4px 16px #1118}.map-node i{font-style:normal;font-size:42px;color:#f1c978}.n0{left:18%;top:77%}.n1{left:48%;top:50%}.n2{left:82%;top:22%}.map-info{position:absolute;right:4%;bottom:15%;padding:22px;width:280px}.map-info h2{margin-top:12px}.map-info p{display:flex;justify-content:space-between;font-size:14px}.map-info button{margin-right:6px;font-size:13px}.stage-panel{position:absolute;top:9%;bottom:14%;left:9%;padding:35px;width:460px;overflow:auto}.stage-icon{font-size:82px;color:#587562;margin:10px 0}.stage-panel button,.result button{display:block;min-width:260px;margin-top:9px}dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;margin:18px 0 28px}dt{color:#776e50}dd{margin:0;text-align:right}.roster{position:absolute;inset:5% 5% 13%;padding:28px 32px;overflow:auto}.roster-layout{display:grid;grid-template-columns:260px 1fr;gap:36px}.hero-detail .portrait{height:200px;width:210px;margin:0 auto}.hero-detail h2{margin-top:9px}.hero-detail small{font-size:12px}.hero-detail p{font-size:12px;color:#746f5b}.hero-detail dl{font-size:13px;gap:7px}.roster-main h2{margin-top:10px}.unit-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.unit-cards button{padding:10px 6px;text-align:center}.unit-cards .portrait{width:100%;height:135px}.unit-cards strong,.unit-cards small{display:block;margin-top:8px}.unit-cards small{font-size:10px;letter-spacing:0}.portrait{position:relative;overflow:hidden}.portrait canvas{width:100%;height:100%;object-fit:contain}.portrait span{position:absolute;bottom:3px;right:7px;color:#b59242;font-size:25px}.row{display:flex;gap:8px;flex-wrap:wrap}.roster-main>button{display:block;width:100%;margin:8px 0}.roster-main h3{margin-top:16px}.roster-main>p{font-size:13px}.story-location{position:absolute;top:7%;left:6%;text-shadow:0 2px 5px #243a3a}.dialogue{position:absolute;left:8%;right:8%;bottom:14%;padding:27px;display:grid;grid-template-columns:180px 1fr;gap:28px}.dialogue .portrait{height:260px;align-self:end}.dialogue h2{margin-top:15px;line-height:1.5}.dialogue button{display:block;width:100%;margin-top:8px}.battle-top{position:absolute;left:0;top:0;right:0;height:94px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(#10282ef5,#173534aa);padding:18px 25px;border-bottom:1px solid #aa9a6488}.battle-top h2{margin:7px 0 0;font-size:22px}.battle-top strong{font:12px system-ui;letter-spacing:3px;color:#edcf81}.battle-top button{font-size:12px;padding:8px 12px;background:#1f4247;color:#f1e7c7}.command{position:absolute;top:120px;left:24px;width:176px;padding:18px 16px}.command h2{margin-top:8px}.command button{display:block;width:100%;font-size:12px;margin:7px 0;padding:9px 8px}.command p{font-size:12px}.command .damage{font-size:30px;color:#98472d}.tile-info{position:absolute;right:22px;top:120px;width:194px;padding:20px 16px}.tile-info h3{font-size:13px;margin-top:8px}.tile-info p{font-size:12px;margin-bottom:8px}.tile-info .battle-log{font-size:11px;border-top:1px solid #9c926c;padding-top:10px}.turn-order{position:absolute;left:23%;right:3%;bottom:100px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap}.turn-order span{padding:8px 12px;background:#173b3ed9;border:1px solid #75a899;font-size:12px}.turn-order .enemy{border-color:#bd806f}.turn-order .done{opacity:.45}.turn-order small{display:block;font-size:9px;letter-spacing:0;margin-top:3px}.result{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:550px;padding:40px;text-align:center}.result h1{font-size:39px}.result-icon{font-size:70px;color:#918047;margin-bottom:18px}.result button{margin:10px auto 0;text-align:center}.modal-shade{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#041a23bd;pointer-events:auto;backdrop-filter:blur(4px)}.modal{padding:28px;width:560px;max-height:calc(100vh - 70px);overflow:auto}.modal h1{font-size:34px}.modal>button{display:block;width:100%;margin:8px 0}.modal p{font-size:13px}.bindings{display:grid;gap:4px;margin-bottom:14px}.bindings>div{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;align-items:center;font-size:12px}.bindings button{padding:6px 10px;min-height:34px;font:12px system-ui}.modal small{font-size:10px;letter-spacing:0;display:block;margin-top:12px}.sr-only{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}@media(max-width:1050px){.roster{inset:4% 3% 13%;padding:22px}.roster-layout{grid-template-columns:210px 1fr;gap:24px}.unit-cards .portrait{height:115px}.hero-detail .portrait{height:180px}.battle-top{padding:15px}.battle-top h2{font-size:19px}.tile-info{width:168px;right:14px}.command{left:14px;width:160px}.dialogue h2{font-size:20px}.turn-order{left:18%;bottom:100px}.turn-order span{padding:6px 8px;font-size:11px}}@media(max-width:800px){.title-screen{width:85%;padding:10vh 7vw}.roster-layout{grid-template-columns:1fr}.hero-detail{display:none}.unit-cards .portrait{height:110px}.map-info{width:225px;font-size:12px;bottom:14%;padding:15px}.map-info h2{font-size:18px}.map-node button{min-width:96px;padding:8px}.map-node strong{font-size:11px}.world-heading h1{font-size:30px}.dialogue{grid-template-columns:90px 1fr;padding:20px;gap:15px;left:4%;right:4%}.dialogue .portrait{height:170px}.dialogue p{font-size:12px}.battle-top strong{display:none}.tile-info{top:auto;bottom:170px;width:145px;padding:12px}.command{width:140px;padding:12px;top:110px}.battle-top h2{font-size:16px}.battle-top button{padding:5px;font-size:10px}.turn-order{left:4%;bottom:95px}.stage-panel{left:6%;width:88%;padding:25px}.result{width:90%;padding:26px}.result h1{font-size:29px}footer{font-size:10px;gap:9px;padding:9px 12px}.modal{width:92%;padding:22px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
++
++.weapon-icon{display:inline-block;width:27px;height:52px;background-image:url('./assets/weapons.png');background-size:400% 200%;vertical-align:middle;margin-right:12px}.formation-board{display:flex;justify-content:center;gap:12px;background:linear-gradient(145deg,#647766,#243d3e);border:2px solid #c2a876;padding:8px;margin-bottom:8px}.formation-board>div{width:86px;text-align:center;color:#f8edcd}.formation-board .portrait{height:66px}.formation-board small,.formation-board b{display:block;font-size:10px}.unit-cards{grid-template-columns:repeat(3,1fr);gap:6px}.unit-cards .portrait{height:68px}.unit-cards button{padding:4px}.roster-main>button small{display:block;margin-top:5px;font-size:11px;letter-spacing:0}.roster-layout{grid-template-columns:210px 1fr;gap:24px}.roster-main>h3{margin-top:10px}.region-map{position:absolute;right:6%;top:24%;width:37%;color:#f8edc8;text-align:center}.mini-board{display:grid;grid-template-columns:repeat(8,1fr);transform:rotate(-20deg) skew(10deg);margin:30px 20px 50px;box-shadow:15px 25px 0 #514b38}.mini-board i{aspect-ratio:1;background:#718751;border:1px solid #273d39;box-shadow:0 calc(var(--e)*3px) #605a3e;transform:translateY(calc(var(--e)*-3px));font-style:normal}.mini-board .stone{background:#b9af86}.mini-board .water{background:#3c7882}.mini-board .wall{background:#c7b684;color:#36433a}.stage-panel{left:5%;width:46%}.region-map p{font-size:13px}.roster-main>button:has(.weapon-icon){padding:3px 12px}.roster-main p{margin-bottom:7px}.roster-main .row button{padding:8px 10px}.roster{padding:20px}.hero-detail dl{font-size:12px;gap:6px}.roster-layout .section-title{margin-bottom:6px}@media(max-width:800px){.region-map{display:none}.stage-panel{width:88%;left:6%}}
++
++.supply-list article{display:grid;grid-template-columns:1fr auto;padding:10px 14px;border:1px solid #ad9b71;margin-bottom:8px;background:#f4ecd7}.supply-list p{grid-column:1/3;font-size:12px;margin:3px 0 0}.command small{letter-spacing:0}.command button small{display:block;font-size:10px}.command{max-height:calc(100vh - 225px);overflow:auto}.dialogue{bottom:12%;padding:21px}.dialogue .portrait{height:215px}.dialogue h2{margin-top:8px}.dialogue p{margin-bottom:8px}
++
++/* Keep all preparation actions visible at the required 1024×768 CSS viewport. */
++.roster>.section-title h1{font-size:36px;margin-bottom:14px}.roster>.section-title small{margin-bottom:7px}.formation-board{padding:4px;margin-bottom:4px}.formation-board .portrait{height:48px}.unit-cards{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:8px}.unit-cards .portrait{height:63px}.unit-cards strong{font-size:13px;margin-top:3px}.unit-cards small{font-size:9px;line-height:1.4;min-height:26px;margin-top:3px}.roster-main>button{margin:6px 0}.support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:12px}.support-grid button{padding:9px;font-size:13px}.support-grid small{display:block;letter-spacing:0;font-size:11px;margin-top:6px;line-height:1.5}@media(max-width:800px){.unit-cards{grid-template-columns:repeat(3,1fr)}.roster>.section-title h1{font-size:29px}}
++
++.equipment-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}.equipment-columns h3{font-size:14px;margin:8px 0 5px}.equipment-columns button{display:block;width:100%;margin-bottom:5px;padding:6px 10px;min-height:52px;font-size:13px}.equipment-columns .weapon-icon{height:36px;width:19px;float:left;margin-right:8px}.equipment-columns small,.equipment-extras small{display:block;font-size:10px;letter-spacing:0;margin-top:4px}.equipment-extras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0}.equipment-extras button{font-size:12px;padding:7px}.equipment-extras b{display:block;font-size:13px;margin-top:3px}.stat-comparison{padding:8px;background:#fff5;border:1px solid #a5966e;margin:8px 0}.stat-comparison>small{font-size:10px;letter-spacing:0}.stat-comparison>div{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0}.stat-comparison span{font:11px system-ui}.stat-comparison b{display:block;font-weight:400;margin-top:3px}.stat-comparison output{font-weight:700;color:#315d51}.stat-comparison p{font-size:11px;margin:6px 0 0}.equipment-bottom{justify-content:space-between}.equipment-bottom button{font-size:12px}.target-pair{display:grid;grid-template-columns:1fr 10px 1fr;gap:3px;align-items:center;text-align:center;margin:4px 0 12px}.target-pair .portrait{height:64px}.target-pair .portrait span{display:none}.target-pair small,.target-pair b{display:block;letter-spacing:0;font:10px system-ui;margin-top:4px}.target-pair>span{color:#7c4f25}
++/* Inventory and shop: six visible rows at the minimum CSS viewport. */
++.item-icon{display:inline-block;flex:0 0 44px;width:44px;height:44px;background-repeat:no-repeat;vertical-align:middle;float:left;margin-right:8px}.item-icon.large{width:88px;height:88px;flex-basis:88px;float:none}.shop{position:absolute;inset:22px 28px 100px;padding:22px;overflow:auto}.shop .section-title h1{font-size:29px;margin:5px 0 12px}.shop-toolbar{display:flex;align-items:center;gap:8px}.shop-toolbar>b{margin-right:auto;font-size:22px;color:#6c5427}.shop button{padding:8px 11px;min-height:37px;font-size:14px}.shop-filters{display:flex;gap:5px;margin:12px 0}.shop-filters button{flex:1;padding:6px;font-size:13px}.shop [aria-pressed=true]{background:#294c4f;color:#fff4d5}.shop-layout{display:grid;grid-template-columns:1.08fr 1fr;gap:22px}.shop-list>button{display:flex;align-items:center;width:100%;min-height:64px;margin-bottom:5px;text-align:left}.shop-list>button>span:not(.item-icon){flex:1}.shop-list b{font-size:15px}.shop-list small{display:block;font-size:11px;margin-top:3px}.shop-list strong{font-size:13px}.shop-pages{align-items:center;justify-content:space-between;margin-top:7px}.shop-detail{border-left:1px solid #b8a97b;padding-left:22px;min-width:0}.item-heading{display:flex;align-items:center;gap:8px}.item-heading h2{font-size:22px;margin:5px 0}.item-heading small,.item-heading span{font-size:11px}.item-effect{font-weight:bold;min-height:37px;font-size:14px;line-height:1.5}.source-note{font-size:11px;line-height:1.5;color:#546466;background:#fff7df66;padding:8px;min-height:64px}.quantity{display:flex;align-items:center;gap:8px;margin:10px 0}.quantity output{min-width:44px;text-align:center;font-size:21px}.shop-detail>[data-id=trade-request]{width:100%;background:#294c4f;color:#fff4d5}.trade-reason{min-height:30px;font-size:12px;line-height:1.4;margin:8px 0}.equip-at-shop{display:flex;gap:8px}.equip-at-shop button{flex:1}.supply-note{font-size:11px;line-height:1.5}.trade-preview{display:flex;flex-direction:column;align-items:center}.trade-preview .item-icon{margin:0}.catalog-rows{margin:16px 0}.catalog-rows>div{display:grid;grid-template-columns:55px 1fr 145px 210px;gap:10px;padding:12px 8px;border-bottom:1px solid #b8a97b;font-size:13px;align-items:center}.catalog-rows small{font-size:11px}.catalog .row{align-items:center;gap:8px}.equipment-extras .item-icon{width:28px;height:28px;margin-right:4px}.equipment-extras b{font-size:13px}.equipment-columns .item-icon{width:34px;height:34px}.equipment-bottom{gap:5px}.equipment-bottom button{font-size:11px!important;padding:9px!important}.command .item-icon{width:28px;height:28px}.command:has([data-id^=item-pick]){max-height:calc(100vh - 205px);overflow:auto}
++@media(max-width:1050px){.shop{inset:16px 18px 95px;padding:18px}.shop-layout{gap:15px}.shop-detail{padding-left:15px}.shop-list>button{min-height:62px}.shop .section-title small{font-size:11px}.shop-filters{margin:10px 0}.shop .item-effect{margin:8px 0}.shop-detail>p{margin:8px 0}.shop-detail .source-note{font-size:10px}.shop .item-heading h2{font-size:20px}.catalog-rows>div{grid-template-columns:45px 1fr 130px 185px}.equipment-extras small{font-size:10px!important}.stat-comparison{padding:7px!important}.stat-comparison>small{font-size:10px}}
++#game[data-screen=items] .supply-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}#game[data-screen=items] .supply-list article{padding:7px;font-size:12px;min-height:62px}#game[data-screen=items] .supply-list article p{font-size:10px;margin:4px 0}#game[data-screen=items] .supply-list .item-icon{width:25px;height:25px;margin-right:4px}#game[data-screen=items] .roster-main>p{font-size:11px;line-height:1.4;margin:6px 0}#game[data-screen=items] .roster-main>h2{font-size:19px;margin:5px 0}#game[data-screen=items] .roster-main>h3{font-size:15px;margin:6px 0}
++#game[data-screen=items] .supply-list article{min-height:54px;margin-bottom:0;padding:5px 7px}#game[data-screen=items] .supply-list article p{line-height:1.3;margin:2px 0}
++@media(min-width:701px) and (max-width:1050px){.region-map{right:9%;width:30%;top:26%}}
+--- before/game/rig-library.ts
++++ after/game/rig-library.ts
+@@ -0,0 +1,13 @@
++import { parseRig } from '../tools/characterRig/io/rig-file';
++import type { CharacterRigData } from '../tools/characterRig/domain/rig';
++export type RigBundle = {rig:CharacterRigData; images:Record<string,string>};
++export async function readRigFiles(files:File[]):Promise<RigBundle> {
++ const json=files.find(f=>f.name.endsWith('.json'));if(!json)throw Error('리그 JSON과 참조 이미지를 함께 선택하세요.');
++ const rig=parseRig(await json.text()), images:Record<string,string>={};
++ const refs=Object.values(rig.views).flatMap(v=>[v.image,...v.parts.map(p=>p.replacement)]).filter(Boolean);
++ for(const ref of refs){if(!ref||images[ref.id])continue;const file=files.find(f=>f.name===ref.name);if(!file)throw Error(`이미지 누락: ${ref.name}. JSON과 모든 이미지를 함께 선택하세요.`);
++ images[ref.id]=await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(Error(file.name+' 읽기 실패'));reader.readAsDataURL(file);});}
++ return {rig,images};
++}
++function db():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const request=indexedDB.open('tacticssd-art',1);request.onupgradeneeded=()=>request.result.createObjectStore('rigs');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
++export async function storedRig(write?:RigBundle|null):Promise<RigBundle|undefined>{const database=await db();return new Promise((resolve,reject)=>{const transaction=database.transaction('rigs',write===undefined?'readonly':'readwrite'),store=transaction.objectStore('rigs');const request=write===undefined?store.get('current'):write===null?store.delete('current'):store.put(write,'current');let value:RigBundle|undefined;request.onsuccess=()=>{value=write===undefined?request.result:undefined;};transaction.oncomplete=()=>{database.close();resolve(value);};transaction.onerror=()=>{database.close();reject(transaction.error);};});}
+--- before/game/shop.ts
++++ after/game/shop.ts
+@@ -0,0 +1,49 @@
++import {WEAPONS,ARMOR,EXTRA_GEAR,CONSUMABLES,ROSTER,weaponFor,abilityById,jobForHero,type ExtraSlot} from './content';
++import sourceItems from './source-items.json' with {type:'json'};
++import frames from './assets/items.json' with {type:'json'};
++import type {Campaign} from './domain';
++export type Slot='weapon'|'armor'|ExtraSlot;
++export type Product={id:string;name:string;slot:Slot|'consumable';price:number;unlock:number;description:string;source:typeof sourceItems[number]|null};
++const custom=(id:string,name:string,slot:Product['slot'],price:number,description:string):Product=>({id,name,slot,price,unlock:0,description,source:null});
++export const PRODUCTS:Product[]=[...WEAPONS.filter(w=>!w.iconId).map(w=>custom(w.id,w.name,'weapon',w.bonus?70:30,`ATK +${w.bonus} · ${w.family}`)),...ARMOR.slice(0,2).map((a,i)=>custom(a.id,a.name,'armor',i?65:20,a.description)),...Object.entries(EXTRA_GEAR).flatMap(([slot,items])=>items.filter(i=>!i.id.startsWith('ov-')&&!['empty-hand','plain-sleeves','no-jewel'].includes(i.id)).map(i=>custom(i.id,i.name,slot as ExtraSlot,50,i.description))),...['aether-draught','valor-draught'].map(id=>custom(id,abilityById(id).name,'consumable',15,abilityById(id).description)),...sourceItems.map(item=>({id:item.id,name:item.name,slot:item.slot as Product['slot'],price:item.price,unlock:item.unlock,description:item.slot==='consumable'?abilityById(item.id).description:item.slot==='weapon'?`ATK +${item.applied.attack} · 궁수 전용 · 전투 사거리 4`:([...ARMOR,...Object.values(EXTRA_GEAR).flat()].find(i=>i.id===item.id)?.description??''),source:item}))];
++export const productById=(id:string)=>PRODUCTS.find(p=>p.id===id);
++export const SLOT_NAMES:Record<Product['slot'],string>={weapon:'주무기',armor:'몸 방어구',offhand:'보조손',armguard:'팔 방어구',accessory:'장신구',consumable:'보급품'};
++export function equippedIds(c:Campaign):string[]{return c.gear.flatMap((g,h)=>[weaponFor(h,g.weapon).id,ARMOR[g.armor].id,...(['offhand','armguard','accessory'] as const).map(s=>EXTRA_GEAR[s][g[s]??0].id)]).filter(id=>productById(id));}
++export const equippedCount=(c:Campaign,id:string)=>equippedIds(c).filter(i=>i===id).length;
++/** Legacy saves receive the finite original armory, preserving previously selectable gear. */
++export function inventoryFor(c:Campaign):Record<string,number>{
++ if(c.inventory)return c.inventory;
++ const counts:Record<string,number>={};
++ for(const p of PRODUCTS.filter(p=>!p.source))counts[p.id]=p.slot==='consumable'?1:p.slot==='weapon'?ROSTER.filter((_,h)=>jobForHero(h).weaponFamily===WEAPONS.find(w=>w.id===p.id)!.family).length:ROSTER.length;
++ for(const item of CONSUMABLES)counts[item.abilityId]=item.stock;
++ for(const id of equippedIds(c))counts[id]=Math.max(counts[id]??0,equippedCount(c,id));
++ return counts;
++}
++export function validateInventory(c:Campaign){if(!c.inventory)return;for(const [id,n]of Object.entries(c.inventory))if(!productById(id)||!Number.isInteger(n)||n<0||n>999)throw Error('Unknown or invalid inventory');for(const id of equippedIds(c))if((c.inventory[id]??0)<equippedCount(c,id))throw Error('Equipped items exceed owned inventory');}
++export type Quote={kind:'buy'|'sell';id:string;quantity:number};
++export function tradeReason(c:Campaign,q:Quote):string{
++ const p=productById(q.id),n=q.quantity;if(!p)return '등록되지 않은 품목입니다.';
++ if(!Number.isInteger(n)||n<1||n>99)return '수량은 1–99개여야 합니다.';
++ if(q.kind!=='buy'&&q.kind!=='sell')return '거래 종류가 올바르지 않습니다.';
++ const owned=inventoryFor(c)[p.id]??0;
++ if(q.kind==='buy'){
++  if(c.unlocked<p.unlock)return '첫 거점을 해방하면 입고됩니다.';
++  if(c.gold<p.price*n)return '전쟁 자금이 부족합니다.';
++  if(owned+n>999)return '품목 보유 한도는 999개입니다.';
++ }else{
++  if(owned-equippedCount(c,p.id)<n)return '장착 중인 수량은 판매할 수 없습니다.';
++  if(c.gold+Math.floor(p.price/2)*n>99999)return '전쟁 자금 한도는 99,999 G입니다.';
++ }
++ return '';
++}
++/** Immutable candidate; caller persists this snapshot before replacing the live state. */
++export function trade(c:Campaign,q:Quote):Campaign|null{
++ if(tradeReason(c,q))return null;const next=structuredClone(c),p=productById(q.id)!;next.inventory={...inventoryFor(c)};
++ next.inventory[p.id]=(next.inventory[p.id]??0)+(q.kind==='buy'?q.quantity:-q.quantity);
++ next.gold+=(q.kind==='buy'?-p.price:Math.floor(p.price/2))*q.quantity;return next;
++}
++export function gearId(c:Campaign,h:number,slot:Slot,n=c.gear[h][slot]??0):string{return slot==='weapon'?weaponFor(h,n)?.id??'':slot==='armor'?ARMOR[n]?.id??'':EXTRA_GEAR[slot][n]?.id??'';}
++export function canEquip(c:Campaign,h:number,slot:Slot,n:number){const id=gearId(c,h,slot,n);return Boolean(id)&&(gearId(c,h,slot)===id||!productById(id)||(inventoryFor(c)[id]??0)>equippedCount(c,id));}
++export function equip(c:Campaign,h:number,slot:Slot,n:number){if(!canEquip(c,h,slot,n))return false;c.gear[h][slot]=n;return true;}
++const atlasUrl=new URL('./assets/items.png',import.meta.url).href,weaponUrl=new URL('./assets/weapons.png',import.meta.url).href;
++export function itemIcon(id:string,large=false){const f=(frames as Record<string,{x:number;y:number}>)[id];if(f)return `<span class="item-icon ${large?'large':''}" aria-hidden="true" style="background-image:url('${atlasUrl}');background-size:800% 800%;background-position:${f.x/1792*100}% ${f.y/1792*100}%"></span>`;const w=WEAPONS.find(w=>w.id===id);return w?`<span class="item-icon ${large?'large':''}" aria-hidden="true" style="background-image:url('${weaponUrl}');background-size:400% 200%;background-position:${w.frame%4*100/3}% ${Math.floor(w.frame/4)*100}%"></span>`:'';}
+--- before/game/main.ts
++++ after/game/main.ts
+@@ -1,15 +1,22 @@
++import sourceCatalog from './source-catalog.json' with {type:'json'};
++import {PRODUCTS,productById,inventoryFor,equippedCount,tradeReason,trade,equip,canEquip,itemIcon,SLOT_NAMES,type Slot,type Quote} from './shop';
+ import './style.css';
+ import { derive } from './calculation';
+-import { weaponFor } from './content';
++import {readRigFiles,storedRig,type RigBundle} from './rig-library';
++import { weaponFor, abilityById, CLASS_ABILITIES, SUPPORT_SKILLS, CONSUMABLES, EXTRA_GEAR, ARMOR, WEAPONS, type Stats } from './content';
+ import { Input, ACTIONS, LABELS, type Action } from './input';
+ import { Renderer, type VisualState } from './render';
+-import { newCampaign, parseCampaign, encodeCampaign, commandAbility, makeBattle, moveUnit, activeUnit, turnOrder, finishTurn, STAGES, JOBS, HEROES, reachable, targets, damage, accuracy, activateGuard, act, enemyTurn, reward, unitAt, tileAt, same, type Battle, type Campaign, type Pos, type Command } from './domain';
++import { newCampaign, parseCampaign, encodeCampaign, commandAbility, makeBattle, moveUnit, activeUnit, turnOrder, finishTurn, STAGES, JOBS, HEROES, reachable, targets, damage, accuracy, activateGuard, act, enemyTurn, reward, classLevel, trainingFor, learnAbility, equipSupport, itemStock, unitAt, tileAt, same, type Battle, type Campaign, type Pos, type Command } from './domain';
+ const root = document.querySelector<HTMLDivElement>('#game')!;
+ root.innerHTML = '<div id="scene"></div><div id="ui"></div><div id="announcer" class="sr-only" aria-live="polite"></div>';
+ const ui = document.querySelector<HTMLDivElement>('#ui')!, announcer = document.querySelector<HTMLElement>('#announcer')!;
+ const renderer = new Renderer(document.querySelector('#scene')!);
+-type Screen = 'title' | 'world' | 'stage' | 'party' | 'equipment' | 'items' | 'dialogue' | 'battle' | 'result' | 'ending';
+-let screen: Screen = 'title', campaign = newCampaign(), stage = 0, hero = 0, battle: Battle | null = null, selected: string | null = null, cursor: Pos = { x: 1, y: 2 }, mode = 'select', command: Command = 'attack', targetIndex = 0, moved = false, origin: Pos | null = null, modal: 'pause' | 'settings' | 'help' | null = null, pauseStarted = 0, restoreFocus = '', focusIndex = 0, notice = '방향키로 선택하고 Enter로 확인하세요.', top = false, zoom = 1, pan = { x: 0, y: 0 }, dialoguePage = 0, enemyDue = 0, settingsOffset = 0, pendingEnd = 0, pendingMove = 0;
++type Screen = 'shop' | 'catalog' | 'title' | 'world' | 'stage' | 'party' | 'equipment' | 'items' | 'training' | 'dialogue' | 'battle' | 'result' | 'ending';
++let screen: Screen = 'title', campaign = newCampaign(), stage = 0, hero = 0, battle: Battle | null = null, selected: string | null = null, cursor: Pos = { x: 1, y: 2 }, mode = 'select', command: Command = 'attack', targetIndex = 0, moved = false, origin: Pos | null = null, modal: 'pause' | 'settings' | 'help' | 'rig' | 'trade' | null = null, pauseStarted = 0, restoreFocus = '', focusIndex = 0, notice = '방향키로 선택하고 Enter로 확인하세요.', top = false, zoom = 1, pan = { x: 0, y: 0 }, dialoguePage = 0, enemyDue = 0, settingsOffset = 0, pendingEnd = 0, pendingMove = 0;
++let shopKind:'buy'|'sell'='buy',shopId='sword-field',shopQty=1,shopPage=0,shopFilter:'all'|Slot|'consumable'='all',pendingTrade:Quote|null=null,catalogGroup='weapons',catalogPage=0;
++let storyBattle:Battle|null=null;
++let tabNavigation=false;
++window.addEventListener('keydown',e=>{if(e.code==='Tab')tabNavigation=true;},true);
+ let saved: Campaign | null = null;
+ try {
+     saved = parseCampaign(localStorage.getItem('tacticssd.campaign'));
+@@ -18,11 +25,12 @@
+ }
+ catch { }
+ const modalStack: Array<{
+-    modal: 'pause' | 'settings' | 'help' | null;
++    modal: 'pause' | 'settings' | 'help' | 'rig' | 'trade' | null;
+     focus: string;
+ }> = [];
+ const input = new Input(onAction, (message, lost) => {
+     notice = message;
++    if(lost&&modal==='trade'){closeModal();return;}
+     if (lost && screen === 'battle' && !modal)
+         openModal('pause');
+     else
+@@ -30,7 +38,7 @@
+ }, () => render());
+ const escape = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+ const btn = (id: string, label: string, disabled = false, extra = '') => `<button data-id="${id}" ${disabled ? 'disabled' : ''} ${extra}>${label}</button>`;
+-const portrait = (h: number) => `<div class="portrait p${h}" aria-hidden="true"><canvas data-portrait="${h}" width="200" height="220"></canvas><span>${JOBS[h].icon}</span></div>`;
++const portrait = (h: number, weapon?:number) => `<div class="portrait p${h}" aria-hidden="true"><canvas data-portrait="${h}" ${weapon===undefined?'':`data-weapon="${weapon}"`} width="200" height="220"></canvas><span>${JOBS[h].icon}</span></div>`;
+ const formatKey = (a: Action) => input.bindings.keys[a].replace('Arrow', '').replace('Key', '').replace('Equal', '+').replace('Minus', '−');
+ const unit = () => battle?.units.find(u => u.id === selected);
+ function save() {
+@@ -64,7 +72,7 @@
+     all[focusIndex].focus({ preventScroll: true });
+     all[focusIndex].scrollIntoView({ block: 'nearest' });
+ }
+-function openModal(which: 'pause' | 'settings' | 'help') {
++function openModal(which: 'pause' | 'settings' | 'help' | 'rig' | 'trade') {
+     restoreFocus = (document.activeElement as HTMLElement)?.dataset.id ?? '';
+     modalStack.push({ modal, focus: restoreFocus });
+     if (!modal)
+@@ -74,6 +82,7 @@
+     render();
+ }
+ function closeModal() {
++    if(modal==='trade')pendingTrade=null;
+     if (input.capture) {
+         input.capture = null;
+         render();
+@@ -113,11 +122,12 @@
+     }
+     render();
+ }
+-function selectFacing() { mode = 'facing'; notice = '방향키로 종료 방향 선택 · 확인: AT 종료 · 취소: 명령으로'; render(); }
++function selectFacing() { mode = 'facing'; focusIndex=0; notice = '방향키로 종료 방향 선택 · 확인: AT 종료 · 취소: 명령으로'; render(); }
+ function outcome() {
+     if (!battle)
+         return;
+     if (battle.phase === 'won') {
++        campaign.inventory={...inventoryFor(campaign),...battle.inventory,'mend-leaf':battle.potions};
+         reward(campaign, stage);
+         save();
+         go('result');
+@@ -156,6 +166,30 @@
+         focusIndex = 0;
+         render();
+         return;
++    }
++    if(id==='shop'){shopPage=0;shopQty=1;go('shop');return;}
++    if(id==='catalog'){catalogPage=0;go('catalog');return;}
++    if(id.startsWith('catalog-group-')){catalogGroup=id.slice(14);catalogPage=0;render();return;}
++    if(id.startsWith('catalog-')){catalogPage=Math.max(0,catalogPage+({'catalog-first':-999,'catalog-prev':-1,'catalog-next':1,'catalog-prev10':-10,'catalog-next10':10}[id]??0));render();return;}
++    if(id==='shop-buy'||id==='shop-sell'){shopKind=id==='shop-buy'?'buy':'sell';shopQty=1;render();return;}
++    if(id==='shop-prev'||id==='shop-next'){shopPage+=id==='shop-next'?1:-1;render();return;}
++    if(id.startsWith('filter-')){shopFilter=id.slice(7) as typeof shopFilter;shopPage=0;shopId=PRODUCTS.find(p=>shopFilter==='all'||p.slot===shopFilter)!.id;shopQty=1;render();return;}
++    if(id.startsWith('product-')){shopId=id.slice(8);shopQty=1;render();return;}
++    if(id.startsWith('qty-')){shopQty=Math.max(1,Math.min(99,shopQty+(id.includes('down')?-1:1)*(id.endsWith('10')?10:1)));render();return;}
++    if(id==='trade-request'){const q={kind:shopKind,id:shopId,quantity:shopQty};if(tradeReason(campaign,q)){notice=tradeReason(campaign,q);render();return;}pendingTrade=q;openModal('trade');return;}
++    if(id==='trade-cancel'){closeModal();return;}
++    if(id==='trade-confirm'){
++      const q=pendingTrade;pendingTrade=null;if(!q)return;
++      const next=trade(campaign,q);closeModal();
++      if(!next){notice='거래 조건이 바뀌었습니다. 다시 선택하세요.';render();return;}
++      try{localStorage.setItem('tacticssd.campaign',encodeCampaign(next));campaign=next;saved=structuredClone(next);notice=`${q.kind==='buy'?'구매':'판매'} 완료 · ${productById(q.id)!.name} ×${q.quantity} · 자동 저장`;}catch{notice='저장 공간 오류: 거래가 취소되었으며 자금과 재고는 바뀌지 않았습니다.';}
++      render();return;
++    }
++    if(id==='shop-hero'){hero=(hero+1)%HEROES.length;render();return;}
++    if(id==='shop-equip'){
++      const p=productById(shopId)!;if(p.slot==='consumable')return;
++      const list=p.slot==='weapon'?WEAPONS.filter(w=>w.family===JOBS[hero].weaponFamily):p.slot==='armor'?ARMOR:EXTRA_GEAR[p.slot];const n=list.findIndex(i=>i.id===p.id);
++      if(n>=0&&equip(campaign,hero,p.slot,n)){save();notice=HEROES[hero]+' · '+p.name+' 장착';}else notice='해당 대원이 사용할 수 없거나 여분이 없습니다.';render();return;
+     }
+     if (id === 'new') {
+         campaign = newCampaign();
+@@ -221,6 +255,7 @@
+     if (id === 'deploy') {
+         save();
+         dialoguePage = 0;
++        storyBattle=makeBattle(stage,campaign);
+         go('dialogue');
+         return;
+     }
+@@ -249,13 +284,20 @@
+         go('equipment');
+         return;
+     }
++    if(id==='training'){go('training');return;}
++    if(id==='rig-settings'){openModal('rig');return;}
++    if(id==='rig-load'){rigPicker.click();return;}
++    if(id==='rig-reset'){storedRig(null).then(()=>renderer.restoreDefaultRig()).then(()=>{notice='기본 리그로 복원했습니다. 진행 중인 편성은 유지됩니다.';render();}).catch(()=>{notice='기본 리그를 복원하지 못했습니다.';render();});return;}
++    if(id.startsWith('learn-')){notice=learnAbility(campaign,hero,id.slice(6))?'기술을 학습·장착했습니다.':'SP가 부족합니다.';save();render();return;}
++    if(id.startsWith('support-')){equipSupport(campaign,hero,id.slice(8));save();render();return;}
++    if(id==='formation'){campaign.party.push(campaign.party.shift()!);notice='출전 순서를 변경했습니다. 첫 대원이 선두에서 먼저 행동합니다.';render();return;}
+     if (id === 'items') {
+         go('items');
+         return;
+     }
+     if (id.startsWith('gear-')) {
+         const [, kind, n] = id.split('-');
+-        campaign.gear[hero][kind as 'weapon' | 'armor'] = Number(n);
++        if(!equip(campaign,hero,kind as Slot,Number(n))){notice='여분이 없습니다. 상점에서 구매하세요.';render();return;}
+         notice = '장비를 변경했습니다. 능력과 무기 동작이 함께 바뀝니다.';
+         render();
+         return;
+@@ -306,6 +348,8 @@
+     const u = unit();
+     if (!battle || !u)
+         return;
++    if(id==='bag'){mode='inventory';render();return;}
++    if(id.startsWith('item-pick-')){u.itemId=id.slice(10);mode='command';notice=commandAbility(u,'item').name+' 선택';render();return;}
+     if (id === 'move' && !u.moved) {
+         mode = 'move';
+         cursor = { x: u.x, y: u.y };
+@@ -330,7 +374,7 @@
+         command = id;
+         const ts = targets(battle, u, command);
+         if (!ts.length) {
+-            notice = id === 'skill' && u[JOBS[u.job].resource] < JOBS[u.job].cost ? '필요한 자원이 부족합니다.' : '사거리 안에 유효한 대상이 없습니다.';
++            notice = id === 'skill' && u[commandAbility(u,'skill').resource] < commandAbility(u,'skill').cost ? '필요한 자원이 부족합니다.' : '사거리 안에 유효한 대상이 없습니다.';
+             render();
+             return;
+         }
+@@ -358,8 +402,6 @@
+         return;
+     }
+     if (id === 'wait') {
+-        if (!u.acted)
+-            u.guard = true;
+         selectFacing();
+         return;
+     }
+@@ -382,7 +424,7 @@
+         return;
+     }
+     if (screen === 'battle') {
+-        if (mode === 'move' || mode === 'target' || mode === 'facing') {
++        if (mode === 'move' || mode === 'target' || mode === 'facing' || mode === 'inventory') {
+             mode = 'command';
+             render();
+         }
+@@ -393,7 +435,9 @@
+             openModal('pause');
+         return;
+     }
+-    if (screen === 'equipment' || screen === 'items')
++    if(screen==='catalog'){go('shop');return;}
++    if(screen==='shop'){go('world');return;}
++    if (screen === 'equipment' || screen === 'items' || screen === 'training')
+         go('party');
+     else if (screen === 'party')
+         go('stage');
+@@ -409,6 +453,8 @@
+ function onAction(a: Action) {
+     if (input.capture)
+         return;
++    if(a==='confirm' && tabNavigation){const id=(document.activeElement as HTMLElement)?.dataset.id;if(id){tabNavigation=false;execute(id);return;}}
++    tabNavigation=false;
+     if (a === 'cancel') {
+         back();
+         return;
+@@ -507,7 +553,8 @@
+             }
+         }
+         if (mode === 'target' && a === 'confirm') {
+-            execute('target-confirm');
++            const focused = (document.activeElement as HTMLElement)?.dataset.id;
++            execute(focused && ['back-command','target-confirm','settings','view'].includes(focused) ? focused : 'target-confirm');
+             return;
+         }
+         if (mode === 'target' && ['up', 'down', 'left', 'right'].includes(a)) {
+@@ -534,10 +581,12 @@
+     cursor = { x: ts[targetIndex].x, y: ts[targetIndex].y };
+     render();
+ }
++const weaponIcon = (h:number,n:number) => {const w=weaponFor(h,n);return `<span class="weapon-icon" style="background-position:${w.frame%4*100/3}% ${Math.floor(w.frame/4)*100}%" aria-hidden="true"></span>`;};
++function regionMap(index:number) {const b=makeBattle(index,campaign);return `<div class="region-map" aria-label="${STAGES[index].name} 지형 미리보기"><div class="mini-board">${b.tiles.map(t=>`<i class="${t.kind} ${t.block?'wall':''}" style="--e:${t.h}">${t.block?'♜':''}</i>`).join('')}</div><p>지형 정찰 · ${index===0?'강을 건너는 두 다리':index===1?'폐허와 남쪽 고지': '성벽과 북쪽 성채'}</p></div>`;}
+ const title = (small: string, big: string) => `<div class="section-title"><small>${small}</small><h1>${big}</h1></div>`;
+ function render() {
+     const old = (document.activeElement as HTMLElement)?.dataset.id;
+-    const u = unit(), b = battle, stats = derive(hero, stage + 1, campaign.gear[hero]);
++    const u = unit(), b = battle, stats = derive(hero, classLevel(campaign,hero), campaign.gear[hero],trainingFor(campaign,hero).supportId);
+     root.dataset.screen = screen;
+     root.dataset.mode = mode;
+     root.dataset.modal = modal ?? '';
+@@ -545,23 +594,25 @@
+     if (screen === 'title')
+         content = `<section class="title-screen">${title('TACTICS SD · CHAPTER I', '은빛 여명')}<p class="tagline">세 개의 길, 하나의 약속.<br>당신의 선택이 여명을 되찾습니다.</p><nav>${btn('new', '새 원정 시작 <span>→</span>')}${btn('continue', '원정 이어하기', !saved)}${btn('settings', '입력 설정')}${btn('help', '전술 안내')}<a href="/">제작 도구로 돌아가기 ↗</a></nav><p class="edition">THE SILVER DAWN · A TACTICAL CHRONICLE</p></section>`;
+     if (screen === 'world')
+-        content = `<div class="world-heading">${title('ELDERVALE · EXPEDITION MAP', '엘더베일 원정')}</div><div class="map-route"><svg viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path d="M180 465 Q360 520 480 300 T820 130"/></svg>${STAGES.map((s, i) => `<div class="map-node n${i}">${btn('stage-' + i, `<i>${campaign.cleared.includes(i) ? '⚑' : i <= campaign.unlocked ? '♜' : '♜'}</i><small>0${i + 1}</small><strong>${s.name}</strong>`, i > campaign.unlocked)}</div>`).join('')}</div><aside class="map-info paper"><small>ORDER OF THE SILVER DAWN</small><h2>은빛 여명 원정대</h2><p>해방된 거점 <b>${campaign.cleared.length} / 3</b></p><p>전쟁 자금 <b>${campaign.gold} G</b></p>${btn('save', '기록 저장')}${btn('settings', '입력 설정')}</aside>`;
++        content = `<div class="world-heading">${title('ELDERVALE · EXPEDITION MAP', '엘더베일 원정')}</div><div class="map-route"><svg viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path d="M180 465 Q360 520 480 300 T820 130"/></svg>${STAGES.map((s, i) => `<div class="map-node n${i}">${btn('stage-' + i, `<i>${campaign.cleared.includes(i) ? '⚑' : i <= campaign.unlocked ? '♜' : '♜'}</i><small>0${i + 1}</small><strong>${s.name}</strong>`, i > campaign.unlocked)}</div>`).join('')}</div><aside class="map-info paper"><small>ORDER OF THE SILVER DAWN</small><h2>은빛 여명 원정대</h2><p>해방된 거점 <b>${campaign.cleared.length} / 3</b></p><p>전쟁 자금 <b>${campaign.gold} G</b></p>${btn('shop','▣ 원정 보급소')}${btn('save', '기록 저장')}${btn('settings', '입력 설정')}</aside>`;
++    if(screen==='shop')content=shopUI();
++    if(screen==='catalog')content=catalogUI();
+     if (screen === 'stage')
+-        content = `<section class="stage-panel paper">${title(STAGES[stage].sub, STAGES[stage].name)}<div class="stage-icon">♜</div><p>${STAGES[stage].desc}</p><dl><dt>승리 조건</dt><dd>모든 적 격파</dd><dt>적 병력</dt><dd>${stage === 2 ? 4 : 3}명 · 고저차 ${stage === 2 ? 3 : 2}</dd><dt>첫 승리 보상</dt><dd>${STAGES[stage].reward} G · 다음 거점 해금</dd></dl>${btn('party', '부대 편성 →')}${btn('world', '월드맵으로')}</section>`;
+-    if (screen === 'party' || screen === 'equipment' || screen === 'items')
+-        content = `<section class="roster paper">${title('BATTLE PREPARATION', screen === 'party' ? '출전 부대 편성' : screen === 'equipment' ? '장비와 능력' : '보급품 안내')}<div class="roster-layout"><aside class="hero-detail">${portrait(hero)}<h2>${HEROES[hero]} <small>${JOBS[hero].name}</small></h2><p>성인 엘프 원정대 · Lv. ${stage + 1}</p><dl><dt>HP / MP</dt><dd>${stats.hp} / ${stats.mp}</dd><dt>ATK / DEF</dt><dd>${stats.attack} / ${stats.defense}</dd><dt>이동 / 사거리</dt><dd>${stats.move} / ${JOBS[hero].range}</dd><dt>STR / VIT / DEX</dt><dd>${stats.stats.str.toFixed(0)} / ${stats.stats.vit.toFixed(0)} / ${stats.stats.dex.toFixed(0)}</dd><dt>INT / MND / RES</dt><dd>${stats.stats.int.toFixed(0)} / ${stats.stats.mnd.toFixed(0)} / ${stats.stats.res.toFixed(0)}</dd><dt>직업 기술</dt><dd>${JOBS[hero].skill}</dd></dl></aside><div class="roster-main">${screen === 'party' ? `<h2>출전 ${campaign.party.length} / 3</h2><div class="unit-cards">${HEROES.map((name, i) => btn('toggle-' + i, `${portrait(i)}<strong>${name}</strong><small>${JOBS[i].name} · ${campaign.party.includes(i) ? '✓ 출전' : '대기'}</small>`, false, `aria-pressed="${campaign.party.includes(i)}"`)).join('')}</div><p>확인으로 출전/대기 전환 · 최대 세 명을 선택하세요.</p><div class="row">${btn('equipment', '⚔ 장비 관리')}${btn('items', '♧ 보급품')}</div>${btn('deploy', '출전 준비 완료 →')}` : screen === 'equipment' ? `<div class="row">${HEROES.map((n, i) => btn('hero-' + i, n)).join('')}</div><h3>무기</h3>${[0, 1].map(n => btn('gear-weapon-' + n, `${weaponFor(hero, n).name} · ATK +${n * 5} ${campaign.gear[hero].weapon === n ? '✓' : ''}`)).join('')}<h3>방어구</h3>${[0, 1].map(n => btn('gear-armor-' + n, `${n ? '▣ 은빛 중갑 · DEF +4 / 이동 −1' : '◇ 여행 갑옷 · 기동성 유지'} ${campaign.gear[hero].armor === n ? '✓' : ''}`)).join('')}<p>초기 원정 장비는 보급품으로 지급됩니다.</p>${btn('party', '편성으로 돌아가기')}` : `<h2>♧ 치유의 잎</h2><p>전투마다 3개 지급 · 아군 HP 38 회복 · 사거리 2</p><p>전투 중 행동 → 아이템 → 아군 대상 → 확인으로 사용합니다. 최대 HP를 넘지 않습니다.</p><h2>✦ 정신 회복</h2><p>MP·TP는 0으로 시작하고 전체 RT 20 경과마다 1 회복. 공격 시 TP 6, 피격 시 TP 4 획득. 전투가 끝나면 HP와 MP가 모두 회복됩니다.</p>${btn('party', '편성으로 돌아가기')}`}</div></div></section>`;
++        content = `${regionMap(stage)}<section class="stage-panel paper">${title(STAGES[stage].sub, STAGES[stage].name)}<div class="stage-icon">♜</div><p>${STAGES[stage].desc}</p><dl><dt>승리 조건</dt><dd>모든 적 격파</dd><dt>적 병력</dt><dd>${stage === 2 ? 4 : 3}명 · 고저차 ${stage === 2 ? 3 : 2}</dd><dt>첫 승리 보상</dt><dd>${STAGES[stage].reward} G · 다음 거점 해금</dd></dl>${btn('party', '부대 편성 →')}${btn('world', '월드맵으로')}</section>`;
++    if (screen === 'party' || screen === 'equipment' || screen === 'items' || screen === 'training')
++        content = `<section class="roster paper">${title('BATTLE PREPARATION', screen === 'party' ? '출전 부대 편성' : screen === 'equipment' ? '장비와 능력' : screen === 'training' ? '기술과 수련' : '보급품 안내')}<div class="roster-layout"><aside class="hero-detail">${portrait(hero)}<h2>${HEROES[hero]} <small>${JOBS[hero].name}</small></h2><p>성인 엘프 원정대 · 클래스 Lv. ${classLevel(campaign,hero)}</p><dl><dt>HP / MP</dt><dd>${stats.hp} / ${stats.mp}</dd><dt>ATK / DEF</dt><dd>${stats.attack} / ${stats.defense}</dd><dt>이동 / 사거리</dt><dd>${stats.move} / ${JOBS[hero].range}</dd><dt>STR / VIT / DEX</dt><dd>${stats.stats.str.toFixed(0)} / ${stats.stats.vit.toFixed(0)} / ${stats.stats.dex.toFixed(0)}</dd><dt>INT / MND / RES</dt><dd>${stats.stats.int.toFixed(0)} / ${stats.stats.mnd.toFixed(0)} / ${stats.stats.res.toFixed(0)}</dd><dt>AGI / AVD</dt><dd>${stats.stats.agi.toFixed(0)} / ${stats.stats.avd.toFixed(0)}</dd><dt>수련 SP</dt><dd>${trainingFor(campaign,hero).sp}</dd><dt>직업 기술</dt><dd>${abilityById(trainingFor(campaign,hero).abilityId).name}</dd></dl></aside><div class="roster-main">${screen === 'party' ? `<h2>출전 ${campaign.party.length} / 3</h2><div class="formation-board">${campaign.party.map((h,i)=>`<div><small>${i+1}번 · ${i===0?'선두':'후속'}</small>${portrait(h)}<b>${HEROES[h]}</b></div>`).join('')}</div>${btn('formation','↻ 출전 순서 변경')}<div class="unit-cards">${HEROES.map((name, i) => btn('toggle-' + i, `${portrait(i)}<strong>${name}</strong><small>${JOBS[i].name} · ${campaign.party.includes(i) ? '✓ 출전' : '대기'}</small>`, false, `aria-pressed="${campaign.party.includes(i)}"`)).join('')}</div><p>확인으로 출전/대기 전환 · 최대 세 명을 선택하세요.</p><div class="row">${btn('equipment', '⚔ 장비 관리')}${btn('items', '♧ 보급품')}${btn('training','✧ 기술·수련')}</div>${btn('deploy', '출전 준비 완료 →')}` : screen === 'equipment' ? equipmentUI(stats) : screen === 'training' ? trainingUI() : `<h2>원정 보급품</h2><div class="supply-list">${CONSUMABLES.map(item=>`<article><b>${itemIcon(item.abilityId)} ${abilityById(item.abilityId).name}</b><span>×${inventoryFor(campaign)[item.abilityId]??0}</span><p>${abilityById(item.abilityId).description} 사거리2.</p></article>`).join('')}</div><p>원정 공용 재고입니다. 승리 시 사용량을 저장하고, 재도전은 출전 전 재고로 복원합니다.</p><p>전투 중 행동 → 아이템 → 아군 대상 → 확인으로 사용합니다. 최대 HP를 넘지 않습니다.</p>${btn('shop','▣ 보급소에서 구매')}<h3>✦ 정신 회복</h3><p>MP·TP는 0으로 시작하고 전체 RT 20 경과마다 1 회복. 피해를 준 공격 시 TP 6, 실제 피격 시 TP 4 획득. 매 전투에서 HP는 가득 차며 MP·TP는 다시 0부터 시작합니다.</p>${btn('party', '편성으로 돌아가기')}`}</div></div></section>`;
+     if (screen === 'dialogue')
+         content = `<div class="story-location">${title('CHAPTER I · A PROMISE AT DAWN', STAGES[stage].name)}</div><section class="dialogue paper">${portrait(dialoguePage === 0 ? 0 : hero)}<div><small>${dialoguePage === 0 ? '원정대장 에린' : '은빛 여명 원정대'}</small><h2>${dialoguePage === 0 ? ['강 건너에도 아직 불빛이 남아 있어요.', '다리는 무너져도 우리의 약속은 남아 있어요.', '저 성문 너머에서 새로운 아침이 기다려요.'][stage] : '각자의 빛을 믿고, 함께 나아가요.'}</h2><p>${dialoguePage === 0 ? '어둠의 파수대를 밀어내고 길을 되찾아야 해요. 여러분, 준비됐나요?' : '파란 타일은 이동 범위, 금빛 타일은 현재 선택입니다. 각자의 RT가 0이 되면 이동과 행동을 수행하고 종료 방향을 정합니다.'}</p>${btn('talk-0', dialoguePage === 0 ? '1. 함께 길을 열겠습니다.' : '전투 시작 →')}${dialoguePage === 0 ? btn('talk-1', '2. 지형부터 살피겠습니다.') : ''}</div></section>`;
+     if (screen === 'battle' && b) {
+         const t = tileAt(b, cursor)!;
+         const hovered = unitAt(b, cursor);
+-        content = `<header class="battle-top"><div><small>CHAPTER 0${stage + 1} · AT ${b.round} · RT ${b.clock}</small><h2>${STAGES[stage].name}</h2></div><strong>${b.phase === 'enemy' ? 'ENEMY TURN' : 'PLAYER TURN'}</strong><div class="row">${btn('view', top ? '◇ 등각 시점' : '▦ Top view')}${btn('settings', '⚙ 설정')}</div></header><aside class="command paper"><small>${mode === 'move' ? 'MOVE' : mode === 'target' ? 'TARGET' : 'COMMAND'}</small><h2>${u?.name ?? '행동 선택'}</h2>${mode === 'animating' || mode === 'walking' ? `<p>${mode === 'walking' ? '이동' : '행동'}을 재생하고 있습니다.<br>시점·카메라·일시정지 사용 가능</p>` : mode === 'command' && u ? `${btn('move', '➤ 이동', moved)}${btn('attack', '⚔ 무기 공격', u.acted)}${btn('skill', `✦ ${JOBS[u.job].skill} (${JOBS[u.job].cost}${JOBS[u.job].resource.toUpperCase()})`, u.acted || u[JOBS[u.job].resource] < JOBS[u.job].cost)}${btn('item', `♧ 아이템 (${b.potions})`, u.acted || b.potions === 0)}${btn('guard-skill', '▣ 결의 (8TP · 별도 기술)', u.skillUsed || u.tp < 8)}${btn('wait', '◷ AT 종료 / 방향')}${btn('undo', '↶ 이동 되돌리기', !moved || u.acted || u.skillUsed)}` : mode === 'facing' && u ? `<h3>${u.facing} ↗</h3><p>방향키로 자세 선택<br>확인으로 AT 종료</p>${btn('face-confirm', '방향 확정')}` : mode === 'target' && u ? targetPanel() : mode === 'move' ? `<p>방향키 / 왼쪽 스틱<br>확인: 이동 확정<br>취소: 명령으로</p>` : `<p>활성 유닛: ${activeUnit(b).name}<br>이동 1회 · 행동 1회 · 기술 1회</p>${b.units.filter(u => u.team === 'ally' && u.hp > 0).map(u => btn('unit-' + u.id, `${JOBS[u.job].icon} ${u.name}${u.id === b.activeId ? ' ◀ AT' : ''}`, u.id !== b.activeId || b.phase !== 'ally')).join('')}${btn('finish-turn', '현재 AT 종료', b.phase !== 'ally')}`}</aside><aside class="tile-info paper"><small>TERRAIN · ${cursor.x + 1}, ${cursor.y + 1}</small><h3>${t.kind === 'water' ? '물 · 통과 불가' : t.block ? '성벽 · 통과 불가' : t.kind === 'stone' ? '석조 길' : '초지'} · 높이 ${t.h}</h3>${hovered ? `<h2>${hovered.name}</h2><p>${JOBS[hovered.job].name} · ${hovered.team === 'ally' ? '아군' : '적군'}</p><p>HP ${hovered.hp} / ${hovered.maxHp}<br>MP ${hovered.mp} · TP ${hovered.tp}<br>ATK ${hovered.atk}</p>` : ''}<p class="battle-log">${escape(b.log.at(-1) ?? '')}</p></aside><div class="turn-order">${turnOrder(b).map(u => `<span class="${u.team} ${u.done ? 'done' : ''}">${JOBS[u.job].icon} ${u.name}<small>${u.hp} HP · RT ${Math.max(0, u.readyAt - b.clock)}</small></span>`).join('')}</div>`;
++        content = `<header class="battle-top"><div><small>CHAPTER 0${stage + 1} · AT ${b.round} · RT ${b.clock}</small><h2>${STAGES[stage].name}</h2></div><strong>${b.phase === 'enemy' ? 'ENEMY TURN' : 'PLAYER TURN'}</strong><div class="row">${btn('view', top ? '◇ 등각 시점' : '▦ Top view')}${btn('settings', '⚙ 설정')}</div></header><aside class="command paper"><small>${mode === 'move' ? 'MOVE' : mode === 'target' ? 'TARGET' : 'COMMAND'}</small><h2>${u?.name ?? '행동 선택'}</h2>${mode === 'animating' || mode === 'walking' ? `<p>${mode === 'walking' ? '이동' : '행동'}을 재생하고 있습니다.<br>시점·카메라·일시정지 사용 가능</p>` : mode === 'command' && u ? `${btn('move', '➤ 이동', moved)}${btn('attack', '⚔ 무기 공격', u.acted)}${btn('skill', `✦ ${commandAbility(u,'skill').name} (${commandAbility(u,'skill').cost}${commandAbility(u,'skill').resource.toUpperCase()})`, u.acted || u[commandAbility(u,'skill').resource] < commandAbility(u,'skill').cost)}${btn('item', `♧ ${commandAbility(u,'item').name} (${itemStock(b,u)})`, u.acted || itemStock(b,u) === 0)}${btn('bag','▣ 소모품 선택',u.acted)}${btn('guard-skill', '▣ 결의 (8TP · 별도 기술)', u.skillUsed || u.tp < 8)}${btn('wait', '◷ AT 종료 / 방향')}${btn('undo', '↶ 이동 되돌리기', !moved || u.acted || u.skillUsed)}` : mode === 'facing' && u ? `<h3>${u.facing} ↗</h3><p>방향키로 자세 선택<br>확인으로 AT 종료</p>${btn('face-confirm', '방향 확정')}` : mode === 'inventory' && u ? `<h3>전투 가방</h3>${CONSUMABLES.map(item=>{const a=abilityById(item.abilityId);return btn('item-pick-'+a.id,`${itemIcon(a.id)} ${a.name} ×${a.id==='mend-leaf'?b.potions:b.inventory[a.id]}<small>${a.description}</small>`,(a.id==='mend-leaf'?b.potions:b.inventory[a.id])===0);}).join('')}${btn('back-command','명령으로 돌아가기')}` : mode === 'target' && u ? targetPanel() : mode === 'move' ? `<p>방향키 / 왼쪽 스틱<br>확인: 이동 확정<br>취소: 명령으로</p>` : `<p>활성 유닛: ${activeUnit(b).name}<br>이동 1회 · 행동 1회 · 기술 1회</p>${b.units.filter(u => u.team === 'ally' && u.hp > 0).map(u => btn('unit-' + u.id, `${JOBS[u.job].icon} ${u.name}${u.id === b.activeId ? ' ◀ AT' : ''}`, u.id !== b.activeId || b.phase !== 'ally')).join('')}${btn('finish-turn', '현재 AT 종료', b.phase !== 'ally')}`}</aside><aside class="tile-info paper"><small>TERRAIN · ${cursor.x + 1}, ${cursor.y + 1}</small><h3>${t.kind === 'water' ? '물 · 통과 불가' : t.block ? '성벽 · 통과 불가' : t.kind === 'stone' ? '석조 길' : '초지'} · 높이 ${t.h}</h3>${hovered ? `<h2>${hovered.name}</h2><p>${JOBS[hovered.job].name} · ${hovered.team === 'ally' ? '아군' : '적군'}</p><p>HP ${hovered.hp} / ${hovered.maxHp}<br>MP ${hovered.mp} · TP ${hovered.tp}<br>ATK ${hovered.atk} · DEF ${hovered.def}<br>AGI ${hovered.derived.stats.agi.toFixed(0)} · AVD ${hovered.derived.stats.avd.toFixed(0)}</p>` : ''}<p class="battle-log">${escape(b.log.at(-1) ?? '')}</p></aside><div class="turn-order">${turnOrder(b).map(u => `<span class="${u.team} ${u.done ? 'done' : ''}">${JOBS[u.job].icon} ${u.name}<small>${u.hp} HP · RT ${Math.max(0, u.readyAt - b.clock)}</small></span>`).join('')}</div>`;
+     }
+     if (screen === 'result' && b)
+         content = `<section class="result paper">${title(b.phase === 'won' ? 'VICTORY' : 'DEFEAT', b.phase === 'won' ? '길을 되찾았습니다' : '여명은 다시 찾아옵니다')}<div class="result-icon">${b.phase === 'won' ? '⚑' : '◇'}</div><h2>${STAGES[stage].name}</h2><p>${b.round} AT · 생존 ${b.units.filter(u => u.team === 'ally' && u.hp > 0).length}명</p><p>${b.phase === 'won' ? `첫 승리 기록 및 보상 저장 완료 · 자금 ${campaign.gold} G` : '편성과 장비를 바꿔 다시 도전하세요.'}</p>${b.phase === 'won' ? btn('next-stage', campaign.unlocked === 3 ? '마지막 이야기 →' : '원정 계속 →') : btn('restart', '전투 다시 시작')}${btn('world', '월드맵으로')}</section>`;
+     if (screen === 'ending')
+-        content = `<section class="result paper">${title('CHAPTER I · COMPLETE', '돌아온 은빛 여명')}<p>성채의 종이 다시 울립니다.<br>네 사람이 지켜낸 길 위로, 새로운 아침이 번집니다.</p><h2>세 거점을 모두 해방했습니다.</h2><p>원정 기록이 저장되었습니다. 완료한 전투는 월드맵에서 다시 즐길 수 있습니다.</p>${btn('world', '엘더베일로 돌아가기')}${btn('new', '새 원정 시작')}</section>`;
+-    const hints = `<footer><span>${formatKey('up')} ${formatKey('down')} 선택</span><span><kbd>${formatKey('confirm')}</kbd> 확인 / 패드 0</span><span><kbd>${formatKey('cancel')}</kbd> 뒤로 / 패드 1</span><span><kbd>${formatKey('menu')}</kbd> 메뉴</span>${screen === 'battle' ? `<span>Q/E 유닛 · V 시점 · IJKL 카메라 · −/+ 줌</span>` : ''}<small>${escape(notice)}</small></footer>`;
++        content = `<section class="result paper">${title('CHAPTER I · COMPLETE', '돌아온 은빛 여명')}<p>성채의 종이 다시 울립니다.<br>원정대가 지켜낸 길 위로, 새로운 아침이 번집니다.</p><h2>세 거점을 모두 해방했습니다.</h2><p>원정 기록이 저장되었습니다. 완료한 전투는 월드맵에서 다시 즐길 수 있습니다.</p>${btn('world', '엘더베일로 돌아가기')}${btn('new', '새 원정 시작')}</section>`;
++    const hints = `<footer><span>${formatKey('up')} ${formatKey('down')} 선택</span><span><kbd>${formatKey('confirm')}</kbd> 확인 / 패드 ${input.bindings.buttons.confirm}</span><span><kbd>${formatKey('cancel')}</kbd> 뒤로 / 패드 ${input.bindings.buttons.cancel}</span><span><kbd>${formatKey('menu')}</kbd> 메뉴</span>${screen === 'battle' ? `<span>${formatKey('previous')}/${formatKey('next')} 유닛 · ${formatKey('view')} 시점 · ${['cameraUp','cameraLeft','cameraDown','cameraRight'].map(a=>formatKey(a as Action)).join('/')} 카메라 · ${formatKey('zoomOut')}/${formatKey('zoomIn')} 줌</span>` : ''}<small>${escape(notice)}</small></footer>`;
+     ui.innerHTML = `<div class="screen-content" ${modal ? 'inert' : ''}>${content}</div>${hints}${modal ? modalUI() : ''}`;
+     ui.querySelectorAll<HTMLButtonElement>('button').forEach(button => { button.onclick = () => execute(button.dataset.id!); button.onfocus = () => { focusIndex = buttons().indexOf(button); }; });
+     const all = buttons();
+@@ -577,18 +628,26 @@
+     const u = unit()!, ts = targets(battle!, u, command), t = ts[targetIndex];
+     if (!t)
+         return '<p>대상이 없습니다.</p>' + btn('back-command', '돌아가기');
+-    const ability = commandAbility(u, command), heal = ability.effect === 'heal';
+-    return `<p>← → 대상 ${targetIndex + 1} / ${ts.length}</p><h3>${t.name}</h3><strong class="damage">${heal ? '+' : '−'}${damage(battle!, u, t, command)} HP</strong><p>명중 ${accuracy(battle!, u, t, command)}%${ability.radius ? ' · 인접 적 범위 피해' : ''}</p>${btn('target-confirm', '행동 확정')}${btn('back-command', '명령으로 돌아가기')}`;
+-}
++    const ability = commandAbility(u, command), heal = ability.effect !== 'damage';
++    return `<div class="target-pair"><div>${portrait(u.hero,u.weaponVariant)}<small>${u.name}</small><b>${u.hp} HP</b></div><span>→</span><div>${portrait(t.hero,t.weaponVariant)}<small>${t.name}</small><b>${t.hp} HP</b></div></div><p>← → 대상 ${targetIndex + 1} / ${ts.length}</p><h3>${t.name}</h3><strong class="damage">${heal ? '+' : '−'}${damage(battle!, u, t, command)} ${ability.effect==='guard'?'DEF':ability.effect==='mp'?'MP':ability.effect==='tp'?'TP':'HP'}</strong><p>명중 ${accuracy(battle!, u, t, command)}%${ability.radius ? (heal?' · 인접 아군 효과':' · 인접 적 범위 피해') : ''}</p>${btn('target-confirm', '행동 확정')}${btn('back-command', '명령으로 돌아가기')}`;
++}
++function equipmentUI(stats:ReturnType<typeof derive>){
++ const gear=campaign.gear[hero],base=derive(hero,classLevel(campaign,hero),{weapon:0,armor:0},trainingFor(campaign,hero).supportId);
++ const keys:(keyof Stats)[]=['str','vit','dex','agi','avd','int','mnd','res'];
++ return `<div class="row">${HEROES.map((n,i)=>btn('hero-'+i,n)).join('')}</div><div class="equipment-columns"><section><h3>⚔ 주무기</h3>${[0,1].map(n=>btn('gear-weapon-'+n,`${weaponIcon(hero,n)}${weaponFor(hero,n).name} ${gear.weapon===n?'✓':''}<small>ATK +${n*5} · 사거리 ${JOBS[hero].range}</small>`,!canEquip(campaign,hero,'weapon',n))).join('')}</section><section><h3>▣ 몸 방어구</h3>${[0,1].map(n=>btn('gear-armor-'+n,`${itemIcon(ARMOR[n].id)}${n?'은빛 중갑':'여행 갑옷'} ${gear.armor===n?'✓':''}<small>${n?'DEF +4 · 저항 +5 · 이동 −1':'추가 보정 없음'}</small>`,!canEquip(campaign,hero,'armor',n))).join('')}</section></div><div class="equipment-extras">${(['offhand','armguard','accessory'] as const).map(slot=>{const list=EXTRA_GEAR[slot],n=gear[slot]??0,available=list.map((_,i)=>i).filter(i=>canEquip(campaign,hero,slot,i)),next=available[(available.indexOf(n)+1)%available.length]??n,item=list[n];return btn('gear-'+slot+'-'+next,`${itemIcon(item.id)} ↻ ${{offhand:'보조손',armguard:'팔 방어구',accessory:'장신구'}[slot]}<b>${item.name}</b><small>${item.description}</small>`,false,`aria-label="${item.name}, ${item.description}. 다음 장비 ${list[next].name}"`);}).join('')}</div><div class="stat-comparison"><small>${weaponFor(hero,gear.weapon).name} · ${ARMOR[gear.armor].name}<br>기초 + 직업·성장 + 장비 → 현재</small><div>${keys.map(key=>`<span>${key.toUpperCase()} <b>${stats.statBreakdown[key].base}+${stats.statBreakdown[key].class.toFixed(0)}+${stats.statBreakdown[key].gear} → <output data-stat="${key}">${stats.stats[key].toFixed(0)}</output></b></span>`).join('')}</div><p>ATK ${base.attack} → ${stats.attack} · DEF ${base.defense} → ${stats.defense} · 이동 ${base.move} → ${stats.move}</p></div><div class="row equipment-bottom">${btn('rig-settings','◇ 리그·파츠 불러오기')}${btn('shop','▣ 보급소·추가 장비')}${btn('party','편성으로 돌아가기')}</div>`;
++}
++function trainingUI(){const t=trainingFor(campaign,hero);return `<div class="row">${HEROES.map((n,i)=>btn('hero-'+i,n)).join('')}</div><h3>기술 학습 · SP ${t.sp}</h3><p>출전 대원은 첫 승리마다 SP12를 얻습니다. 새 기술 SP8 · 배운 기술 재장착 무료.</p>${(CLASS_ABILITIES[JOBS[hero].id]??[JOBS[hero].abilityId]).map(id=>{const a=abilityById(id);return btn('learn-'+id,`${a.name} ${t.abilityId===id?'✓':t.learned.includes(id)?'장착':'학습 8SP'}<small>${a.description}</small>`,!t.learned.includes(id)&&t.sp<8);}).join('')}<h3>지원 스킬 · 1슬롯</h3><div class="support-grid">${SUPPORT_SKILLS.map(a=>btn('support-'+a.id,`${a.name} ${t.supportId===a.id?'✓':''}<small>${a.description}</small>`)).join('')}</div>${btn('party','편성으로 돌아가기')}`;}
+ function modalUI() {
+     let inner = '';
++    if(modal==='trade'&&pendingTrade){const q=pendingTrade,p=productById(q.id)!;inner=`${title('TRANSACTION CONFIRMATION',q.kind==='buy'?'구매 확인':'판매 확인')}<div class="trade-preview">${itemIcon(p.id,true)}<h2>${p.name} ×${q.quantity}</h2><p>${(q.kind==='buy'?p.price:Math.floor(p.price/2))*q.quantity} G · 현재 ${campaign.gold} G</p></div>${btn('trade-cancel','취소하고 돌아가기')}${btn('trade-confirm','거래 확정')}`;}
+     if (modal === 'pause')
+         inner = `${title('EXPEDITION PAUSED', '잠시 쉬어가기')}${btn('resume', '계속하기')}${btn('save', '원정 기록 저장')}${btn('settings', '입력 설정')}${btn('help', '전술 안내')}${screen === 'battle' ? btn('finish-turn', '현재 AT 종료', battle?.phase !== 'ally' || mode === 'animating' || mode === 'walking') + btn('restart', '현 전투 다시 시작') : ''}${btn('world', '월드맵으로')}${btn('title', '타이틀로')}`;
+     if (modal === 'help')
+         inner = `${title('FIELD MANUAL', '전술 안내')}<p>① 월드맵에서 거점을 고르고 세 명을 편성합니다.<br>② RT가 0이 된 유닛을 Q/E 또는 확인으로 선택합니다.<br>③ 이동 1회·행동 1회·별도 기술(결의) 1회를 원하는 순서로 수행합니다.<br>④ AT 종료에서 방향을 확정하면 다음 유닛으로 넘어갑니다. 이동·행동을 생략하면 다음 차례가 빨라집니다.</p><p>높이차 1까지 오르내립니다(궁수 2). 수면·성벽·다른 유닛은 통과할 수 없습니다. 공격 전 예상 피해를 확인하세요. 마도사 기술은 인접 적에게도 피해를 주고, 치유사는 아군을 회복합니다.</p><p>V / 패드 3: 등각↔Top view<br>IJKL / 오른쪽 스틱: 카메라 · −/+ / 트리거: 줌 · R / R3: 복원<br>게임은 브라우저 Gamepad API 표준 매핑을 사용합니다.</p>${btn('close', '돌아가기')}`;
+     if (modal === 'settings')
+-        inner = `${title('INPUT & ACCESSIBILITY', '입력 설정')}<p>${input.capture ? `<strong>「${LABELS[input.capture.action]}」에 사용할 ${input.capture.kind === 'keys' ? '키' : '패드 버튼'}를 누르세요. Esc: 취소</strong>` : '변경할 입력을 선택하세요. 중복 입력은 기존 동작과 교환됩니다.'}</p><div class="bindings">${ACTIONS.slice(settingsOffset, settingsOffset + 9).map(a => `<div><span>${LABELS[a]}</span>${btn('bind-keys-' + ACTIONS.indexOf(a), escape(input.bindings.keys[a]))}${btn('bind-buttons-' + ACTIONS.indexOf(a), input.bindings.buttons[a] < 0 ? '오른쪽 스틱' : '패드 ' + input.bindings.buttons[a])}</div>`).join('')}</div><div class="row">${btn('settings-prev', '기본 동작', settingsOffset === 0)}${btn('settings-next', '카메라 / 시점', settingsOffset !== 0)}</div><div class="row">${btn('defaults', '기본값 복원')}${btn('close', '저장하고 돌아가기')}</div><small>왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30<br>표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요.</small>`;
+-    return `<div class="modal-shade"><section class="modal paper" role="dialog" aria-modal="true" aria-label="${modal === 'settings' ? '입력 설정' : modal === 'help' ? '전술 안내' : '일시정지'}">${inner}</section></div>`;
++        inner = `${title('INPUT & ACCESSIBILITY', '입력 설정')}<p>${input.capture ? `<strong>「${LABELS[input.capture.action]}」에 사용할 ${input.capture.kind === 'keys' ? '키' : '패드 버튼'}를 누르세요. Esc / 패드 Back(8): 취소</strong>` : '변경할 입력을 선택하세요. 중복 입력은 기존 동작과 교환됩니다.'}</p><div class="bindings">${ACTIONS.slice(settingsOffset, settingsOffset + 9).map(a => `<div><span>${LABELS[a]}</span>${btn('bind-keys-' + ACTIONS.indexOf(a), escape(input.bindings.keys[a]))}${btn('bind-buttons-' + ACTIONS.indexOf(a), input.bindings.buttons[a] < 0 ? '오른쪽 스틱' : '패드 ' + input.bindings.buttons[a])}</div>`).join('')}</div><div class="row">${btn('settings-prev', '기본 동작', settingsOffset === 0)}${btn('settings-next', '카메라 / 시점', settingsOffset !== 0)}</div><div class="row">${btn('defaults', '기본값 복원')}${btn('close', '저장하고 돌아가기')}</div><small>왼쪽 스틱: 선택 · 오른쪽 스틱: 카메라 · Deadzone 0.30 · 재설정 취소: Back(8)<br>표준 브라우저 Gamepad 매핑. 비표준 장치는 버튼을 직접 지정하세요.</small>`;
++    if(modal==='rig') inner=`${title('CHARACTER RIG','리그와 파츠')}<p>리깅 도구에서 저장한 v2 JSON과 참조하는 모든 PNG를 함께 선택하세요. 앞·뒤 이미지와 개별 교체 파츠를 그대로 재생합니다.</p><p>선택한 리그는 여섯 대원에게 적용되며 이 브라우저에 저장됩니다. 무기 그립은 오른팔 아래쪽 손 위치를 따릅니다.</p>${btn('rig-load','JSON + 이미지 불러오기')}${btn('rig-reset','생성 기본 리그로 복원')}${btn('close','돌아가기')}`;
++    return `<div class="modal-shade"><section class="modal paper" role="dialog" aria-modal="true" aria-label="${modal === 'settings' ? '입력 설정' : modal === 'help' ? '전술 안내' : modal === 'rig' ? '리그와 파츠' : '일시정지'}">${inner}</section></div>`;
+ }
+ window.addEventListener('keydown', e => {
+     if (e.code === 'Tab' && modal) {
+@@ -606,7 +665,7 @@
+         render();
+     }
+ });
+-function visual(): VisualState { return { command, battle: screen === 'battle' ? battle : null, cursor, selected, mode, top, zoom, pan, paused: Boolean(modal) }; }
++function visual(): VisualState { return { command, battle: screen === 'battle' ? battle : screen==='dialogue'?storyBattle:null, cursor, selected, mode, top:screen==='dialogue'?false:top, zoom:screen==='dialogue'?.78:zoom, pan:screen==='dialogue'?{x:160,y:-145}:pan, paused: Boolean(modal) }; }
+ function frame(now: number) {
+     input.tick(now);
+     if (pendingMove && !modal && now >= pendingMove) {
+@@ -648,5 +707,19 @@
+ }
+ // Read-only diagnostics enable assertions and tactical test planning, never state mutation.
+ Object.assign(window, { tacticsDiagnostics: () => structuredClone({ screen, mode, modal, campaign, battle, selected, cursor, top, zoom, pan, bindings: input.bindings, dimensions: renderer.dimensions }) });
++const rigPicker=document.createElement('input');rigPicker.type='file';rigPicker.multiple=true;rigPicker.accept='.json,image/png,image/jpeg,image/webp';rigPicker.id='game-rig-files';rigPicker.hidden=true;root.append(rigPicker);
++async function applyBundle(bundle:RigBundle){const primary=bundle.rig.views.Front.image;if(!primary)throw Error('앞면 이미지가 필요합니다.');await renderer.setRig(bundle.rig,bundle.images[primary.id],bundle.images);}
++rigPicker.onchange=async()=>{try{const bundle=await readRigFiles(Array.from(rigPicker.files??[]));await applyBundle(bundle);await storedRig(bundle);notice='리그와 교체 파츠를 적용하고 저장했습니다.';}catch(error){notice=error instanceof Error?error.message:'리그 불러오기 실패';}finally{rigPicker.value='';render();}};
++storedRig().then(async bundle=>{if(bundle){await applyBundle(bundle);render();}}).catch(()=>{notice='저장된 사용자 리그를 불러오지 못해 기본 리그를 사용합니다.';render();});
+ render();
+ requestAnimationFrame(frame);
++function shopUI(){
++ const stock=inventoryFor(campaign), list=PRODUCTS.filter(p=>shopFilter==='all'||p.slot===shopFilter), pages=Math.ceil(list.length/6);shopPage=Math.min(shopPage,pages-1);
++ const p=productById(shopId)??list[0],q={kind:shopKind,id:p.id,quantity:shopQty},reason=tradeReason(campaign,q),equipped=equippedCount(campaign,p.id),price=shopKind==='buy'?p.price:Math.floor(p.price/2);
++ const compatible=p.slot==='weapon'?WEAPONS.filter(w=>w.family===JOBS[hero].weaponFamily).findIndex(w=>w.id===p.id):p.slot==='armor'?ARMOR.findIndex(x=>x.id===p.id):p.slot==='consumable'?-1:EXTRA_GEAR[p.slot].findIndex(x=>x.id===p.id);
++ return `<section class="shop paper">${title('ELDERVALE · QUARTERMASTER','원정 보급소')}<div class="shop-toolbar"><b data-gold>${campaign.gold.toLocaleString()} G</b>${btn('shop-buy','구매',false,`aria-pressed="${shopKind==='buy'}"`)}${btn('shop-sell','판매',false,`aria-pressed="${shopKind==='sell'}"`)}${btn('catalog','원문 도감 1,170')}${btn('world','월드맵')}</div><div class="shop-filters">${(['all','weapon','armor','offhand','armguard','accessory','consumable'] as const).map(k=>btn('filter-'+k,k==='all'?'전체 '+PRODUCTS.length:SLOT_NAMES[k],false,`aria-pressed="${shopFilter===k}"`)).join('')}</div><div class="shop-layout"><div class="shop-list">${list.slice(shopPage*6,shopPage*6+6).map(item=>btn('product-'+item.id,`${itemIcon(item.id)}<span><b>${item.name}</b><small>${SLOT_NAMES[item.slot]} · 보유 ${stock[item.id]??0} / 장착 ${equippedCount(campaign,item.id)}</small></span><strong>${shopKind==='buy'?item.price:Math.floor(item.price/2)} G${campaign.unlocked<item.unlock?' 🔒':''}</strong>`,false,`aria-pressed="${shopId===item.id}"`)).join('')}<div class="row shop-pages">${btn('shop-prev','← 이전',shopPage===0)}<span>${shopPage+1} / ${pages}</span>${btn('shop-next','다음 →',shopPage===pages-1)}</div></div><aside class="shop-detail"><div class="item-heading">${itemIcon(p.id,true)}<div><small>${SLOT_NAMES[p.slot]} · ${p.source?'One Vision 참고':'TacticsSD 창작'}</small><h2>${p.name}</h2><span>${p.source?.sourceName??'SILVER DAWN'}</span></div></div><p class="item-effect">${p.description}</p><p>보유 <b data-owned>${stock[p.id]??0}</b> · 장착 ${equipped} · 판매 가능 ${Math.max(0,(stock[p.id]??0)-equipped)}</p><div class="source-note">${p.source?`원문 #${p.source.sourceId} · ${p.source.source.price} G · ${p.source.source.level?'Lv.'+p.source.source.level:'레벨 조건 없음'}<br>게임 가격 = 원문 ÷10 올림 · ${p.unlock?'첫 거점 해방 후 입고':'현재 입고'}<br>${p.slot==='consumable'?'현재 URL의 회복식 적용. PDF의 과거 개정 수치는 별도 기록.':'능력치÷4·DEF÷6·무기ATK÷8 올림. 방어구는 게임 내 전직업 공용. 원소·종족·중량·방패공격은 미적용.'}`:'이름·효과·가격은 소규모 캠페인용 창작값입니다.'}</div><div class="quantity">${btn('qty-down10','−10',shopQty<=1)}${btn('qty-down','−',shopQty<=1)}<output aria-label="거래 수량">${shopQty}</output>${btn('qty-up','+',shopQty>=99)}${btn('qty-up10','+10',shopQty>=99)}</div>${btn('trade-request',`${shopKind==='buy'?'구매':'판매'} 확인 · ${price*shopQty} G`,Boolean(reason))}<p class="trade-reason" role="status">${reason||'확인 화면에서 거래를 확정합니다. 자동 저장됩니다.'}</p>${p.slot!=='consumable'?`<div class="row equip-at-shop">${btn('shop-hero','대원 ↻ '+HEROES[hero])}${btn('shop-equip','장착',compatible<0||!canEquip(campaign,hero,p.slot,compatible))}</div>`:'<p class="supply-note">승리 시 사용량이 저장됩니다. 재도전은 출전 전 보급량으로 복원합니다.</p>'}</aside></div></section>`;
++}
++function catalogUI(){
++ const list=sourceCatalog.filter(i=>i.group===catalogGroup),pages=Math.ceil(list.length/8);catalogPage=Math.min(catalogPage,pages-1);
++ return `<section class="shop paper catalog">${title('ONE VISION · SOURCE REFERENCE','원문 아이템 도감')}<p>원문 1,170행 중 28개를 게임에 적용했습니다. 나머지 1,142개는 참고 항목이며 구매·장착할 수 없습니다.</p><div class="row">${(['weapons','armor','sundries'] as const).map((k,i)=>btn('catalog-group-'+k,['무기445','방어구172','기타553'][i])).join('')}${btn('shop','상점으로')}</div><div class="catalog-rows">${list.slice(catalogPage*8,catalogPage*8+8).map(i=>`<div><span>#${i.sourceId}</span><b>${escape(i.name)}</b><span>${i.price.toLocaleString()} G (원문)</span><small>${i.registered?'일부 효과 적용 · 상점 등록':'참고 전용 · 구매 불가'}</small></div>`).join('')}</div><div class="row">${btn('catalog-first','처음',catalogPage===0)}${btn('catalog-prev10','−10쪽',catalogPage===0)}${btn('catalog-prev','이전',catalogPage===0)}<b>${catalogPage+1} / ${pages}</b>${btn('catalog-next','다음',catalogPage===pages-1)}${btn('catalog-next10','+10쪽',catalogPage===pages-1)}</div><p class="source-note">출처: ogre-db.github.io/one-vision/${catalogGroup}.html · Readme v1.11d PDF의 개정 이력과 현재 URL 표는 버전을 구분합니다.<br>원본 효과·직업조건·가격 및 행별 미등록 사유: docs/game/reference · 전체 구현 완료를 의미하지 않습니다.</p></section>`;
++}
+--- before/game/render.ts
++++ after/game/render.ts
+@@ -1,9 +1,10 @@
++import itemFrames from './assets/items.json' with {type:'json'};
+ import { evaluateWorldRig } from '../tools/characterRig/domain/animator';
+ import { weaponFor } from './content';
+-import generatedRig from './assets/dawn-rig.json';
++import generatedRig from './assets/dawn-rig.json' with {type:'json'};
+ import { rigSchema } from '../tools/characterRig/domain/rig';
+ import type { CharacterRigData, DirectionId } from '../tools/characterRig/domain/rig';
+-import { type Battle, type Pos, type Unit, type Command, tileAt, same, reachable, targets } from './domain';
++import { type Battle, type Pos, type Unit, type Command, tileAt, same, reachable, targets, commandAbility } from './domain';
+ export type VisualState = {
+     command: Command;
+     battle: Battle | null;
+@@ -19,9 +20,11 @@
+ export class Renderer {
+     readonly canvas: HTMLCanvasElement;
+     private ctx: CanvasRenderingContext2D;
++    private images = new Map<string, HTMLImageElement>();
+     private tinted: HTMLCanvasElement[] = [];
+     private sheet = new Image();
+     private weapons = new Image();
++    private items = new Image();
+     private attacks = new Map<string, {
+         start: number;
+         kind: string;
+@@ -41,8 +44,31 @@
+     private cell = 64;
+     private ox = 0;
+     private oy = 0;
+-    constructor(host: HTMLElement) { this.canvas = document.createElement('canvas'); this.canvas.setAttribute('aria-label', '높낮이 전술 전장'); this.canvas.setAttribute('role', 'img'); host.append(this.canvas); this.ctx = this.canvas.getContext('2d')!; this.sheet.addEventListener('load', () => { this.tinted = [0, 35, 200, 315].map(hue => { const canvas = document.createElement('canvas'); canvas.width = this.sheet.width; canvas.height = this.sheet.height; const ctx = canvas.getContext('2d')!; ctx.filter = `hue-rotate(${hue}deg)`; ctx.drawImage(this.sheet, 0, 0); return canvas; }); }); this.sheet.src = new URL('./assets/dawn-parts.png', import.meta.url).href; this.weapons.src = new URL('./assets/weapons.png', import.meta.url).href; this.terrain.src = new URL('./assets/terrain.png', import.meta.url).href; }
+-    setRig(data: CharacterRigData, url: string) { this.rig = data; this.sheet.src = url; }
++    constructor(host: HTMLElement) { this.canvas = document.createElement('canvas'); this.canvas.setAttribute('aria-label', '높낮이 전술 전장'); this.canvas.setAttribute('role', 'img'); host.append(this.canvas); this.ctx = this.canvas.getContext('2d')!; this.sheet.addEventListener('load', () => this.cacheTints()); this.images.set('dawn-parts', this.sheet); this.sheet.src = new URL('./assets/dawn-parts.png', import.meta.url).href; this.items.src = new URL('./assets/items.png',import.meta.url).href; this.weapons.src = new URL('./assets/weapons.png', import.meta.url).href; this.terrain.src = new URL('./assets/terrain.png', import.meta.url).href; }
++    private cacheTints() { this.tinted = [0,35,200,315,90,260].map(hue=>{const canvas=document.createElement('canvas');canvas.width=this.sheet.width;canvas.height=this.sheet.height;const ctx=canvas.getContext('2d')!;ctx.filter=`hue-rotate(${hue}deg)`;ctx.drawImage(this.sheet,0,0);return canvas;}); }
++    async setRig(data: CharacterRigData, url: string, assets: Record<string, string> = {}) {
++        const valid = rigSchema.parse(data), images = new Map<string, HTMLImageElement>();
++        const refs = Object.values(valid.views).flatMap(view => [view.image, ...view.parts.map(p => p.replacement)]).filter(ref => Boolean(ref));
++        await Promise.all(refs.map(async ref => {
++            if (!ref || images.has(ref.id)) return;
++            const image = new Image();
++            const primary = valid.views.Front.image;
++            const src = assets[ref.id] ?? assets[ref.name] ?? (ref.id === primary?.id ? url : new URL(ref.name, new URL(url, location.href)).href);
++            image.src = src; await image.decode();
++            if (image.naturalWidth !== ref.width || image.naturalHeight !== ref.height) throw Error(`${ref.name}: 이미지 크기가 JSON과 다릅니다.`);
++            images.set(ref.id, image);
++        }));
++        this.rig = valid; this.images = images;
++        this.sheet = images.get(valid.views.Front.image!.id)!;
++        this.cacheTints();
++    }
++    async restoreDefaultRig() { await this.setRig(rig,new URL('./assets/dawn-parts.png',import.meta.url).href); }
++    private drawPart(c: CanvasRenderingContext2D, part: CharacterRigData['views']['Front']['parts'][number], view: CharacterRigData['views']['Front'], hero: number) {
++        const raw = this.images.get(part.replacement?.id ?? view.image?.id ?? '') ?? this.sheet;
++        const source = !part.replacement && raw === this.sheet && part.id !== 'head' ? this.tinted[hero] ?? raw : raw;
++        if (part.replacement) c.drawImage(source, 0, 0, source.width, source.height, 0, 0, part.rect.width, part.rect.height);
++        else c.drawImage(source, part.rect.x, part.rect.y, part.rect.width, part.rect.height, 0, 0, part.rect.width, part.rect.height);
++    }
+     point(p: Pos, h: number, top: boolean): Pos { return top ? { x: this.ox + (p.x - 3.5) * this.cell * .78, y: this.oy + (p.y - 3.5) * this.cell * .78 } : { x: this.ox + (p.x - p.y) * this.cell * .7, y: this.oy + (p.x + p.y - 7) * this.cell * .35 - h * this.cell * .22 }; }
+     pick(x: number, y: number, s: VisualState): Pos | null {
+         if (!s.battle)
+@@ -77,9 +103,9 @@
+         if (!s.battle)
+             return;
+         const b = s.battle;
+-        this.cell = Math.min((w - 420) / 11.2 * .94, (h - 245) / (s.top ? 6.4 : 5.7)) * s.zoom;
++        this.cell = Math.min((w - 420) / (s.top ? 6.4 : 11.2) * .94, (h - (s.top ? 285 : 245)) / (s.top ? 6.4 : 5.7)) * s.zoom;
+         this.ox = w * .5 + s.pan.x;
+-        this.oy = h * .51 + s.pan.y;
++        this.oy = h * .51 - (s.top ? 20 : 0) + s.pan.y;
+         const gradient = c.createRadialGradient(w * .5, h * .5, 30, w * .5, h * .5, w * .65);
+         gradient.addColorStop(0, '#48635c');
+         gradient.addColorStop(1, '#142b30');
+@@ -159,6 +185,11 @@
+                 c.fillText('♜', p.x, p.y + 3);
+             }
+         }
++        // Screen annotations are a final pass: later terrain must never cut names/HP.
++        for (const u of b.units.filter(u => u.hp > 0)) {
++            const current = this.visualPosition(u, b);
++            this.label(u, this.point(current, current.h, s.top), s.top);
++        }
+         // Small terrain labels stay above foreground walls; standees themselves are depth-sorted.
+         const cp = this.point(s.cursor, tileAt(b, s.cursor)?.h ?? 0, s.top);
+         c.fillStyle = '#fff1bc';
+@@ -168,7 +199,7 @@
+     }
+     private actor(u: Unit, p: Pos, walking: boolean, top: boolean, selected: boolean) {
+         const c = this.ctx;
+-        const size = this.cell * (top ? 1.05 : 1.65);
++        const size = this.cell * (top ? .72 : 1.65);
+         c.save();
+         c.translate(p.x, p.y);
+         c.fillStyle = u.team === 'ally' ? '#70ded8' : '#ef9288';
+@@ -192,11 +223,15 @@
+         // The evaluator already includes the body's C skew. Never project/squash the actor root.
+         const attack = this.attacks.get(u.id);
+         const progress = attack && this.animationTime >= attack.start ? Math.min(1, (this.animationTime - attack.start) / .65) : 1;
+-        const actionRig = progress < 1 ? structuredClone(this.rig) : this.rig;
++        const weapon = weaponFor(u.hero,u.weaponVariant);
++        const motion = attack?.kind==='item'?'heal':attack?.kind==='skill'?commandAbility(u,'skill').animation:weapon.animation;
++        const actionRig = progress < 1 || weapon.family==='bow' ? structuredClone(this.rig) : this.rig;
+         if (actionRig !== this.rig) {
+             const arm = actionRig.views[actionRig.directions[dir].view].parts.find(p => p.id === 'armR')!;
+-            const motion = weaponFor(u.hero, u.weaponVariant).animation;
+-            const wave = Math.sin(progress * Math.PI);
++            const other = actionRig.views[actionRig.directions[dir].view].parts.find(p=>p.id==='armL')!;
++            const wave = progress<1 ? Math.sin(progress*Math.PI) : 0;
++            if(weapon.family==='bow'){arm.restTransform.rotation-=.9;arm.restTransform.y-=25;other.restTransform.rotation+=.9*wave;other.restTransform.x-=50*wave;}
++            if(motion==='heal'||motion==='cast'){other.restTransform.rotation+=.55*wave;other.restTransform.y-=40*wave;}
+             arm.restTransform.rotation -= (motion === 'slash' ? 1.5 : motion === 'shoot' ? .65 : .45) * wave;
+             if (motion === 'thrust')
+                 arm.restTransform.y -= 150 * wave;
+@@ -211,13 +246,16 @@
+                 const m = pose.matrix;
+                 c.save();
+                 c.transform(m.a, m.b, m.c, m.d, m.tx, m.ty);
+-                c.drawImage(pose.id === 'head' ? this.sheet : this.tinted[u.hero] ?? this.sheet, part.rect.x, part.rect.y, part.rect.width, part.rect.height, 0, 0, part.rect.width, part.rect.height);
++                this.drawPart(c, part, view, u.hero);
+                 if (part.id === 'armR')
+-                    this.weapon(c, u.hero, u.weaponVariant, part.rect.width, part.rect.height);
++                    this.weapon(c, u.hero, u.weaponVariant, part.rect.width, part.rect.height, progress < 1 && motion==='shoot' ? Math.sin(progress*Math.PI) : 0);
+                 c.restore();
+             }
+         }
+         c.restore();
++    }
++    private label(u: Unit, p: Pos, top: boolean) {
++        const c = this.ctx, size = this.cell * (top ? .72 : 1.65);
+         c.save();
+         c.fillStyle = '#142b30';
+         c.fillRect(p.x - 20, p.y - size - 13, 40, 5);
+@@ -226,22 +264,26 @@
+         c.font = 'bold 11px sans-serif';
+         c.textAlign = 'center';
+         c.fillStyle = '#fff5db';
+-        c.fillText(u.name, p.x, p.y + 17);
++        c.lineWidth = 3; c.strokeStyle = '#142b30'; c.strokeText(u.name, p.x, p.y + (top ? 11 : 17));
++        c.fillText(u.name, p.x, p.y + (top ? 11 : 17));
+         c.restore();
+     }
+     attack(id: string, kind: string, delay = 0) { this.attacks.set(id, { start: this.animationTime + delay, kind }); }
+-    private weapon(c: CanvasRenderingContext2D, job: number, variant: number, w: number, h: number) {
++    private weapon(c: CanvasRenderingContext2D, job: number, variant: number, w: number, h: number, draw = 0) {
+         if (!this.weapons.complete || !this.weapons.naturalWidth)
+             return;
+         const weapon = weaponFor(job, variant), col = weapon.frame % 4, row = Math.floor(weapon.frame / 4), cw = this.weapons.naturalWidth / 4, ch = this.weapons.naturalHeight / 2;
+         const grip = weapon.grip.y;
+-        const scale = job === 1 ? .7 : job === 0 ? .85 : 1;
++        const scale = weapon.family === 'bow' ? .95 : weapon.family === 'sword' ? .85 : 1;
+         c.save();
+         c.filter = 'none';
+         c.translate(w * .48, h * .88);
+-        c.rotate(job === 1 ? -.22 : -.32);
++        c.rotate(weapon.family === 'bow' ? .75 : -.32);
+         c.scale(scale, scale);
+-        c.drawImage(this.weapons, col * cw, row * ch, cw, ch, -cw * weapon.grip.x, -ch * grip, cw, ch);
++        const item=weapon.iconId?(itemFrames as Record<string,{x:number;y:number;w:number;h:number}>)[weapon.iconId]:null;
++        if(item&&this.items.complete&&this.items.naturalWidth)c.drawImage(this.items,item.x,item.y,item.w,item.h,-cw*weapon.grip.x,-ch*grip,cw,ch);
++        else c.drawImage(this.weapons, col * cw, row * ch, cw, ch, -cw * weapon.grip.x, -ch * grip, cw, ch);
++        if(weapon.family==='bow' && draw>0){c.strokeStyle='#e9d6a3';c.lineWidth=3;c.beginPath();c.moveTo(cw*.3,-ch*.45);c.lineTo(cw*(.3+draw*.4),0);c.lineTo(cw*.3,ch*.45);c.stroke();c.strokeStyle='#e8dfc1';c.beginPath();c.moveTo(-cw*.25,0);c.lineTo(cw*(.3+draw*.4),0);c.stroke();}
+         c.restore();
+     }
+     portraits(host: HTMLElement, gear: Array<{
+@@ -257,9 +299,9 @@
+                 const p = view.parts.find(p => p.id === pose.id)!, m = pose.matrix;
+                 ctx.save();
+                 ctx.transform(m.a, m.b, m.c, m.d, m.tx, m.ty);
+-                ctx.drawImage(pose.id === 'head' ? this.sheet : this.tinted[hero] ?? this.sheet, p.rect.x, p.rect.y, p.rect.width, p.rect.height, 0, 0, p.rect.width, p.rect.height);
++                this.drawPart(ctx, p, view, hero);
+                 if (p.id === 'armR')
+-                    this.weapon(ctx, hero, gear[hero].weapon, p.rect.width, p.rect.height);
++                    this.weapon(ctx, hero, canvas.dataset.weapon===undefined?gear[hero].weapon:Number(canvas.dataset.weapon), p.rect.width, p.rect.height);
+                 ctx.restore();
+             }
+             ctx.restore();
+--- before/game/calculation.ts
++++ after/game/calculation.ts
+@@ -1,6 +1,7 @@
+-import { jobForHero, weaponFor, SKILLS, type Stats } from './content';
++import { jobForHero, weaponFor, SUPPORT_SKILLS, ARMOR, extraGear, type ExtraSlot, type Stats } from './content';
+ export type Derived = {
+     stats: Stats;
++    statBreakdown: Record<keyof Stats,{base:number;class:number;gear:number}>;
+     attack: number;
+     defense: number;
+     offense: number;
+@@ -10,20 +11,41 @@
+     hp: number;
+     mp: number;
+     move: number;
++    weaponRank: number;
++    spellPower: number;
++    resilience: number;
+ };
+-/** Source: One Vision calculator.js steps 1–4 and formula.js scaling ids 1/2/5.
++/** Source: One Vision calculator.js steps 1–4 and formula.js scaling ids 1/7/13.
+  * Authored class/base/gear values are TacticsSD content; formula ordering is source-grounded.
+  */
+ export function derive(hero: number, level: number, gear: {
+     weapon: number;
+     armor: number;
+-}): Derived {
++} & Partial<Record<ExtraSlot,number>>, supportId = 'weapon-study'): Derived {
+     const job = jobForHero(hero);
+     const stats = { ...job.base };
+     for (const key of Object.keys(stats) as (keyof Stats)[])
+         stats[key] = 10 + job.base[key] + job.growth[key] / 10 * (level - 1);
+-    const rank = SKILLS.find(s => s.id === job.skillId)!.weaponRank;
++    const statBreakdown=Object.fromEntries(Object.keys(stats).map(k=>[k,{base:10,class:stats[k as keyof Stats]-10,gear:0}])) as Derived['statBreakdown'];
++    const equipment=[ARMOR[gear.armor],...extraGear(gear)];
++    for(const item of equipment)for(const key of Object.keys(item.stats) as (keyof Stats)[]){stats[key]+=item.stats[key]??0;statBreakdown[key].gear+=item.stats[key]??0;}
++    const support = SUPPORT_SKILLS.find(s => s.id === supportId) ?? SUPPORT_SKILLS[0];
++    const rank = support.weaponRank;
+     const offense = (job.scaling === 'strength' ? stats.str * 1.2 + stats.dex * .6 : job.scaling === 'dexterity' ? stats.str * .6 + stats.dex * 1.2 : (stats.dex + stats.mnd + stats.int) * .6) + rank * 4;
+-    return { stats, attack: job.atk + weaponFor(hero, gear.weapon).bonus, defense: job.def + gear.armor * 4, offense, toughness: stats.str * .5 + stats.vit, damageBonus: 10, resistance: gear.armor * 5, hp: job.hp + (level - 1) * 6, mp: job.mp, move: job.move - gear.armor };
++    return { stats, statBreakdown, attack: job.atk + weaponFor(hero, gear.weapon).bonus + equipment.reduce((n,i)=>n+(i.attack??0),0), defense: job.def + support.defense + equipment.reduce((n,item)=>n+item.defense,0), offense, toughness: stats.str * .5 + stats.vit, damageBonus: 10, resistance: equipment.reduce((n,i)=>n+(i.resistance??0),0), hp: job.hp + (level - 1) * 6 + equipment.reduce((n,i)=>n+(i.hp??0),0), mp: job.mp + equipment.reduce((n,i)=>n+(i.mp??0),0), move: Math.max(1,job.move + equipment.reduce((n,i)=>n+(i.move??0),0) + support.move), weaponRank:rank, spellPower:stats.int*1.2+stats.mnd*.6, resilience:stats.res+stats.mnd*.5 };
+ }
+ export function calculateDamage(attacker: Pick<Derived, 'offense' | 'attack' | 'damageBonus'>, defender: Pick<Derived, 'toughness' | 'defense' | 'resistance'>, multiplier = 1) { const overhead = Math.floor(Math.max(attacker.offense - defender.toughness, 0)); const modified = Math.floor(Math.max(overhead * (100 + attacker.damageBonus - defender.resistance) / 100, 0)); const total = Math.floor(Math.max(modified + attacker.attack - defender.defense, 1)); return { overhead, modified, total, final: total === 1 ? 1 : Math.floor(total * multiplier) }; }
++
++/** OV v1.10a / v1.11d readme p7: INT1.2+MND.6 vs RES1+MND.5, half DEF.
++ * Authored spell power is an ability value; neutral elemental resistance is zero. */
++export function calculateSpellDamage(attacker: Derived, defender: Derived, power: number, defense = defender.defense) {
++    return calculateDamage({offense:attacker.spellPower,attack:power,damageBonus:attacker.damageBonus}, {toughness:defender.resilience,defense:defense*.5,resistance:0});
++}
++/** Source coefficients and front/back floors are OV; side floor40 and the +70 normalization is an explicit
++ * campaign rule because the supplied changelog does not define the final normalization. */
++export function calculateAccuracy(attacker: Derived, defender: Derived, facing: 'front'|'side'|'back', spell=false) {
++ const floor = {front:20,side:40,back:60}[facing];
++ const offense = spell ? attacker.stats.mnd*1.2+attacker.stats.int*.6+attacker.stats.agi*.4 : attacker.stats.agi*1.2+attacker.stats.dex*.6+attacker.weaponRank*8;
++ const evasion = spell ? defender.stats.avd*1.2+defender.stats.mnd*.6 : defender.stats.avd*1.2+defender.stats.dex*.6;
++ return {offense,evasion,floor,chance:Math.floor(Math.min(100,Math.max(floor,70+floor+offense-evasion)))};
++}

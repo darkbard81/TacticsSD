@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "reviewed": "All26 final frames and socket markers inspected. Integration owner independently accepted raw/near-forward-compact.png foreground thigh crossing in front of supporting far leg for both front and back; compact SD proportion and flat boots restored.",
+  "passed": ["front_back_identity", "opaque_covered_costume", "distinct_attack_actions", "true_opposite_anatomical_walk_phases", "compact_adult_SD_proportion", "consistent_boot_design", "jump_displacement", "low_collapse", "hand_socket_measurements", "no_visual_clipping"],
+  "requires_review": [],
+  "gait_resolution": "Previous near-trailing support-leg repetition resolved by cropped upper-body identity reference plus color-coded explicit near/far leg geometry. Generated high near-knee phase retained thigh occlusion during compact-proportion and boot correction. Final walk_right uses near-forward-compact.png cells0/2; walk_left retains near-leg tucked trailing phase from opposite.png cells0/2. All prior rejected generations are preserved.",
+  "scale_contract": "Uniform per-group scale: .445 original locomotion/attacks, .395 jumps, .48 damage, .42 tucked phase, .345 high-near-knee phase. Raw source resolutions and camera scales differ. No per-frame fit, mirroring, rotation or synthesized limbs.",
+  "processor_note": "Bundled processor initial attack strict QC flagged its4px source trimming and raw footline dispersion. Final deterministic assembly keys original untrimmed raw images, registers footline230 and verifies final alpha32 gutters of at least8px. Jump footlines210/200 retain20/30px airborne displacement."
+}

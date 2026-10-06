@@ -1,0 +1,390 @@
+{
+  "contract": "64x64 custom game sheet; not Codex pet atlas",
+  "rows": [
+    {
+      "row": 1,
+      "count": 7,
+      "scale": 0.12560386473429952,
+      "frames": [
+        {
+          "column": 1,
+          "bbox": [
+            21,
+            9,
+            42,
+            61
+          ],
+          "sourceSize": [
+            170,
+            414
+          ]
+        },
+        {
+          "column": 2,
+          "bbox": [
+            17,
+            11,
+            46,
+            61
+          ],
+          "sourceSize": [
+            234,
+            401
+          ]
+        },
+        {
+          "column": 3,
+          "bbox": [
+            21,
+            9,
+            43,
+            61
+          ],
+          "sourceSize": [
+            410,
+            977
+          ]
+        },
+        {
+          "column": 4,
+          "bbox": [
+            16,
+            10,
+            48,
+            61
+          ],
+          "sourceSize": [
+            257,
+            405
+          ]
+        },
+        {
+          "column": 5,
+          "bbox": [
+            21,
+            11,
+            43,
+            61
+          ],
+          "sourceSize": [
+            173,
+            400
+          ]
+        },
+        {
+          "column": 6,
+          "bbox": [
+            18,
+            9,
+            46,
+            52
+          ],
+          "sourceSize": [
+            221,
+            340
+          ]
+        },
+        {
+          "column": 7,
+          "bbox": [
+            18,
+            22,
+            46,
+            61
+          ],
+          "sourceSize": [
+            222,
+            313
+          ]
+        }
+      ]
+    },
+    {
+      "row": 2,
+      "count": 7,
+      "scale": 0.12470023980815348,
+      "frames": [
+        {
+          "column": 1,
+          "bbox": [
+            22,
+            9,
+            41,
+            61
+          ],
+          "sourceSize": [
+            155,
+            417
+          ]
+        },
+        {
+          "column": 2,
+          "bbox": [
+            19,
+            10,
+            44,
+            61
+          ],
+          "sourceSize": [
+            200,
+            409
+          ]
+        },
+        {
+          "column": 3,
+          "bbox": [
+            19,
+            10,
+            45,
+            61
+          ],
+          "sourceSize": [
+            206,
+            412
+          ]
+        },
+        {
+          "column": 4,
+          "bbox": [
+            18,
+            8,
+            45,
+            61
+          ],
+          "sourceSize": [
+            219,
+            424
+          ]
+        },
+        {
+          "column": 5,
+          "bbox": [
+            22,
+            11,
+            41,
+            61
+          ],
+          "sourceSize": [
+            153,
+            397
+          ]
+        },
+        {
+          "column": 6,
+          "bbox": [
+            18,
+            7,
+            45,
+            52
+          ],
+          "sourceSize": [
+            220,
+            359
+          ]
+        },
+        {
+          "column": 7,
+          "bbox": [
+            20,
+            18,
+            44,
+            61
+          ],
+          "sourceSize": [
+            195,
+            342
+          ]
+        }
+      ]
+    },
+    {
+      "row": 3,
+      "count": 6,
+      "scale": 0.12149532710280374,
+      "frames": [
+        {
+          "column": 1,
+          "bbox": [
+            12,
+            38,
+            51,
+            61
+          ],
+          "sourceSize": [
+            322,
+            192
+          ]
+        },
+        {
+          "column": 2,
+          "bbox": [
+            18,
+            10,
+            46,
+            61
+          ],
+          "sourceSize": [
+            229,
+            420
+          ]
+        },
+        {
+          "column": 3,
+          "bbox": [
+            16,
+            9,
+            47,
+            61
+          ],
+          "sourceSize": [
+            254,
+            428
+          ]
+        },
+        {
+          "column": 4,
+          "bbox": [
+            17,
+            11,
+            47,
+            61
+          ],
+          "sourceSize": [
+            244,
+            411
+          ]
+        },
+        {
+          "column": 5,
+          "bbox": [
+            12,
+            10,
+            51,
+            61
+          ],
+          "sourceSize": [
+            321,
+            418
+          ]
+        },
+        {
+          "column": 6,
+          "bbox": [
+            14,
+            11,
+            49,
+            61
+          ],
+          "sourceSize": [
+            291,
+            414
+          ]
+        }
+      ]
+    },
+    {
+      "row": 4,
+      "count": 6,
+      "scale": 0.12682926829268293,
+      "frames": [
+        {
+          "column": 1,
+          "bbox": [
+            11,
+            43,
+            53,
+            61
+          ],
+          "sourceSize": [
+            330,
+            145
+          ]
+        },
+        {
+          "column": 2,
+          "bbox": [
+            18,
+            7,
+            46,
+            61
+          ],
+          "sourceSize": [
+            223,
+            425
+          ]
+        },
+        {
+          "column": 3,
+          "bbox": [
+            14,
+            9,
+            49,
+            61
+          ],
+          "sourceSize": [
+            277,
+            410
+          ]
+        },
+        {
+          "column": 4,
+          "bbox": [
+            15,
+            10,
+            48,
+            61
+          ],
+          "sourceSize": [
+            261,
+            405
+          ]
+        },
+        {
+          "column": 5,
+          "bbox": [
+            13,
+            9,
+            50,
+            61
+          ],
+          "sourceSize": [
+            288,
+            410
+          ]
+        },
+        {
+          "column": 6,
+          "bbox": [
+            13,
+            10,
+            50,
+            61
+          ],
+          "sourceSize": [
+            290,
+            405
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "sheet": [
+    448,
+    256
+  ],
+  "occupiedCells": 26,
+  "emptyCells": 2,
+  "alpha": "binary",
+  "colors": 32,
+  "output": "/home/deck/Documents/TacticsSD/docs/Ref/sprite/Elf Woman Warrior_hatch.png",
+  "visualReview": {
+    "identity": "checked",
+    "poseCount": "checked",
+    "frontBack": "checked",
+    "walkLegDifference": "checked",
+    "handAnatomy": "partially_occluded",
+    "mirroring": "none",
+    "reviewVideos": "pose slides, not gameplay timing"
+  }
+}

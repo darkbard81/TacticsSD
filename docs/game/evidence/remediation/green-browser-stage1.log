@@ -1,0 +1,14 @@
+
+Running 7 tests using 1 worker
+
+(node:459393) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:9:1 › F01 keyboard focus on target cancel returns without attacking (5.2s)
+  ✓  2 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:10:1 › F02 controller can cancel both keyboard and button capture without a keyboard (1.1s)
+  ✓  3 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:11:1 › F03 reserved Tab is not saved; a remapped Space performs only its action (2.8s)
+  ✓  4 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:12:1 › F04 held input cannot dismiss pause on refocus or controller disconnect (2.6s)
+  ✓  5 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:13:1 › F05 canceling end-turn grants no free guard (2.5s)
+  ✓  6 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:14:1 › F08 editor replacement references are rendered rather than silently discarded (790ms)
+  ✓  7 ../../../home/deck/Documents/TacticsSD/tests/game/tests/browser/regression.spec.ts:15:1 › F09 unit labels are drawn after all opaque terrain and sprites in both projections (885ms)
+
+  7 passed (17.0s)

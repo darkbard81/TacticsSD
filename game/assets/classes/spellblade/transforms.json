@@ -1,0 +1,236 @@
+{
+  "front_idle": {
+    "source_cell": 0,
+    "source_group": "locomotion",
+    "scale": 0.445,
+    "translate": [
+      -4,
+      8
+    ]
+  },
+  "front_walk_right": {
+    "source_cell": 0,
+    "source_group": "near-forward-compact",
+    "scale": 0.345,
+    "translate": [
+      -3,
+      15
+    ]
+  },
+  "front_walk_left": {
+    "source_cell": 0,
+    "source_group": "opposite",
+    "scale": 0.42,
+    "translate": [
+      -57,
+      22
+    ]
+  },
+  "front_hurt": {
+    "source_cell": 0,
+    "source_group": "damage",
+    "scale": 0.48,
+    "translate": [
+      -37,
+      -37
+    ]
+  },
+  "front_jump1": {
+    "source_cell": 0,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      17,
+      34
+    ]
+  },
+  "front_jump2": {
+    "source_cell": 1,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      14,
+      39
+    ]
+  },
+  "front_jump3": {
+    "source_cell": 2,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      14,
+      -2
+    ]
+  },
+  "front_collapse": {
+    "source_cell": 1,
+    "source_group": "damage",
+    "scale": 0.48,
+    "translate": [
+      -18,
+      -37
+    ]
+  },
+  "front_attack1": {
+    "source_cell": 0,
+    "source_group": "attack-front",
+    "scale": 0.445,
+    "translate": [
+      -3,
+      3
+    ]
+  },
+  "front_attack2": {
+    "source_cell": 1,
+    "source_group": "attack-front",
+    "scale": 0.445,
+    "translate": [
+      12,
+      3
+    ]
+  },
+  "front_attack3": {
+    "source_cell": 2,
+    "source_group": "attack-front",
+    "scale": 0.445,
+    "translate": [
+      24,
+      3
+    ]
+  },
+  "front_attack4": {
+    "source_cell": 3,
+    "source_group": "attack-front",
+    "scale": 0.445,
+    "translate": [
+      10,
+      29
+    ]
+  },
+  "front_attack5": {
+    "source_cell": 4,
+    "source_group": "attack-front",
+    "scale": 0.445,
+    "translate": [
+      9,
+      29
+    ]
+  },
+  "back_idle": {
+    "source_cell": 3,
+    "source_group": "locomotion",
+    "scale": 0.445,
+    "translate": [
+      -5,
+      28
+    ]
+  },
+  "back_walk_right": {
+    "source_cell": 2,
+    "source_group": "near-forward-compact",
+    "scale": 0.345,
+    "translate": [
+      -4,
+      36
+    ]
+  },
+  "back_walk_left": {
+    "source_cell": 2,
+    "source_group": "opposite",
+    "scale": 0.42,
+    "translate": [
+      -61,
+      34
+    ]
+  },
+  "back_hurt": {
+    "source_cell": 2,
+    "source_group": "damage",
+    "scale": 0.48,
+    "translate": [
+      -35,
+      2
+    ]
+  },
+  "back_jump1": {
+    "source_cell": 3,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      12,
+      51
+    ]
+  },
+  "back_jump2": {
+    "source_cell": 4,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      17,
+      58
+    ]
+  },
+  "back_jump3": {
+    "source_cell": 5,
+    "source_group": "jump",
+    "scale": 0.395,
+    "translate": [
+      1,
+      14
+    ]
+  },
+  "back_collapse": {
+    "source_cell": 3,
+    "source_group": "damage",
+    "scale": 0.48,
+    "translate": [
+      -15,
+      2
+    ]
+  },
+  "back_attack1": {
+    "source_cell": 0,
+    "source_group": "attack-back",
+    "scale": 0.445,
+    "translate": [
+      -1,
+      8
+    ]
+  },
+  "back_attack2": {
+    "source_cell": 1,
+    "source_group": "attack-back",
+    "scale": 0.445,
+    "translate": [
+      10,
+      8
+    ]
+  },
+  "back_attack3": {
+    "source_cell": 2,
+    "source_group": "attack-back",
+    "scale": 0.445,
+    "translate": [
+      16,
+      8
+    ]
+  },
+  "back_attack4": {
+    "source_cell": 3,
+    "source_group": "attack-back",
+    "scale": 0.445,
+    "translate": [
+      11,
+      29
+    ]
+  },
+  "back_attack5": {
+    "source_cell": 4,
+    "source_group": "attack-back",
+    "scale": 0.445,
+    "translate": [
+      2,
+      30
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+
+Running 5 tests using 1 worker
+
+(node:490814) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/game/tests/browser/shop.spec.ts:14:31 › keyboard buys, cancels, sells, locks equipped copies and restores quantities (4.1s)
+  ✓  2 tests/game/tests/browser/shop.spec.ts:14:31 › mockpad buys, cancels, sells, locks equipped copies and restores quantities (18.6s)
+  ✓  3 tests/game/tests/browser/shop.spec.ts:22:1 › mockpad source bow purchase equips only the archer and restores into a real battle (13.1s)
+  ✓  4 tests/game/tests/browser/shop.spec.ts:26:1 › storage failure rolls back, held mixed confirm trades once, cancel wins and disconnect cancels pending trade (6.9s)
+  ✓  5 tests/game/tests/browser/shop.spec.ts:33:1 › catalog unavailable rows have no purchase action; all shop filters and loaded icons fit DPR2 minimum (2.1s)
+
+  5 passed (46.0s)

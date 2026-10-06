@@ -1,0 +1,17 @@
+Spellblade delivery
+
+Runtime candidates: sheet.png, sockets.json.
+Evidence: contact-sheet.png, socket-review.png, idle-walk-preview.gif, qa.json, transforms.json.
+Source preservation: raw/ contains each original ImageGen result and handwritten prompt, including rejected revisions. No base64 duplicates remain.
+All26 final poses genuinely originate from generated action sheets. No mirroring, rotation, recolored generic art or duplicated neutral body is used to fake a pose.
+
+Technical QA:1792x1024 RGBA;7x4 grid of256px cells;26 distinct pixel hashes;both last-column blanks have zero alpha;minimum alpha>32 gutter9px;26 measured hand sockets land on opaque sprite pixels. Footline230;airborne jump2/3 bottoms210/200.
+Visual QA: all26 poses and socket markers reviewed. Original cobalt/ivory asymmetric spell-duelist silhouette, teal high ponytail, full opaque chest coverage, mature adult features, no weapons/wings/FX/text. Front/back attacks and jumps are distinct. Corrected clipping in collapse and unwanted fur in pose-transfer result.
+
+RESOLVED GAIT REVIEW: integration owner independently accepted the new compact high-forward-near-knee phase in raw/near-forward-compact.png. The foreground thigh now crosses ahead of the supporting far thigh in both front and back. Final walk_right uses cells0/2 of this source;walk_left retains the near-tucked-trailing phase. Flat boots and compact SD proportions restored. Technique: cropped upper-body identity only plus explicit color-coded near/far leg skeleton, followed by proportion/boot correction preserving leg occlusion. All rejected earlier attempts remain preserved. No remaining class-art blocker.
+
+Rebuild (uses installed Pillow/numpy runtime):
+/home/deck/.codex/skill-envs/agent-sprite-forge/bin/python assemble.py
+/home/deck/.codex/skill-envs/agent-sprite-forge/bin/python write-sockets.py
+/home/deck/.codex/skill-envs/agent-sprite-forge/bin/python preview.py
+assemble.py incorporates visual-review.json into qa.json when rebuilding.

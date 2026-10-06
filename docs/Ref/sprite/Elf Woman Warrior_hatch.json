@@ -1,0 +1,1073 @@
+{
+  "image": "Elf Woman Warrior_hatch.png",
+  "sheet": {
+    "width": 448,
+    "height": 256
+  },
+  "grid": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 7,
+    "rows": 4,
+    "indexBase": 1,
+    "order": "row-major"
+  },
+  "notes": [
+    "행과 열은 왼쪽 위부터 1로 시작한다. rect의 x·y는 이미지 픽셀 좌표다.",
+    "action은 사용자 제안을 시각 검토해 채택한 동작 분류다. inference·assessment에 합당성, 불확실성과 대안을 기록한다. 동작 용도는 공식 원본 정의가 아니다.",
+    "view는 화면에서 보이는 앞/뒤 대각 시점이다. 등각맵의 월드 방향과 이동 벡터는 지정하지 않는다.",
+    "빈 셀도 포함한다. 재생 순서·프레임 시간·루프 여부는 정의하지 않는다.",
+    "손·발 좌우는 화면 기준이 아니라 캐릭터 신체 기준이다. 가려진 부위의 좌우와 앞·뒤 위치는 추정이다.",
+    "정지성 상태이상·쓰러짐은 포즈 분류다. Stop·석화·수면·Prone·의식불명은 이 포즈의 사용 예이며 이미지로 개별 상태를 판별한 것이 아니다.",
+    "bodyPose는 원본 JSON에서 가져온 목표 손발 자세다. 생성 결과의 해부학적 좌우가 모두 독립 검증되었다는 뜻은 아니다. 걷기 두 자세의 다리 실루엣은 서로 구별되도록 수정했다."
+  ],
+  "cells": [
+    {
+      "row": 1,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "idle",
+      "description": "기본 대기 자세.",
+      "inference": {
+        "action": "idle",
+        "description": "기본 대기 자세.",
+        "confidence": "high",
+        "alternatives": [],
+        "reason": "몸이 곧게 서고 팔과 발이 기본 위치에 있어 다른 클래스의 기본 자세와 일치한다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "몸이 곧게 서고 팔과 발이 기본 위치에 있어 다른 클래스의 기본 자세와 일치한다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 앞·허리 가까이에 두며 일부는 몸에 가린다.",
+        "rightHand": "몸 옆 또는 가슴 가까이에 둔다.",
+        "leftFoot": "몸 아래에 두고 지지한다.",
+        "rightFoot": "반대쪽 발과 함께 몸 아래에서 지지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "rect": {
+        "x": 64,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "walk_left_hand_right_foot_forward",
+      "description": "왼손과 오른발을 앞으로 내딛는 걷기 자세.",
+      "inference": {
+        "action": "walk_left_hand_right_foot_forward",
+        "description": "왼손과 오른발을 앞으로 내딛는 걷기 자세.",
+        "confidence": "medium",
+        "alternatives": [],
+        "reason": "팔과 다리가 서로 반대 방향으로 움직이고 다음 셀과 교차 보행을 이룬다. 신체 좌우는 작은 대각 시점 때문에 사용자 제안을 채택한 추정이다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "팔과 다리가 서로 반대 방향으로 움직이고 다음 셀과 교차 보행을 이룬다. 신체 좌우는 작은 대각 시점 때문에 사용자 제안을 채택한 추정이다."
+      },
+      "bodyPose": {
+        "leftHand": "진행 방향 앞으로 내민 것으로 추정한다.",
+        "rightHand": "몸 뒤쪽으로 당긴 것으로 추정하며 일부는 머리카락에 가린다.",
+        "leftFoot": "뒤에 남겨 지지하는 발로 추정한다.",
+        "rightFoot": "진행 방향 앞으로 옮기는 발로 추정한다.",
+        "anatomicalConfidence": "medium",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "rect": {
+        "x": 128,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "walk_right_hand_left_foot_forward",
+      "description": "오른손과 왼발을 앞으로 내딛는 걷기 자세.",
+      "inference": {
+        "action": "walk_right_hand_left_foot_forward",
+        "description": "오른손과 왼발을 앞으로 내딛는 걷기 자세.",
+        "confidence": "medium",
+        "alternatives": [],
+        "reason": "이전 셀과 팔·다리 위치가 바뀌어 반대 보행 단계로 해석하는 것이 자연스럽다. 신체 좌우는 사용자 제안을 채택한 추정이다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "이전 셀과 팔·다리 위치가 바뀌어 반대 보행 단계로 해석하는 것이 자연스럽다. 신체 좌우는 사용자 제안을 채택한 추정이다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 뒤쪽으로 당긴 것으로 추정하며 일부는 가린다.",
+        "rightHand": "진행 방향 앞으로 내민 것으로 추정한다.",
+        "leftFoot": "진행 방향 앞으로 옮기는 발로 추정한다.",
+        "rightFoot": "뒤쪽에 남겨 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "medium",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 4,
+      "rect": {
+        "x": 192,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "hit_reaction",
+      "description": "충격을 받고 팔과 다리가 들리는 피격 자세.",
+      "inference": {
+        "action": "hit_reaction",
+        "description": "충격을 받고 팔과 다리가 들리는 피격 자세.",
+        "confidence": "medium",
+        "alternatives": [
+          "attack_windup"
+        ],
+        "reason": "몸이 뒤로 젖고 팔이 머리 가까이 올라가며 한쪽 다리가 들려 균형을 잃는 반응으로 해석할 수 있다. 이전 공격 준비 추정보다 피격 설명이 자세 전체에 잘 맞는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "몸이 뒤로 젖고 팔이 머리 가까이 올라가며 한쪽 다리가 들려 균형을 잃는 반응으로 해석할 수 있다. 이전 공격 준비 추정보다 피격 설명이 자세 전체에 잘 맞는다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 앞에서 위로 올라간 손으로 추정한다.",
+        "rightHand": "머리 옆·뒤로 들린 손으로 추정하며 머리카락과 겹친다.",
+        "leftFoot": "한쪽 다리가 들리거나 굽혀져 지지가 불안정하다. 좌우 확정은 어렵다.",
+        "rightFoot": "다른 발은 몸 아래에 남아 있으나 정확한 지지 상태는 불명확하다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 5,
+      "rect": {
+        "x": 256,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "status_immobilized",
+      "description": "고개와 팔을 낮춘 정지성 상태이상 자세 후보.",
+      "inference": {
+        "action": "status_immobilized",
+        "description": "고개와 팔을 낮춘 정지성 상태이상 자세 후보.",
+        "confidence": "medium",
+        "alternatives": [
+          "weakened",
+          "stunned"
+        ],
+        "reason": "고개가 숙여지고 팔의 움직임이 줄어 무력하거나 멈춘 상태 표현으로 합당하다. Stop·석화 등 상태 종류는 자세만으로 판별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "고개가 숙여지고 팔의 움직임이 줄어 무력하거나 멈춘 상태 표현으로 합당하다. Stop·석화 등 상태 종류는 자세만으로 판별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "허리 가까이 낮추며 몸에 가려 정확한 위치가 불명확하다.",
+        "rightHand": "몸 앞 또는 옆으로 낮춘 자세로 보인다.",
+        "leftFoot": "몸 아래에 두어 움직임 없는 지지 자세로 추정한다.",
+        "rightFoot": "반대쪽 발과 함께 낮은 자세를 유지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 6,
+      "rect": {
+        "x": 320,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "jump_airborne",
+      "description": "몸을 위로 펴고 다리를 굽힌 점프 도중 자세 후보.",
+      "inference": {
+        "action": "jump_airborne",
+        "description": "몸을 위로 펴고 다리를 굽힌 점프 도중 자세 후보.",
+        "confidence": "medium",
+        "alternatives": [
+          "rise"
+        ],
+        "reason": "다음 셀의 낮은 자세와 비교하면 도약·착지 쌍으로 읽힌다. 다만 지면 표시나 연속 재생이 없어 실제 공중 여부는 확정할 수 없다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "다음 셀의 낮은 자세와 비교하면 도약·착지 쌍으로 읽힌다. 다만 지면 표시나 연속 재생이 없어 실제 공중 여부는 확정할 수 없다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 가까이 또는 위쪽으로 올리며 일부는 머리카락에 가린다.",
+        "rightHand": "상체 옆으로 들어 균형을 잡는 자세로 추정한다.",
+        "leftFoot": "몸 아래로 모이거나 굽혀진 것으로 보인다. 접지 여부는 불명확하다.",
+        "rightFoot": "반대 다리와 함께 굽혀져 도약 중 자세로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 1,
+      "column": 7,
+      "rect": {
+        "x": 384,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "jump_land",
+      "description": "무릎을 굽혀 충격을 흡수하는 착지 자세 후보.",
+      "inference": {
+        "action": "jump_land",
+        "description": "무릎을 굽혀 충격을 흡수하는 착지 자세 후보.",
+        "confidence": "medium",
+        "alternatives": [
+          "crouch"
+        ],
+        "reason": "6열보다 머리와 상체가 낮고 다리가 굽혀져 점프 뒤 착지 자세로 합당하다. 단독으로는 웅크리기와 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "6열보다 머리와 상체가 낮고 다리가 굽혀져 점프 뒤 착지 자세로 합당하다. 단독으로는 웅크리기와 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 앞이나 아래로 모아 균형을 잡는 자세로 추정한다.",
+        "rightHand": "상체 앞 가까이에 둔 것으로 보이며 일부는 가린다.",
+        "leftFoot": "앞·옆으로 벌려 낮은 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "몸 아래에 남겨 무릎을 굽혀 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "idle",
+      "description": "기본 대기 자세. 뒷모습.",
+      "inference": {
+        "action": "idle",
+        "description": "기본 대기 자세. 뒷모습.",
+        "confidence": "high",
+        "alternatives": [],
+        "reason": "몸이 곧게 서고 팔과 발이 기본 위치에 있어 다른 클래스의 기본 자세와 일치한다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "몸이 곧게 서고 팔과 발이 기본 위치에 있어 다른 클래스의 기본 자세와 일치한다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 앞·허리 가까이에 두며 일부는 몸에 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 옆 또는 가슴 가까이에 둔다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 아래에 두고 지지한다.",
+        "rightFoot": "반대쪽 발과 함께 몸 아래에서 지지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 1
+      }
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "rect": {
+        "x": 64,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "walk_left_hand_right_foot_forward",
+      "description": "왼손과 오른발을 앞으로 내딛는 걷기 자세. 뒷모습.",
+      "inference": {
+        "action": "walk_left_hand_right_foot_forward",
+        "description": "왼손과 오른발을 앞으로 내딛는 걷기 자세. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [],
+        "reason": "팔과 다리가 서로 반대 방향으로 움직이고 다음 셀과 교차 보행을 이룬다. 신체 좌우는 작은 대각 시점 때문에 사용자 제안을 채택한 추정이다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "팔과 다리가 서로 반대 방향으로 움직이고 다음 셀과 교차 보행을 이룬다. 신체 좌우는 작은 대각 시점 때문에 사용자 제안을 채택한 추정이다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 진행 방향 앞으로 내민 것으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 뒤쪽으로 당긴 것으로 추정하며 일부는 머리카락에 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "뒤에 남겨 지지하는 발로 추정한다.",
+        "rightFoot": "진행 방향 앞으로 옮기는 발로 추정한다.",
+        "anatomicalConfidence": "medium",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 2
+      }
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "rect": {
+        "x": 128,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "walk_right_hand_left_foot_forward",
+      "description": "오른손과 왼발을 앞으로 내딛는 걷기 자세. 뒷모습.",
+      "inference": {
+        "action": "walk_right_hand_left_foot_forward",
+        "description": "오른손과 왼발을 앞으로 내딛는 걷기 자세. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [],
+        "reason": "이전 셀과 팔·다리 위치가 바뀌어 반대 보행 단계로 해석하는 것이 자연스럽다. 신체 좌우는 사용자 제안을 채택한 추정이다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "이전 셀과 팔·다리 위치가 바뀌어 반대 보행 단계로 해석하는 것이 자연스럽다. 신체 좌우는 사용자 제안을 채택한 추정이다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 뒤쪽으로 당긴 것으로 추정하며 일부는 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 진행 방향 앞으로 내민 것으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "진행 방향 앞으로 옮기는 발로 추정한다.",
+        "rightFoot": "뒤쪽에 남겨 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "medium",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 3
+      }
+    },
+    {
+      "row": 2,
+      "column": 4,
+      "rect": {
+        "x": 192,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "hit_reaction",
+      "description": "충격을 받고 팔과 다리가 들리는 피격 자세. 뒷모습.",
+      "inference": {
+        "action": "hit_reaction",
+        "description": "충격을 받고 팔과 다리가 들리는 피격 자세. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "attack_windup"
+        ],
+        "reason": "몸이 뒤로 젖고 팔이 머리 가까이 올라가며 한쪽 다리가 들려 균형을 잃는 반응으로 해석할 수 있다. 이전 공격 준비 추정보다 피격 설명이 자세 전체에 잘 맞는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "몸이 뒤로 젖고 팔이 머리 가까이 올라가며 한쪽 다리가 들려 균형을 잃는 반응으로 해석할 수 있다. 이전 공격 준비 추정보다 피격 설명이 자세 전체에 잘 맞는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 앞에서 위로 올라간 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 머리 옆·뒤로 들린 손으로 추정하며 머리카락과 겹친다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "한쪽 다리가 들리거나 굽혀져 지지가 불안정하다. 좌우 확정은 어렵다.",
+        "rightFoot": "다른 발은 몸 아래에 남아 있으나 정확한 지지 상태는 불명확하다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 4
+      }
+    },
+    {
+      "row": 2,
+      "column": 5,
+      "rect": {
+        "x": 256,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "status_immobilized",
+      "description": "고개와 팔을 낮춘 정지성 상태이상 자세 후보. 뒷모습.",
+      "inference": {
+        "action": "status_immobilized",
+        "description": "고개와 팔을 낮춘 정지성 상태이상 자세 후보. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "weakened",
+          "stunned"
+        ],
+        "reason": "고개가 숙여지고 팔의 움직임이 줄어 무력하거나 멈춘 상태 표현으로 합당하다. Stop·석화 등 상태 종류는 자세만으로 판별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "고개가 숙여지고 팔의 움직임이 줄어 무력하거나 멈춘 상태 표현으로 합당하다. Stop·석화 등 상태 종류는 자세만으로 판별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 허리 가까이 낮추며 몸에 가려 정확한 위치가 불명확하다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 앞 또는 옆으로 낮춘 자세로 보인다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 아래에 두어 움직임 없는 지지 자세로 추정한다.",
+        "rightFoot": "반대쪽 발과 함께 낮은 자세를 유지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 5
+      }
+    },
+    {
+      "row": 2,
+      "column": 6,
+      "rect": {
+        "x": 320,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "jump_airborne",
+      "description": "몸을 위로 펴고 다리를 굽힌 점프 도중 자세 후보. 뒷모습.",
+      "inference": {
+        "action": "jump_airborne",
+        "description": "몸을 위로 펴고 다리를 굽힌 점프 도중 자세 후보. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "rise"
+        ],
+        "reason": "다음 셀의 낮은 자세와 비교하면 도약·착지 쌍으로 읽힌다. 다만 지면 표시나 연속 재생이 없어 실제 공중 여부는 확정할 수 없다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "다음 셀의 낮은 자세와 비교하면 도약·착지 쌍으로 읽힌다. 다만 지면 표시나 연속 재생이 없어 실제 공중 여부는 확정할 수 없다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 가까이 또는 위쪽으로 올리며 일부는 머리카락에 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 상체 옆으로 들어 균형을 잡는 자세로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 아래로 모이거나 굽혀진 것으로 보인다. 접지 여부는 불명확하다.",
+        "rightFoot": "반대 다리와 함께 굽혀져 도약 중 자세로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 6
+      }
+    },
+    {
+      "row": 2,
+      "column": 7,
+      "rect": {
+        "x": 384,
+        "y": 64,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "jump_land",
+      "description": "무릎을 굽혀 충격을 흡수하는 착지 자세 후보. 뒷모습.",
+      "inference": {
+        "action": "jump_land",
+        "description": "무릎을 굽혀 충격을 흡수하는 착지 자세 후보. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "crouch"
+        ],
+        "reason": "6열보다 머리와 상체가 낮고 다리가 굽혀져 점프 뒤 착지 자세로 합당하다. 단독으로는 웅크리기와 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "6열보다 머리와 상체가 낮고 다리가 굽혀져 점프 뒤 착지 자세로 합당하다. 단독으로는 웅크리기와 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 앞이나 아래로 모아 균형을 잡는 자세로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 상체 앞 가까이에 둔 것으로 보이며 일부는 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "앞·옆으로 벌려 낮은 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "몸 아래에 남겨 무릎을 굽혀 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 1,
+        "column": 7
+      }
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "downed",
+      "description": "몸을 바닥 가까이 낮춘 쓰러짐 자세.",
+      "inference": {
+        "action": "downed",
+        "description": "몸을 바닥 가까이 낮춘 쓰러짐 자세.",
+        "confidence": "high",
+        "alternatives": [],
+        "reason": "머리 윗부분이 크게 보이고 얼굴·상체가 낮아져 서 있는 자세와 명확히 구별된다. 수면·Prone·의식불명 등 구체적인 상태는 동일 자세로 사용할 수 있으나 그림만으로 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "머리 윗부분이 크게 보이고 얼굴·상체가 낮아져 서 있는 자세와 명확히 구별된다. 수면·Prone·의식불명 등 구체적인 상태는 동일 자세로 사용할 수 있으나 그림만으로 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "머리·몸 아래에 가려 손의 정확한 위치는 보이지 않는다.",
+        "rightHand": "몸 아래 또는 옆으로 접혀 있으며 정확한 위치는 보이지 않는다.",
+        "leftFoot": "몸 뒤·옆에 접힌 것으로 추정하며 좌우 구별은 어렵다.",
+        "rightFoot": "다른 다리와 함께 낮게 접힌 것으로 보인다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "rect": {
+        "x": 64,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "special_action_prepare",
+      "description": "한쪽 팔을 높이 든 스페셜 스킬·액션 준비 자세.",
+      "inference": {
+        "action": "special_action_prepare",
+        "description": "한쪽 팔을 높이 든 스페셜 스킬·액션 준비 자세.",
+        "confidence": "medium",
+        "alternatives": [
+          "cast_prepare",
+          "item_use",
+          "celebrate"
+        ],
+        "reason": "한 손을 머리 위로 들고 발을 벌려 동작을 선언하거나 준비하는 모습이다. 스킬 준비로 합당하지만 어떤 스킬인지, 또는 환호·아이템 사용인지는 시각만으로 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "한 손을 머리 위로 들고 발을 벌려 동작을 선언하거나 준비하는 모습이다. 스킬 준비로 합당하지만 어떤 스킬인지, 또는 환호·아이템 사용인지는 시각만으로 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 옆·허리 가까이 두거나 약간 벌린 손으로 추정한다.",
+        "rightHand": "머리 위로 높이 든 손으로 추정한다.",
+        "leftFoot": "몸 아래에서 바깥으로 벌려 지지한다.",
+        "rightFoot": "반대쪽에 벌려 양발로 준비 자세를 지지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "rect": {
+        "x": 128,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "unknown_open_arms",
+      "description": "팔을 몸 양옆으로 조금 벌린 용도 불명 자세.",
+      "inference": {
+        "action": "unknown_open_arms",
+        "description": "팔을 몸 양옆으로 조금 벌린 용도 불명 자세.",
+        "confidence": "low",
+        "alternatives": [
+          "ready",
+          "guard",
+          "idle_variant"
+        ],
+        "reason": "두 팔이 몸에서 떨어진 모습은 보이지만 크게 뻗은 자세는 아니다. 무기·효과·연속 프레임이 없어 준비·대기·방어 중 어느 용도인지 결정하기 어렵다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "undetermined",
+        "note": "두 팔이 몸에서 떨어진 모습은 보이지만 크게 뻗은 자세는 아니다. 무기·효과·연속 프레임이 없어 준비·대기·방어 중 어느 용도인지 결정하기 어렵다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 앞·옆에서 팔꿈치를 굽히며 약간 벌린 것으로 추정한다.",
+        "rightHand": "몸 옆에서 약간 벌리거나 가슴 쪽으로 굽힌 것으로 추정한다.",
+        "leftFoot": "몸 아래에서 기본 자세처럼 지지한다.",
+        "rightFoot": "다른 발과 가까이 두어 안정적으로 서 있는 것으로 보인다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 4,
+      "rect": {
+        "x": 192,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "melee_throw_prepare",
+      "description": "상체를 틀고 팔을 당기는 근접전·투척 준비 자세.",
+      "inference": {
+        "action": "melee_throw_prepare",
+        "description": "상체를 틀고 팔을 당기는 근접전·투척 준비 자세.",
+        "confidence": "medium",
+        "alternatives": [
+          "action_windup"
+        ],
+        "reason": "상체가 기울고 한 팔이 몸 앞, 다른 팔이 몸 뒤로 배치돼 힘을 모으는 준비 자세로 읽힌다. 무기가 없어 근접과 투척은 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "상체가 기울고 한 팔이 몸 앞, 다른 팔이 몸 뒤로 배치돼 힘을 모으는 준비 자세로 읽힌다. 무기가 없어 근접과 투척은 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "몸 앞에 두어 방향을 잡는 손으로 추정한다.",
+        "rightHand": "뒤로 당겨 타격·투척을 준비하는 손으로 추정하며 머리카락에 가린다.",
+        "leftFoot": "앞쪽 지지 발로 추정한다.",
+        "rightFoot": "뒤쪽에서 체중을 받치는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 5,
+      "rect": {
+        "x": 256,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "ranged_prepare",
+      "description": "팔을 벌려 조준하는 원거리 준비 자세 후보.",
+      "inference": {
+        "action": "ranged_prepare",
+        "description": "팔을 벌려 조준하는 원거리 준비 자세 후보.",
+        "confidence": "low",
+        "alternatives": [
+          "attack_prepare",
+          "cast_prepare"
+        ],
+        "reason": "한 팔을 앞으로 뻗고 다른 팔을 뒤쪽·위쪽에 둔 비대칭 자세여서 조준 또는 당기는 동작으로 읽을 수 있다. 활·총 등의 무기가 없어 원거리 동작임을 확정할 수 없다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "한 팔을 앞으로 뻗고 다른 팔을 뒤쪽·위쪽에 둔 비대칭 자세여서 조준 또는 당기는 동작으로 읽을 수 있다. 활·총 등의 무기가 없어 원거리 동작임을 확정할 수 없다."
+      },
+      "bodyPose": {
+        "leftHand": "진행 방향으로 뻗어 조준하는 손으로 추정한다.",
+        "rightHand": "몸 뒤·위로 당겨 준비하는 손으로 추정한다.",
+        "leftFoot": "앞쪽에서 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "뒤쪽 또는 옆으로 벌려 체중을 받치는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 6,
+      "rect": {
+        "x": 320,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "front_diagonal",
+      "action": "attack_finish",
+      "description": "팔을 앞으로 보내는 근접전·투척·원거리 마무리 자세 후보.",
+      "inference": {
+        "action": "attack_finish",
+        "description": "팔을 앞으로 보내는 근접전·투척·원거리 마무리 자세 후보.",
+        "confidence": "medium",
+        "alternatives": [
+          "attack_release",
+          "ranged_release",
+          "cast_release"
+        ],
+        "reason": "이전 셀과 유사한 다리 벌림을 유지하면서 팔과 상체가 달라져 동작을 끝내거나 힘을 방출한 단계로 해석할 수 있다. 공격 종류와 실제 재생 연결은 무기·전후 프레임 없이 확정되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "이전 셀과 유사한 다리 벌림을 유지하면서 팔과 상체가 달라져 동작을 끝내거나 힘을 방출한 단계로 해석할 수 있다. 공격 종류와 실제 재생 연결은 무기·전후 프레임 없이 확정되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "앞쪽으로 뻗어 방향을 유지하는 손으로 추정한다.",
+        "rightHand": "앞으로 보낸 뒤 굽히거나 회수하는 손으로 추정한다.",
+        "leftFoot": "앞쪽에서 마무리 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "뒤쪽에 남겨 상체의 움직임을 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "캐릭터 신체 기준 좌우다. 대각 시점의 겹침으로 신체 좌우 배정은 추정이다."
+      }
+    },
+    {
+      "row": 3,
+      "column": 7,
+      "rect": {
+        "x": 384,
+        "y": 128,
+        "width": 64,
+        "height": 64
+      },
+      "empty": true,
+      "view": null,
+      "action": "empty",
+      "description": "스프라이트가 없는 투명 셀."
+    },
+    {
+      "row": 4,
+      "column": 1,
+      "rect": {
+        "x": 0,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "downed",
+      "description": "몸을 바닥 가까이 낮춘 쓰러짐 자세. 뒷모습.",
+      "inference": {
+        "action": "downed",
+        "description": "몸을 바닥 가까이 낮춘 쓰러짐 자세. 뒷모습.",
+        "confidence": "high",
+        "alternatives": [],
+        "reason": "머리 윗부분이 크게 보이고 얼굴·상체가 낮아져 서 있는 자세와 명확히 구별된다. 수면·Prone·의식불명 등 구체적인 상태는 동일 자세로 사용할 수 있으나 그림만으로 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "머리 윗부분이 크게 보이고 얼굴·상체가 낮아져 서 있는 자세와 명확히 구별된다. 수면·Prone·의식불명 등 구체적인 상태는 동일 자세로 사용할 수 있으나 그림만으로 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 머리·몸 아래에 가려 손의 정확한 위치는 보이지 않는다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 아래 또는 옆으로 접혀 있으며 정확한 위치는 보이지 않는다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 뒤·옆에 접힌 것으로 추정하며 좌우 구별은 어렵다.",
+        "rightFoot": "다른 다리와 함께 낮게 접힌 것으로 보인다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 1
+      }
+    },
+    {
+      "row": 4,
+      "column": 2,
+      "rect": {
+        "x": 64,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "special_action_prepare",
+      "description": "한쪽 팔을 높이 든 스페셜 스킬·액션 준비 자세. 뒷모습.",
+      "inference": {
+        "action": "special_action_prepare",
+        "description": "한쪽 팔을 높이 든 스페셜 스킬·액션 준비 자세. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "cast_prepare",
+          "item_use",
+          "celebrate"
+        ],
+        "reason": "한 손을 머리 위로 들고 발을 벌려 동작을 선언하거나 준비하는 모습이다. 스킬 준비로 합당하지만 어떤 스킬인지, 또는 환호·아이템 사용인지는 시각만으로 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "reasonable",
+        "note": "한 손을 머리 위로 들고 발을 벌려 동작을 선언하거나 준비하는 모습이다. 스킬 준비로 합당하지만 어떤 스킬인지, 또는 환호·아이템 사용인지는 시각만으로 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 옆·허리 가까이 두거나 약간 벌린 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 머리 위로 높이 든 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 아래에서 바깥으로 벌려 지지한다.",
+        "rightFoot": "반대쪽에 벌려 양발로 준비 자세를 지지한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 2
+      }
+    },
+    {
+      "row": 4,
+      "column": 3,
+      "rect": {
+        "x": 128,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "unknown_open_arms",
+      "description": "팔을 몸 양옆으로 조금 벌린 용도 불명 자세. 뒷모습.",
+      "inference": {
+        "action": "unknown_open_arms",
+        "description": "팔을 몸 양옆으로 조금 벌린 용도 불명 자세. 뒷모습.",
+        "confidence": "low",
+        "alternatives": [
+          "ready",
+          "guard",
+          "idle_variant"
+        ],
+        "reason": "두 팔이 몸에서 떨어진 모습은 보이지만 크게 뻗은 자세는 아니다. 무기·효과·연속 프레임이 없어 준비·대기·방어 중 어느 용도인지 결정하기 어렵다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "undetermined",
+        "note": "두 팔이 몸에서 떨어진 모습은 보이지만 크게 뻗은 자세는 아니다. 무기·효과·연속 프레임이 없어 준비·대기·방어 중 어느 용도인지 결정하기 어렵다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 앞·옆에서 팔꿈치를 굽히며 약간 벌린 것으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 옆에서 약간 벌리거나 가슴 쪽으로 굽힌 것으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "몸 아래에서 기본 자세처럼 지지한다.",
+        "rightFoot": "다른 발과 가까이 두어 안정적으로 서 있는 것으로 보인다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 3
+      }
+    },
+    {
+      "row": 4,
+      "column": 4,
+      "rect": {
+        "x": 192,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "melee_throw_prepare",
+      "description": "상체를 틀고 팔을 당기는 근접전·투척 준비 자세. 뒷모습.",
+      "inference": {
+        "action": "melee_throw_prepare",
+        "description": "상체를 틀고 팔을 당기는 근접전·투척 준비 자세. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "action_windup"
+        ],
+        "reason": "상체가 기울고 한 팔이 몸 앞, 다른 팔이 몸 뒤로 배치돼 힘을 모으는 준비 자세로 읽힌다. 무기가 없어 근접과 투척은 구별되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "상체가 기울고 한 팔이 몸 앞, 다른 팔이 몸 뒤로 배치돼 힘을 모으는 준비 자세로 읽힌다. 무기가 없어 근접과 투척은 구별되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 몸 앞에 두어 방향을 잡는 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 뒤로 당겨 타격·투척을 준비하는 손으로 추정하며 머리카락에 가린다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "앞쪽 지지 발로 추정한다.",
+        "rightFoot": "뒤쪽에서 체중을 받치는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 4
+      }
+    },
+    {
+      "row": 4,
+      "column": 5,
+      "rect": {
+        "x": 256,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "ranged_prepare",
+      "description": "팔을 벌려 조준하는 원거리 준비 자세 후보. 뒷모습.",
+      "inference": {
+        "action": "ranged_prepare",
+        "description": "팔을 벌려 조준하는 원거리 준비 자세 후보. 뒷모습.",
+        "confidence": "low",
+        "alternatives": [
+          "attack_prepare",
+          "cast_prepare"
+        ],
+        "reason": "한 팔을 앞으로 뻗고 다른 팔을 뒤쪽·위쪽에 둔 비대칭 자세여서 조준 또는 당기는 동작으로 읽을 수 있다. 활·총 등의 무기가 없어 원거리 동작임을 확정할 수 없다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "한 팔을 앞으로 뻗고 다른 팔을 뒤쪽·위쪽에 둔 비대칭 자세여서 조준 또는 당기는 동작으로 읽을 수 있다. 활·총 등의 무기가 없어 원거리 동작임을 확정할 수 없다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 진행 방향으로 뻗어 조준하는 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 몸 뒤·위로 당겨 준비하는 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "앞쪽에서 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "뒤쪽 또는 옆으로 벌려 체중을 받치는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 5
+      }
+    },
+    {
+      "row": 4,
+      "column": 6,
+      "rect": {
+        "x": 320,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": false,
+      "view": "back_diagonal",
+      "action": "attack_finish",
+      "description": "팔을 앞으로 보내는 근접전·투척·원거리 마무리 자세 후보. 뒷모습.",
+      "inference": {
+        "action": "attack_finish",
+        "description": "팔을 앞으로 보내는 근접전·투척·원거리 마무리 자세 후보. 뒷모습.",
+        "confidence": "medium",
+        "alternatives": [
+          "attack_release",
+          "ranged_release",
+          "cast_release"
+        ],
+        "reason": "이전 셀과 유사한 다리 벌림을 유지하면서 팔과 상체가 달라져 동작을 끝내거나 힘을 방출한 단계로 해석할 수 있다. 공격 종류와 실제 재생 연결은 무기·전후 프레임 없이 확정되지 않는다.",
+        "basis": "사용자 제안과 로컬 클래스 시트의 동일 위치 포즈 비교"
+      },
+      "assessment": {
+        "verdict": "plausible",
+        "note": "이전 셀과 유사한 다리 벌림을 유지하면서 팔과 상체가 달라져 동작을 끝내거나 힘을 방출한 단계로 해석할 수 있다. 공격 종류와 실제 재생 연결은 무기·전후 프레임 없이 확정되지 않는다."
+      },
+      "bodyPose": {
+        "leftHand": "대응 앞모습 기준: 앞쪽으로 뻗어 방향을 유지하는 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "rightHand": "대응 앞모습 기준: 앞으로 보낸 뒤 굽히거나 회수하는 손으로 추정한다. 뒷모습에서는 몸·머리카락에 가릴 수 있다.",
+        "leftFoot": "앞쪽에서 마무리 자세를 지지하는 발로 추정한다.",
+        "rightFoot": "뒤쪽에 남겨 상체의 움직임을 지지하는 발로 추정한다.",
+        "anatomicalConfidence": "low",
+        "visibilityNote": "대응 앞모습과 같은 신체 동작으로 추정했다. 등·긴 머리카락에 가려 손 위치의 직접 확인은 더 어렵고, 화면 좌우는 앞모습과 달라질 수 있다."
+      },
+      "pairedFrontCell": {
+        "row": 3,
+        "column": 6
+      }
+    },
+    {
+      "row": 4,
+      "column": 7,
+      "rect": {
+        "x": 384,
+        "y": 192,
+        "width": 64,
+        "height": 64
+      },
+      "empty": true,
+      "view": null,
+      "action": "empty",
+      "description": "스프라이트가 없는 투명 셀."
+    }
+  ],
+  "comparison": {
+    "references": [
+      "PlayStation Portable - Tactics Ogre_ Let Us Cling Together - Generic Classes - Player Allegiance - Amazon & Warrior.png",
+      "PlayStation Portable - Tactics Ogre_ Let Us Cling Together - Generic Classes - Player Allegiance - Archer.png",
+      "PlayStation Portable - Tactics Ogre_ Let Us Cling Together - Generic Classes - Player Allegiance - Cleric.png",
+      "PlayStation Portable - Tactics Ogre_ Let Us Cling Together - Generic Classes - Player Allegiance - Divine Knight.png"
+    ],
+    "method": "동일 위치의 자세·팔다리·날개 형태를 로컬 참조 시트와 시각 비교했다. 공식 애니메이션 이름과 재생 정보는 제공되지 않아 용도는 추정이다."
+  },
+  "generation": {
+    "skill": "hatch-pet",
+    "referenceIdentity": "Elf Woman Warrior canonical base",
+    "sourceActions": "Iuria Wolph_highres_v2.json",
+    "customGameGeometry": true,
+    "delegatedRows": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "mirroredRows": [],
+    "repairs": [
+      "행별 동작·빈손·손발 자세 수정",
+      "1행 3열 걷기 셀 별도 생성"
+    ],
+    "qaNotes": [
+      "기준 외형과 모든 행을 시각 검수했다.",
+      "손의 정확한 좌우 배정은 대각 시점과 가림 때문에 일부 불확실하다.",
+      "각 행의 검수 영상은 포즈를 순서대로 보여주는 슬라이드이며 실제 게임 애니메이션 타이밍이 아니다."
+    ]
+  }
+}

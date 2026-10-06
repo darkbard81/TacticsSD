@@ -3,3 +3,7 @@ dist/
 test-results/
 playwright-report/
 *.local
+
+# Local browser trace archives; source, screenshots and reproduction scripts are retained.
+docs/game/evidence/elf-sd/elf-pad-pulse-trace.zip
+docs/game/evidence/elf-sd/elf-defeat-timeout-trace.zip

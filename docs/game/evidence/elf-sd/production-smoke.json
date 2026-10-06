@@ -1,0 +1,22 @@
+{
+  "errors": [],
+  "assets": [
+    {
+      "url": "http://127.0.0.1:4175/assets/front-DVTZ4c_F.png",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4175/assets/back-oe0X-y1h.png",
+      "status": 200
+    }
+  ],
+  "dimensions": {
+    "width": 1024,
+    "height": 768,
+    "backingWidth": 2048,
+    "backingHeight": 1536,
+    "dpr": 2
+  },
+  "iso": "battle",
+  "top": true
+}

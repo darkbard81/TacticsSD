@@ -2,6 +2,18 @@
 
 검증 환경: 2026-09-28, Node 24.18.1, npm 11.16.0, Chromium 153 (Playwright 1.63.0), Linux WebGL/SwiftShader. 데스크톱 1440px, 좁은 화면 390px 및 DPR 2를 포함합니다.
 
+## 2026-10-04 방향 기본 보정 검증
+
+- CardGuild `src/presentation/presentation-types.ts`의 `facingStandee`, `src/pixi/battle/ActorRenderer.ts`, `BattleView.ts`, `BoardProjection.ts`, `BoardViewConfig.ts`를 읽기 참조. 실제 ActorRenderer와 Aerin 이미지를 임시 브라우저 하네스에서 렌더링하여 회전/skew 0, 균등 배율, 앞/뒤 매핑과 반전을 확인했습니다. CardGuild의 파일은 변경하지 않았습니다.
+- 사용자가 선택한 방식은 CardGuild 보드의 45° 회전·세로 0.5 투영을 캐릭터의 가로축에만 적용하는 방식입니다. 캐릭터 세로축은 유지합니다. 이는 CardGuild의 원화 비율 유지 방식과 구분됩니다.
+- 최종 `npm run verify`: 타입 검사·프로덕션 빌드·도메인 **42/42**·Chromium 브라우저 **20/20** 통과. Node 24.18.1, npm 11.16.0, Playwright 1.63.0, Linux WebGL/SwiftShader. `git diff --check` 통과.
+- `tests/directions.test.ts`: 새 리그/샘플에서 투영 축과 연결 파츠의 1회 상속, 네 방향의 화면 기울기, Front/Back 중립 보정, 이전 v2 기본값 및 사용자 보정의 저장·복원 검사.
+- `tests/browser/directions.spec.ts`: 실제 24개 Sprite의 반전·파츠 위치, Rest/Walk 4방향 화면, 편집값 다운로드·새 리그·재불러오기·이미지 재연결, 선택 파츠 방향 초기화와 다른 설정 보존 검사. `reset-direction`은 새 기본값을 공유하며 파일 읽기에는 적용하지 않습니다.
+- 실제 화면으로 수정 전후의 폭/기울기, 앞뒤 매핑과 좌우 반전, 접합 위치, Walk 0.7 사이클 및 재불러온 사용자 보정을 확인했습니다. 브라우저 테스트 출력의 `cardguild-defaults-rest.png`, `cardguild-defaults-walk.png`, `custom-restored.png`가 해당 증거입니다.
+- 시각 검증은 Chromium 데스크톱에 한정됩니다. 단일 이미지의 진짜 3D 회전이나 새로운 측면 원화를 생성하지 않습니다. CardGuild 전체 게임 실행은 하지 않았으며 실제 렌더러 하네스를 비교 기준으로 사용했습니다.
+
+아래는 2026-09-28의 기존 검증 기록입니다.
+
 ## 로컬 검증 정책과 실행 결과
 
 이 프로젝트는 **로컬 `npm run verify` 결과를 CI 테스트 결과로 간주**합니다. `.github/workflows/ci.yml`을 제거했으며 별도의 GitHub Actions를 추가하거나 실행하지 않습니다.

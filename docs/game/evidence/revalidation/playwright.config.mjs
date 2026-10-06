@@ -1,0 +1,2 @@
+import {defineConfig} from '/home/deck/Documents/TacticsSD/node_modules/@playwright/test/index.mjs';
+export default defineConfig({testDir:'/home/deck/Documents/TacticsSD',testMatch:'**/tests/browser/**/*.spec.ts',fullyParallel:false,workers:1,outputDir:'/tmp/tacticssd-audit/test-results',reporter:[['list']],use:{baseURL:'http://127.0.0.1:4174',viewport:{width:1440,height:1100},trace:'retain-on-failure',launchOptions:{args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}});

@@ -1,0 +1,14 @@
+{
+  "cwd": "/home/deck/Documents/TacticsSD",
+  "command": "npm run game",
+  "script": "vite --host 127.0.0.1 --port 5173 --strictPort --open /game/",
+  "url": "http://127.0.0.1:5173/game/",
+  "initialStart": "VITE v8.3.1 ready in 294 ms",
+  "gameHTTPStatus": 200,
+  "pageErrors": [],
+  "secondStartExitCode": 1,
+  "secondStartError": "Port 5173 is already in use",
+  "testPort": 4186,
+  "testReusesExistingServer": false,
+  "physicalControllerTested": false
+}

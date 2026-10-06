@@ -581,7 +581,7 @@
       "swapLimbs": false,
       "parts": {
         "head": {
-          "x": 8,
+          "x": 0,
           "y": 0,
           "scaleX": 1,
           "scaleY": 1,
@@ -593,11 +593,11 @@
         "body": {
           "x": 0,
           "y": 0,
-          "scaleX": 0.88,
+          "scaleX": 0.7905694150420949,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0.06,
+          "skewY": 0.4636476090008061,
           "zOffset": 0
         },
         "armL": {
@@ -653,7 +653,7 @@
       "swapLimbs": false,
       "parts": {
         "head": {
-          "x": -8,
+          "x": 0,
           "y": 0,
           "scaleX": 1,
           "scaleY": 1,
@@ -665,11 +665,11 @@
         "body": {
           "x": 0,
           "y": 0,
-          "scaleX": 0.88,
+          "scaleX": 0.7905694150420949,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": -0.06,
+          "skewY": 0.4636476090008061,
           "zOffset": 0
         },
         "armL": {
@@ -725,7 +725,7 @@
       "swapLimbs": false,
       "parts": {
         "head": {
-          "x": 8,
+          "x": 0,
           "y": 0,
           "scaleX": 1,
           "scaleY": 1,
@@ -737,11 +737,11 @@
         "body": {
           "x": 0,
           "y": 0,
-          "scaleX": 0.88,
+          "scaleX": 0.7905694150420949,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": 0.06,
+          "skewY": -0.4636476090008061,
           "zOffset": 0
         },
         "armL": {
@@ -797,7 +797,7 @@
       "swapLimbs": false,
       "parts": {
         "head": {
-          "x": -8,
+          "x": 0,
           "y": 0,
           "scaleX": 1,
           "scaleY": 1,
@@ -809,11 +809,11 @@
         "body": {
           "x": 0,
           "y": 0,
-          "scaleX": 0.88,
+          "scaleX": 0.7905694150420949,
           "scaleY": 1,
           "rotation": 0,
           "skewX": 0,
-          "skewY": -0.06,
+          "skewY": -0.4636476090008061,
           "zOffset": 0
         },
         "armL": {

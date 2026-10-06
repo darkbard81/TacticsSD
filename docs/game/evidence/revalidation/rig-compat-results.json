@@ -1,0 +1,17 @@
+{
+  "replacement": {
+    "id": "2b4358d1-2218-4b80-90ba-1683e8706a35",
+    "name": "weapons.png",
+    "width": 1254,
+    "height": 1254
+  },
+  "drawCalls": [
+    "tinted-canvas",
+    "tinted-canvas",
+    "tinted-canvas",
+    "tinted-canvas",
+    "tinted-canvas",
+    "http://127.0.0.1:4174/game/assets/weapons.png",
+    "http://127.0.0.1:4174/game/assets/dawn-parts.png"
+  ]
+}

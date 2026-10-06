@@ -1,0 +1,18 @@
+{
+  "retrieved": "2026-10-04",
+  "rawRows": 1170,
+  "registeredSource": 28,
+  "unregistered": 1142,
+  "pdf": "Readme v1.11d.pdf (138 pages), historical changes distinct from current URL tables",
+  "files": {
+    "data_abilities.json": "9495570fe1938bfa008a404b0be40a1c32aa92cb683ff41a5ac1ca4bd1b609c9",
+    "sundries.json": "1490cc4a9fc2fddbd4467f49cdc1e23840d09a8bf7b1a0119860c5b9c28619a8",
+    "weapons.json": "b6e23ba118c522b192eac0ed80e18659f3449f207004750aafc6a9621db13bb2",
+    "armor.json": "25c75d906dfae81124ab9a6e061838ad17cb93d37130b12d2d54488c88a4c2a5",
+    "readme-v1.11d.pdf": "9ff683d6348f16387ac6aad74a3a9793b85a1b1dd214743c2984afaa8afaa0bc"
+  },
+  "registeredTotal": 44,
+  "artTotal": 44,
+  "newImageGenIcons": 36,
+  "pdfUploadId": "libfile_0fda063aa13c8191956b0dfeb63c69ea"
+}
