@@ -27,7 +27,7 @@ describe('source catalog and finite economy',()=>{
   let c=newCampaign();c.gold=2000;c=trade(c,{kind:'buy',id:'ov-313',quantity:1})!;expect(equip(c,1,'weapon',2)).toBe(true);const raw=encodeCampaign(c);expect(raw).toContain('ov-313');expect(parseCampaign(raw)).toEqual(c);
   const malformed=JSON.parse(raw);malformed.inventory['ov-313']=0;expect(parseCampaign(JSON.stringify(malformed))).toBeNull();malformed.inventory['ov-313']=1;malformed.inventory.fake=1;expect(parseCampaign(JSON.stringify(malformed))).toBeNull();
  });
- it('retains original finite armory and consumables for legacy saves',()=>{const c=newCampaign();expect(parseCampaign(encodeCampaign(c))).toEqual(c);const legacy={...c,gear:c.gear.slice(0,4)};const restored=parseCampaign(JSON.stringify(legacy))!;expect(restored.gear).toHaveLength(10);expect(inventoryFor(restored)['mend-leaf']).toBe(3);expect(inventoryFor(restored)['silver-mail']).toBe(10);});
+ it('rejects obsolete saves while retaining complete current armory',()=>{const c=newCampaign();expect(parseCampaign(encodeCampaign(c))).toEqual(c);expect(parseCampaign(JSON.stringify({...c,gear:c.gear.slice(0,4)}))).toBeNull();});
  it('enforces inventory and currency caps without overflow',()=>{const c=newCampaign();c.inventory={...inventoryFor(c),'mend-leaf':999};expect(trade(c,{kind:'buy',id:'mend-leaf',quantity:1})).toBeNull();c.gold=99999;expect(trade(c,{kind:'sell',id:'mend-leaf',quantity:1})).toBeNull();expect(()=>validateInventory({...c,inventory:{...c.inventory,'mend-leaf':1000}})).toThrow();});
  it('applies bought source armor, accessory attack and stats to the same combat derivation',()=>{
   let c=newCampaign();c.gold=5000;c.unlocked=1;for(const id of ['ov-448','ov-537','ov-490'])c=trade(c,{kind:'buy',id,quantity:1})!;

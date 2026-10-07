@@ -1,0 +1,255 @@
+{
+  "class": "berserker",
+  "generator": "builtin image_gen",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "resized": false,
+  "grid": {
+    "columns": 3,
+    "rows": 2,
+    "order": [
+      [
+        "head",
+        "body",
+        "armL"
+      ],
+      [
+        "armR",
+        "legL",
+        "legR"
+      ]
+    ]
+  },
+  "coordinateConvention": "Native source pixels; bounds x0,y0,x1,y1 exclusive. L/R anatomical. Landmark points are visual estimates.",
+  "reference": "/home/deck/Documents/TacticsSD/game/assets/classes/berserker/frames/front_idle.png",
+  "views": {
+    "Front": {
+      "file": "front.png",
+      "bounds": {
+        "head": [
+          112,
+          6,
+          558,
+          413
+        ],
+        "body": [
+          650,
+          11,
+          1060,
+          492
+        ],
+        "armL": [
+          1277,
+          33,
+          1514,
+          488
+        ],
+        "armR": [
+          189,
+          468,
+          436,
+          931
+        ],
+        "legL": [
+          687,
+          499,
+          892,
+          931
+        ],
+        "legR": [
+          1268,
+          499,
+          1473,
+          931
+        ]
+      },
+      "head": {
+        "crown": [
+          338,
+          78
+        ],
+        "chin": [
+          338,
+          333
+        ],
+        "neck": [
+          338,
+          362
+        ],
+        "crownEstimated": true
+      },
+      "body": {
+        "neck": [
+          853,
+          52
+        ],
+        "shoulderL": [
+          988,
+          138
+        ],
+        "shoulderR": [
+          719,
+          138
+        ],
+        "hipL": [
+          931,
+          374
+        ],
+        "hipR": [
+          776,
+          374
+        ]
+      },
+      "partAttachmentCenters": {
+        "armL": [
+          1320,
+          104
+        ],
+        "armR": [
+          398,
+          541
+        ],
+        "legL": [
+          799,
+          542
+        ],
+        "legR": [
+          1368,
+          542
+        ]
+      },
+      "crops": {
+        "head": "crops/Front/head.png",
+        "body": "crops/Front/body.png",
+        "armL": "crops/Front/armL.png",
+        "armR": "crops/Front/armR.png",
+        "legL": "crops/Front/legL.png",
+        "legR": "crops/Front/legR.png"
+      }
+    },
+    "Back": {
+      "file": "back.png",
+      "bounds": {
+        "head": [
+          123,
+          7,
+          549,
+          409
+        ],
+        "body": [
+          645,
+          11,
+          1061,
+          491
+        ],
+        "armL": [
+          1218,
+          28,
+          1452,
+          492
+        ],
+        "armR": [
+          230,
+          473,
+          468,
+          921
+        ],
+        "legL": [
+          726,
+          497,
+          928,
+          929
+        ],
+        "legR": [
+          1251,
+          496,
+          1450,
+          929
+        ]
+      },
+      "head": {
+        "crown": [
+          337,
+          77
+        ],
+        "chin": [
+          337,
+          333
+        ],
+        "neck": [
+          337,
+          359
+        ],
+        "crownEstimated": true,
+        "chinEstimated": true
+      },
+      "body": {
+        "neck": [
+          853,
+          51
+        ],
+        "shoulderL": [
+          717,
+          136
+        ],
+        "shoulderR": [
+          988,
+          136
+        ],
+        "hipL": [
+          775,
+          372
+        ],
+        "hipR": [
+          930,
+          372
+        ]
+      },
+      "partAttachmentCenters": {
+        "armL": [
+          1406,
+          109
+        ],
+        "armR": [
+          270,
+          549
+        ],
+        "legL": [
+          831,
+          541
+        ],
+        "legR": [
+          1348,
+          540
+        ]
+      },
+      "crops": {
+        "head": "crops/Back/head.png",
+        "body": "crops/Back/body.png",
+        "armL": "crops/Back/armL.png",
+        "armR": "crops/Back/armR.png",
+        "legL": "crops/Back/legL.png",
+        "legR": "crops/Back/legR.png"
+      }
+    }
+  },
+  "quality": {
+    "orthographicFrontAndBack": true,
+    "rearFaceVisible": false,
+    "transparentAlpha": true,
+    "sixMajorConnectedPartsPerImage": true,
+    "targetAssembledHeadRatio": 2.5
+  },
+  "integrationNotes": [
+    "Use provided bounds, not uniform grid slicing: part art crosses nominal cell boundaries.",
+    "All bounds include 4px margin around alpha>=32 connected part and include nearby matching edge details. Originals retain full alpha range.",
+    "Isolate intended connected component within crops; some padded rectangles approach other parts. Terror Knight body and leg rectangles overlap vertically by several pixels although actual parts are disconnected.",
+    "Anatomical crown/chin exclude long hair, fur collar, head adornments. Rear chin is inferred from corresponding front.",
+    "Reconstruct 2.5-head assembled proportions through central scale/anchor fitting; native sheet cell sizes emphasize part detail and are not a ready-to-assemble common physical scale.",
+    "Some heads include collar/neck overlap artwork; body shoulder caps overlap separate shoulder pauldrons/fur. Conceal overlap in central rig fitting.",
+    "The requested 20–30% hidden attachment extension is prompted but not precisely measurable; inspect neutral and extreme posed seams during rig fitting."
+  ],
+  "cropExtraction": "Native-size bbox crops. Preserves original RGBA within a 4px dilation of owned alpha>=32 major component; unrelated component alpha cleared. Original sheets unchanged."
+}

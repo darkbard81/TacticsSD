@@ -1,0 +1,270 @@
+{
+  "class": "spellblade",
+  "generator": "builtin image_gen",
+  "native_originals_preserved": true,
+  "requested_aspect": "16:9",
+  "actual_aspect": 1.75,
+  "source_identity_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/spellblade/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/spellblade/frames/back_idle.png"
+  ],
+  "rows": 2,
+  "columns": 3,
+  "views": {
+    "Front": {
+      "bounds": {
+        "head": [
+          211,
+          9,
+          643,
+          514
+        ],
+        "body": [
+          722,
+          55,
+          1146,
+          488
+        ],
+        "armL": [
+          1237,
+          105,
+          1456,
+          487
+        ],
+        "armR": [
+          256,
+          512,
+          492,
+          896
+        ],
+        "legL": [
+          709,
+          499,
+          865,
+          909
+        ],
+        "legR": [
+          1168,
+          496,
+          1321,
+          908
+        ]
+      },
+      "head": {
+        "crown": [
+          429,
+          126
+        ],
+        "chin": [
+          429,
+          373
+        ],
+        "neck": [
+          429,
+          401
+        ],
+        "crown_estimated": true,
+        "chin_estimated": false,
+        "note": "Anatomical skull crown under hair; excludes ponytail/hair height. Back landmarks inferred from matching Front head."
+      },
+      "joints": {
+        "body": {
+          "neck": [
+            934,
+            76
+          ],
+          "shoulderL": [
+            1047,
+            158
+          ],
+          "shoulderR": [
+            821,
+            158
+          ],
+          "hipL": [
+            1015,
+            458
+          ],
+          "hipR": [
+            846,
+            458
+          ]
+        },
+        "armL": {
+          "shoulder": [
+            1259,
+            158
+          ]
+        },
+        "armR": {
+          "shoulder": [
+            465,
+            560
+          ]
+        },
+        "legL": {
+          "hip": [
+            792,
+            519
+          ]
+        },
+        "legR": {
+          "hip": [
+            1238,
+            515
+          ]
+        }
+      },
+      "file": "front.png",
+      "dimensions": [
+        1659,
+        948
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bounds_coordinate_convention": "native pixels x0,y0,x1,y1; max exclusive; 2px fringe margin",
+      "crops": {
+        "head": "crops/Front/head.png",
+        "body": "crops/Front/body.png",
+        "armL": "crops/Front/armL.png",
+        "armR": "crops/Front/armR.png",
+        "legL": "crops/Front/legL.png",
+        "legR": "crops/Front/legR.png"
+      }
+    },
+    "Back": {
+      "bounds": {
+        "head": [
+          224,
+          7,
+          634,
+          508
+        ],
+        "body": [
+          701,
+          54,
+          1129,
+          500
+        ],
+        "armL": [
+          250,
+          511,
+          486,
+          911
+        ],
+        "armR": [
+          1227,
+          91,
+          1451,
+          500
+        ],
+        "legL": [
+          753,
+          506,
+          888,
+          920
+        ],
+        "legR": [
+          1195,
+          506,
+          1330,
+          920
+        ]
+      },
+      "head": {
+        "crown": [
+          429,
+          126
+        ],
+        "chin": [
+          429,
+          373
+        ],
+        "neck": [
+          429,
+          401
+        ],
+        "crown_estimated": true,
+        "chin_estimated": true,
+        "note": "Anatomical skull crown under hair; excludes ponytail/hair height. Back landmarks inferred from matching Front head."
+      },
+      "joints": {
+        "body": {
+          "neck": [
+            913,
+            77
+          ],
+          "shoulderL": [
+            795,
+            155
+          ],
+          "shoulderR": [
+            1034,
+            155
+          ],
+          "hipL": [
+            834,
+            474
+          ],
+          "hipR": [
+            1001,
+            474
+          ]
+        },
+        "armL": {
+          "shoulder": [
+            463,
+            561
+          ]
+        },
+        "armR": {
+          "shoulder": [
+            1251,
+            148
+          ]
+        },
+        "legL": {
+          "hip": [
+            819,
+            526
+          ]
+        },
+        "legR": {
+          "hip": [
+            1262,
+            526
+          ]
+        }
+      },
+      "file": "back.png",
+      "dimensions": [
+        1659,
+        948
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bounds_coordinate_convention": "native pixels x0,y0,x1,y1; max exclusive; 2px fringe margin",
+      "crops": {
+        "head": "crops/Back/head.png",
+        "body": "crops/Back/body.png",
+        "armL": "crops/Back/armL.png",
+        "armR": "crops/Back/armR.png",
+        "legL": "crops/Back/legL.png",
+        "legR": "crops/Back/legR.png"
+      }
+    }
+  },
+  "layout_notes": [
+    "Front physical order: head body armL / armR legL legR.",
+    "Back physical order: head body armR / armL legL legR. Back arm names are reassigned for anatomical left/right from shoulder-stub direction.",
+    "Bounds retain all six large connected components. No disconnected matching details were present above 100 alpha pixels.",
+    "Arm sprites have slight outward hanging lean; fit using shoulder anchors.",
+    "Native output is 1659x948 (1.75:1), close to requested 16:9; originals were never resized.",
+    "Rig integration must set final 2.5-head assembled anatomy; per-part native scale is intentionally independent.",
+    "Neck, shoulder and hip stubs present; exact overlap percentage depends on final rig fit."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "capturedAt": "2026-10-07T00:23:27.665Z",
+  "view": "battle-iso",
+  "css": {
+    "width": 806,
+    "height": 932
+  },
+  "logicalRenderViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "backing": {
+    "width": 3840,
+    "height": 2160
+  },
+  "deviceDPR": 1,
+  "interactiveRenderDPR": 1,
+  "exportRenderDPR": 3,
+  "visualViewportScale": 1,
+  "gameZoom": 1,
+  "camera": {
+    "unitsPerRenderPixel": 0.01696969696969697,
+    "position": [
+      16.5,
+      15.45,
+      16.5
+    ],
+    "left": -10.860606060606061,
+    "right": 10.860606060606061,
+    "top": 6.109090909090909,
+    "bottom": -6.109090909090909
+  },
+  "pose": "live idle",
+  "animationTime": 30.73296999999959,
+  "classes": null,
+  "source": "same live Three.js scene; freshly rendered PNG; DOM HUD excluded"
+}

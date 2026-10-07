@@ -1,0 +1,1618 @@
+{
+  "archer": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3168,
+      1782
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 282,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              503,
+              481
+            ],
+            "absoluteScale": 1.4184397163120568,
+            "opaqueBoundsRig": [
+              -354.6099290780142,
+              -1068.0851063829787,
+              358.86524822695037,
+              -385.8156028368794
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              378,
+              445
+            ],
+            "absoluteScale": 0.7528089887640449,
+            "opaqueBoundsRig": [
+              -142.28089887640448,
+              -615.0,
+              142.28089887640448,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              233,
+              438
+            ],
+            "absoluteScale": 0.7990867579908676,
+            "opaqueBoundsRig": [
+              42.5307064799138,
+              -599.4994099840952,
+              228.71792109178594,
+              -249.49940998409522
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              252,
+              438
+            ],
+            "absoluteScale": 0.7990867579908676,
+            "opaqueBoundsRig": [
+              -238.5383510338105,
+              -601.8966702580678,
+              -37.168488020111845,
+              -251.8966702580678
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              181,
+              445
+            ],
+            "absoluteScale": 0.8389513108614232,
+            "opaqueBoundsRig": [
+              -8.490187265917612,
+              -373.3333333333333,
+              143.35999999999999,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              176,
+              445
+            ],
+            "absoluteScale": 0.8389513108614232,
+            "opaqueBoundsRig": [
+              -146.7158052434457,
+              -373.3333333333333,
+              0.939625468164806,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 282,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              467,
+              467
+            ],
+            "absoluteScale": 1.4184397163120568,
+            "opaqueBoundsRig": [
+              -329.07801418439715,
+              -1066.6666666666667,
+              333.33333333333337,
+              -404.25531914893617
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              366,
+              436
+            ],
+            "absoluteScale": 0.768348623853211,
+            "opaqueBoundsRig": [
+              -140.6077981651376,
+              -615.0,
+              140.6077981651376,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              212,
+              448
+            ],
+            "absoluteScale": 0.78125,
+            "opaqueBoundsRig": [
+              -208.55647935779817,
+              -593.8532110091743,
+              -42.93147935779817,
+              -243.8532110091743
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              198,
+              453
+            ],
+            "absoluteScale": 0.7726269315673289,
+            "opaqueBoundsRig": [
+              44.27757356664035,
+              -593.8670079186666,
+              197.25770601697147,
+              -243.86700791866656
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              171,
+              441
+            ],
+            "absoluteScale": 0.8465608465608465,
+            "opaqueBoundsRig": [
+              -143.13650793650794,
+              -373.3333333333333,
+              1.6253968253968338,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              170,
+              442
+            ],
+            "absoluteScale": 0.8446455505279035,
+            "opaqueBoundsRig": [
+              -3.1538030596854156,
+              -373.3333333333333,
+              140.4359405300582,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "berserker": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3072,
+      1728
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 255,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              446,
+              407
+            ],
+            "absoluteScale": 1.5686274509803921,
+            "opaqueBoundsRig": [
+              -354.5098039215686,
+              -1112.9411764705883,
+              345.09803921568624,
+              -474.5098039215686
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              410,
+              481
+            ],
+            "absoluteScale": 0.6964656964656964,
+            "opaqueBoundsRig": [
+              -142.77546777546777,
+              -615.0,
+              142.77546777546777,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              237,
+              455
+            ],
+            "absoluteScale": 0.7692307692307693,
+            "opaqueBoundsRig": [
+              59.55301455301455,
+              -581.1642411642412,
+              241.86070686070684,
+              -231.1642411642411
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              247,
+              463
+            ],
+            "absoluteScale": 0.755939524838013,
+            "opaqueBoundsRig": [
+              -252.71069541047942,
+              -581.7324418620315,
+              -65.99363277549023,
+              -231.73244186203146
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              205,
+              432
+            ],
+            "absoluteScale": 0.8641975308641975,
+            "opaqueBoundsRig": [
+              -11.753086419753089,
+              -373.3333333333333,
+              165.4074074074074,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              205,
+              432
+            ],
+            "absoluteScale": 0.8641975308641975,
+            "opaqueBoundsRig": [
+              -171.45679012345676,
+              -373.3333333333333,
+              5.7037037037037095,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 256,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              426,
+              402
+            ],
+            "absoluteScale": 1.5625,
+            "opaqueBoundsRig": [
+              -334.375,
+              -1109.375,
+              331.25,
+              -481.25
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              416,
+              480
+            ],
+            "absoluteScale": 0.6979166666666666,
+            "opaqueBoundsRig": [
+              -145.16666666666666,
+              -615.0,
+              145.16666666666666,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              234,
+              464
+            ],
+            "absoluteScale": 0.7543103448275862,
+            "opaqueBoundsRig": [
+              -236.72701149425285,
+              -588.8595545977012,
+              -60.21839080459769,
+              -238.8595545977011
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              238,
+              448
+            ],
+            "absoluteScale": 0.78125,
+            "opaqueBoundsRig": [
+              62.96875,
+              -587.1354166666666,
+              248.90625,
+              -237.13541666666663
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              202,
+              432
+            ],
+            "absoluteScale": 0.8641975308641975,
+            "opaqueBoundsRig": [
+              -174.5333333333333,
+              -373.3333333333333,
+              0.03456790123456699,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              199,
+              433
+            ],
+            "absoluteScale": 0.8622016936104695,
+            "opaqueBoundsRig": [
+              0.15902831237704618,
+              -373.33333333333326,
+              171.73716534086049,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cleric": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3248,
+      1827
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 312,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              515,
+              393
+            ],
+            "absoluteScale": 1.2820512820512822,
+            "opaqueBoundsRig": [
+              -335.8974358974359,
+              -1037.1794871794873,
+              324.35897435897436,
+              -533.3333333333334
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              474,
+              487
+            ],
+            "absoluteScale": 0.6878850102669405,
+            "opaqueBoundsRig": [
+              -163.0287474332649,
+              -615.0,
+              163.0287474332649,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              176,
+              423
+            ],
+            "absoluteScale": 0.8274231678486997,
+            "opaqueBoundsRig": [
+              41.45411915476139,
+              -583.036732831394,
+              187.08059669613255,
+              -233.03673283139403
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              181,
+              410
+            ],
+            "absoluteScale": 0.8536585365853658,
+            "opaqueBoundsRig": [
+              -191.62392948364803,
+              -583.4161366254319,
+              -37.11173436169681,
+              -233.41613662543193
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              145,
+              416
+            ],
+            "absoluteScale": 0.8974358974358974,
+            "opaqueBoundsRig": [
+              9.48040330648135,
+              -373.3333333333333,
+              139.60860843468646,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              143,
+              419
+            ],
+            "absoluteScale": 0.8910103420843277,
+            "opaqueBoundsRig": [
+              -138.25495810728913,
+              -373.3333333333333,
+              -10.840479189230265,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 258,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              386,
+              317
+            ],
+            "absoluteScale": 1.550387596899225,
+            "opaqueBoundsRig": [
+              -297.6744186046512,
+              -1034.108527131783,
+              300.7751937984496,
+              -542.6356589147287
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              384,
+              419
+            ],
+            "absoluteScale": 0.7995226730310262,
+            "opaqueBoundsRig": [
+              -153.50835322195704,
+              -615.0,
+              153.50835322195704,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              126,
+              375
+            ],
+            "absoluteScale": 0.9333333333333333,
+            "opaqueBoundsRig": [
+              -150.48750994431185,
+              -585.3105807478123,
+              -32.88750994431185,
+              -235.3105807478123
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              124,
+              370
+            ],
+            "absoluteScale": 0.9459459459459459,
+            "opaqueBoundsRig": [
+              30.695671805457003,
+              -582.1195897568214,
+              147.9929691027543,
+              -232.1195897568213
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              151,
+              403
+            ],
+            "absoluteScale": 0.9263854425144747,
+            "opaqueBoundsRig": [
+              -141.01913611320032,
+              -373.3333333333333,
+              -1.1349342935146325,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              151,
+              403
+            ],
+            "absoluteScale": 0.9263854425144747,
+            "opaqueBoundsRig": [
+              -0.7178365915143132,
+              -373.3333333333333,
+              139.16636522817137,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "knight": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1659,
+        948
+      ],
+      "Back": [
+        1659,
+        948
+      ]
+    },
+    "atlasSize": [
+      3152,
+      1773
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 296,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              501,
+              396
+            ],
+            "absoluteScale": 1.3513513513513513,
+            "opaqueBoundsRig": [
+              -337.8378378378378,
+              -1035.135135135135,
+              339.18918918918916,
+              -500.0
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              476,
+              446
+            ],
+            "absoluteScale": 0.7511210762331838,
+            "opaqueBoundsRig": [
+              -178.76681614349775,
+              -615.0,
+              178.76681614349775,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              221,
+              429
+            ],
+            "absoluteScale": 0.8158508158508159,
+            "opaqueBoundsRig": [
+              66.24157232901626,
+              -586.3522949397388,
+              246.54460263204658,
+              -236.3522949397389
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              232,
+              435
+            ],
+            "absoluteScale": 0.8045977011494253,
+            "opaqueBoundsRig": [
+              -255.34444100819545,
+              -585.5870831400443,
+              -68.67777434152879,
+              -235.58708314004434
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              163,
+              441
+            ],
+            "absoluteScale": 0.8465608465608465,
+            "opaqueBoundsRig": [
+              0.11633330960685839,
+              -373.3333333333333,
+              138.10575129902486,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              153,
+              440
+            ],
+            "absoluteScale": 0.8484848484848484,
+            "opaqueBoundsRig": [
+              -144.1721293654029,
+              -373.33333333333326,
+              -14.353947547221097,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 299,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              499,
+              409
+            ],
+            "absoluteScale": 1.3377926421404682,
+            "opaqueBoundsRig": [
+              -333.11036789297657,
+              -1037.4581939799332,
+              334.44816053511704,
+              -490.3010033444816
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              493,
+              447
+            ],
+            "absoluteScale": 0.7494407158836689,
+            "opaqueBoundsRig": [
+              -184.73713646532437,
+              -615.0,
+              184.73713646532437,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              196,
+              438
+            ],
+            "absoluteScale": 0.7990867579908676,
+            "opaqueBoundsRig": [
+              -228.64890748061657,
+              -587.7977996383806,
+              -72.02790291440655,
+              -237.79779963838064
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              192,
+              443
+            ],
+            "absoluteScale": 0.7900677200902935,
+            "opaqueBoundsRig": [
+              72.29855671873185,
+              -582.4170416268981,
+              223.99155897606818,
+              -232.41704162689814
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              139,
+              446
+            ],
+            "absoluteScale": 0.8370702541106129,
+            "opaqueBoundsRig": [
+              -142.73693030768152,
+              -373.33333333333337,
+              -26.384164986306317,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              139,
+              446
+            ],
+            "absoluteScale": 0.8370702541106129,
+            "opaqueBoundsRig": [
+              28.89537574863816,
+              -373.33333333333337,
+              145.24814107001333,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "spellblade": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1659,
+        948
+      ],
+      "Back": [
+        1659,
+        948
+      ]
+    },
+    "atlasSize": [
+      3072,
+      1728
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 247,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              432,
+              505
+            ],
+            "absoluteScale": 1.6194331983805668,
+            "opaqueBoundsRig": [
+              -353.03643724696354,
+              -1189.4736842105262,
+              346.5587044534413,
+              -371.6599190283401
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              424,
+              433
+            ],
+            "absoluteScale": 0.7736720554272517,
+            "opaqueBoundsRig": [
+              -164.01847575057735,
+              -615.0,
+              164.01847575057735,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              219,
+              382
+            ],
+            "absoluteScale": 0.9162303664921466,
+            "opaqueBoundsRig": [
+              67.26787420045223,
+              -583.8719877150768,
+              267.9223244622323,
+              -233.87198771507684
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              236,
+              384
+            ],
+            "absoluteScale": 0.9114583333333334,
+            "opaqueBoundsRig": [
+              -277.9197339299461,
+              -579.0617782909931,
+              -62.81556726327945,
+              -229.06177829099306
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              156,
+              410
+            ],
+            "absoluteScale": 0.9105691056910569,
+            "opaqueBoundsRig": [
+              -0.12873692709213458,
+              -373.3333333333333,
+              141.92004356071274,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              153,
+              412
+            ],
+            "absoluteScale": 0.9061488673139159,
+            "opaqueBoundsRig": [
+              -138.8789195572397,
+              -373.33333333333337,
+              -0.2381428582105798,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 247,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              410,
+              501
+            ],
+            "absoluteScale": 1.6194331983805668,
+            "opaqueBoundsRig": [
+              -331.9838056680162,
+              -1192.7125506072875,
+              331.9838056680162,
+              -381.37651821862346
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              428,
+              446
+            ],
+            "absoluteScale": 0.7511210762331838,
+            "opaqueBoundsRig": [
+              -160.73991031390133,
+              -615.0,
+              160.73991031390133,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              236,
+              400
+            ],
+            "absoluteScale": 0.875,
+            "opaqueBoundsRig": [
+              -276.50952914798205,
+              -582.8867713004485,
+              -70.00952914798205,
+              -232.88677130044846
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              224,
+              409
+            ],
+            "absoluteScale": 0.8557457212713936,
+            "opaqueBoundsRig": [
+              68.84551076123543,
+              -587.9142774129178,
+              260.5325523260276,
+              -237.9142774129179
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              135,
+              414
+            ],
+            "absoluteScale": 0.9017713365539453,
+            "opaqueBoundsRig": [
+              -133.457266956955,
+              -373.33333333333337,
+              -11.718136522172394,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              135,
+              414
+            ],
+            "absoluteScale": 0.9017713365539453,
+            "opaqueBoundsRig": [
+              13.521679195280285,
+              -373.33333333333337,
+              135.2608096300629,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "terror-knight": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3312,
+      1863
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 270,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              516,
+              453
+            ],
+            "absoluteScale": 1.4814814814814814,
+            "opaqueBoundsRig": [
+              -382.22222222222223,
+              -1037.037037037037,
+              382.22222222222223,
+              -365.925925925926
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              507,
+              467
+            ],
+            "absoluteScale": 0.7173447537473233,
+            "opaqueBoundsRig": [
+              -181.84689507494647,
+              -615.0,
+              181.84689507494647,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              214,
+              450
+            ],
+            "absoluteScale": 0.7777777777777778,
+            "opaqueBoundsRig": [
+              29.247085415179633,
+              -606.8541517963359,
+              195.6915298596241,
+              -256.85415179633594
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              218,
+              449
+            ],
+            "absoluteScale": 0.779510022271715,
+            "opaqueBoundsRig": [
+              -197.44129233175795,
+              -606.9702121774297,
+              -27.508107476524074,
+              -256.97021217742974
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              215,
+              452
+            ],
+            "absoluteScale": 0.8259587020648967,
+            "opaqueBoundsRig": [
+              -4.79056047197642,
+              -373.3333333333333,
+              172.7905604719764,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              214,
+              452
+            ],
+            "absoluteScale": 0.8259587020648967,
+            "opaqueBoundsRig": [
+              -172.7905604719764,
+              -373.3333333333333,
+              3.964601769911525,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 272,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              526,
+              455
+            ],
+            "absoluteScale": 1.4705882352941178,
+            "opaqueBoundsRig": [
+              -386.764705882353,
+              -1042.6470588235295,
+              386.764705882353,
+              -373.52941176470586
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              495,
+              471
+            ],
+            "absoluteScale": 0.7112526539278131,
+            "opaqueBoundsRig": [
+              -176.03503184713375,
+              -615.0,
+              176.03503184713375,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              174,
+              452
+            ],
+            "absoluteScale": 0.7743362831858407,
+            "opaqueBoundsRig": [
+              -161.90631869680402,
+              -602.9308757492062,
+              -27.17180542246772,
+              -252.93087574920617
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              179,
+              453
+            ],
+            "absoluteScale": 0.7726269315673289,
+            "opaqueBoundsRig": [
+              22.718782075617604,
+              -601.2693859760127,
+              161.01900282616947,
+              -251.2693859760127
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              223,
+              456
+            ],
+            "absoluteScale": 0.8187134502923976,
+            "opaqueBoundsRig": [
+              -179.33099415204677,
+              -373.3333333333333,
+              3.242105263157896,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              222,
+              456
+            ],
+            "absoluteScale": 0.8187134502923976,
+            "opaqueBoundsRig": [
+              -3.242105263157896,
+              -373.3333333333333,
+              178.51228070175438,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "warrior": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3104,
+      1746
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 278,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              483,
+              476
+            ],
+            "absoluteScale": 1.4388489208633093,
+            "opaqueBoundsRig": [
+              -345.32374100719426,
+              -1047.4820143884892,
+              349.64028776978415,
+              -362.58992805755395
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              380,
+              449
+            ],
+            "absoluteScale": 0.7461024498886414,
+            "opaqueBoundsRig": [
+              -141.75946547884186,
+              -615.0,
+              141.75946547884186,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              198,
+              441
+            ],
+            "absoluteScale": 0.7936507936507936,
+            "opaqueBoundsRig": [
+              47.135963516809845,
+              -592.2476756107045,
+              204.27882065966696,
+              -242.24767561070456
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              205,
+              427
+            ],
+            "absoluteScale": 0.819672131147541,
+            "opaqueBoundsRig": [
+              -207.49151119062398,
+              -593.6788491730257,
+              -39.45872430537807,
+              -243.67884917302564
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              176,
+              426
+            ],
+            "absoluteScale": 0.8763693270735524,
+            "opaqueBoundsRig": [
+              -3.084820031298918,
+              -373.3333333333333,
+              151.1561815336463,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              174,
+              427
+            ],
+            "absoluteScale": 0.8743169398907104,
+            "opaqueBoundsRig": [
+              -150.97557146155623,
+              -373.33333333333337,
+              1.1555760794273908,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 279,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              491,
+              478
+            ],
+            "absoluteScale": 1.4336917562724014,
+            "opaqueBoundsRig": [
+              -351.2544802867383,
+              -1047.3118279569892,
+              352.68817204301075,
+              -362.0071684587814
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              390,
+              458
+            ],
+            "absoluteScale": 0.7314410480349345,
+            "opaqueBoundsRig": [
+              -142.63100436681222,
+              -615.0,
+              142.63100436681222,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              203,
+              448
+            ],
+            "absoluteScale": 0.78125,
+            "opaqueBoundsRig": [
+              -197.048307860262,
+              -589.113673580786,
+              -38.454557860262014,
+              -239.11367358078598
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              198,
+              452
+            ],
+            "absoluteScale": 0.7743362831858407,
+            "opaqueBoundsRig": [
+              50.950168102948574,
+              -590.2959191560072,
+              204.26875217374504,
+              -240.29591915600724
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              190,
+              436
+            ],
+            "absoluteScale": 0.8562691131498471,
+            "opaqueBoundsRig": [
+              -158.58103975535167,
+              -373.3333333333333,
+              4.110091743119284,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              188,
+              436
+            ],
+            "absoluteScale": 0.8562691131498471,
+            "opaqueBoundsRig": [
+              -2.3975535168195847,
+              -373.3333333333333,
+              158.58103975535167,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  },
+  "wizard": {
+    "partsPerView": 6,
+    "views": 2,
+    "generatedParts": 12,
+    "sourceSize": {
+      "Front": [
+        1672,
+        941
+      ],
+      "Back": [
+        1672,
+        941
+      ]
+    },
+    "atlasSize": [
+      3600,
+      2025
+    ],
+    "nativePixelsPreserved": true,
+    "anatomy": {
+      "Front": {
+        "anatomicalHeadNative": 244,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              576,
+              469
+            ],
+            "absoluteScale": 1.639344262295082,
+            "opaqueBoundsRig": [
+              -480.327868852459,
+              -1265.5737704918033,
+              463.93442622950823,
+              -496.72131147540983
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              398,
+              459
+            ],
+            "absoluteScale": 0.7298474945533769,
+            "opaqueBoundsRig": [
+              -145.239651416122,
+              -615.0,
+              145.239651416122,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              185,
+              388
+            ],
+            "absoluteScale": 0.9020618556701031,
+            "opaqueBoundsRig": [
+              42.13417784066662,
+              -580.935134649507,
+              209.0156211396357,
+              -230.93513464950695
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              189,
+              391
+            ],
+            "absoluteScale": 0.8951406649616368,
+            "opaqueBoundsRig": [
+              -211.67566543525624,
+              -582.3931988254238,
+              -42.49407975750687,
+              -232.39319882542384
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              218,
+              403
+            ],
+            "absoluteScale": 0.9263854425144747,
+            "opaqueBoundsRig": [
+              -4.039040529363106,
+              -373.3333333333333,
+              197.91298593879236,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              218,
+              403
+            ],
+            "absoluteScale": 0.9263854425144747,
+            "opaqueBoundsRig": [
+              -197.91298593879236,
+              -373.3333333333333,
+              4.039040529363106,
+              0.0
+            ]
+          }
+        }
+      },
+      "Back": {
+        "anatomicalHeadNative": 264,
+        "anatomicalHeadRig": 400,
+        "crownRig": -1000.0,
+        "chinRig": -600.0,
+        "soleRig": 0,
+        "anatomyHeads": 2.5,
+        "legTorsoOverlapRig": 93.33333333333331,
+        "legTorsoOverlapFraction": 0.25,
+        "parts": {
+          "head": {
+            "nativePixels": [
+              535,
+              478
+            ],
+            "absoluteScale": 1.5151515151515151,
+            "opaqueBoundsRig": [
+              -406.06060606060606,
+              -1248.4848484848485,
+              404.54545454545456,
+              -524.2424242424242
+            ]
+          },
+          "body": {
+            "nativePixels": [
+              409,
+              473
+            ],
+            "absoluteScale": 0.7082452431289641,
+            "opaqueBoundsRig": [
+              -144.83615221987316,
+              -615.0,
+              144.83615221987316,
+              -280.0
+            ]
+          },
+          "armL": {
+            "nativePixels": [
+              170,
+              384
+            ],
+            "absoluteScale": 0.9114583333333334,
+            "opaqueBoundsRig": [
+              -174.98629096194503,
+              -595.1065340909091,
+              -20.03837429527836,
+              -245.10653409090912
+            ]
+          },
+          "armR": {
+            "nativePixels": [
+              178,
+              402
+            ],
+            "absoluteScale": 0.8706467661691543,
+            "opaqueBoundsRig": [
+              18.39399724422286,
+              -599.3645409317052,
+              173.36912162233233,
+              -249.3645409317051
+            ]
+          },
+          "legL": {
+            "nativePixels": [
+              141,
+              387
+            ],
+            "absoluteScale": 0.9646856158484065,
+            "opaqueBoundsRig": [
+              -135.1173087463785,
+              -373.3333333333333,
+              0.903363088246806,
+              0.0
+            ]
+          },
+          "legR": {
+            "nativePixels": [
+              137,
+              387
+            ],
+            "absoluteScale": 0.9646856158484065,
+            "opaqueBoundsRig": [
+              0.06132252760160384,
+              -373.3333333333333,
+              132.2232518988333,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

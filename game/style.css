@@ -25,3 +25,10 @@
 #game[data-screen=party] .roster-main>p{line-height:1.4;margin:5px 0}
 #game[data-screen=equipment] .roster-main>.row:first-child,#game[data-screen=training] .roster-main>.row:first-child{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
 #game[data-screen=equipment] .roster-main>.row:first-child button,#game[data-screen=training] .roster-main>.row:first-child button{min-height:32px;padding:5px 8px;font-size:12px}
+
+/* WebGL battlefield annotations remain DOM; terrain and actors share real depth. */
+.battle-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}.battle-unit-label{position:absolute;left:0;top:0;color:#fff3d6;text-shadow:0 1px 3px #071c20;font:700 10px system-ui;text-align:center;white-space:nowrap}.battle-unit-label i{display:block;width:38px;height:4px;background:#142b30;margin:3px auto}.battle-unit-label b{display:block;height:100%;background:#7dd3b7}.battle-unit-label.enemy b{background:#e8a198}.battle-render-status{position:absolute;left:50%;top:12px;transform:translateX(-50%);padding:8px 14px;background:#193a40;color:#fff0cf;pointer-events:none;font:13px system-ui}.battle-render-status[hidden]{display:none}
+
+.manual-capture{position:fixed;left:50%;bottom:48px;transform:translateX(-50%);display:flex;gap:5px;align-items:center;z-index:30;padding:5px;background:#18383ce8}.manual-capture button{font:11px system-ui;padding:6px;min-height:30px}.manual-capture output{font:11px system-ui;max-width:200px}
+
+body.class-gallery #ui{visibility:hidden}

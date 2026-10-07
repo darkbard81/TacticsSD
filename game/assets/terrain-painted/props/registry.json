@@ -1,0 +1,162 @@
+[
+  {
+    "id": "broadleaf-tree",
+    "file": "broadleaf-tree.png",
+    "source_box": [
+      0,
+      0,
+      497,
+      561
+    ],
+    "alpha_bbox": [
+      19,
+      39,
+      487,
+      543
+    ],
+    "size": [
+      484,
+      520
+    ]
+  },
+  {
+    "id": "pine-tree",
+    "file": "pine-tree.png",
+    "source_box": [
+      497,
+      0,
+      857,
+      561
+    ],
+    "alpha_bbox": [
+      510,
+      24,
+      842,
+      545
+    ],
+    "size": [
+      348,
+      537
+    ]
+  },
+  {
+    "id": "dead-tree",
+    "file": "dead-tree.png",
+    "source_box": [
+      857,
+      0,
+      1328,
+      561
+    ],
+    "alpha_bbox": [
+      888,
+      61,
+      1312,
+      546
+    ],
+    "size": [
+      440,
+      501
+    ]
+  },
+  {
+    "id": "fern-shrub",
+    "file": "fern-shrub.png",
+    "source_box": [
+      1280,
+      240,
+      1672,
+      561
+    ],
+    "alpha_bbox": [
+      1280,
+      266,
+      1649,
+      548
+    ],
+    "size": [
+      385,
+      298
+    ]
+  },
+  {
+    "id": "golden-shrub",
+    "file": "golden-shrub.png",
+    "source_box": [
+      0,
+      561,
+      445,
+      941
+    ],
+    "alpha_bbox": [
+      31,
+      577,
+      416,
+      884
+    ],
+    "size": [
+      401,
+      323
+    ]
+  },
+  {
+    "id": "mossy-boulder",
+    "file": "mossy-boulder.png",
+    "source_box": [
+      455,
+      561,
+      853,
+      941
+    ],
+    "alpha_bbox": [
+      469,
+      591,
+      831,
+      893
+    ],
+    "size": [
+      378,
+      318
+    ]
+  },
+  {
+    "id": "pale-boulder",
+    "file": "pale-boulder.png",
+    "source_box": [
+      870,
+      561,
+      1257,
+      941
+    ],
+    "alpha_bbox": [
+      885,
+      575,
+      1239,
+      898
+    ],
+    "size": [
+      370,
+      339
+    ]
+  },
+  {
+    "id": "stump",
+    "file": "stump.png",
+    "source_box": [
+      1280,
+      561,
+      1672,
+      941
+    ],
+    "alpha_bbox": [
+      1295,
+      593,
+      1641,
+      900
+    ],
+    "size": [
+      362,
+      323
+    ]
+  }
+]

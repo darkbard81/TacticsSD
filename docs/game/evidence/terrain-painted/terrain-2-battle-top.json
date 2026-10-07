@@ -1,0 +1,39 @@
+{
+  "capturedAt": "2026-10-07T10:22:40.931Z",
+  "terrainStage": 2,
+  "detail": false,
+  "view": "battle-top",
+  "css": {
+    "width": 1280,
+    "height": 720
+  },
+  "logicalRenderViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "backing": {
+    "width": 3840,
+    "height": 2160
+  },
+  "deviceDPR": 1,
+  "interactiveRenderDPR": 1,
+  "exportRenderDPR": 3,
+  "visualViewportScale": 1,
+  "gameZoom": 1,
+  "camera": {
+    "unitsPerRenderPixel": 0.01818181818181818,
+    "position": [
+      3.5,
+      24.45,
+      3.501
+    ],
+    "left": -11.636363636363637,
+    "right": 11.636363636363637,
+    "top": 6.545454545454545,
+    "bottom": -6.545454545454545
+  },
+  "pose": "live idle",
+  "animationTime": 52.83250400000092,
+  "classes": null,
+  "source": "same live Three.js scene; freshly rendered PNG; DOM HUD excluded"
+}

@@ -15,6 +15,8 @@ export function silhouette(alpha: Uint8ClampedArray, width: number, height: numb
 }
 /** Shared rig-coordinate thickness; XY part scale never changes the Z extent. */
 export function thickness(_id: string, _width: number) { return 4; }
+/** Overlapping slabs retain a solid joint instead of leaving an air gap. */
+export const LAYER_DEPTH = 1.5;
 export function bonePose(rig: CharacterRigData, direction: DirectionId, part: Part, pose: EvaluatedPart) {
   const d = rig.directions[direction], v = rig.views[d.view];
   const limb = part.id.startsWith('leg'), arm = part.id.startsWith('arm');
@@ -22,10 +24,11 @@ export function bonePose(rig: CharacterRigData, direction: DirectionId, part: Pa
   const travel = pose.depth * rig.motion.stride * v.referenceSize;
   return {
     x: pose.x + part.attachment.socket.x - (limb ? travel * d.vector.x * (d.flip ? -1 : 1) : 0),
-    y: -(pose.y + part.attachment.socket.y - (limb ? travel * d.vector.y : 0)),
-    z: pose.zIndex * 8 + (limb ? travel : 0),
+    y: -(pose.y + part.attachment.socket.y - (limb ? travel * d.vector.y - pose.lift * rig.motion.lift * v.referenceSize : 0)),
+    // A rigid leg pivots at its hip; translating its entire slab detached the joint.
+    z: pose.zIndex * LAYER_DEPTH,
     rotationZ: -pose.rotation,
-    rotationX: limb ? pose.depth * .4 : arm ? Math.sin(pose.rotation - part.restTransform.rotation) * .5 : 0,
+    rotationX: limb ? pose.depth * .25 : arm ? Math.sin(pose.rotation - part.restTransform.rotation) * .5 : 0,
     scaleX: pose.scaleX / scaleIllusion, scaleY: pose.scaleY / scaleIllusion,
   };
 }

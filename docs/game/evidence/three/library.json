@@ -1,0 +1,42 @@
+[
+  {
+    "local_path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three/TacticsSD-eight-class-standees.png",
+    "library_file_id": "libfile_33cac48a04b0819191ae4b0b2e805831",
+    "file_id": "file_0000000012b082099982d49f449f076c",
+    "file_name": "TacticsSD-eight-class-standees.png",
+    "current_version_number": 0,
+    "status": "succeeded"
+  },
+  {
+    "local_path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three/battle-iso.png",
+    "library_file_id": "libfile_da8ee8be32a08191b9ed65e198ae8be5",
+    "file_id": "file_000000001cf48206b200e85782f4ba14",
+    "file_name": "battle-iso.png",
+    "current_version_number": 0,
+    "status": "succeeded"
+  },
+  {
+    "local_path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three/battle-front.png",
+    "library_file_id": "libfile_864a2fd748c48191b0106e8a43a8dd89",
+    "file_id": "file_00000000bf40820682b8cf7fb59d4bf3",
+    "file_name": "battle-front.png",
+    "current_version_number": 0,
+    "status": "succeeded"
+  },
+  {
+    "local_path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three/battle-top.png",
+    "library_file_id": "libfile_6aebb892a6e08191a197b1439779f201",
+    "file_id": "file_000000003ca882069ac3fa4fc6e185f5",
+    "file_name": "battle-top.png",
+    "current_version_number": 0,
+    "status": "succeeded"
+  },
+  {
+    "local_path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three/battle-motion.webm",
+    "library_file_id": "libfile_30bc5ad88ff0819184178d8ca69cbece",
+    "file_id": "file_00000000402081f5bd6489c332da05d8",
+    "file_name": "battle-motion.webm",
+    "current_version_number": 0,
+    "status": "succeeded"
+  }
+]

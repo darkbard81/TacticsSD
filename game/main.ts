@@ -6,6 +6,7 @@ import {readRigFiles,storedRig,type RigBundle} from './rig-library';
 import { weaponFor, abilityById, CLASS_ABILITIES, SUPPORT_SKILLS, CONSUMABLES, EXTRA_GEAR, ARMOR, WEAPONS, type Stats } from './content';
 import { Input, ACTIONS, LABELS, type Action } from './input';
 import { Renderer, type VisualState } from './render';
+import { installCapture } from './capture';
 import { newCampaign, parseCampaign, encodeCampaign, commandAbility, makeBattle, moveUnit, activeUnit, turnOrder, finishTurn, STAGES, JOBS, HEROES, reachable, targets, damage, accuracy, activateGuard, act, enemyTurn, reward, classLevel, trainingFor, learnAbility, equipSupport, itemStock, unitAt, tileAt, same, type Battle, type Campaign, type Pos, type Command } from './domain';
 const root = document.querySelector<HTMLDivElement>('#game')!;
 root.innerHTML = '<div id="scene"></div><div id="ui"></div><div id="announcer" class="sr-only" aria-live="polite"></div>';
@@ -235,6 +236,7 @@ function execute(id: string) {
         return;
     }
     if (id === 'view') {
+        renderer.setCaptureView(null);
         top = !top;
         try {
             localStorage.setItem('tacticssd.view', JSON.stringify({ top }));
@@ -705,12 +707,16 @@ function frame(now: number) {
     renderer.draw(visual(), now);
     requestAnimationFrame(frame);
 }
-// Read-only diagnostics enable assertions and tactical test planning, never state mutation.
-Object.assign(window, { tacticsDiagnostics: () => structuredClone({ screen, mode, modal, campaign, battle, selected, cursor, top, zoom, pan, bindings: input.bindings, dimensions: renderer.dimensions }) });
+// Read-only state for user support; capture remains explicitly user-operated.
+Object.assign(window, { tacticsDiagnostics: () => structuredClone({ screen, mode, modal, campaign, battle, selected, cursor, top, zoom, pan, bindings: input.bindings, dimensions: renderer.dimensions, rendering: renderer.diagnostics() }) });
 const rigPicker=document.createElement('input');rigPicker.type='file';rigPicker.multiple=true;rigPicker.accept='.json,image/png,image/jpeg,image/webp';rigPicker.id='game-rig-files';rigPicker.hidden=true;root.append(rigPicker);
 async function applyBundle(bundle:RigBundle){const primary=bundle.rig.views.Front.image;if(!primary)throw Error('앞면 이미지가 필요합니다.');await renderer.setRig(bundle.rig,bundle.images[primary.id],bundle.images);}
 rigPicker.onchange=async()=>{try{const bundle=await readRigFiles(Array.from(rigPicker.files??[]));await applyBundle(bundle);await storedRig(bundle);notice='리그와 교체 파츠를 적용하고 저장했습니다.';}catch(error){notice=error instanceof Error?error.message:'리그 불러오기 실패';}finally{rigPicker.value='';render();}};
 storedRig().then(async bundle=>{if(bundle){await applyBundle(bundle);render();}}).catch(()=>{notice='저장된 사용자 리그를 불러오지 못해 기본 리그를 사용합니다.';render();});
+// Opt-in authored-map art inspection, ephemeral campaign; never unlocks or saves.
+const artParams = new URLSearchParams(location.search);
+if (import.meta.env.DEV && artParams.has('capture') && /^[0-2]$/.test(artParams.get('terrainStage') ?? '')) { stage = Number(artParams.get('terrainStage')); battle = makeBattle(stage, campaign); screen = 'battle'; top = false; }
+installCapture(renderer, value => { top = value; render(); });
 render();
 requestAnimationFrame(frame);
 function shopUI(){

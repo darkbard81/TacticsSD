@@ -1,0 +1,287 @@
+{
+  "class": "cleric",
+  "generator": "builtin image_gen",
+  "native_width": 1672,
+  "native_height": 941,
+  "native_aspect_ratio": "approximately 16:9, unresized ImageGen output",
+  "format": "RGBA PNG, genuine alpha transparency",
+  "source_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/cleric/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/cleric/frames/back_idle.png"
+  ],
+  "layout": [
+    [
+      "head",
+      "body",
+      "armL"
+    ],
+    [
+      "armR",
+      "legL",
+      "legR"
+    ]
+  ],
+  "coordinate_system": "native image pixels, origin upper-left, xyxy bounds with exclusive maxima",
+  "bounds_method": "visually assigned six major components, connected alpha>=16 bounds plus up to5px padding; no meaningful disconnected details detected. Original PNG alpha preserved unchanged. Low-alpha remote background speckles may lie outside crop bounds.",
+  "target_anatomy": "2.5 anatomical heads tall after shared-anchor fit; source parts independently enlarged to use sheet resolution.",
+  "views": {
+    "Front": {
+      "file": "front.png",
+      "width": 1672,
+      "height": 941,
+      "bounds": {
+        "head": [
+          131,
+          36,
+          646,
+          429
+        ],
+        "body": [
+          687,
+          15,
+          1161,
+          502
+        ],
+        "armL": [
+          1292,
+          57,
+          1468,
+          480
+        ],
+        "armR": [
+          288,
+          500,
+          469,
+          910
+        ],
+        "legL": [
+          842,
+          501,
+          987,
+          917
+        ],
+        "legR": [
+          1320,
+          498,
+          1463,
+          917
+        ]
+      },
+      "head": {
+        "crown": [
+          393,
+          65
+        ],
+        "chin": [
+          393,
+          377
+        ],
+        "neck": [
+          393,
+          402
+        ],
+        "skullcrownestimated": true,
+        "anatomicalHeadHeight": 312,
+        "notes": "Crown estimates anatomical skull beneath hat/hair; chin is anatomical lower jaw, inferred under hair for Back. Do not use hat top or forehead-to-chin as head height."
+      },
+      "body_anchors": {
+        "neck": [
+          926,
+          40
+        ],
+        "shoulderL": [
+          1042,
+          118
+        ],
+        "shoulderR": [
+          808,
+          118
+        ],
+        "hipL": [
+          993,
+          337
+        ],
+        "hipR": [
+          858,
+          337
+        ]
+      },
+      "limb_anchors": {
+        "armL_shoulder": [
+          1340,
+          104
+        ],
+        "armR_shoulder": [
+          419,
+          546
+        ],
+        "legL_hip": [
+          915,
+          539
+        ],
+        "legR_hip": [
+          1391,
+          539
+        ]
+      },
+      "notes": [
+        "Strict straight Front head/body/boots.",
+        "Crown estimated under crown braid; exclude raised braid silhouette.",
+        "Arms slant slightly in page plane; rotate as rigid pieces for vertical hanging neutral.",
+        "Body includes shoulder caps and dark fitted hip/shorts material under skirt."
+      ],
+      "crops": {
+        "head": "crops/Front/head.png",
+        "body": "crops/Front/body.png",
+        "armL": "crops/Front/armL.png",
+        "armR": "crops/Front/armR.png",
+        "legL": "crops/Front/legL.png",
+        "legR": "crops/Front/legR.png"
+      }
+    },
+    "Back": {
+      "file": "back.png",
+      "width": 1672,
+      "height": 941,
+      "bounds": {
+        "head": [
+          213,
+          89,
+          599,
+          406
+        ],
+        "body": [
+          644,
+          40,
+          1028,
+          459
+        ],
+        "armL": [
+          291,
+          509,
+          417,
+          884
+        ],
+        "armR": [
+          1255,
+          76,
+          1379,
+          446
+        ],
+        "legL": [
+          764,
+          482,
+          915,
+          885
+        ],
+        "legR": [
+          1243,
+          482,
+          1394,
+          885
+        ]
+      },
+      "head": {
+        "crown": [
+          405,
+          111
+        ],
+        "chin": [
+          405,
+          369
+        ],
+        "neck": [
+          405,
+          385
+        ],
+        "skullcrownestimated": true,
+        "anatomicalHeadHeight": 258,
+        "notes": "Crown estimates anatomical skull beneath hat/hair; chin is anatomical lower jaw, inferred under hair for Back. Do not use hat top or forehead-to-chin as head height."
+      },
+      "body_anchors": {
+        "neck": [
+          837,
+          61
+        ],
+        "shoulderL": [
+          740,
+          132
+        ],
+        "shoulderR": [
+          930,
+          132
+        ],
+        "hipL": [
+          785,
+          286
+        ],
+        "hipR": [
+          888,
+          286
+        ]
+      },
+      "limb_anchors": {
+        "armL_shoulder": [
+          370,
+          556
+        ],
+        "armR_shoulder": [
+          1302,
+          119
+        ],
+        "legL_hip": [
+          840,
+          531
+        ],
+        "legR_hip": [
+          1320,
+          531
+        ]
+      },
+      "notes": [
+        "Strict straight Back with no facial features or front bust.",
+        "Crown and chin estimated beneath braid/bun; uncertainty about 15px.",
+        "Back arms anatomically relabeled: armL uses bottom-left sheet component, armR uses top-right component, based on shoulder-stub orientation. No pixels mirrored or resynthesized."
+      ],
+      "crops": {
+        "head": "crops/Back/head.png",
+        "body": "crops/Back/body.png",
+        "armL": "crops/Back/armL.png",
+        "armR": "crops/Back/armR.png",
+        "legL": "crops/Back/legL.png",
+        "legR": "crops/Back/legR.png"
+      }
+    }
+  },
+  "remaining_notes": [
+    "Hands empty; no weapons.",
+    "20-30% joint-overlap extensions were prompted; overlap adequacy must be checked in assembled fitting.",
+    "Exact same native pixel scale is not guaranteed across independently generated components; central fitter must use anchors and anatomical head heights."
+  ],
+  "layout_by_view": {
+    "Front": [
+      [
+        "head",
+        "body",
+        "armL"
+      ],
+      [
+        "armR",
+        "legL",
+        "legR"
+      ]
+    ],
+    "Back": [
+      [
+        "head",
+        "body",
+        "armR"
+      ],
+      [
+        "armL",
+        "legL",
+        "legR"
+      ]
+    ]
+  }
+}

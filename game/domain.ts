@@ -17,21 +17,12 @@ export const newCampaign = (): Campaign => ({ version: 1, unlocked: 0, gold: 100
 export function parseCampaign(raw: string | null): Campaign | null {
     try {
         const v = JSON.parse(raw ?? '');
-        // Newly added recruits bring only their equipped starter kit into finite inventories.
-        // Existing owned gear, consumables, currency and training remain unchanged.
-        const addRecruitKit = (hero: number) => {
-            if (hero < 6 || !v.inventory) return;
-            for (const id of [weaponFor(hero, 0).id, ARMOR[0].id]) {
-                const count = v.inventory[id] ?? 0;
-                v.inventory[id] = Number.isInteger(count) && count >= 0 && count <= 999 ? Math.min(999, count + 1) : count;
-            }
-        };
         if (v.version === 2) {
             const disk = z.object({ version: z.literal(2), unlocked: z.number(), gold: z.number(), cleared: z.array(z.number()), party: z.array(z.string()), equipment: z.record(z.string(), z.object({ weaponId: z.string(), armorId: z.string(), offhandId:z.string().optional(), armguardId:z.string().optional(), accessoryId:z.string().optional() })) }).parse(v);
             const party = disk.party.map(id => ROSTER.findIndex(r => r.id === id));
             const gear = ROSTER.map((r, i) => {
                 const equipment = disk.equipment[r.id];
-                if (!equipment) { addRecruitKit(i); return { weapon: 0, armor: 0 }; }
+                if (!equipment) throw Error('Incomplete current-format equipment');
                 const w = WEAPONS.find(w => w.id === equipment.weaponId);
                 if (!w || w.family !== jobForHero(i).weaponFamily)
                     throw Error('Unknown equipment reference');
@@ -40,8 +31,7 @@ export function parseCampaign(raw: string | null): Campaign | null {
             });
             return validateCampaign(campaignSchema.parse({ ...disk, version: 1, party, gear, levels:v.levels??{}, training:v.training??{},inventory:v.inventory }));
         }
-        if (v.version === 1 && Array.isArray(v.gear)) while(v.gear.length < ROSTER.length) { addRecruitKit(v.gear.length); v.gear.push({weapon:0,armor:0}); }
-        return validateCampaign(campaignSchema.parse(v));
+        return null;
     }
     catch {
         return null;
@@ -320,7 +310,7 @@ export function pathTo(b: Battle, u: Unit, target: Pos): Pos[] {
     }
     return [];
 }
-/** Persist stable roster/weapon IDs, independent of menu order. Legacy v1 is read-only migration. */
+/** Persist stable roster/weapon IDs, independent of menu order. Only current version 2 is accepted on load. */
 export function encodeCampaign(c: Campaign) { return JSON.stringify({ version: 2, unlocked: c.unlocked, gold: c.gold, inventory:c.inventory, cleared: c.cleared, levels:c.levels, training:c.training, party: c.party.map(i => ROSTER[i].id), equipment: Object.fromEntries(ROSTER.map((r, i) => [r.id, { weaponId: weaponFor(i, c.gear[i].weapon).id, armorId: ARMOR[c.gear[i].armor].id, ...Object.fromEntries((['offhand','armguard','accessory'] as const).filter(slot=>c.gear[i][slot]!==undefined).map(slot=>[slot+'Id',EXTRA_GEAR[slot][c.gear[i][slot]!].id])) }])) }); }
 
 export const classLevel=(c:Campaign,hero:number)=>c.levels[jobForHero(hero).id]??1;

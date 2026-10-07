@@ -1,0 +1,317 @@
+{
+  "class": "archer",
+  "generator": "builtin image_gen",
+  "native_pixels_preserved": true,
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "front_cells": [
+      "head",
+      "body",
+      "armL",
+      "armR",
+      "legL",
+      "legR"
+    ],
+    "back_cells": [
+      "head",
+      "body",
+      "armR",
+      "armL",
+      "legL",
+      "legR"
+    ]
+  },
+  "views": {
+    "Front": {
+      "file": "front.png",
+      "size": [
+        1672,
+        941
+      ],
+      "bounds": {
+        "head": [
+          71,
+          13,
+          574,
+          494
+        ],
+        "body": [
+          708,
+          17,
+          1086,
+          462
+        ],
+        "armL": [
+          1331,
+          24,
+          1564,
+          462
+        ],
+        "legL": [
+          776,
+          468,
+          957,
+          913
+        ],
+        "legR": [
+          1360,
+          468,
+          1536,
+          913
+        ],
+        "armR": [
+          146,
+          477,
+          398,
+          915
+        ]
+      },
+      "head": {
+        "crown": [
+          321,
+          61
+        ],
+        "chin": [
+          321,
+          343
+        ],
+        "neck": [
+          321,
+          369
+        ]
+      },
+      "body": {
+        "neck": [
+          899,
+          68
+        ],
+        "shoulderL": [
+          1014,
+          131
+        ],
+        "shoulderR": [
+          785,
+          131
+        ],
+        "hipL": [
+          948,
+          344
+        ],
+        "hipR": [
+          850,
+          344
+        ]
+      },
+      "landmarks_estimated": true,
+      "owned_component_seeds": {
+        "head": [
+          170,
+          162
+        ],
+        "body": [
+          905,
+          287
+        ],
+        "armL": [
+          1423,
+          250
+        ],
+        "legL": [
+          813,
+          665
+        ],
+        "legR": [
+          1436,
+          693
+        ],
+        "armR": [
+          271,
+          677
+        ]
+      },
+      "crops": {
+        "head": "crops/Front/head.png",
+        "body": "crops/Front/body.png",
+        "armL": "crops/Front/armL.png",
+        "armR": "crops/Front/armR.png",
+        "legL": "crops/Front/legL.png",
+        "legR": "crops/Front/legR.png"
+      },
+      "partAttachmentCenters": {
+        "armL": [
+          1388,
+          112
+        ],
+        "armR": [
+          339,
+          568
+        ],
+        "legL": [
+          873,
+          510
+        ],
+        "legR": [
+          1448,
+          510
+        ]
+      },
+      "partAttachmentCentersEstimated": true,
+      "partAttachmentCentersNote": "Native sheet coordinates; arms at inner upper shoulder joint under armor or shoulder-cloak brooch, legs at upper hip stub, estimated visually."
+    },
+    "Back": {
+      "file": "back.png",
+      "size": [
+        1672,
+        941
+      ],
+      "bounds": {
+        "head": [
+          106,
+          14,
+          573,
+          481
+        ],
+        "armR": [
+          1303,
+          24,
+          1501,
+          477
+        ],
+        "body": [
+          689,
+          24,
+          1055,
+          460
+        ],
+        "armL": [
+          170,
+          475,
+          382,
+          923
+        ],
+        "legL": [
+          771,
+          478,
+          942,
+          919
+        ],
+        "legR": [
+          1327,
+          478,
+          1497,
+          920
+        ]
+      },
+      "head": {
+        "crown": [
+          338,
+          61
+        ],
+        "chin": [
+          338,
+          343
+        ],
+        "neck": [
+          338,
+          369
+        ]
+      },
+      "body": {
+        "neck": [
+          870,
+          72
+        ],
+        "shoulderL": [
+          748,
+          141
+        ],
+        "shoulderR": [
+          997,
+          141
+        ],
+        "hipL": [
+          822,
+          344
+        ],
+        "hipR": [
+          920,
+          344
+        ]
+      },
+      "landmarks_estimated": true,
+      "owned_component_seeds": {
+        "head": [
+          323,
+          309
+        ],
+        "armR": [
+          1448,
+          183
+        ],
+        "body": [
+          919,
+          236
+        ],
+        "armL": [
+          254,
+          660
+        ],
+        "legL": [
+          821,
+          697
+        ],
+        "legR": [
+          1451,
+          660
+        ]
+      },
+      "crops": {
+        "head": "crops/Back/head.png",
+        "body": "crops/Back/body.png",
+        "armL": "crops/Back/armL.png",
+        "armR": "crops/Back/armR.png",
+        "legL": "crops/Back/legL.png",
+        "legR": "crops/Back/legR.png"
+      },
+      "partAttachmentCenters": {
+        "armL": [
+          315,
+          563
+        ],
+        "armR": [
+          1370,
+          113
+        ],
+        "legL": [
+          858,
+          522
+        ],
+        "legR": [
+          1413,
+          522
+        ]
+      },
+      "partAttachmentCentersEstimated": true,
+      "partAttachmentCentersNote": "Native sheet coordinates; arms at inner upper shoulder joint under armor or shoulder-cloak brooch, legs at upper hip stub, estimated visually."
+    }
+  },
+  "notes": [
+    "Head crown and rear chin landmarks are anatomical estimates excluding hairstyle.",
+    "Back arm labels swapped from requested cell labels based on shoulder-to-hand lean: upper-right is anatomical right; lower-left is anatomical left.",
+    "Crop PNGs retain original RGBA only within 4px dilation of owned alpha>=32 connected component; unrelated neighboring part alpha cleared.",
+    "Native layouts are 1672x941, approximately 16:9; no resizing applied.",
+    "Each atlas presents parts at individually readable scale; shared rig fitter must use landmarks to attain assembled 2.5-head stature.",
+    "Archer scarf appears on head and torso for neck overlap; avoid adding both visible collar heights."
+  ],
+  "source_references": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/archer/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/archer/frames/back_idle.png"
+  ],
+  "prompts": [
+    "/tmp/tacticssd-class-parts-v2/archer/back-correction-prompt.txt",
+    "/tmp/tacticssd-class-parts-v2/archer/front-correction-prompt.txt",
+    "/tmp/tacticssd-class-parts-v2/archer/back-prompt.txt",
+    "/tmp/tacticssd-class-parts-v2/archer/front-prompt.txt"
+  ]
+}

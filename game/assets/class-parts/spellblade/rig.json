@@ -1,0 +1,862 @@
+{
+  "schemaVersion": 2,
+  "id": "spellblade-standee",
+  "rigType": "humanoid",
+  "views": {
+    "Front": {
+      "image": {
+        "id": "spellblade-parts",
+        "name": "parts.png",
+        "width": 3072,
+        "height": 1728
+      },
+      "width": 3072,
+      "height": 1728,
+      "ground": {
+        "x": 1536.0,
+        "y": 1727
+      },
+      "displayScale": 1,
+      "referenceSize": 1000.0,
+      "parts": [
+        {
+          "id": "head",
+          "rect": {
+            "x": 40,
+            "y": 180,
+            "width": 432,
+            "height": 505
+          },
+          "pivot": {
+            "x": 218,
+            "y": 364
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 2.0931778355187625,
+            "scaleY": 2.0931778355187625,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 212.0,
+              "y": 19.38805970149255
+            }
+          },
+          "zIndex": 4,
+          "visible": true
+        },
+        {
+          "id": "body",
+          "rect": {
+            "x": 556,
+            "y": 216,
+            "width": 424,
+            "height": 433
+          },
+          "pivot": {
+            "x": 212.0,
+            "y": 173.20000000000002
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 0.7736720554272517,
+            "scaleY": 0.7736720554272517,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": null,
+            "socket": {
+              "x": 0,
+              "y": -481.0
+            }
+          },
+          "zIndex": 2,
+          "visible": true
+        },
+        {
+          "id": "armL",
+          "rect": {
+            "x": 1170,
+            "y": 241,
+            "width": 219,
+            "height": 382
+          },
+          "pivot": {
+            "x": 22,
+            "y": 53
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.1842619363913418,
+            "scaleY": 1.1842619363913418,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 325.0,
+              "y": 103.00000000000003
+            }
+          },
+          "zIndex": 3,
+          "visible": true
+        },
+        {
+          "id": "armR",
+          "rect": {
+            "x": 1674,
+            "y": 240,
+            "width": 236,
+            "height": 384
+          },
+          "pivot": {
+            "x": 209,
+            "y": 48
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.178093905472637,
+            "scaleY": 1.178093905472637,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 99.0,
+              "y": 103.00000000000003
+            }
+          },
+          "zIndex": 3,
+          "visible": true
+        },
+        {
+          "id": "legL",
+          "rect": {
+            "x": 2226,
+            "y": 227,
+            "width": 156,
+            "height": 410
+          },
+          "pivot": {
+            "x": 83,
+            "y": 20
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.1769445455648586,
+            "scaleY": 1.1769445455648586,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 309.52,
+              "y": 335.9020749908992
+            }
+          },
+          "zIndex": 1,
+          "visible": true
+        },
+        {
+          "id": "legR",
+          "rect": {
+            "x": 2740,
+            "y": 226,
+            "width": 153,
+            "height": 412
+          },
+          "pivot": {
+            "x": 70,
+            "y": 19
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.171231222528136,
+            "scaleY": 1.171231222528136,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 114.47999999999999,
+              "y": 334.6165773076366
+            }
+          },
+          "zIndex": 1,
+          "visible": true
+        }
+      ]
+    },
+    "Back": {
+      "image": {
+        "id": "spellblade-parts",
+        "name": "parts.png",
+        "width": 3072,
+        "height": 1728
+      },
+      "width": 3072,
+      "height": 1728,
+      "ground": {
+        "x": 1536.0,
+        "y": 1727
+      },
+      "displayScale": 1,
+      "referenceSize": 1000.0,
+      "parts": [
+        {
+          "id": "head",
+          "rect": {
+            "x": 51,
+            "y": 1046,
+            "width": 410,
+            "height": 501
+          },
+          "pivot": {
+            "x": 205,
+            "y": 366
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 2.1560215118738295,
+            "scaleY": 2.1560215118738295,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 214.0,
+              "y": 19.970149253731336
+            }
+          },
+          "zIndex": 4,
+          "visible": true
+        },
+        {
+          "id": "body",
+          "rect": {
+            "x": 554,
+            "y": 1073,
+            "width": 428,
+            "height": 446
+          },
+          "pivot": {
+            "x": 214.0,
+            "y": 178.4
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 0.7511210762331838,
+            "scaleY": 0.7511210762331838,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": null,
+            "socket": {
+              "x": 0,
+              "y": -481.0
+            }
+          },
+          "zIndex": 2,
+          "visible": true
+        },
+        {
+          "id": "armL",
+          "rect": {
+            "x": 1162,
+            "y": 1096,
+            "width": 236,
+            "height": 400
+          },
+          "pivot": {
+            "x": 213,
+            "y": 50
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.1649253731343285,
+            "scaleY": 1.1649253731343285,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 94.00000000000001,
+              "y": 100.99999999999996
+            }
+          },
+          "zIndex": 3,
+          "visible": true
+        },
+        {
+          "id": "armR",
+          "rect": {
+            "x": 1680,
+            "y": 1092,
+            "width": 224,
+            "height": 409
+          },
+          "pivot": {
+            "x": 24,
+            "y": 57
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.1392913184687807,
+            "scaleY": 1.1392913184687807,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 333.0,
+              "y": 100.99999999999996
+            }
+          },
+          "zIndex": 3,
+          "visible": true
+        },
+        {
+          "id": "legL",
+          "rect": {
+            "x": 2236,
+            "y": 1089,
+            "width": 135,
+            "height": 414
+          },
+          "pivot": {
+            "x": 66,
+            "y": 20
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.2005672122479392,
+            "scaleY": 1.2005672122479392,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 115.56,
+              "y": 345.7526377772971
+            }
+          },
+          "zIndex": 1,
+          "visible": true
+        },
+        {
+          "id": "legR",
+          "rect": {
+            "x": 2748,
+            "y": 1089,
+            "width": 135,
+            "height": 414
+          },
+          "pivot": {
+            "x": 67,
+            "y": 20
+          },
+          "restTransform": {
+            "x": 0,
+            "y": 0,
+            "scaleX": 1.2005672122479392,
+            "scaleY": 1.2005672122479392,
+            "rotation": 0,
+            "skewX": 0,
+            "skewY": 0
+          },
+          "attachment": {
+            "parentId": "body",
+            "socket": {
+              "x": 312.44,
+              "y": 345.7526377772971
+            }
+          },
+          "zIndex": 1,
+          "visible": true
+        }
+      ]
+    }
+  },
+  "motion": {
+    "presetId": "SD_Walk",
+    "duration": 0.95,
+    "bounce": 0.005,
+    "lean": 0.009,
+    "headRecoil": 0.001,
+    "armSwing": 0.1,
+    "stride": 0.012,
+    "lift": 0.009,
+    "footScale": 0,
+    "stance": 0.6,
+    "depthOrder": 0.2
+  },
+  "directions": {
+    "Front": {
+      "view": "Front",
+      "flip": false,
+      "vector": {
+        "x": 0,
+        "y": 1
+      },
+      "motionSign": 1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    },
+    "Back": {
+      "view": "Back",
+      "flip": false,
+      "vector": {
+        "x": 0,
+        "y": -0.5
+      },
+      "motionSign": -1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    },
+    "SE": {
+      "view": "Front",
+      "flip": false,
+      "vector": {
+        "x": 0.866,
+        "y": 0.5
+      },
+      "motionSign": 1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    },
+    "SW": {
+      "view": "Front",
+      "flip": true,
+      "vector": {
+        "x": -0.866,
+        "y": 0.5
+      },
+      "motionSign": 1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    },
+    "NE": {
+      "view": "Back",
+      "flip": false,
+      "vector": {
+        "x": 0.866,
+        "y": -0.5
+      },
+      "motionSign": -1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    },
+    "NW": {
+      "view": "Back",
+      "flip": true,
+      "vector": {
+        "x": -0.866,
+        "y": -0.5
+      },
+      "motionSign": -1,
+      "swapLimbs": false,
+      "parts": {
+        "head": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "armR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legL": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        },
+        "legR": {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "zOffset": 0
+        }
+      }
+    }
+  }
+}

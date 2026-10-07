@@ -63,13 +63,11 @@ tests/browser/              메인 ↔ 도구 화면 이동 검증
 ## 검증
 
 ```sh
-npx playwright install chromium
 npm run verify
 ```
 
-이 프로젝트는 **로컬 `npm run verify` 결과를 CI 테스트 결과로 간주**합니다. 타입 검사 → 프로덕션 빌드 → 도메인 테스트 → Chromium 브라우저 테스트를 실행하며, GitHub Actions 워크플로는 사용하지 않습니다. 추가 Actions 설정은 필요하지 않습니다.
+현재 `npm test` / `npm run test:rules`는 순수 게임 규칙과 입력 상태만 검사합니다. `npm run verify`는 타입/빌드와 이 규칙 검사만 실행하며 브라우저 자동 테스트를 실행하지 않습니다. 화면 검토는 `http://127.0.0.1:5173/game/?capture=1`의 수동 PNG/3초 영상 버튼을 사용하세요. 이전 Playwright 스위트와 과거 검증 기록은 보존했으며 실행 스크립트에서는 분리했습니다.
 
-`npm run test:all`은 도메인·브라우저 테스트만 실행합니다. 브라우저 검증 서버는 `npm run tool`로 전용 루프백 포트 4186에서 시작하며 기존 서버를 재사용하지 않습니다. 점유 중이면 `TACTICSSD_TEST_PORT=4187 npm run verify`처럼 별도 포트를 지정하세요.
 
 ## 은빛 여명 게임
 
@@ -93,4 +91,6 @@ npm run game
 - [PSP 기준과 자체 규칙 구분](docs/game/PSP_REFERENCE.md)
 - [검증 기록과 재현](docs/game/VALIDATION.md)
 
-새 게임 코드는 `game/`에 독립 배치되며 제작 도구 원본을 변경하지 않습니다. `npm run lint`는 TypeScript strict/noUnused 검사와 Git whitespace 검사입니다(별도 ESLint 설정은 없음). `npm run verify`는 lint → build → 전체 도메인/브라우저 테스트를 실행합니다.
+새 게임 코드는 `game/`에 독립 배치되며 제작 도구 원본을 변경하지 않습니다. `npm run lint`는 TypeScript strict/noUnused 검사와 Git whitespace 검사입니다(별도 ESLint 설정은 없음). `npm run verify`는 lint → build → 순수 규칙 검사만 실행합니다.
+
+현재 전장과 아트 구조: [Three.js 전장 통합](docs/game/THREE_BATTLEFIELD.md).

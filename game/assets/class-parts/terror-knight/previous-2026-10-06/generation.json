@@ -1,0 +1,51 @@
+{
+  "class": "terror-knight",
+  "generator": "builtin image_gen",
+  "source_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/terror-knight/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/terror-knight/frames/back_idle.png"
+  ],
+  "generated_output_path": "/tmp/tacticssd-class-parts/terror-knight/parts.png",
+  "columns": 3,
+  "rows": 4,
+  "layout": [
+    [
+      "front_head",
+      "front_body",
+      "front_arm_left"
+    ],
+    [
+      "front_arm_right",
+      "front_leg_left",
+      "front_leg_right"
+    ],
+    [
+      "back_head",
+      "back_body",
+      "back_arm_left"
+    ],
+    [
+      "back_arm_right",
+      "back_leg_left",
+      "back_leg_right"
+    ]
+  ],
+  "image_size": [
+    1241,
+    1268
+  ],
+  "transparent_background": true,
+  "alpha_validation": {
+    "zero_pixels": 1091319,
+    "total_pixels": 1573588,
+    "range": [
+      0,
+      255
+    ]
+  },
+  "notes": [
+    "Equal grid uses integer division of full image bounds; integrator should crop alpha per cell and normalize shared anchors/scale.",
+    "Same expected twelve-part cell order; no layout deviations.",
+    "Long hair belongs to head; red cloth belongs to torso; shoulder armor appears on torso caps and separate arms."
+  ]
+}

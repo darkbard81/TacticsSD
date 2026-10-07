@@ -1,0 +1,270 @@
+{
+  "method": "Native bounds crop. Own major connected component at alpha>=32, dilated four pixels in every direction with 9x9 maximum filter. Preserve source RGBA inside dilation; clear only alpha outside. No resampling or painting.",
+  "views": {
+    "Front": {
+      "source": "/tmp/tacticssd-class-parts-v2/wizard/front.png",
+      "source_sha256": "c7c0191c96fef77702b125a9aadb3e55afd9cf6ef6957c9388dca0d35e80c7fb",
+      "parts": {
+        "head": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/head.png",
+          "source_bounds": [
+            105,
+            3,
+            681,
+            472
+          ],
+          "size": [
+            576,
+            469
+          ],
+          "owned_component_bbox": [
+            111,
+            8,
+            676,
+            466
+          ],
+          "owned_component_pixels": 167057,
+          "cleared_alpha_pixels": 376
+        },
+        "body": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/body.png",
+          "source_bounds": [
+            771,
+            29,
+            1169,
+            488
+          ],
+          "size": [
+            398,
+            459
+          ],
+          "owned_component_bbox": [
+            776,
+            34,
+            1164,
+            483
+          ],
+          "owned_component_pixels": 113613,
+          "cleared_alpha_pixels": 189
+        },
+        "armL": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/armL.png",
+          "source_bounds": [
+            1353,
+            94,
+            1538,
+            482
+          ],
+          "size": [
+            185,
+            388
+          ],
+          "owned_component_bbox": [
+            1358,
+            99,
+            1532,
+            477
+          ],
+          "owned_component_pixels": 35435,
+          "cleared_alpha_pixels": 108
+        },
+        "armR": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/armR.png",
+          "source_bounds": [
+            214,
+            516,
+            403,
+            907
+          ],
+          "size": [
+            189,
+            391
+          ],
+          "owned_component_bbox": [
+            219,
+            521,
+            397,
+            901
+          ],
+          "owned_component_pixels": 36265,
+          "cleared_alpha_pixels": 229
+        },
+        "legL": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/legL.png",
+          "source_bounds": [
+            742,
+            506,
+            960,
+            909
+          ],
+          "size": [
+            218,
+            403
+          ],
+          "owned_component_bbox": [
+            747,
+            512,
+            955,
+            904
+          ],
+          "owned_component_pixels": 47983,
+          "cleared_alpha_pixels": 538
+        },
+        "legR": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Front/legR.png",
+          "source_bounds": [
+            1266,
+            506,
+            1484,
+            909
+          ],
+          "size": [
+            218,
+            403
+          ],
+          "owned_component_bbox": [
+            1271,
+            512,
+            1479,
+            904
+          ],
+          "owned_component_pixels": 47823,
+          "cleared_alpha_pixels": 540
+        }
+      }
+    },
+    "Back": {
+      "source": "/tmp/tacticssd-class-parts-v2/wizard/back.png",
+      "source_sha256": "e144f38a882a044f62798b5e7b3ceba07ae59232dd3d77e6dcddbabde5af200b",
+      "parts": {
+        "head": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/head.png",
+          "source_bounds": [
+            98,
+            21,
+            633,
+            499
+          ],
+          "size": [
+            535,
+            478
+          ],
+          "owned_component_bbox": [
+            103,
+            27,
+            628,
+            494
+          ],
+          "owned_component_pixels": 156612,
+          "cleared_alpha_pixels": 249
+        },
+        "body": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/body.png",
+          "source_bounds": [
+            723,
+            62,
+            1132,
+            535
+          ],
+          "size": [
+            409,
+            473
+          ],
+          "owned_component_bbox": [
+            728,
+            67,
+            1127,
+            530
+          ],
+          "owned_component_pixels": 106385,
+          "cleared_alpha_pixels": 246
+        },
+        "armL": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/armL.png",
+          "source_bounds": [
+            197,
+            533,
+            367,
+            917
+          ],
+          "size": [
+            170,
+            384
+          ],
+          "owned_component_bbox": [
+            202,
+            538,
+            362,
+            912
+          ],
+          "owned_component_pixels": 35462,
+          "cleared_alpha_pixels": 247
+        },
+        "armR": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/armR.png",
+          "source_bounds": [
+            1334,
+            96,
+            1512,
+            498
+          ],
+          "size": [
+            178,
+            402
+          ],
+          "owned_component_bbox": [
+            1339,
+            101,
+            1507,
+            493
+          ],
+          "owned_component_pixels": 38039,
+          "cleared_alpha_pixels": 235
+        },
+        "legL": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/legL.png",
+          "source_bounds": [
+            773,
+            531,
+            914,
+            918
+          ],
+          "size": [
+            141,
+            387
+          ],
+          "owned_component_bbox": [
+            778,
+            536,
+            909,
+            913
+          ],
+          "owned_component_pixels": 37947,
+          "cleared_alpha_pixels": 75
+        },
+        "legR": {
+          "file": "/tmp/tacticssd-class-parts-v2/wizard/crops/Back/legR.png",
+          "source_bounds": [
+            1304,
+            531,
+            1441,
+            918
+          ],
+          "size": [
+            137,
+            387
+          ],
+          "owned_component_bbox": [
+            1310,
+            536,
+            1436,
+            913
+          ],
+          "owned_component_pixels": 37732,
+          "cleared_alpha_pixels": 215
+        }
+      },
+      "arm_assignment": "Anatomical Back armL = bottom-left source component; armR = top-right source component. No mirroring."
+    }
+  }
+}

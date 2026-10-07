@@ -57,7 +57,7 @@ describe('rules', () => {
         expect(disk.equipment.erin.weaponId).toBe('sword-field');
         expect(parseCampaign(JSON.stringify(disk))).toEqual(c);
     });
-    it('reward is idempotent and saves reject invalid input', () => { const c = newCampaign(); reward(c, 0); reward(c, 0); expect(c.gold).toBe(250); expect(c.unlocked).toBe(1); expect(parseCampaign(JSON.stringify(c))).toEqual(c); expect(parseCampaign('{')).toBeNull(); expect(parseCampaign(JSON.stringify({ ...c, party: [0, 0] }))).toBeNull(); });
+    it('reward is idempotent and saves reject invalid input', () => { const c = newCampaign(); reward(c, 0); reward(c, 0); expect(c.gold).toBe(250); expect(c.unlocked).toBe(1); expect(parseCampaign(encodeCampaign(c))).toEqual(c); expect(parseCampaign('{')).toBeNull(); expect(parseCampaign(JSON.stringify({ ...c, party: [0, 0] }))).toBeNull(); });
 });
 describe('calculation source regression and extensibility', () => {
     it('uses published floor/max order and critical multiplier', () => { const a = { offense: 70.9, attack: 44, damageBonus: 13 }, d = { toughness: 52.1, defense: 15, resistance: 7 }; expect(calculateDamage(a, d, 1.5)).toEqual({ overhead: 18, modified: 19, total: 48, final: 72 }); expect(calculateDamage({ ...a, offense: 0, attack: 0 }, d, 1.5).final).toBe(1); });

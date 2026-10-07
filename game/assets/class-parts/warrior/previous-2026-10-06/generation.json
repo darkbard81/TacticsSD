@@ -1,0 +1,45 @@
+{
+  "class": "warrior",
+  "generator": "builtin image_gen",
+  "source_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/warrior/frames/front-idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/warrior/frames/back-idle.png"
+  ],
+  "generated_output_path": "/tmp/tacticssd-class-parts/warrior/parts.png",
+  "prompt_path": "/tmp/tacticssd-class-parts/warrior/prompt.txt",
+  "columns": 3,
+  "rows": 4,
+  "row_major_parts": [
+    [
+      "front_head",
+      "front_body",
+      "front_left_arm"
+    ],
+    [
+      "front_right_arm",
+      "front_left_leg",
+      "front_right_leg"
+    ],
+    [
+      "back_head",
+      "back_body",
+      "back_left_arm"
+    ],
+    [
+      "back_right_arm",
+      "back_left_leg",
+      "back_right_leg"
+    ]
+  ],
+  "image_size": [
+    1086,
+    1448
+  ],
+  "png_bit_depth": 8,
+  "png_color_type": 6,
+  "layout_notes": [
+    "All twelve disconnected parts present in requested row-major order.",
+    "Natural margins are slightly irregular; trim around individual part alpha bounds rather than assuming strict equal-cell boundaries.",
+    "Head owns braid; account for braid overlap when compositing torso."
+  ]
+}

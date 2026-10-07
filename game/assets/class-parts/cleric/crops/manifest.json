@@ -1,0 +1,270 @@
+{
+  "method": "Native bounds crop. Own major connected component at alpha>=32, dilated four pixels in every direction with 9x9 maximum filter. Preserve source RGBA inside dilation; clear only alpha outside. No resampling or painting.",
+  "views": {
+    "Front": {
+      "source": "/tmp/tacticssd-class-parts-v2/cleric/front.png",
+      "source_sha256": "0759bb806813799b5972da4355e1088ef9a334722493023be04aa61d9ab87e7a",
+      "parts": {
+        "head": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/head.png",
+          "source_bounds": [
+            131,
+            36,
+            646,
+            429
+          ],
+          "size": [
+            515,
+            393
+          ],
+          "owned_component_bbox": [
+            136,
+            41,
+            641,
+            424
+          ],
+          "owned_component_pixels": 118339,
+          "cleared_alpha_pixels": 1987
+        },
+        "body": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/body.png",
+          "source_bounds": [
+            687,
+            15,
+            1161,
+            502
+          ],
+          "size": [
+            474,
+            487
+          ],
+          "owned_component_bbox": [
+            692,
+            20,
+            1156,
+            500
+          ],
+          "owned_component_pixels": 125208,
+          "cleared_alpha_pixels": 2522
+        },
+        "armL": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/armL.png",
+          "source_bounds": [
+            1292,
+            57,
+            1468,
+            480
+          ],
+          "size": [
+            176,
+            423
+          ],
+          "owned_component_bbox": [
+            1297,
+            62,
+            1462,
+            475
+          ],
+          "owned_component_pixels": 36055,
+          "cleared_alpha_pixels": 261
+        },
+        "armR": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/armR.png",
+          "source_bounds": [
+            288,
+            500,
+            469,
+            910
+          ],
+          "size": [
+            181,
+            410
+          ],
+          "owned_component_bbox": [
+            294,
+            503,
+            464,
+            904
+          ],
+          "owned_component_pixels": 35541,
+          "cleared_alpha_pixels": 311
+        },
+        "legL": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/legL.png",
+          "source_bounds": [
+            842,
+            501,
+            987,
+            917
+          ],
+          "size": [
+            145,
+            416
+          ],
+          "owned_component_bbox": [
+            847,
+            503,
+            982,
+            911
+          ],
+          "owned_component_pixels": 41991,
+          "cleared_alpha_pixels": 363
+        },
+        "legR": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Front/legR.png",
+          "source_bounds": [
+            1320,
+            498,
+            1463,
+            917
+          ],
+          "size": [
+            143,
+            419
+          ],
+          "owned_component_bbox": [
+            1325,
+            503,
+            1457,
+            911
+          ],
+          "owned_component_pixels": 41268,
+          "cleared_alpha_pixels": 382
+        }
+      }
+    },
+    "Back": {
+      "source": "/tmp/tacticssd-class-parts-v2/cleric/back.png",
+      "source_sha256": "f3d707562283a2212df0c5f6873ef8576802037b3716ac844107d424ade4d171",
+      "parts": {
+        "head": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/head.png",
+          "source_bounds": [
+            213,
+            89,
+            599,
+            406
+          ],
+          "size": [
+            386,
+            317
+          ],
+          "owned_component_bbox": [
+            218,
+            94,
+            593,
+            400
+          ],
+          "owned_component_pixels": 70114,
+          "cleared_alpha_pixels": 1679
+        },
+        "body": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/body.png",
+          "source_bounds": [
+            644,
+            40,
+            1028,
+            459
+          ],
+          "size": [
+            384,
+            419
+          ],
+          "owned_component_bbox": [
+            649,
+            45,
+            1023,
+            453
+          ],
+          "owned_component_pixels": 87415,
+          "cleared_alpha_pixels": 2095
+        },
+        "armL": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/armL.png",
+          "source_bounds": [
+            291,
+            509,
+            417,
+            884
+          ],
+          "size": [
+            126,
+            375
+          ],
+          "owned_component_bbox": [
+            297,
+            514,
+            412,
+            879
+          ],
+          "owned_component_pixels": 28230,
+          "cleared_alpha_pixels": 658
+        },
+        "armR": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/armR.png",
+          "source_bounds": [
+            1255,
+            76,
+            1379,
+            446
+          ],
+          "size": [
+            124,
+            370
+          ],
+          "owned_component_bbox": [
+            1260,
+            82,
+            1374,
+            441
+          ],
+          "owned_component_pixels": 27095,
+          "cleared_alpha_pixels": 466
+        },
+        "legL": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/legL.png",
+          "source_bounds": [
+            764,
+            482,
+            915,
+            885
+          ],
+          "size": [
+            151,
+            403
+          ],
+          "owned_component_bbox": [
+            769,
+            487,
+            910,
+            879
+          ],
+          "owned_component_pixels": 40050,
+          "cleared_alpha_pixels": 968
+        },
+        "legR": {
+          "file": "/tmp/tacticssd-class-parts-v2/cleric/crops/Back/legR.png",
+          "source_bounds": [
+            1243,
+            482,
+            1394,
+            885
+          ],
+          "size": [
+            151,
+            403
+          ],
+          "owned_component_bbox": [
+            1248,
+            487,
+            1389,
+            880
+          ],
+          "owned_component_pixels": 40100,
+          "cleared_alpha_pixels": 656
+        }
+      },
+      "arm_assignment": "Anatomical Back armL = bottom-left source component; armR = top-right source component. No mirroring."
+    }
+  }
+}

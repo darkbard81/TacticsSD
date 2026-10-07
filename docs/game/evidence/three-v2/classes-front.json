@@ -1,0 +1,46 @@
+{
+  "capturedAt": "2026-10-07T00:24:50.437Z",
+  "view": "classes-front",
+  "css": {
+    "width": 806,
+    "height": 932
+  },
+  "logicalRenderViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "backing": {
+    "width": 3840,
+    "height": 2160
+  },
+  "deviceDPR": 1,
+  "interactiveRenderDPR": 1,
+  "exportRenderDPR": 3,
+  "visualViewportScale": 1,
+  "gameZoom": 1,
+  "camera": {
+    "unitsPerRenderPixel": 0.011111111111111112,
+    "position": [
+      0,
+      3.45,
+      24
+    ],
+    "left": -7.111111111111112,
+    "right": 7.111111111111112,
+    "top": 4,
+    "bottom": -4
+  },
+  "pose": "Rest",
+  "animationTime": 113.58197000001238,
+  "classes": [
+    "warrior",
+    "archer",
+    "wizard",
+    "cleric",
+    "spellblade",
+    "knight",
+    "terror-knight",
+    "berserker"
+  ],
+  "source": "same live Three.js scene; freshly rendered PNG; DOM HUD excluded"
+}

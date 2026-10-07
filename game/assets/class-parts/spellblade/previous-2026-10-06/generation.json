@@ -1,0 +1,45 @@
+{
+  "class": "spellblade",
+  "generator": "builtin image_gen",
+  "generated_output_path": "/tmp/tacticssd-class-parts/spellblade/parts.png",
+  "source_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/spellblade/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/spellblade/frames/back_idle.png"
+  ],
+  "rows": 4,
+  "columns": 3,
+  "layout": [
+    [
+      "front_head",
+      "front_body",
+      "front_arm_left"
+    ],
+    [
+      "front_arm_right",
+      "front_leg_left",
+      "front_leg_right"
+    ],
+    [
+      "back_head",
+      "back_body",
+      "back_arm_left"
+    ],
+    [
+      "back_arm_right",
+      "back_leg_left",
+      "back_leg_right"
+    ]
+  ],
+  "dimensions": [
+    1289,
+    1220
+  ],
+  "png_bit_depth": 8,
+  "png_color_type": 6,
+  "alpha_channel": true,
+  "layout_deviations": [
+    "Parts occupy approximate grid cells; use alpha components or custom bounds rather than fixed equal cell slicing.",
+    "Torso retains decorative shoulder caps; separate arm pauldrons will overlap these during rig assembly.",
+    "Back torso retains a cream sleeve-like mantle flap at its right edge; check arm layering during integration."
+  ]
+}

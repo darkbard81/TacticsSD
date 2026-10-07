@@ -1,0 +1,41 @@
+{
+  "class": "wizard",
+  "source_refs": [
+    "/home/deck/Documents/TacticsSD/game/assets/classes/wizard/frames/front_idle.png",
+    "/home/deck/Documents/TacticsSD/game/assets/classes/wizard/frames/back_idle.png"
+  ],
+  "generated_output_path": "/tmp/tacticssd-class-parts/wizard/parts.png",
+  "generator": "builtin image_gen",
+  "rows": 4,
+  "columns": 3,
+  "layout": [
+    [
+      "front_head",
+      "front_body",
+      "front_left_arm"
+    ],
+    [
+      "front_right_arm",
+      "front_left_leg",
+      "front_right_leg"
+    ],
+    [
+      "back_head",
+      "back_body",
+      "back_left_arm"
+    ],
+    [
+      "back_right_arm",
+      "back_left_leg",
+      "back_right_leg"
+    ]
+  ],
+  "width": 1086,
+  "height": 1448,
+  "png_color_type": 6,
+  "layout_notes": [
+    "All 12 disconnected parts in requested row order.",
+    "Part scale varies per cell; fit by shared anchors during integration.",
+    "Wizard head is wider than one strict uniform-grid cell; use individual crop bounds rather than uniform-grid slicing."
+  ]
+}

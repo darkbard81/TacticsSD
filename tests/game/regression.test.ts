@@ -11,3 +11,14 @@ it('F07 a valid area heal affects wounded allies and never adjacent enemies',()=
  ABILITIES.push({...ABILITIES.find(a=>a.effect==='heal')!,id:'audit-group-heal',radius:1});
  try {validateContent();expect(act(b,u,ally,'skill')).toBe(true);expect(ally.hp).toBe(54);expect(enemy.hp).toBe(10);} finally{ABILITIES.pop();}
 });
+
+// State only: no browser, pixels, renderer or GPU.
+it('equipment appears only during damaging attacks and clears on every nonattack state',async()=>{
+ const {weaponVisible}=await import('../../game/presentation-state');
+ const state={kind:'attack',progress:.5,damagingSkill:false,walking:false,hurt:false,collapsed:false};
+ expect(weaponVisible(state)).toBe(true);
+ for(const kind of [undefined,'item','idle','walk'])expect(weaponVisible({...state,kind})).toBe(false);
+ for(const progress of [-1,1,2])expect(weaponVisible({...state,progress})).toBe(false);
+ for(const flag of ['walking','hurt','collapsed'])expect(weaponVisible({...state,[flag]:true})).toBe(false);
+ expect(weaponVisible({...state,kind:'skill'})).toBe(false);expect(weaponVisible({...state,kind:'skill',damagingSkill:true})).toBe(true);
+});

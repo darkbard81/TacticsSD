@@ -1,0 +1,52 @@
+{
+  "results": [
+    {
+      "path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/classes-front.png",
+      "file_id": "file_000000000ee08206bd6f629be0182621",
+      "library_file_id": "libfile_c4a0518a6ec88191a8421b0564bd968c",
+      "status": "succeeded",
+      "metadata_exit": 0,
+      "metadata_result": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/classes-front.png\n",
+      "metadata_error": "",
+      "library_path": "/classes-front.png",
+      "library_file_name": "classes-front.png",
+      "current_version_number": 0
+    },
+    {
+      "path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/classes-back.png",
+      "file_id": "file_00000000097c8206956bc99d1bd59a94",
+      "library_file_id": "libfile_489d1ce09d1c819181fa25806d9df13b",
+      "status": "succeeded",
+      "metadata_exit": 0,
+      "metadata_result": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/classes-back.png\n",
+      "metadata_error": "",
+      "library_path": "/classes-back.png",
+      "library_file_name": "classes-back.png",
+      "current_version_number": 0
+    },
+    {
+      "path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/battle-iso.png",
+      "file_id": "file_00000000f7f88206b99f8ab055a2f3ae",
+      "library_file_id": "libfile_fc59d25808c481918807b0c9a19453ab",
+      "status": "succeeded",
+      "metadata_exit": 0,
+      "metadata_result": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/battle-iso.png\n",
+      "metadata_error": "",
+      "library_path": "/battle-iso(1).png",
+      "library_file_name": "battle-iso(1).png",
+      "current_version_number": 0
+    },
+    {
+      "path": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/battle-top.png",
+      "file_id": "file_0000000064248206ba045908dbec45c6",
+      "library_file_id": "libfile_6aa7f5ad983c8191bc54d57eab0e6ddc",
+      "status": "succeeded",
+      "metadata_exit": 0,
+      "metadata_result": "/home/deck/Documents/TacticsSD/docs/game/evidence/three-v2/battle-top.png\n",
+      "metadata_error": "",
+      "library_path": "/battle-top(1).png",
+      "library_file_name": "battle-top(1).png",
+      "current_version_number": 0
+    }
+  ]
+}

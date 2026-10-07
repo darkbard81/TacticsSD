@@ -1,3 +1,5 @@
+> 2026-10-07: 현재 8클래스 정면/후면 파츠·2.5H 리그·PNG 결과와 검사 정책은 [Three.js 전장 통합](THREE_BATTLEFIELD.md)을 참조하세요. 아래는 이전 작업 기록입니다.
+
 # 8종 클래스 스프라이트 · 최종 검증 · 2026-10-05
 
 `/home/deck/Documents/TacticsSD` 원본에서 `npm run verify` 종료코드 0: TypeScript/lint/Vite build + **도메인 89/89, Chromium 브라우저 50/50** 통과. [전체 로그](evidence/classes/verify-final.log).

@@ -1,0 +1,348 @@
+{
+  "version": 1,
+  "materials": [
+    {
+      "id": "reed-grass",
+      "top": "reed-grass-top.png",
+      "side": "reed-grass-side.png",
+      "topBox": [
+        0,
+        26,
+        418,
+        444
+      ],
+      "sideBox": [
+        3,
+        70,
+        206,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "reed-loam",
+      "top": "reed-loam-top.png",
+      "side": "reed-loam-side.png",
+      "topBox": [
+        418,
+        26,
+        836,
+        444
+      ],
+      "sideBox": [
+        212,
+        70,
+        415,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "highland-grass",
+      "top": "highland-grass-top.png",
+      "side": "highland-grass-side.png",
+      "topBox": [
+        836,
+        26,
+        1254,
+        444
+      ],
+      "sideBox": [
+        421,
+        70,
+        624,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "highland-scrub",
+      "top": "highland-scrub-top.png",
+      "side": "highland-scrub-side.png",
+      "topBox": [
+        1254,
+        26,
+        1672,
+        444
+      ],
+      "sideBox": [
+        630,
+        70,
+        833,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "citadel-moss",
+      "top": "citadel-moss-top.png",
+      "side": "citadel-moss-side.png",
+      "topBox": [
+        0,
+        496,
+        418,
+        914
+      ],
+      "sideBox": [
+        839,
+        70,
+        1042,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "sandstone",
+      "top": "sandstone-top.png",
+      "side": "sandstone-side.png",
+      "topBox": [
+        418,
+        496,
+        836,
+        914
+      ],
+      "sideBox": [
+        1048,
+        70,
+        1251,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "limestone",
+      "top": "limestone-top.png",
+      "side": "limestone-side.png",
+      "topBox": [
+        836,
+        496,
+        1254,
+        914
+      ],
+      "sideBox": [
+        1257,
+        70,
+        1460,
+        941
+      ],
+      "sideAspect": 4.29064039408867
+    },
+    {
+      "id": "river",
+      "top": "river-top.png",
+      "side": "river-side.png",
+      "topBox": [
+        1254,
+        496,
+        1672,
+        914
+      ],
+      "sideBox": [
+        1259,
+        0,
+        1672,
+        870
+      ],
+      "sideAspect": 2.1065375302663436,
+      "sideSource": "water-flow-source.png",
+      "baseFoam": "river-base-side.png",
+      "baseFoamBox": [
+        1259,
+        913,
+        1672,
+        941
+      ],
+      "previousSideSource": "river-side-rock-previous.png"
+    }
+  ],
+  "props": [
+    {
+      "id": "broadleaf-tree",
+      "file": "broadleaf-tree.png",
+      "source_box": [
+        0,
+        0,
+        497,
+        561
+      ],
+      "alpha_bbox": [
+        19,
+        39,
+        487,
+        543
+      ],
+      "size": [
+        484,
+        520
+      ]
+    },
+    {
+      "id": "pine-tree",
+      "file": "pine-tree.png",
+      "source_box": [
+        497,
+        0,
+        857,
+        561
+      ],
+      "alpha_bbox": [
+        510,
+        24,
+        842,
+        545
+      ],
+      "size": [
+        348,
+        537
+      ]
+    },
+    {
+      "id": "dead-tree",
+      "file": "dead-tree.png",
+      "source_box": [
+        857,
+        0,
+        1328,
+        561
+      ],
+      "alpha_bbox": [
+        888,
+        61,
+        1312,
+        546
+      ],
+      "size": [
+        440,
+        501
+      ]
+    },
+    {
+      "id": "fern-shrub",
+      "file": "fern-shrub.png",
+      "source_box": [
+        1280,
+        240,
+        1672,
+        561
+      ],
+      "alpha_bbox": [
+        1280,
+        266,
+        1649,
+        548
+      ],
+      "size": [
+        385,
+        298
+      ]
+    },
+    {
+      "id": "golden-shrub",
+      "file": "golden-shrub.png",
+      "source_box": [
+        0,
+        561,
+        445,
+        941
+      ],
+      "alpha_bbox": [
+        31,
+        577,
+        416,
+        884
+      ],
+      "size": [
+        401,
+        323
+      ]
+    },
+    {
+      "id": "mossy-boulder",
+      "file": "mossy-boulder.png",
+      "source_box": [
+        455,
+        561,
+        853,
+        941
+      ],
+      "alpha_bbox": [
+        469,
+        591,
+        831,
+        893
+      ],
+      "size": [
+        378,
+        318
+      ]
+    },
+    {
+      "id": "pale-boulder",
+      "file": "pale-boulder.png",
+      "source_box": [
+        870,
+        561,
+        1257,
+        941
+      ],
+      "alpha_bbox": [
+        885,
+        575,
+        1239,
+        898
+      ],
+      "size": [
+        370,
+        339
+      ]
+    },
+    {
+      "id": "stump",
+      "file": "stump.png",
+      "source_box": [
+        1280,
+        561,
+        1672,
+        941
+      ],
+      "alpha_bbox": [
+        1295,
+        593,
+        1641,
+        900
+      ],
+      "size": [
+        362,
+        323
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "stage": 0,
+      "grass": [
+        "reed-grass",
+        "reed-loam"
+      ],
+      "stone": "sandstone"
+    },
+    {
+      "stage": 1,
+      "grass": [
+        "highland-grass",
+        "highland-scrub"
+      ],
+      "stone": "sandstone"
+    },
+    {
+      "stage": 2,
+      "grass": [
+        "citadel-moss",
+        "reed-grass"
+      ],
+      "stone": "limestone"
+    }
+  ],
+  "sideContract": "top-anchored UV crop; 1 horizontal world unit; native aspect vertical world units; no stretching/repetition; x+ light, z+ dark",
+  "reference": "Parent inspected IMG_1285.jpeg; local transfer was blocked HTTP 403."
+}
