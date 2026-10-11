@@ -1,0 +1,151 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 8,
+  "rows": 2,
+  "anchor": {
+    "x": 128,
+    "y": 230
+  },
+  "referenceSize": 204.92006960660473,
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right",
+    "Attack01",
+    "Attack02",
+    "Hit",
+    "Downed"
+  ],
+  "sockets": {
+    "front:4": {
+      "x": 162.3206861519871,
+      "y": 117.74270802797922,
+      "angle": 0.28,
+      "behind": false
+    },
+    "front:5": {
+      "x": 137.04097377521518,
+      "y": 158.3489604194591,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:4": {
+      "x": 93.67931384801288,
+      "y": 117.74270802797922,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:5": {
+      "x": 118.95902622478482,
+      "y": 158.3489604194591,
+      "angle": 0.28,
+      "behind": false
+    }
+  },
+  "animationSource": "existing StandeeRig bone bake",
+  "downedStyle": "legacy sideways collapse; imagegen prone pending",
+  "sources": [
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Left",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Right",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack01",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack02",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Hit",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Downed",
+      "scale": 0.1264746767292085,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Left",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Right",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack01",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack02",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Hit",
+      "scale": 0.20492006960660472,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Downed",
+      "scale": 0.1264746767292085,
+      "rig": "game/assets/class-parts/terror-knight/rig.json"
+    }
+  ]
+}

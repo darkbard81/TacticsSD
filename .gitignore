@@ -1,4 +1,5 @@
 node_modules/
+tools/pixel_sprite_tool/.venv/
 dist/
 test-results/
 playwright-report/

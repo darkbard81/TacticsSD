@@ -1,0 +1,9 @@
+Use case: stylized-concept
+Asset type: game character base illustration to be converted into a 24x32 pixel sprite
+Primary request: Create one polished base illustration of a single two-head-tall chibi elf ranger, full body, facing directly forward in a calm neutral standing pose. This is the canonical character design image that will be pixelized and used to derive a walk-cycle sprite sheet.
+Subject: A friendly young elf ranger with distinct long pointed ears, a neat short plum-purple bob haircut, large clear amber eyes, a forest-green hooded capelet over a simple green tunic with a small gold clasp and belt, dark slate leggings, and brown boots. Keep the silhouette compact, charming, and unmistakably about two head-heights tall.
+Style/medium: Clean 2D game concept illustration with crisp shapes, restrained cel shading, appealing expressive face, cohesive fantasy palette, no pixelation yet; this is the clean base artwork before pixel conversion.
+Composition/framing: One centered character, straight-on full-body, arms relaxed slightly away from the torso so both hands and outfit edges are visible, feet aligned on one baseline, generous transparent margin around the complete silhouette, square canvas.
+Lighting/mood: Soft consistent top-left light, warm and adventurous.
+Constraints: True transparent background; exactly one character; preserve complete ears, hands, boots and cape within frame; use a stable, readable design that can simplify cleanly to 24x32 pixels.
+Avoid: extra characters, props, weapons, scenery, ground plane, cast shadow, text, labels, border, watermark, cropped limbs, side view, animation panels or sprite sheet layout.

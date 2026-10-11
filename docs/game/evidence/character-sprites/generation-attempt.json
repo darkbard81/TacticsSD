@@ -1,0 +1,30 @@
+{
+  "stage": "front-downed",
+  "skillStage": 9,
+  "attempts": 1,
+  "promptCommand": [
+    "python",
+    ".agents/skills/tacticssd-character-gen/scripts/character_gen.py",
+    "prompt",
+    "front-downed"
+  ],
+  "promptSha256": "2d7be4a10b80550d64e450723f7fcf9eea28de728920d8c53ab1ceeba1db092b",
+  "promptsFile": ".agents/skills/tacticssd-character-gen/references/prompts.json",
+  "referencedImagePaths": [
+    "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Base.png"
+  ],
+  "transparent_background": true,
+  "classReplacement": null,
+  "additionalFeatures": [],
+  "errorCode": "moderation_blocked",
+  "moderationStage": "output",
+  "category": "sexual",
+  "requestId": "1d9cb2b1-5986-44ab-a157-3557da6cfb51",
+  "savedGeneratedImage": null,
+  "rightAttempts": {
+    "front": 0,
+    "back": 0
+  },
+  "stoppedAfterFailure": true,
+  "alternativeAIGeneration": false
+}

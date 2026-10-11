@@ -1,0 +1,48 @@
+[
+  {
+    "view": "front",
+    "source": "/home/deck/Documents/TacticsSD/pixel-art/elf-cleric-woman/Cleric_Front_Base.png",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_mode": "RGBA",
+    "source_alpha_range": [
+      0,
+      255
+    ],
+    "base_size": [
+      1024,
+      1024
+    ],
+    "bbox": [
+      97,
+      0,
+      1079,
+      1254
+    ]
+  },
+  {
+    "view": "back",
+    "source": "/home/deck/Documents/TacticsSD/pixel-art/elf-cleric-woman/Cleric_Back_Base.png",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_mode": "RGBA",
+    "source_alpha_range": [
+      0,
+      255
+    ],
+    "base_size": [
+      1024,
+      1024
+    ],
+    "bbox": [
+      49,
+      0,
+      1224,
+      1254
+    ]
+  }
+]

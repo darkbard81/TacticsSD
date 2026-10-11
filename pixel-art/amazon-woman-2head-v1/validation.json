@@ -1,0 +1,32 @@
+{
+  "source_rgba_size": [
+    1086,
+    1448
+  ],
+  "frame_size": [
+    24,
+    32
+  ],
+  "sheet_size": [
+    120,
+    32
+  ],
+  "frames": 5,
+  "palette_opaque": 16,
+  "alpha": "binary 0 or 255",
+  "sheet_matches_frames": true,
+  "gif_duration_ms": [
+    160,
+    120,
+    160,
+    120
+  ],
+  "walk_loop_ms": 560,
+  "visual_review": [
+    "original generated image",
+    "native pixel base",
+    "enlarged frame contact sheet",
+    "monochrome silhouettes"
+  ],
+  "live_playback_review": "not performed: no connected browser available"
+}

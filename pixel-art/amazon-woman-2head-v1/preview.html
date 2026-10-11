@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2등신 아마조네스 — 걷기 미리보기</title>
+<style>
+body{font:16px system-ui;color:#e7ebdf;background:#182229;margin:32px}h1{font-size:24px}
+.views{display:flex;align-items:flex-end;gap:42px;margin:24px 0}canvas{image-rendering:pixelated;background:repeating-conic-gradient(#dfe4d9 0 25%,#cbd2c7 0 50%) 0/16px 16px}
+#zoom{width:240px;height:320px}button{font:inherit;padding:8px 16px;cursor:pointer}p{color:#bfcabf}
+</style>
+<h1>여성 아마조네스 · 2등신</h1>
+<p>24×32 · 공통 16색 · Base + 걷기 4프레임 · 발 기준선 y=30</p>
+<div class="views"><div><p>원본 크기</p><canvas id="native" width="24" height="32"></canvas></div>
+<div><p>10배 확대</p><canvas id="zoom" width="24" height="32"></canvas></div></div>
+<button id="play">일시 정지</button> <button id="next">다음 프레임</button>
+<p id="status" aria-live="off"></p>
+<p><a href="sprite-sheet/contact.png" style="color:#f2cd85">전체 프레임</a> · <a href="base-imagegen.png" style="color:#f2cd85">ImageGen 원화</a></p>
+<script type="module">
+const meta=await (await fetch('sprite-sheet/spritesheet.json')).json();
+const sheet=new Image();sheet.src='sprite-sheet/spritesheet.png';await sheet.decode();
+const frames=meta.frames.slice(1),contexts=['native','zoom'].map(id=>document.getElementById(id).getContext('2d'));
+let index=0,playing=true,last=performance.now(),cycles=0;
+function draw(){const f=frames[index];for(const ctx of contexts){ctx.clearRect(0,0,24,32);ctx.imageSmoothingEnabled=false;ctx.drawImage(sheet,f.x,f.y,24,32,0,0,24,32)}
+document.getElementById('status').textContent=`${f.name} · ${f.duration_ms} ms · 반복 ${cycles}`;
+document.body.dataset.frame=String(index);document.body.dataset.cycles=String(cycles);}
+document.getElementById('play').onclick=()=>{playing=!playing;last=performance.now();document.getElementById('play').textContent=playing?'일시 정지':'재생'};
+document.getElementById('next').onclick=()=>{playing=false;document.getElementById('play').textContent='재생';index=(index+1)%frames.length;draw()};
+function tick(now){if(playing){while(now-last>=frames[index].duration_ms){last+=frames[index].duration_ms;index=(index+1)%frames.length;if(!index)cycles++;draw()}}requestAnimationFrame(tick)}
+draw();requestAnimationFrame(tick);
+</script>
+</html>

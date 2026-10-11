@@ -1,0 +1,135 @@
+{
+  "tool": "image_to_video",
+  "duration_seconds": 6,
+  "resolution_name": "480p",
+  "sequential": true,
+  "combinations": [
+    {
+      "combination": "front-walk",
+      "status": "success",
+      "attempts": 1,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/front-walk/base/cleric-front-walk-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/front-walk/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129a0-f4fa-7260-84fb-f54dfd898d71/videos/1.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/front-walk/video/cleric-front-walk-6s.mp4",
+      "output_exists": true,
+      "bytes": 2435680,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": []
+    },
+    {
+      "combination": "front-idle",
+      "status": "success",
+      "attempts": 1,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/front-idle/base/cleric-front-idle-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/front-idle/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129a0-f4fa-7260-84fb-f54dfd898d71/videos/2.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/front-idle/video/cleric-front-idle-6s.mp4",
+      "output_exists": true,
+      "bytes": 1649257,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": []
+    },
+    {
+      "combination": "front-attack",
+      "status": "success",
+      "attempts": 1,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/front-attack/base/cleric-front-attack-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/front-attack/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129a0-f4fa-7260-84fb-f54dfd898d71/videos/3.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/front-attack/video/cleric-front-attack-6s.mp4",
+      "output_exists": true,
+      "bytes": 1684351,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": []
+    },
+    {
+      "combination": "back-walk",
+      "status": "success",
+      "attempts": 1,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/back-walk/base/cleric-back-walk-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/back-walk/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129a0-f4fa-7260-84fb-f54dfd898d71/videos/4.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/back-walk/video/cleric-back-walk-6s.mp4",
+      "output_exists": true,
+      "bytes": 2038091,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": []
+    },
+    {
+      "combination": "back-idle",
+      "status": "success",
+      "attempts": 2,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/back-idle/base/cleric-back-idle-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/back-idle/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129a0-f4fa-7260-84fb-f54dfd898d71/videos/5.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/back-idle/video/cleric-back-idle-6s.mp4",
+      "output_exists": true,
+      "bytes": 1376124,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": [
+        {
+          "attempt": 1,
+          "tool_returned_path": null,
+          "error": "Video poll failed with HTTP 400 Bad Request: {\"code\":\"imagine:content-moderated\",\"error\":\"Generated video rejected by content moderation.\",\"usage\":{\"cost_in_usd_ticks\":4900000000}}"
+        }
+      ]
+    },
+    {
+      "combination": "back-attack",
+      "status": "success",
+      "attempts": 3,
+      "base": "/home/deck/Documents/TacticsSD/video2spite/back-attack/base/cleric-back-attack-base.png",
+      "prompt_file": "/home/deck/Documents/TacticsSD/video2spite/back-attack/prompt-used.txt",
+      "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129af-d9f2-75d0-aae3-2b91bdbf7719/videos/1.mp4",
+      "output_path": "/home/deck/Documents/TacticsSD/video2spite/back-attack/video/cleric-back-attack-6s.mp4",
+      "output_exists": true,
+      "bytes": 1588503,
+      "duration": "6.041667",
+      "width": 544,
+      "height": 544,
+      "nb_frames": 145,
+      "errors": [
+        {
+          "attempt": 1,
+          "tool_returned_path": null,
+          "error": "Video poll failed with HTTP 400 Bad Request: {\"code\":\"imagine:content-moderated\",\"error\":\"Generated video rejected by content moderation.\",\"usage\":{\"cost_in_usd_ticks\":4900000000}}"
+        },
+        {
+          "attempt": 2,
+          "tool_returned_path": null,
+          "error": "Video poll failed with HTTP 400 Bad Request: {\"code\":\"imagine:content-moderated\",\"error\":\"Generated video rejected by content moderation.\",\"usage\":{\"cost_in_usd_ticks\":4900000000}}"
+        }
+      ],
+      "retry_history": [
+        {
+          "status": "success",
+          "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129af-d9f2-75d0-aae3-2b91bdbf7719/videos/1.mp4",
+          "output_path": "/home/deck/Documents/TacticsSD/video2spite/back-attack/video/cleric-back-attack-6s.mp4",
+          "output_exists": true,
+          "error": null,
+          "prompt": "The same adult female chibi elf cleric, seen strictly from behind, repeats one short spellcasting gesture in place, raising a forearm and extending her hand before returning to the supplied ready pose, blonde hair, pointed ears, lily ornament, and white-blue-gold cleric outfit unchanged, feet staying in the same place, full body centered with a generous margin. The camera stays locked with no zoom, pan, or rotation, the gesture stays free of weapons, particles, aura, or glow, and the background stays flat pure #FF00FF with no floor, shadow, text, UI, scene change, or screen-filling effects.",
+          "duration": 6,
+          "resolution_name": "480p",
+          "source_bytes": 1588503,
+          "output_bytes": 1588503
+        }
+      ]
+    }
+  ]
+}

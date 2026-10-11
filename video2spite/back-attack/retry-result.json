@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "tool_returned_path": "/home/deck/.grok/sessions/%2Fhome%2Fdeck%2FDocuments%2FTacticsSD/01a129af-d9f2-75d0-aae3-2b91bdbf7719/videos/1.mp4",
+  "output_path": "/home/deck/Documents/TacticsSD/video2spite/back-attack/video/cleric-back-attack-6s.mp4",
+  "output_exists": true,
+  "error": null,
+  "prompt": "The same adult female chibi elf cleric, seen strictly from behind, repeats one short spellcasting gesture in place, raising a forearm and extending her hand before returning to the supplied ready pose, blonde hair, pointed ears, lily ornament, and white-blue-gold cleric outfit unchanged, feet staying in the same place, full body centered with a generous margin. The camera stays locked with no zoom, pan, or rotation, the gesture stays free of weapons, particles, aura, or glow, and the background stays flat pure #FF00FF with no floor, shadow, text, UI, scene change, or screen-filling effects.",
+  "duration": 6,
+  "resolution_name": "480p",
+  "source_bytes": 1588503,
+  "output_bytes": 1588503
+}

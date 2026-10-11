@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "size": [
+    24,
+    32
+  ],
+  "anchor": [
+    12,
+    30
+  ],
+  "palette": {
+    ".": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "O": [
+      43,
+      33,
+      34,
+      255
+    ],
+    "D": [
+      76,
+      47,
+      35,
+      255
+    ],
+    "B": [
+      112,
+      64,
+      38,
+      255
+    ],
+    "C": [
+      151,
+      85,
+      43,
+      255
+    ],
+    "H": [
+      191,
+      119,
+      61,
+      255
+    ],
+    "L": [
+      222,
+      163,
+      92,
+      255
+    ],
+    "G": [
+      146,
+      117,
+      49,
+      255
+    ],
+    "Y": [
+      206,
+      172,
+      76,
+      255
+    ],
+    "I": [
+      247,
+      215,
+      137,
+      255
+    ],
+    "S": [
+      173,
+      111,
+      76,
+      255
+    ],
+    "T": [
+      224,
+      157,
+      104,
+      255
+    ],
+    "F": [
+      253,
+      198,
+      141,
+      255
+    ],
+    "E": [
+      255,
+      229,
+      184,
+      255
+    ],
+    "V": [
+      53,
+      65,
+      38,
+      255
+    ],
+    "M": [
+      89,
+      108,
+      48,
+      255
+    ],
+    "N": [
+      144,
+      153,
+      68,
+      255
+    ]
+  },
+  "frames": [
+    {
+      "name": "base",
+      "duration_ms": 400,
+      "rows": [
+        "........................",
+        ".........OOOOOO.........",
+        "........OBCCCCBOOO......",
+        "......OBCHHHCCCBBO......",
+        ".....OBCHHLHHCCBBBO.....",
+        ".....OCHHHHCCCBGYOBO....",
+        ".....OCHHCCCBGYYIGBO....",
+        "....OBCHCCCBGYYYGCCBO...",
+        "....OBCCCCBTTFFFTTBCO...",
+        "....OBCCCBTOOTFFOTBCO...",
+        "...OBCCBCTEOFFFOEBCBO...",
+        "...OBCCBCTFOFFFOFBCO....",
+        "...OBCCBCTFFFFFFTBCO....",
+        "....OBCCBCTFFFTFTBCO....",
+        ".....OBBBBCSTTTTBBO.....",
+        ".......OOOBSTTBOOO......",
+        ".......OGYGBTTBGYO......",
+        ".......OYIGVTTMGYO......",
+        ".......OTTVMNMVVTO......",
+        "......OTTOVMNMOFTO......",
+        "......OBDOOVVVOOTO......",
+        "......OGBOBDYGOBDBO.....",
+        ".....OTFOBVMDBVMOBO.....",
+        ".....OTTOBVMGBVMOTFO....",
+        "........OBVDBDVBOTTO....",
+        "........OTTBOOTTBO......",
+        "........OSTO..OSTO......",
+        "........OGBO..OGBO......",
+        "........OBDO..OBDO......",
+        ".......OBCDO..OBCDO.....",
+        ".......OOOOO..OOOOO.....",
+        "........................"
+      ]
+    }
+  ]
+}

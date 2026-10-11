@@ -1,0 +1,260 @@
+{
+  "idleChanged": true,
+  "idle": [
+    {
+      "id": "sprite-0",
+      "class": "knight",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sword-field"
+    },
+    {
+      "id": "sprite-1",
+      "class": "archer",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "bow-field"
+    },
+    {
+      "id": "sprite-2",
+      "class": "wizard",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "arcane-field"
+    },
+    {
+      "id": "sprite-3",
+      "class": "cleric",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sun-field"
+    },
+    {
+      "id": "sprite-6",
+      "class": "warrior",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sword-field"
+    },
+    {
+      "id": "sprite-7",
+      "class": "spellblade",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sword-field"
+    },
+    {
+      "id": "sprite-8",
+      "class": "terror-knight",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sword-field"
+    },
+    {
+      "id": "sprite-9",
+      "class": "berserker",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      },
+      "weapon": "sword-field"
+    }
+  ],
+  "frozen": true,
+  "walk": {
+    "state": "walk",
+    "frame": 0,
+    "view": "front",
+    "flip": false,
+    "clock": 0
+  },
+  "downed": [
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    },
+    {
+      "state": "downed",
+      "frame": 7,
+      "view": "front",
+      "flip": true,
+      "clock": 0
+    }
+  ],
+  "visibleAtKO": true,
+  "hiddenAfterCollapse": true,
+  "orientations": [
+    {
+      "top": false,
+      "facing": "SE",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": false,
+      "facing": "SW",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": true,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": false,
+      "facing": "NE",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "back",
+        "flip": false,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": false,
+      "facing": "NW",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "back",
+        "flip": true,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": true,
+      "facing": "SE",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": false,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": true,
+      "facing": "SW",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "front",
+        "flip": true,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": true,
+      "facing": "NE",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "back",
+        "flip": false,
+        "clock": 0.25
+      }
+    },
+    {
+      "top": true,
+      "facing": "NW",
+      "sprite": {
+        "state": "idle",
+        "frame": 1,
+        "view": "back",
+        "flip": true,
+        "clock": 0.25
+      }
+    }
+  ],
+  "unchanged": true
+}

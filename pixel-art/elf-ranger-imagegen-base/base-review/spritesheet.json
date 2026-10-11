@@ -1,0 +1,28 @@
+{
+  "format": "pixel-sprite-sheet-v1",
+  "image": "spritesheet.png",
+  "size": [
+    24,
+    32
+  ],
+  "frame_size": [
+    24,
+    32
+  ],
+  "anchor_px": [
+    12,
+    30
+  ],
+  "coordinate_origin": "top-left",
+  "padding": 0,
+  "frames": [
+    {
+      "name": "base",
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 300
+    }
+  ]
+}

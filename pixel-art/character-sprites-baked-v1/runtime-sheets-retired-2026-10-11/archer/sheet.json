@@ -1,0 +1,151 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 8,
+  "rows": 2,
+  "anchor": {
+    "x": 128,
+    "y": 230
+  },
+  "referenceSize": 200.51167297797474,
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right",
+    "Attack01",
+    "Attack02",
+    "Hit",
+    "Downed"
+  ],
+  "sockets": {
+    "front:4": {
+      "x": 157.57324121140493,
+      "y": 129.75095915673,
+      "angle": 0.28,
+      "behind": false
+    },
+    "front:5": {
+      "x": 130.249308592546,
+      "y": 164.65389871541868,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:4": {
+      "x": 98.42675878859505,
+      "y": 129.75095915673,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:5": {
+      "x": 125.75069140745403,
+      "y": 164.65389871541868,
+      "angle": 0.28,
+      "behind": false
+    }
+  },
+  "animationSource": "existing StandeeRig bone bake",
+  "downedStyle": "legacy sideways collapse; imagegen prone pending",
+  "sources": [
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Left",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Right",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack01",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack02",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Hit",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Downed",
+      "scale": 0.13606451421719892,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Left",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Right",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack01",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack02",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Hit",
+      "scale": 0.20051167297797473,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Downed",
+      "scale": 0.13606451421719892,
+      "rig": "game/assets/class-parts/archer/rig.json"
+    }
+  ]
+}

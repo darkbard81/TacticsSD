@@ -4,12 +4,13 @@ import itemFrames from './assets/items.json' with { type: 'json' };
 import { evaluateWorldRig } from '../tools/characterRig/domain/animator';
 import { buildStandeePanel, cropPart, StandeeRig } from '../tools/characterRig/runtime/standee';
 import { identity, type CharacterRigData, type DirectionId, type Part } from '../tools/characterRig/domain/rig';
-import { CLASS_PART_IDS, ClassStandees, classPartFor, loadStandee, type LoadedStandee } from './class-standees';
+import { ClassStandees, loadStandee, type LoadedStandee } from './class-standees';
+import { SPRITE_CLASS_IDS, ClassSpriteSheets, SpriteActor, spriteClassFor, type LoadedSprite } from './sprite-actors';
 import { weaponFor } from './content';
 import { weaponVisible } from './presentation-state';
 import { type Battle, type Pos, type Unit, type Command, tileAt, same, reachable, targets, commandAbility } from './domain';
 export type VisualState = { command: Command; battle: Battle | null; cursor: Pos; selected: string | null; mode: string; top: boolean; zoom: number; pan: Pos; paused: boolean };
-type Actor = { root: THREE.Group; facing: THREE.Group; rig: StandeeRig; bundle: LoadedStandee; marker: THREE.Mesh<THREE.RingGeometry, THREE.MeshBasicMaterial>; arrow: THREE.Mesh; label: HTMLDivElement; weaponId: string; weapon?: THREE.Group };
+type Actor = { root: THREE.Group; facing: THREE.Group; rig?: StandeeRig; bundle?: LoadedStandee; sprite?: SpriteActor; marker: THREE.Mesh<THREE.RingGeometry, THREE.MeshBasicMaterial>; arrow: THREE.Mesh; label: HTMLDivElement; weaponId: string; weapon?: THREE.Group };
 const HEIGHT = .32;
 const facingAngle: Record<DirectionId, number> = { Front: 0, Back: Math.PI, SE: Math.PI / 2, SW: 0, NE: Math.PI, NW: -Math.PI / 2 };
 /** One WebGL scene and depth buffer for the entire battlefield. DOM handles annotations/HUD. */
@@ -22,6 +23,7 @@ export class Renderer {
   private highlights = new THREE.Group();
   private actors = new Map<string, Actor>();
   private classes = new ClassStandees();
+  private sheets = new ClassSpriteSheets();
   private custom?: LoadedStandee;
   private painted = new PaintedTerrain();
   private tileMeshes: THREE.Mesh[] = [];
@@ -46,7 +48,10 @@ export class Renderer {
   private highlightKey = '';
   private galleryView: 'Front' | 'Back' | null = null;
   private gallery = new THREE.Group();
+  private gallerySprites: SpriteActor[] = [];
   private galleryRigs: StandeeRig[] = [];
+  private weaponTextures = new Map<string, { texture: THREE.Texture; width: number; height: number }>();
+  private visualDelta = 0;
   private lastVisual?: VisualState;
   private exporting = false;
   private restoreContext = () => { this.status.hidden = true; };
@@ -56,11 +61,11 @@ export class Renderer {
     this.canvas = this.gpu.domElement; this.canvas.setAttribute('aria-label', 'Three.js 높낮이 전술 전장'); this.canvas.setAttribute('role', 'img');
     this.canvas.dataset.renderer = 'three'; host.append(this.canvas);
     this.scene.background = new THREE.Color('#203c40'); this.scene.add(this.ground, this.highlights, this.gallery);
-    this.labels.className = 'battle-labels'; this.status.className = 'battle-render-status'; this.status.textContent = '3D 클래스 파츠 불러오는 중…';
+    this.labels.className = 'battle-labels'; this.status.className = 'battle-render-status'; this.status.textContent = '캐릭터 시트 불러오는 중…';
     host.append(this.labels, this.status);
     void this.painted.ready.then(() => { this.terrainKey = ''; });
     this.weapons.src = new URL('./assets/weapons.png', import.meta.url).href; this.items.src = new URL('./assets/items.png', import.meta.url).href;
-    void this.classes.ready.then(() => { this.status.hidden = true; }).catch(error => { this.status.textContent = String(error); });
+    void Promise.all([this.classes.ready, this.sheets.ready]).then(() => { this.clearActors(); this.status.hidden = true; }).catch(error => { this.status.textContent = String(error); });
     this.canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); this.status.hidden = false; this.status.textContent = 'WebGL 장면 복구 중…'; });
     this.canvas.addEventListener('webglcontextrestored', this.restoreContext);
   }
@@ -68,9 +73,9 @@ export class Renderer {
     const bundle = await loadStandee(data, ref => assets[ref.id] ?? assets[ref.name] ?? (ref.id === data.views.Front.image?.id ? url : new URL(ref.name, new URL(url, location.href)).href));
     this.clearActors(); this.custom?.template.clear(); this.custom = bundle;
   }
-  async restoreDefaultRig() { await this.classes.ready; this.clearActors(); this.custom?.template.clear(); this.custom = undefined; }
+  async restoreDefaultRig() { await Promise.all([this.classes.ready, this.sheets.ready]); this.clearActors(); this.custom?.template.clear(); this.custom = undefined; }
   private clearActors() {
-    for (const actor of this.actors.values()) { actor.root.removeFromParent(); actor.label.remove(); actor.rig.clear(); actor.marker.geometry.dispose(); actor.marker.material.dispose(); (actor.arrow.geometry as THREE.BufferGeometry).dispose(); (actor.arrow.material as THREE.Material).dispose(); }
+    for (const actor of this.actors.values()) { actor.root.removeFromParent(); actor.label.remove(); actor.rig?.clear(); actor.sprite?.clear(); actor.marker.geometry.dispose(); actor.marker.material.dispose(); (actor.arrow.geometry as THREE.BufferGeometry).dispose(); (actor.arrow.material as THREE.Material).dispose(); }
     this.actors.clear();
   }
   private configureCamera(s: VisualState, focus?: THREE.Vector3) {
@@ -112,13 +117,16 @@ export class Renderer {
       mesh.rotation.x = -Math.PI / 2; mesh.position.set(t.x, t.h * HEIGHT + .013, t.y); this.highlights.add(mesh);
     }
   }
-  private createActor(u: Unit, bundle: LoadedStandee): Actor {
-    const root = new THREE.Group(), facing = new THREE.Group(), rig = bundle.template.fork(); root.add(facing); facing.add(rig.root); this.scene.add(root);
+  private createActor(u: Unit, bundle: LoadedStandee | LoadedSprite): Actor {
+    const root = new THREE.Group(), facing = new THREE.Group(); root.add(facing); this.scene.add(root);
+    const rig = 'template' in bundle ? bundle.template.fork() : undefined;
+    const sprite = 'texture' in bundle ? new SpriteActor(bundle) : undefined;
+    if (rig) facing.add(rig.root); if (sprite) root.add(sprite.root);
     const marker = new THREE.Mesh(new THREE.RingGeometry(.24, .31, 24), new THREE.MeshBasicMaterial({ color: u.team === 'ally' ? '#67d8ca' : '#ee8d83', side: THREE.DoubleSide })); marker.rotation.x = -Math.PI / 2; marker.position.y = .024; root.add(marker);
     const shape = new THREE.Shape([new THREE.Vector2(-.09, -.06), new THREE.Vector2(.09, -.06), new THREE.Vector2(0, .14)]);
     const arrow = new THREE.Mesh(new THREE.ShapeGeometry(shape), new THREE.MeshBasicMaterial({ color: '#fff1c6', side: THREE.DoubleSide })); arrow.rotation.x = -Math.PI / 2; arrow.position.y = .026; root.add(arrow);
     const label = document.createElement('div'); label.className = `battle-unit-label ${u.team}`; label.dataset.hero = String(u.hero); label.innerHTML = '<span></span><i><b></b></i>'; this.labels.append(label);
-    return { root, facing, rig, bundle, marker, arrow, label, weaponId: '' };
+    return { root, facing, rig, bundle: 'template' in bundle ? bundle : undefined, sprite, marker, arrow, label, weaponId: '' };
   }
   private weaponPanel(u: Unit) {
     const weapon = weaponFor(u.hero, u.weaponVariant); let panel = this.weaponPanels.get(weapon.id); if (panel) return panel;
@@ -131,7 +139,7 @@ export class Renderer {
     panel = buildStandeePanel(canvas, undefined, part); this.weaponPanels.set(weapon.id, panel); return panel;
   }
   private updateActor(u: Unit, b: Battle, s: VisualState) {
-    const bundle = this.custom ?? this.classes.get(u.hero); if (!bundle) return;
+    const bundle = this.custom ?? this.sheets.get(u.hero) ?? this.classes.get(u.hero); if (!bundle) return;
     let actor = this.actors.get(u.id); if (!actor) { actor = this.createActor(u, bundle); this.actors.set(u.id, actor); }
     const current = this.visualPosition(u, b), oldHP = this.previousHP.get(u.id);
     if (oldHP !== undefined && u.hp < oldHP) this.effects.set(u.id, this.animationTime + .4);
@@ -140,7 +148,9 @@ export class Renderer {
     const fall = this.fallen.get(u.id), collapse = fall === undefined ? 0 : Math.min(1, (this.animationTime - fall) / .65);
     actor.root.visible = collapse < 1; actor.label.hidden = u.hp <= 0; if (!actor.root.visible) return;
     actor.root.position.set(current.x, current.h * HEIGHT + .025, current.y);
-    const view = bundle.rig.views.Front, scalar = (s.top ? .88 : 1.8) / view.referenceSize * view.displayScale;
+    if (actor.sprite) { this.updateSprite(actor, u, current, s, collapse); this.updateLabel(actor, u, s); return; }
+    if (!actor.rig || !actor.bundle) return;
+    const view = actor.bundle.rig.views.Front, scalar = (s.top ? .88 : 1.8) / view.referenceSize * view.displayScale;
     actor.rig.root.scale.setScalar(scalar);
     // Top is a board overview: lay the complete rigid standee towards the camera, with a ground arrow for facing.
     if (s.top && !this.captureView) { actor.facing.quaternion.copy(this.camera.quaternion); actor.facing.rotateY(['NE', 'NW', 'Back'].includes(current.facing) ? Math.PI : 0); actor.facing.position.set(0, .08, .36); }
@@ -172,6 +182,42 @@ export class Renderer {
     }
     // Equipment exists on the hand, but is drawn only during a live damaging attack.
     if (actor.weapon) actor.weapon.visible = weaponVisible({ kind: attack?.kind, progress, damagingSkill: attack?.kind === 'skill' && commandAbility(u, 'skill').effect === 'damage', walking: current.walking, hurt: hit > 0, collapsed: collapse > 0 });
+    this.updateLabel(actor, u, s);
+  }
+  private updateSprite(actor: Actor, u: Unit, current: ReturnType<Renderer['visualPosition']>, s: VisualState, collapse: number) {
+    const sprite = actor.sprite!;
+    sprite.root.scale.setScalar((s.top ? .88 : 1.8) / (sprite.bundle.atlas.referenceSize ?? 224));
+    // The foot anchor suits upright actors. Top uses a centered tile token,
+    // like the previous standee's .36 ground offset, so its head does not
+    // occupy the next tile and disappear behind a higher neighbour.
+    const topOffset = s.top ? (sprite.bundle.atlas.anchor.y - 128) * .88 / (sprite.bundle.atlas.referenceSize ?? 224) : 0;
+    sprite.root.position.set(0, s.top ? .06 : 0, topOffset);
+    const orientation = sprite.face(this.camera, current.facing, s.top);
+    const attack = this.attacks.get(u.id);
+    const progress = attack && this.animationTime >= attack.start ? Math.min(1, (this.animationTime - attack.start) / .65) : 1;
+    const hit = Math.max(0, (this.effects.get(u.id) ?? 0) - this.animationTime);
+    if (attack && this.animationTime >= attack.start + .65) this.attacks.delete(u.id);
+    const state = u.hp <= 0 ? 'downed' : hit > 0 ? 'hit' : progress < 1 ? 'attack' : current.walking ? 'walk' : 'idle';
+    const socket = sprite.pose(this.visualDelta, state, progress, orientation.view, orientation.flip);
+    const weapon = weaponFor(u.hero, u.weaponVariant), art = this.spriteWeapon(weapon);
+    if (art) { sprite.equipment(weapon.id, art.texture, art, weapon.grip); actor.weaponId = weapon.id; }
+    sprite.showWeapon(weaponVisible({ kind: attack?.kind, progress, damagingSkill: attack?.kind === 'skill' && commandAbility(u, 'skill').effect === 'damage', walking: current.walking, hurt: hit > 0, collapsed: collapse > 0 }), socket);
+    actor.marker.material.color.set(s.selected === u.id ? '#ffe792' : u.team === 'ally' ? '#67d8ca' : '#ee8d83');
+    actor.marker.material.opacity = u.done ? .45 : 1; actor.marker.material.transparent = u.done;
+    const yaw = facingAngle[current.facing]; actor.arrow.position.set(Math.sin(yaw) * .36, .026, Math.cos(yaw) * .36); actor.arrow.rotation.z = yaw + Math.PI;
+  }
+  private spriteWeapon(weapon: ReturnType<typeof weaponFor>) {
+    const cached = this.weaponTextures.get(weapon.id); if (cached) return cached;
+    if (!this.weapons.complete || !this.weapons.naturalWidth || !this.items.complete || !this.items.naturalWidth) return;
+    const width = this.weapons.naturalWidth / 4, height = this.weapons.naturalHeight / 2;
+    const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d')!, item = weapon.iconId ? (itemFrames as Record<string, { x: number; y: number; w: number; h: number }>)[weapon.iconId] : undefined;
+    if (item) ctx.drawImage(this.items, item.x, item.y, item.w, item.h, 0, 0, width, height);
+    else ctx.drawImage(this.weapons, weapon.frame % 4 * width, Math.floor(weapon.frame / 4) * height, width, height, 0, 0, width, height);
+    const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace; texture.generateMipmaps = false; texture.minFilter = THREE.LinearFilter;
+    const art = { texture, width, height }; this.weaponTextures.set(weapon.id, art); return art;
+  }
+  private updateLabel(actor: Actor, u: Unit, s: VisualState) {
     actor.root.updateMatrixWorld(true);
     const labelPoint = actor.root.localToWorld(new THREE.Vector3(0, s.top ? .08 : 1.93, 0)).project(this.camera);
     actor.label.style.transform = `translate(${(labelPoint.x + 1) * this.w / 2}px, ${(1 - labelPoint.y) * this.h / 2}px) translate(-50%, -100%)`;
@@ -182,7 +228,7 @@ export class Renderer {
     if (this.exporting) return;
     this.lastVisual = s;
     const w = innerWidth, h = innerHeight; if (w !== this.w || h !== this.h) { this.w = w; this.h = h; this.gpu.setSize(w, h); }
-    const dt = this.last ? Math.max(0, (now - this.last) / 1000) : 0; this.last = now; if (!s.paused) this.animationTime += dt;
+    const dt = this.last ? Math.max(0, (now - this.last) / 1000) : 0; this.last = now; this.visualDelta = s.paused ? 0 : dt; this.animationTime += this.visualDelta;
     if (this.galleryView) { this.drawGallery(); return; }
     this.gallery.visible = false; this.ground.visible = this.highlights.visible = true;
     this.canvas.hidden = !s.battle; this.labels.hidden = !s.battle; if (!s.battle) return;
@@ -201,19 +247,22 @@ export class Renderer {
   }
   portraits(host: HTMLElement, _gear: Array<{ weapon: number }>) {
     const draw = () => host.querySelectorAll<HTMLCanvasElement>('canvas[data-portrait]').forEach(canvas => {
-      const bundle = this.custom ?? this.classes.get(Number(canvas.dataset.portrait)); if (!bundle) return;
-      const ctx = canvas.getContext('2d')!, view = bundle.rig.views.Front; ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.save(); ctx.translate(100, 215);
+      const bundle = this.custom ?? this.sheets.get(Number(canvas.dataset.portrait)) ?? this.classes.get(Number(canvas.dataset.portrait)); if (!bundle) return;
+      const ctx = canvas.getContext('2d')!;
+      if ('texture' in bundle) { ctx.clearRect(0, 0, canvas.width, canvas.height); const size = Math.min(canvas.width, canvas.height); ctx.drawImage(bundle.image, 0, 0, 256, 256, (canvas.width - size) / 2, canvas.height - size, size, size); return; }
+      const view = bundle.rig.views.Front; ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.save(); ctx.translate(100, 215);
       const scale = 205 / view.referenceSize * view.displayScale; ctx.scale(scale, scale);
       for (const pose of evaluateWorldRig(bundle.rig, 'Front', 0, 'Rest').sort((a, b) => a.zIndex - b.zIndex)) {
         const part = view.parts.find(p => p.id === pose.id)!, image = cropPart(bundle.assets, bundle.rig, 'Front', part); if (!image) continue;
         const m = pose.matrix; ctx.save(); ctx.transform(m.a, m.b, m.c, m.d, m.tx, m.ty); ctx.drawImage(image, 0, 0); ctx.restore();
       }
       ctx.restore();
-    }); draw(); void this.classes.ready.then(draw).catch(() => undefined);
+    }); draw(); void Promise.all([this.classes.ready, this.sheets.ready]).then(draw).catch(() => undefined);
   }
   /** Actual registered game meshes, presented for user inspection in the same renderer/scene. */
   async setGallery(view: 'Front' | 'Back' | null) {
-    await this.classes.ready; this.galleryView = view; document.body.classList.toggle('class-gallery', Boolean(view));
+    await Promise.all([this.classes.ready, this.sheets.ready]); this.galleryView = view; document.body.classList.toggle('class-gallery', Boolean(view));
+    for (const sprite of this.gallerySprites) sprite.clear(); this.gallerySprites = [];
     for (const rig of this.galleryRigs) rig.clear(); this.galleryRigs = [];
     this.gallery.traverse(object => {
       if (object.userData.caption && object instanceof THREE.Mesh) {
@@ -223,18 +272,22 @@ export class Renderer {
     });
     this.gallery.clear();
     if (!view) return;
-    CLASS_PART_IDS.forEach((id, index) => {
-      const bundle = this.classes.entries.get(id)!, rig = bundle.template.fork();
-      rig.root.scale.setScalar(2.5 / bundle.rig.views.Front.referenceSize);
-      rig.root.rotation.y = view === 'Back' ? Math.PI : 0;
-      rig.root.position.set((index % 4 - 1.5) * 3.15, index < 4 ? 3.8 : 0, 0);
-      rig.pose(0, 'Rest'); this.gallery.add(rig.root); this.galleryRigs.push(rig);
+    SPRITE_CLASS_IDS.forEach((id, index) => {
+      const bundle = this.sheets.entries.get(id), position = new THREE.Vector3((index % 4 - 1.5) * 3.15, index < 4 ? 3.8 : 0, 0);
+      if (bundle) {
+        const sprite = new SpriteActor(bundle); sprite.root.scale.setScalar(2.5 / (bundle.atlas.referenceSize ?? 224)); sprite.root.position.copy(position);
+        sprite.frame(0, view === 'Back' ? 'back' : 'front', false); this.gallery.add(sprite.root); this.gallerySprites.push(sprite);
+      } else {
+        const existing = this.classes.entries.get(id)!, rig = existing.template.fork();
+        rig.root.scale.setScalar(2.5 / existing.rig.views.Front.referenceSize); rig.root.rotation.y = view === 'Back' ? Math.PI : 0; rig.root.position.copy(position);
+        rig.pose(0, 'Rest'); this.gallery.add(rig.root); this.galleryRigs.push(rig);
+      }
       const canvas = document.createElement('canvas'); canvas.width = 640; canvas.height = 80;
       const context = canvas.getContext('2d')!; context.font = '36px system-ui'; context.textAlign = 'center'; context.fillStyle = '#f6e2b6';
       context.fillText(`${id.toUpperCase()} · ${view.toUpperCase()}`, 320, 51);
       const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
       const label = new THREE.Mesh(new THREE.PlaneGeometry(3, .375), new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }));
-      label.userData.caption = true; label.position.copy(rig.root.position).add(new THREE.Vector3(0, -.35, .1)); this.gallery.add(label);
+      label.userData.caption = true; label.position.copy(position).add(new THREE.Vector3(0, -.35, .1)); this.gallery.add(label);
     });
   }
   private drawGallery() {
@@ -247,6 +300,14 @@ export class Renderer {
     this.camera.top = this.h * upp / 2; this.camera.bottom = -this.h * upp / 2;
     this.camera.updateProjectionMatrix(); this.camera.updateMatrixWorld(); this.gpu.render(this.scene, this.camera);
   }
+  private orientSpritesForCamera() {
+    const visual = this.lastVisual; if (!visual?.battle) return;
+    for (const u of visual.battle.units) {
+      const sprite = this.actors.get(u.id)?.sprite; if (!sprite) continue;
+      const orientation = sprite.face(this.camera, this.visualPosition(u, visual.battle).facing, visual.top);
+      sprite.frame(sprite.root.userData.animation?.frame ?? 0, orientation.view, orientation.flip);
+    }
+  }
   setCaptureView(view: 'Front' | 'Back' | null) { this.captureView = view; }
   /** A fresh high-resolution render, not a resized low-resolution screenshot. */
   async capture(detail = false, waterDetail = false) {
@@ -257,14 +318,14 @@ export class Renderer {
       this.w = 1280; this.h = 720;
       this.gpu.setPixelRatio(3); this.gpu.setSize(this.w, this.h, false);
       if (this.galleryView) this.drawGallery();
-      else { if (this.lastVisual) this.configureCamera(detail || waterDetail ? { ...this.lastVisual, zoom: this.lastVisual.zoom * (waterDetail ? 3 : 1.75), pan: { x: 0, y: 0 } } : this.lastVisual, waterDetail ? new THREE.Vector3(3, -.16, 7.15) : undefined); this.gpu.render(this.scene, this.camera); }
+      else { if (this.lastVisual) this.configureCamera(detail || waterDetail ? { ...this.lastVisual, zoom: this.lastVisual.zoom * (waterDetail ? 3 : 1.75), pan: { x: 0, y: 0 } } : this.lastVisual, waterDetail ? new THREE.Vector3(3, -.16, 7.15) : undefined); this.orientSpritesForCamera(); this.gpu.render(this.scene, this.camera); }
       const metadata = {
         capturedAt: new Date().toISOString(), terrainStage: this.lastVisual?.battle?.stage, detail, waterDetail, view: this.galleryView ? `classes-${this.galleryView.toLowerCase()}` : this.lastVisual?.top ? 'battle-top' : 'battle-iso',
         css: { width: css.width, height: css.height }, logicalRenderViewport: { width: this.w, height: this.h }, backing: { width: this.canvas.width, height: this.canvas.height },
         deviceDPR: window.devicePixelRatio, interactiveRenderDPR: previousRatio, exportRenderDPR: this.gpu.getPixelRatio(),
         visualViewportScale: window.visualViewport?.scale ?? null, gameZoom: this.lastVisual?.zoom ?? null,
         camera: { unitsPerRenderPixel: this.unitsPerPixel, position: this.camera.position.toArray(), left: this.camera.left, right: this.camera.right, top: this.camera.top, bottom: this.camera.bottom },
-        pose: this.galleryView ? 'Rest' : 'live idle', animationTime: this.animationTime, classes: this.galleryView ? [...CLASS_PART_IDS] : null,
+        pose: this.galleryView ? 'Rest' : 'live idle', animationTime: this.animationTime, classes: this.galleryView ? [...SPRITE_CLASS_IDS] : null,
         source: 'same live Three.js scene; freshly rendered PNG; DOM HUD excluded',
       };
       const blob = await new Promise<Blob>((resolve, reject) => this.canvas.toBlob(value => value ? resolve(value) : reject(Error('PNG 캡처 실패'))));
@@ -272,10 +333,10 @@ export class Renderer {
     } finally {
       this.w = previousWidth; this.h = previousHeight; this.gpu.setPixelRatio(previousRatio); this.gpu.setSize(this.w, this.h, false);
       if (this.galleryView) this.drawGallery();
-      else if (this.lastVisual) { this.configureCamera(this.lastVisual); this.gpu.render(this.scene, this.camera); }
+      else if (this.lastVisual) { this.configureCamera(this.lastVisual); this.orientSpritesForCamera(); this.gpu.render(this.scene, this.camera); }
       this.exporting = false;
     }
   }
   get dimensions() { return { width: this.w, height: this.h, backingWidth: this.canvas.width, backingHeight: this.canvas.height, dpr: this.gpu.getPixelRatio() }; }
-  diagnostics() { return { renderer: 'three', sceneCount: 1, classes: [...this.classes.entries.keys()], actors: [...this.actors].map(([id, a]) => ({ id, class: this.custom ? 'custom' : classPartFor(Number(a.label.dataset.hero ?? 0)), parts: a.rig.diagnostics(), weapon: a.weaponId })), memory: this.gpu.info.memory }; }
+  diagnostics() { return { renderer: 'three', sceneCount: 1, classes: [...this.classes.entries.keys()], spriteClasses: [...this.sheets.entries.keys()], actors: [...this.actors].map(([id, a]) => ({ id, class: this.custom ? 'custom' : spriteClassFor(Number(a.label.dataset.hero ?? 0)), parts: a.rig?.diagnostics(), sprite: a.sprite?.root.userData.animation, weapon: a.weaponId })), memory: this.gpu.info.memory }; }
 }

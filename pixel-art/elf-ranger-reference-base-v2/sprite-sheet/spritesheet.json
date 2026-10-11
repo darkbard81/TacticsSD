@@ -1,0 +1,60 @@
+{
+  "format": "pixel-sprite-sheet-v1",
+  "image": "spritesheet.png",
+  "size": [
+    120,
+    32
+  ],
+  "frame_size": [
+    24,
+    32
+  ],
+  "anchor_px": [
+    12,
+    30
+  ],
+  "coordinate_origin": "top-left",
+  "padding": 0,
+  "frames": [
+    {
+      "name": "base",
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 300
+    },
+    {
+      "name": "walk_00_contact_right",
+      "x": 24,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 130
+    },
+    {
+      "name": "walk_01_passing_right",
+      "x": 48,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 100
+    },
+    {
+      "name": "walk_02_contact_left",
+      "x": 72,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 130
+    },
+    {
+      "name": "walk_03_passing_left",
+      "x": 96,
+      "y": 0,
+      "w": 24,
+      "h": 32,
+      "duration_ms": 100
+    }
+  ]
+}

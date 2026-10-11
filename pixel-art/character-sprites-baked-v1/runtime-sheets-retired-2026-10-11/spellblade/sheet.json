@@ -1,0 +1,151 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 8,
+  "rows": 2,
+  "anchor": {
+    "x": 128,
+    "y": 230
+  },
+  "referenceSize": 179.80886457865486,
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right",
+    "Attack01",
+    "Attack02",
+    "Hit",
+    "Downed"
+  ],
+  "sockets": {
+    "front:4": {
+      "x": 159.57103591471022,
+      "y": 143.2574035976245,
+      "angle": 0.28,
+      "behind": false
+    },
+    "front:5": {
+      "x": 128.4009583584573,
+      "y": 177.30501948497977,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:4": {
+      "x": 96.42896408528978,
+      "y": 143.2574035976245,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:5": {
+      "x": 127.59904164154271,
+      "y": 177.30501948497977,
+      "angle": 0.28,
+      "behind": false
+    }
+  },
+  "animationSource": "existing StandeeRig bone bake",
+  "downedStyle": "legacy sideways collapse; imagegen prone pending",
+  "sources": [
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Left",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Right",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack01",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack02",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Hit",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Downed",
+      "scale": 0.1391041326162124,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Left",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Right",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack01",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack02",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Hit",
+      "scale": 0.17980886457865486,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Downed",
+      "scale": 0.1391041326162124,
+      "rig": "game/assets/class-parts/spellblade/rig.json"
+    }
+  ]
+}

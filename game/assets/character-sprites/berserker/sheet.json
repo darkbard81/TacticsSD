@@ -1,0 +1,373 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 8,
+  "rows": 2,
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right",
+    "Attack01",
+    "Attack02",
+    "Hit",
+    "Downed"
+  ],
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "anchor": {
+    "x": 128,
+    "y": 230
+  },
+  "scale": 0.17862838915470494,
+  "sockets": {
+    "front:4": {
+      "x": 171.40901502504173,
+      "y": 46.04183427192277,
+      "angle": 0.35,
+      "behind": false
+    },
+    "front:5": {
+      "x": 178.02162162162162,
+      "y": 176.42857142857142,
+      "angle": -1.25,
+      "behind": false
+    },
+    "back:4": {
+      "x": 88.52871467639015,
+      "y": 25.895283772981614,
+      "angle": -0.35,
+      "behind": true
+    },
+    "back:5": {
+      "x": 75.13372582001682,
+      "y": 169.6331456154465,
+      "angle": 1.25,
+      "behind": true
+    }
+  },
+  "sources": [
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Base.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        3,
+        1240,
+        1254
+      ],
+      "placement": [
+        16,
+        7
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Left",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Left.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        79,
+        0,
+        1154,
+        1254
+      ],
+      "placement": [
+        30,
+        6
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Base.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        3,
+        1240,
+        1254
+      ],
+      "placement": [
+        16,
+        7
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Right",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Right.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1192,
+        1254
+      ],
+      "placement": [
+        16,
+        6
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack01",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Attack01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1198,
+        1243
+      ],
+      "placement": [
+        16,
+        8
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack02",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Attack02.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        96,
+        9,
+        1206,
+        1241
+      ],
+      "placement": [
+        33,
+        10
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Hit",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1232,
+        1238
+      ],
+      "placement": [
+        16,
+        9
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Front",
+      "pose": "Downed",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Front_Downed.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        33,
+        1240,
+        1228
+      ],
+      "placement": [
+        16,
+        17
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Base.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        1,
+        1236,
+        1254
+      ],
+      "placement": [
+        16,
+        6
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Left",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Left.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        31,
+        11,
+        1230,
+        1254
+      ],
+      "placement": [
+        22,
+        8
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Base.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        1,
+        1236,
+        1254
+      ],
+      "placement": [
+        16,
+        6
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Right",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Right.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        49,
+        0,
+        1184,
+        1240
+      ],
+      "placement": [
+        25,
+        9
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack01",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Attack01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        111,
+        3,
+        1208,
+        1254
+      ],
+      "placement": [
+        36,
+        7
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack02",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Attack02.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        33,
+        0,
+        1222,
+        1243
+      ],
+      "placement": [
+        22,
+        8
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Hit",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        2,
+        0,
+        1167,
+        1254
+      ],
+      "placement": [
+        16,
+        6
+      ],
+      "scale": 0.17862838915470494
+    },
+    {
+      "direction": "Back",
+      "pose": "Downed",
+      "source": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-v1/elf-berserker-woman/Berserker_Back_Downed.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaBounds": [
+        0,
+        9,
+        1198,
+        1238
+      ],
+      "placement": [
+        16,
+        10
+      ],
+      "scale": 0.17862838915470494
+    }
+  ]
+}

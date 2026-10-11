@@ -1,0 +1,98 @@
+{
+  "status": "awaiting_explicit_prompt_change_decision",
+  "approved": false,
+  "originalPromptsFile": "/home/deck/Documents/TacticsSD/.agents/skills/tacticssd-character-gen/references/prompts.json",
+  "originalSha256": "97a4f58548123449ebb12cd4483fbea310d8927c2239408fbde15a77ab9c0f42",
+  "proposalFile": "/home/deck/Documents/TacticsSD/docs/game/evidence/character-sprites/prompts.proposed-nonsexual.json",
+  "originalUnchanged": true,
+  "classes": [
+    "Warrior",
+    "Archer",
+    "Wizard",
+    "Cleric",
+    "Spellblade",
+    "Knight",
+    "Terror Knight",
+    "Berserker"
+  ],
+  "requestedOutcome": "new imagegen artwork for all eight classes; walk as default Idle; walk and downed included",
+  "referenceAssets": [
+    "/home/deck/Documents/TacticsSD/tools/spriteSheet/assets/elf-cleric-sheet.png",
+    "/home/deck/Documents/TacticsSD/tools/spriteSheet/assets/elf-thief-sheet.png",
+    "/home/deck/Documents/TacticsSD/tools/spriteSheet/assets/elf-barbarian-sheet.png"
+  ],
+  "proposalChanges": [
+    "Remove sexual anatomy emphasis from five front prompts",
+    "Start with fully clothed non-sexual game character artwork",
+    "Follow-up frames preserve each approved Base hair/eye identity instead of forcing ivory hair and green eyes",
+    "Follow-up frames preserve the Base class identity instead of forcing barbarian onto all eight classes"
+  ],
+  "preservedRequirements": [
+    "three-head SD style",
+    "front/back",
+    "10-stage order",
+    "Base-only references for pose generation",
+    "Right opposing-limb evaluation and 3-attempt limit",
+    "transparent square PNG",
+    "Downed prone pose with empty transparent upper half"
+  ],
+  "newImagegenCallsThisCorrection": 0,
+  "newGeneratedPngsThisCorrection": 0,
+  "newRuntimeSheetsThisCorrection": 0,
+  "bakingPerformedThisCorrection": false,
+  "priorBakedResultsAreRequestedOutcome": false,
+  "previousBlockedRequestRepeated": false,
+  "previousError": "moderation_blocked; sexual; request 1d9cb2b1-5986-44ab-a157-3557da6cfb51",
+  "pendingVerification": [
+    "new Walk and Idle",
+    "new Downed pose and top-half alpha",
+    "new sheets in runtime",
+    "game screenshots of newly generated characters"
+  ],
+  "existingScreenshotFilesReadableOnSteamDeck": true,
+  "delivery": "Library create/prepared upload tools are exposed; no new final screenshots or sheets exist to upload yet",
+  "retiredBakedRuntimeSheets": [
+    {
+      "class": "warrior",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/warrior/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/warrior/sheet.json"
+    },
+    {
+      "class": "archer",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/archer/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/archer/sheet.json"
+    },
+    {
+      "class": "wizard",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/wizard/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/wizard/sheet.json"
+    },
+    {
+      "class": "cleric",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/cleric/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/cleric/sheet.json"
+    },
+    {
+      "class": "spellblade",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/spellblade/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/spellblade/sheet.json"
+    },
+    {
+      "class": "knight",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/knight/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/knight/sheet.json"
+    },
+    {
+      "class": "terror-knight",
+      "sheet": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/terror-knight/sheet.png",
+      "metadata": "/home/deck/Documents/TacticsSD/pixel-art/character-sprites-baked-v1/runtime-sheets-retired-2026-10-11/terror-knight/sheet.json"
+    }
+  ],
+  "currentDefaultRuntime": "7 original class bone actors plus pre-existing Berserker sprite; no newly generated artwork",
+  "previousBakedTestArchive": "/home/deck/Documents/TacticsSD/docs/game/evidence/character-sprites/previous-baked-character-sprites.spec.ts",
+  "libraryDeliveryStatus": "Upload tools exposed; no final new sheets/screenshots exist, no upload performed and no library_file_id claimed",
+  "currentRuntimeSheetClasses": [
+    "berserker"
+  ],
+  "newGeneratedLibraryFileIds": []
+}

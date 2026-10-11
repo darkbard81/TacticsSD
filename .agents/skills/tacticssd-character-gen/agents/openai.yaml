@@ -1,0 +1,4 @@
+interface:
+  display_name: "TacticsSD CharacterGen"
+  short_description: "Base 참조로 SD 캐릭터 10장 생성·보행·Hit·Downed"
+  default_prompt: "$tacticssd-character-gen으로 Class Babarian 캐릭터 10장을 고정 순서대로 생성해줘."

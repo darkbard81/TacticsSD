@@ -1,0 +1,25 @@
+{
+  "direction": "front_three_quarter_right",
+  "base": "base",
+  "walk": {
+    "frames": [
+      "walk_00_left_contact",
+      "walk_01_right_pass",
+      "walk_02_right_contact",
+      "walk_03_left_pass"
+    ],
+    "loop": true,
+    "duration_ms": [
+      160,
+      120,
+      160,
+      120
+    ]
+  },
+  "anchor_px": [
+    12,
+    30
+  ],
+  "proportion": "head 15 px, body and legs 15 px",
+  "palette_opaque": 16
+}

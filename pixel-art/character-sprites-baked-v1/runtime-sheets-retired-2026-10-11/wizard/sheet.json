@@ -1,0 +1,151 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 8,
+  "rows": 2,
+  "anchor": {
+    "x": 128,
+    "y": 230
+  },
+  "referenceSize": 169.51156796430115,
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right",
+    "Attack01",
+    "Attack02",
+    "Hit",
+    "Downed"
+  ],
+  "sockets": {
+    "front:4": {
+      "x": 156.71666517257142,
+      "y": 141.19660735960065,
+      "angle": 0.28,
+      "behind": false
+    },
+    "front:5": {
+      "x": 134.05962647621936,
+      "y": 175.41332379382234,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:4": {
+      "x": 99.28333482742858,
+      "y": 141.19660735960065,
+      "angle": 0.28,
+      "behind": false
+    },
+    "back:5": {
+      "x": 121.94037352378062,
+      "y": 175.41332379382234,
+      "angle": 0.28,
+      "behind": false
+    }
+  },
+  "animationSource": "existing StandeeRig bone bake",
+  "downedStyle": "legacy sideways collapse; imagegen prone pending",
+  "sources": [
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Left",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Base",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Right",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack01",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Attack02",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Hit",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Front",
+      "pose": "Downed",
+      "scale": 0.10397727047362604,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Left",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Base",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Right",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack01",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Attack02",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Hit",
+      "scale": 0.16951156796430114,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    },
+    {
+      "direction": "Back",
+      "pose": "Downed",
+      "scale": 0.10397727047362604,
+      "rig": "game/assets/class-parts/wizard/rig.json"
+    }
+  ]
+}

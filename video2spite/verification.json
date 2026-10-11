@@ -1,0 +1,590 @@
+[
+  {
+    "combination": "front-walk",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-walk/sprite/walk-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  },
+  {
+    "combination": "front-idle",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-idle/sprite/idle-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  },
+  {
+    "combination": "front-attack",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/front-attack/sprite/attack-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  },
+  {
+    "combination": "back-walk",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-walk/sprite/walk-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  },
+  {
+    "combination": "back-idle",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-idle/sprite/idle-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  },
+  {
+    "combination": "back-attack",
+    "status": "complete",
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "24/1",
+          "nb_frames": "145"
+        },
+        {
+          "r_frame_rate": "0/0",
+          "nb_frames": "283"
+        },
+        {
+          "width": 544,
+          "height": 544,
+          "r_frame_rate": "90000/1"
+        }
+      ],
+      "format": {
+        "duration": "6.041667"
+      }
+    },
+    "sets": [
+      {
+        "frames": 8,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-strip-8.png",
+        "strip_size": [
+          1024,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-grid-8.png",
+        "grid_size": [
+          512,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-preview-8.gif",
+        "gif_frames": 8,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 16,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-strip-16.png",
+        "strip_size": [
+          2048,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-grid-16.png",
+        "grid_size": [
+          1024,
+          256
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-preview-16.gif",
+        "gif_frames": 16,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 24,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-strip-24.png",
+        "strip_size": [
+          3072,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-grid-24.png",
+        "grid_size": [
+          1024,
+          384
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-preview-24.gif",
+        "gif_frames": 24,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      },
+      {
+        "frames": 48,
+        "strip": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-strip-48.png",
+        "strip_size": [
+          6144,
+          128
+        ],
+        "grid": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-grid-48.png",
+        "grid_size": [
+          1024,
+          768
+        ],
+        "gif": "/home/deck/Documents/TacticsSD/video2spite/back-attack/sprite/attack-preview-48.gif",
+        "gif_frames": 48,
+        "gif_total_ms": 6040,
+        "rgba_and_transparency_verified": true
+      }
+    ]
+  }
+]

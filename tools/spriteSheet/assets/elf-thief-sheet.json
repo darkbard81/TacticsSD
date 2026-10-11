@@ -1,0 +1,58 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 4,
+  "rows": 2,
+  "directions": [
+    "Front",
+    "Back"
+  ],
+  "poses": [
+    "Base",
+    "Left",
+    "Base",
+    "Right"
+  ],
+  "sources": [
+    {
+      "name": "Thief_Front_Base.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Front_Left.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Front_Base.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Front_Right.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Back_Base.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Back_Left.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Back_Base.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "Thief_Back_Right.png",
+      "width": 1254,
+      "height": 1254
+    }
+  ]
+}

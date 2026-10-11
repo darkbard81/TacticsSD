@@ -1,0 +1,41 @@
+{
+  "class": "Berserker",
+  "features": [],
+  "skill": "/home/deck/.codex/skills/tacticssd-character-gen/SKILL.md",
+  "prompts": "/home/deck/.codex/skills/tacticssd-character-gen/references/prompts.json",
+  "completedStages": 14,
+  "nativeSize": [1254, 1254],
+  "fileVerification": "All 14 unique source PNGs passed character_gen.py verify: square RGBA, actual transparency.",
+  "frontRightAttempts": 1,
+  "backRightAttempts": 1,
+  "frontLeft": {
+    "leftHand": "forward: screen-right fist enlarged and extended",
+    "rightHand": "back: screen-left fist small beside hip",
+    "leftFoot": "back: screen-right boot higher and behind",
+    "rightFoot": "forward: screen-left boot lower, toe and sole exposed"
+  },
+  "frontRight": {
+    "leftHand": "back: screen-right fist small beside hip",
+    "rightHand": "forward: screen-left fist enlarged and extended",
+    "leftFoot": "forward: screen-right boot lower, toe and sole exposed",
+    "rightFoot": "back: screen-left boot higher and behind"
+  },
+  "backLeft": {
+    "leftHand": "forward: screen-left fist partly occluded beside hip",
+    "rightHand": "back: screen-right fist enlarged and exposed toward observer",
+    "leftFoot": "back: screen-left boot lifted with sole visible",
+    "rightFoot": "forward: screen-right boot higher, away from observer"
+  },
+  "backRight": {
+    "leftHand": "back: screen-left fist enlarged and exposed toward observer",
+    "rightHand": "forward: screen-right fist partly occluded beside hip",
+    "leftFoot": "forward: screen-left boot higher, away from observer",
+    "rightFoot": "back: screen-right boot lifted with sole visible"
+  },
+  "hit": "Both hands raised; Front wide-eyed open-mouth surprise. Back complete rear view without head turn.",
+  "downed": "Both prone belly-down along the original front/back axis; head lowered, face concealed, body parts within canvas.",
+  "attack": "Anatomical left arm raised then lowered in both pairs. Front screen-right, Back screen-left. Same character and outfit retained; right arm at rest. Back hand movement is slightly outward, consistent with downward follow-through.",
+  "socketAnnotation": "Manual approximate native-pixel anatomical left fist centers; weapons front for Front, behind for Back. Radians are suggested renderer angles, not measurements of a generated weapon.",
+  "generation": "Built-in image_gen only; exact prompt stdout; front-base Class replacement only; remaining prompts unchanged; direction Base only for each pose.",
+  "limits": "Visual pose assessment only; no runtime or automated pixel tests. Normalization is a separately authorized post-generation step."
+}

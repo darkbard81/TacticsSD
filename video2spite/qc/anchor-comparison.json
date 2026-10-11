@@ -1,0 +1,20 @@
+{
+  "source_head_x_px": {
+    "min": 268.44237086408,
+    "max": 269.27822966507176,
+    "range": 0.8358588009917867
+  },
+  "before_head_x_px": {
+    "min": 62.22553588070829,
+    "max": 64.7406015037594,
+    "range": 2.5150656230511004
+  },
+  "after_head_x_px": {
+    "min": 63.83739837398374,
+    "max": 63.97250229147571,
+    "range": 0.1351039174919748
+  },
+  "normalization": "fixed-clip-transform-v1",
+  "source_duration_ms": 6041.666666666667,
+  "new_gif_total_ms": 6040
+}

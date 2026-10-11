@@ -1,0 +1,6 @@
+{
+  "Front_Attack01": {"x": 870, "y": 213, "angle": 0.35, "behind": false, "width": 1254, "height": 1254},
+  "Front_Attack02": {"x": 909, "y": 941, "angle": -1.25, "behind": false, "width": 1254, "height": 1254},
+  "Back_Attack01": {"x": 405, "y": 109, "angle": -0.35, "behind": true, "width": 1254, "height": 1254},
+  "Back_Attack02": {"x": 331, "y": 905, "angle": 1.25, "behind": true, "width": 1254, "height": 1254}
+}
